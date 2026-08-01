@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Romain Lance — Ingénieur Mécatronique &amp; Robotique</title>
+  <meta name="description" content="Portfolio de Romain Lance, ingénieur junior en mécatronique et robotique : robotique mobile, ROS 2, modélisation dynamique, conception mécanique et systèmes embarqués.">
+  <meta name="author" content="Romain Lance">
+  <meta name="theme-color" content="#f4f2ed" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
+
+  <!-- Aperçu lors d'un partage (LinkedIn, messageries…) -->
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Romain Lance — Ingénieur Mécatronique &amp; Robotique">
+  <meta property="og:description" content="Robotique mobile, ROS 2, modélisation dynamique et conception mécatronique.">
+  <meta property="og:locale" content="fr_FR">
+
+  <!-- Favicon : monogramme généré en SVG, aucun fichier externe -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%231d6382'/><text x='50' y='69' font-family='ui-monospace,monospace' font-size='46' font-weight='700' fill='%23ffffff' text-anchor='middle'>RL</text></svg>">
+
+  <!-- Polices : Space Grotesk (titres), Inter (texte), JetBrains Mono (métadonnées) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!--
+    Applique le thème AVANT le premier rendu pour éviter le flash de couleur.
+    Volontairement inline et bloquant : c'est le seul cas où ça se justifie.
+  -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = saved || (prefersDark ? 'dark' : 'light');
+      } catch (e) { /* localStorage indisponible (navigation privée) : on garde le thème clair */ }
+    })();
+  </script>
+
+  <!-- Données structurées : aide les moteurs de recherche à identifier la personne -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Romain Lance",
+    "jobTitle": "Ingénieur Junior Mécatronique et Robotique",
+    "email": "mailto:romain.lance@outlook.com",
+    "telephone": "+33613303793",
+    "address": { "@type": "PostalAddress", "addressLocality": "Saint-Martin-Choquel", "addressRegion": "Pas-de-Calais", "addressCountry": "FR" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Junia HEI — École des Hautes Études d'Ingénieur" },
+    "sameAs": ["https://www.linkedin.com/in/romain-lance"],
+    "knowsAbout": ["Robotique mobile", "ROS 2", "Mécatronique", "Modélisation dynamique", "Systèmes embarqués", "Conception mécanique"]
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#apropos">Aller au contenu</a>
+
+  <!-- Barre de progression de lecture -->
+  <div class="progress" aria-hidden="true"><span class="progress__bar" id="progressBar"></span></div>
+
+  <!-- ============================================================
+       NAVIGATION
+       ============================================================ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#top" class="nav__brand">
+        <span class="nav__mark" aria-hidden="true">RL</span>
+        <span class="nav__name">Romain&nbsp;Lance</span>
+      </a>
+
+      <nav class="nav__links" id="navLinks" aria-label="Navigation principale">
+        <a href="#apropos"><span aria-hidden="true">01</span> À propos</a>
+        <a href="#parcours"><span aria-hidden="true">02</span> Parcours</a>
+        <a href="#projets"><span aria-hidden="true">03</span> Projets</a>
+        <a href="#competences"><span aria-hidden="true">04</span> Compétences</a>
+        <a href="#formation"><span aria-hidden="true">05</span> Formation</a>
+        <a href="#contact"><span aria-hidden="true">06</span> Contact</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Basculer le thème sombre" title="Basculer le thème">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.6M12 19.4V22M2 12h2.6M19.4 12H22M4.9 4.9l1.9 1.9M17.2 17.2l1.9 1.9M19.1 4.9l-1.9 1.9M6.8 17.2l-1.9 1.9"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1Z"/></svg>
+        </button>
+        <button class="icon-btn nav__burger" id="navToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+
+        <div class="hero__text">
+          <p class="eyebrow">
+            <span class="dot" aria-hidden="true"></span>
+            Disponible à partir de décembre 2026
+          </p>
+
+          <h1 class="hero__name">Romain<br>Lance</h1>
+
+          <p class="hero__role">Ingénieur&nbsp;Junior — Mécatronique &amp;&nbsp;Robotique</p>
+
+          <p class="hero__pitch">
+            Je conçois des systèmes qui bougent : de la pièce mécanique au nœud ROS&nbsp;2,
+            en passant par l'électronique qui fait le lien entre les deux.
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="#contact">Me contacter</a>
+            <a class="btn btn--ghost" href="#parcours">Voir le parcours</a>
+          </div>
+
+          <ul class="hero__social">
+            <li>
+              <a href="mailto:romain.lance@outlook.com">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.2"/><path d="m3 6 9 6.5L21 6"/></svg>
+                romain.lance@outlook.com
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/romain-lance" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.2"/><path d="M7.5 10.5V17M7.5 7.4v.1M11.5 17v-3.6a2.1 2.1 0 0 1 4.2 0V17"/></svg>
+                LinkedIn
+              </a>
+            </li>
+            <li>
+              <a href="tel:+33613303793">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.4a12 12 0 0 0 6.1 6.1l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2Z"/></svg>
+                +33 6 13 30 37 93
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Plaque monogramme : placeholder d'avatar, style plan technique.
+             Pour utiliser une photo, voir la section « Personnaliser » du README. -->
+        <aside class="hero__plate" aria-hidden="true">
+          <div class="plate">
+            <span class="plate__corner plate__corner--tl"></span>
+            <span class="plate__corner plate__corner--tr"></span>
+            <span class="plate__corner plate__corner--bl"></span>
+            <span class="plate__corner plate__corner--br"></span>
+            <span class="plate__mono">RL</span>
+          </div>
+          <dl class="plate__spec">
+            <div><dt>Base</dt><dd>Saint-Martin-Choquel (62)</dd></div>
+            <div><dt>Terrain</dt><dd>France · Canada · Malte</dd></div>
+            <div><dt>Mobilité</dt><dd>Permis B — véhicule</dd></div>
+          </dl>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         01 — À PROPOS
+         ============================================================ -->
+    <section id="apropos" class="section">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <span class="section__num" aria-hidden="true">01</span>
+          <h2>À propos</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <div class="about">
+          <div class="about__text reveal">
+            <p class="lead">
+              Formé à Junia HEI en mécatronique et robotique, je travaille à la frontière du mécanique,
+              de l'électronique et du logiciel — là où un système cesse d'être un schéma pour devenir
+              une machine qui roule.
+            </p>
+            <p>
+              Mon stage de fin d'études au laboratoire INIT&nbsp;Robots, à Montréal, m'a amené à ouvrir un
+              robot agricole commercial pour en faire une plateforme de recherche sous ROS&nbsp;2 : modèle
+              cinématique, passerelle vers le bus CAN, pilotage manuel puis navigation autonome.
+            </p>
+            <p>
+              En parallèle, un projet de recherche mené avec le laboratoire CRIStAL m'a fait creuser la
+              modélisation dynamique et la commande prédictive, jusqu'à la rédaction d'un article
+              scientifique. J'aime autant dimensionner une pièce sur SolidWorks que déboguer un nœud
+              qui refuse de publier.
+            </p>
+            <p>
+              Je suis disponible à partir de <strong>décembre 2026</strong> pour un poste en robotique
+              mobile ou en systèmes mécatroniques.
+            </p>
+          </div>
+
+          <ul class="stats reveal">
+            <li><span class="stats__num">13</span><span class="stats__label">mois de stage</span></li>
+            <li><span class="stats__num">3</span><span class="stats__label">pays</span></li>
+            <li><span class="stats__num">3</span><span class="stats__label">projets d'ingénierie</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         02 — PARCOURS PROFESSIONNEL
+         ============================================================ -->
+    <section id="parcours" class="section">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <span class="section__num" aria-hidden="true">02</span>
+          <h2>Parcours professionnel</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <ol class="timeline">
+
+          <li class="tl reveal">
+            <div class="tl__meta">
+              <time datetime="2026">2026</time>
+              <span class="tl__dur">6 mois</span>
+            </div>
+            <div class="tl__body">
+              <h3 class="tl__role">Ingénieur R&amp;D en robotique mobile</h3>
+              <p class="tl__org">
+                <strong>INIT Robots</strong> — laboratoire de recherche
+                <span class="tl__loc">Montréal, Canada</span>
+              </p>
+              <p class="tl__kind">Stage de fin d'études</p>
+              <ul class="tl__list">
+                <li>Ouverture d'un robot agricole commercial pour en faire une plateforme de recherche pilotable sous ROS&nbsp;2.</li>
+                <li>Conception et implémentation du modèle cinématique commandant les actionneurs du robot.</li>
+                <li>Développement de l'interface matérielle reliant l'architecture ROS&nbsp;2 au réseau CAN embarqué.</li>
+                <li>Mise en service du pilotage manuel, puis de la navigation autonome.</li>
+              </ul>
+              <ul class="tags tags--sm">
+                <li>ROS 2</li><li>Bus CAN</li><li>Cinématique</li><li>Navigation autonome</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="tl reveal">
+            <div class="tl__meta">
+              <time datetime="2025">2025</time>
+              <span class="tl__dur">4 mois</span>
+            </div>
+            <div class="tl__body">
+              <h3 class="tl__role">Assistant chef de projet</h3>
+              <p class="tl__org">
+                <strong>Industeam</strong> — intégrateur industriel
+                <span class="tl__loc">Leulinghem (62)</span>
+              </p>
+              <p class="tl__kind">Stage de professionnalisation</p>
+              <ul class="tl__list">
+                <li>Suivi de l'avancement d'un projet de conception et de fabrication de machines spéciales pour le secteur automobile.</li>
+                <li>Résolution des aléas sur chantier, en lien direct avec les équipes mécanique, électrique et programmation.</li>
+              </ul>
+              <ul class="tags tags--sm">
+                <li>Gestion de projet</li><li>Machines spéciales</li><li>Coordination pluridisciplinaire</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="tl reveal">
+            <div class="tl__meta">
+              <time datetime="2024">2024</time>
+              <span class="tl__dur">2 mois</span>
+            </div>
+            <div class="tl__body">
+              <h3 class="tl__role">Surveillant de baignade</h3>
+              <p class="tl__org">
+                <strong>Splash &amp; Fun</strong> — parc aquatique
+                <span class="tl__loc">In-Naxxar, Malte</span>
+              </p>
+              <p class="tl__kind">Stage international</p>
+              <ul class="tl__list">
+                <li>Sécurité des visiteurs assurée au sein d'une équipe et d'une clientèle internationales.</li>
+              </ul>
+              <ul class="tags tags--sm">
+                <li>Environnement international</li><li>Vigilance &amp; sécurité</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="tl reveal">
+            <div class="tl__meta">
+              <time datetime="2023">2023</time>
+              <span class="tl__dur">1 mois</span>
+            </div>
+            <div class="tl__body">
+              <h3 class="tl__role">Traitement des déchets et méthanisation</h3>
+              <p class="tl__org">
+                <strong>Baudelet Environnement</strong> — collecte de déchets
+                <span class="tl__loc">Blaringhem (59)</span>
+              </p>
+              <p class="tl__kind">Stage ouvrier</p>
+              <ul class="tl__list">
+                <li>Réception et nettoyage des bacs de déchets organiques sur une unité de traitement.</li>
+              </ul>
+              <ul class="tags tags--sm">
+                <li>Milieu industriel</li><li>Méthanisation</li>
+              </ul>
+            </div>
+          </li>
+
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         03 — PROJETS (expériences académiques du CV)
+         ============================================================ -->
+    <section id="projets" class="section">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <span class="section__num" aria-hidden="true">03</span>
+          <h2>Projets d'ingénierie</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <div class="projects">
+
+          <article class="card reveal">
+            <div class="card__top">
+              <span class="card__year">2025 — 2026</span>
+              <span class="card__team">Équipe de 4</span>
+            </div>
+            <h3 class="card__title">Modèle dynamique d'un fauteuil roulant intelligent</h3>
+            <p class="card__context">Projet de recherche Junia HEI × laboratoire CRIStAL</p>
+            <p class="card__desc">
+              Un travail de recherche sur la dynamique d'un fauteuil roulant intelligent, avec un angle
+              précis : intégrer l'influence des roues folles, souvent négligée, dans le comportement
+              global du système. Le modèle a ensuite servi de base à une commande prédictive, le tout
+              simulé sous MATLAB/Simulink et formalisé dans un article scientifique.
+            </p>
+            <ul class="card__points">
+              <li>Analyse bibliographique des modèles dynamiques existants</li>
+              <li>Modèle intégrant la dynamique des roues folles</li>
+              <li>Développement d'un modèle à commande prédictive</li>
+              <li>Rédaction d'un article scientifique</li>
+            </ul>
+            <ul class="tags">
+              <li>MATLAB/Simulink</li><li>Modélisation dynamique</li><li>Commande prédictive</li><li>Recherche</li>
+            </ul>
+          </article>
+
+          <article class="card reveal">
+            <div class="card__top">
+              <span class="card__year">2024 — 2025</span>
+              <span class="card__team">Équipe de 6</span>
+            </div>
+            <h3 class="card__title">Robot agricole autonome type rover</h3>
+            <p class="card__context">Projet de mécatronique et robotique — Junia HEI</p>
+            <p class="card__desc">
+              Conception et fabrication d'un robot agricole mobile et autonome, de bout en bout : choix
+              des actionneurs et des capteurs, dessin des pièces mécaniques, puis programmation sous ROS.
+              J'y ai également tenu le rôle de pilote, en répartissant les tâches et en tenant les échéances
+              du groupe.
+            </p>
+            <ul class="card__points">
+              <li>Analyse des actionneurs et capteurs nécessaires</li>
+              <li>Conception mécanique sur SolidWorks</li>
+              <li>Programmation du robot sous ROS</li>
+              <li>Pilotage du projet et gestion des échéances</li>
+            </ul>
+            <ul class="tags">
+              <li>ROS</li><li>SolidWorks</li><li>Conception mécanique</li><li>Gestion de projet</li>
+            </ul>
+          </article>
+
+          <article class="card reveal">
+            <div class="card__top">
+              <span class="card__year">2023 — 2024</span>
+              <span class="card__team">Équipe de 8</span>
+            </div>
+            <h3 class="card__title">Frigo du désert</h3>
+            <p class="card__context">Projet PISTE — Junia HEI</p>
+            <p class="card__desc">
+              Conception et modélisation d'un système de refroidissement passif reposant sur
+              l'évaporation — un exercice de thermique appliquée, où toute la performance se joue
+              sur le dimensionnement plutôt que sur l'apport d'énergie.
+            </p>
+            <ul class="tags">
+              <li>Thermique</li><li>Modélisation</li><li>Conception</li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         04 — COMPÉTENCES
+         ============================================================ -->
+    <section id="competences" class="section">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <span class="section__num" aria-hidden="true">04</span>
+          <h2>Compétences</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <div class="skills">
+
+          <section class="skill reveal">
+            <h3 class="skill__title"><span aria-hidden="true">/</span> Robotique</h3>
+            <ul class="tags">
+              <li>ROS / ROS 2</li><li>Localisation</li><li>Navigation autonome</li><li>SLAM</li>
+              <li>Asservissement PID</li><li>LQR</li><li>Boucle ouverte / fermée</li>
+              <li>Cinématique</li><li>Dynamique</li><li>Modèle géométrique direct / inverse</li>
+              <li>Gazebo</li><li>URDF / Xacro</li><li>MATLAB/Simulink</li>
+            </ul>
+          </section>
+
+          <section class="skill reveal">
+            <h3 class="skill__title"><span aria-hidden="true">/</span> Mécanique</h3>
+            <ul class="tags">
+              <li>SolidWorks</li><li>Fusion 360</li><li>Statique</li><li>Dynamique</li>
+              <li>Résistance des matériaux</li><li>Impression 3D (FDM/PLA)</li>
+              <li>Usinage simple</li><li>Montage mécanique</li>
+            </ul>
+          </section>
+
+          <section class="skill reveal">
+            <h3 class="skill__title"><span aria-hidden="true">/</span> Électronique &amp; embarqué</h3>
+            <ul class="tags">
+              <li>ESP32</li><li>STM32</li><li>Arduino</li><li>UART</li><li>I2C</li><li>SPI</li>
+              <li>PWM</li><li>Conception PCB</li><li>KiCad</li><li>Raspberry Pi</li><li>Linux</li>
+            </ul>
+          </section>
+
+          <section class="skill reveal">
+            <h3 class="skill__title"><span aria-hidden="true">/</span> Programmation</h3>
+            <ul class="tags">
+              <li>Python</li><li>C++</li><li>HTML</li><li>Git / versionning</li>
+            </ul>
+          </section>
+
+          <section class="skill reveal">
+            <h3 class="skill__title"><span aria-hidden="true">/</span> Langues</h3>
+            <ul class="lang">
+              <li><strong>Français</strong> <span>Langue maternelle</span></li>
+              <li><strong>Anglais</strong> <span>B2 — Linguaskill 161/180 · TOEIC 775/990</span></li>
+            </ul>
+          </section>
+
+          <section class="skill reveal">
+            <h3 class="skill__title"><span aria-hidden="true">/</span> Savoir-être</h3>
+            <ul class="tags tags--soft">
+              <li>Rigueur</li><li>Autonomie</li><li>Capacité d'adaptation</li><li>Réactivité</li>
+            </ul>
+          </section>
+
+        </div>
+
+        <p class="interests reveal">
+          <span class="interests__label">Hors du bureau</span>
+          Football en club, tennis, musculation et running — et du bricolage qui ressemble beaucoup
+          au métier : CAO, impression 3D, mécanique et électronique.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         05 — FORMATION
+         ============================================================ -->
+    <section id="formation" class="section">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <span class="section__num" aria-hidden="true">05</span>
+          <h2>Formation</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <ol class="edu">
+          <li class="edu__item reveal">
+            <span class="edu__years">2023 — 2026</span>
+            <div class="edu__body">
+              <h3>Diplôme d'ingénieur généraliste — spécialité Mécatronique et Robotique</h3>
+              <p>Junia HEI, École des Hautes Études d'Ingénieur <span class="edu__loc">Lille (59)</span></p>
+            </div>
+          </li>
+          <li class="edu__item reveal">
+            <span class="edu__years">2021 — 2023</span>
+            <div class="edu__body">
+              <h3>Classe préparatoire MPSI</h3>
+              <p>Junia HEI (LaSalle) <span class="edu__loc">Lille (59)</span></p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         06 — CONTACT
+         ============================================================ -->
+    <section id="contact" class="section section--contact">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <span class="section__num" aria-hidden="true">06</span>
+          <h2>Contact</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <div class="contact">
+
+          <div class="contact__side reveal">
+            <p class="contact__pitch">
+              Un poste, un projet de robotique mobile ou simplement une question technique ?
+              Le plus simple reste l'e-mail.
+            </p>
+
+            <ul class="contact__list">
+              <li>
+                <span class="contact__k">E-mail</span>
+                <span class="contact__v">
+                  <a href="mailto:romain.lance@outlook.com">romain.lance@outlook.com</a>
+                  <button class="copy" id="copyMail" type="button" data-copy="romain.lance@outlook.com" aria-label="Copier l'adresse e-mail">Copier</button>
+                </span>
+              </li>
+              <li>
+                <span class="contact__k">Téléphone</span>
+                <span class="contact__v"><a href="tel:+33613303793">+33 6 13 30 37 93</a></span>
+              </li>
+              <li>
+                <span class="contact__k">LinkedIn</span>
+                <span class="contact__v"><a href="https://www.linkedin.com/in/romain-lance" target="_blank" rel="noopener noreferrer">/in/romain-lance</a></span>
+              </li>
+              <li>
+                <span class="contact__k">Localisation</span>
+                <span class="contact__v">Saint-Martin-Choquel (62), France</span>
+              </li>
+              <li>
+                <span class="contact__k">Disponibilité</span>
+                <span class="contact__v">À partir de décembre 2026</span>
+              </li>
+            </ul>
+          </div>
+
+          <!--
+            Formulaire sans backend : le JS assemble un lien mailto: et ouvre
+            le client de messagerie du visiteur. Sans JS, le bloc reste lisible
+            et l'adresse e-mail ci-contre prend le relais.
+          -->
+          <form class="contact__form reveal" id="contactForm" novalidate>
+            <div class="field">
+              <label for="fName">Votre nom</label>
+              <input type="text" id="fName" name="name" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="fSubject">Objet</label>
+              <input type="text" id="fSubject" name="subject" required>
+            </div>
+            <div class="field">
+              <label for="fMessage">Message</label>
+              <textarea id="fMessage" name="message" rows="5" required></textarea>
+            </div>
+            <button class="btn btn--primary" type="submit">Ouvrir dans ma messagerie</button>
+            <p class="field__note" id="formNote" role="status">
+              Aucun serveur : ce formulaire prépare simplement l'e-mail dans votre application habituelle.
+            </p>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <p>© <span id="year">2026</span> Romain Lance</p>
+      <p class="footer__meta">Ingénieur Mécatronique &amp; Robotique — Hauts-de-France</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

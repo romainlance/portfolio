@@ -1,5 +1,7 @@
 /* =============================================================================
    Portfolio — Romain Lance
+   Feuille de styles principale, partagée par toutes les pages.
+
    Direction visuelle « blueprint technique » : charbon / ivoire, accent
    bleu-acier, grille de fond en filigrane, repères de coupe et métadonnées
    en monospace.
@@ -8,21 +10,25 @@
    01. Réinitialisation et base
    02. Jetons de thème (clair / sombre)
    03. Typographie
-   04. Utilitaires de mise en page
-   05. Fond quadrillé
-   06. Navigation
-   07. Hero
-   08. En-têtes de section
-   09. À propos
-   10. Timeline (parcours)
-   11. Cartes projets
-   12. Compétences
-   13. Formation
-   14. Contact
-   15. Pied de page
-   16. Animations au scroll
-   17. Responsive
-   18. Impression
+   04. Icônes
+   05. Utilitaires de mise en page
+   06. Fond quadrillé
+   07. Voile de transition entre pages
+   08. Navigation
+   09. Hero
+   10. En-têtes de section
+   11. À propos
+   12. Timeline (parcours)
+   13. Cartes projets
+   14. Diagrammes SVG
+   15. Compétences
+   16. Formation
+   17. Contact
+   18. Pied de page
+   19. Effets au pointeur (halo, relief, aimantation)
+   20. Animations d'entrée et apparitions au scroll
+   21. Responsive
+   22. Impression
    ========================================================================== */
 
 
@@ -50,7 +56,7 @@ body {
   transition: background-color .3s ease, color .3s ease;
 }
 
-img, svg { display: block; max-width: 100%; }
+img { display: block; max-width: 100%; }
 
 ul, ol { list-style: none; padding: 0; }
 
@@ -58,19 +64,17 @@ a { color: inherit; text-decoration: none; }
 
 button, input, textarea { font: inherit; color: inherit; }
 
-/* Anneau de focus unique et visible, appliqué partout */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 2px;
 }
 
-/* Lien d'évitement pour la navigation clavier */
 .skip-link {
   position: absolute;
   top: -100px;
   left: 1rem;
-  z-index: 200;
+  z-index: 300;
   padding: .6rem 1rem;
   background: var(--accent);
   color: #fff;
@@ -88,9 +92,12 @@ button, input, textarea { font: inherit; color: inherit; }
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
 
   --wrap: 1120px;
+  --wrap-narrow: 760px;
   --nav-h: 64px;
   --radius: 3px;              /* volontairement minimal : pas d'arrondi « carte » */
   --grid-size: 76px;
+
+  --ease-out: cubic-bezier(.2, .7, .3, 1);
 }
 
 /* Thème clair — ivoire / charbon */
@@ -106,8 +113,10 @@ button, input, textarea { font: inherit; color: inherit; }
   --accent: #1d6382;
   --accent-ink: #ffffff;
   --accent-wash: rgba(29, 99, 130, .09);
+  --accent-glow: rgba(29, 99, 130, .16);
   --signal: #a9532a;
   --nav-bg: rgba(244, 242, 237, .82);
+  --veil: #f4f2ed;
 }
 
 /* Thème sombre — nuit d'atelier */
@@ -123,8 +132,10 @@ button, input, textarea { font: inherit; color: inherit; }
   --accent: #63b3d4;
   --accent-ink: #0e1014;
   --accent-wash: rgba(99, 179, 212, .12);
+  --accent-glow: rgba(99, 179, 212, .22);
   --signal: #dd9a63;
   --nav-bg: rgba(14, 16, 20, .82);
+  --veil: #0e1014;
 }
 
 
@@ -149,7 +160,7 @@ strong { font-weight: 600; }
 .eyebrow,
 .section__num,
 .tl__meta,
-.card__top,
+.pcard__top,
 .skill__title,
 .edu__years,
 .contact__k,
@@ -163,23 +174,69 @@ strong { font-weight: 600; }
 }
 
 
-/* 04. UTILITAIRES DE MISE EN PAGE
+/* 04. ICÔNES
+   --------------------------------------------------------------------------
+   Sprite injecté par js/icons.js, appelé via <use href="#i-xxx">.
+   Taille calée sur la police courante pour rester alignée avec le texte. */
+.ico {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -.14em;
+  overflow: visible;
+}
+
+/* Les icônes des étiquettes monospace sont légèrement agrandies pour
+   compenser la petite taille de police. */
+.eyebrow .ico,
+.tl__meta .ico,
+.pcard__top .ico,
+.edu__years .ico,
+.contact__k .ico,
+.interests__label .ico,
+.plate__spec dt .ico {
+  width: 1.15em;
+  height: 1.15em;
+  color: var(--accent);
+}
+
+
+/* 05. UTILITAIRES DE MISE EN PAGE
    -------------------------------------------------------------------------- */
 .wrap {
   width: min(100% - 2.5rem, var(--wrap));
   margin-inline: auto;
 }
 
+/* Colonne de lecture des pages projet. On garde la largeur du conteneur
+   normal et on bride les enfants, plutôt que de rétrécir le conteneur
+   lui-même : le bord gauche reste ainsi aligné sur celui du reste du site,
+   au lieu de flotter au centre. */
+.wrap--narrow > * { max-width: var(--wrap-narrow); }
+
 .section {
+  position: relative;
   padding-block: clamp(4rem, 9vw, 6.5rem);
   scroll-margin-top: calc(var(--nav-h) + 24px);
+  /* Garde-fou : une apparition qui décale un élément vers la droite (voir §20)
+     élargirait sinon la page. Cantonné aux sections — sur <html> ou <body>,
+     la valeur se propagerait au viewport et casserait la barre sticky.
+     `clip` et non `hidden` : aucun conteneur de défilement n'est créé, donc
+     l'axe vertical reste intact. */
+  overflow-x: clip;
 }
 
-/* Filet de séparation entre sections, plus discret qu'une bordure pleine */
 .section + .section { border-top: 1px solid var(--line); }
 
-/* Boutons */
+/* --- Boutons --- */
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: .5rem;
@@ -189,19 +246,37 @@ strong { font-weight: 600; }
   font-size: .92rem;
   font-weight: 500;
   cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
   transition: background-color .2s ease, color .2s ease,
-              border-color .2s ease, transform .2s ease;
+              border-color .2s ease, box-shadow .3s ease;
 }
-.btn:hover { transform: translateY(-2px); }
-.btn:active { transform: translateY(0); }
 
-.btn--primary { background: var(--accent); color: var(--accent-ink); }
-.btn--primary:hover { background: var(--ink); }
+/* Reflet qui balaie le bouton au survol */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, .22) 50%, transparent 75%);
+  transform: translateX(-120%);
+  transition: transform .7s var(--ease-out);
+}
+.btn:hover::before { transform: translateX(120%); }
+
+.btn .ico { transition: transform .25s var(--ease-out); }
+.btn:hover .ico { transform: translateX(3px); }
+
+.btn--primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.btn--primary:hover { box-shadow: 0 8px 26px -8px var(--accent-glow); }
 
 .btn--ghost { border-color: var(--line-2); color: var(--ink); }
 .btn--ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-/* Étiquettes de compétences / technologies */
+/* --- Étiquettes de compétences / technologies --- */
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -214,9 +289,15 @@ strong { font-weight: 600; }
   background: var(--surface);
   font-size: .82rem;
   color: var(--muted);
-  transition: border-color .2s ease, color .2s ease;
+  transition: border-color .25s ease, color .25s ease,
+              transform .25s var(--ease-out), background-color .25s ease;
 }
-.tags li:hover { border-color: var(--accent); color: var(--ink); }
+.tags li:hover {
+  border-color: var(--accent);
+  color: var(--ink);
+  background: var(--accent-wash);
+  transform: translateY(-2px);
+}
 
 .tags--sm li { font-size: .76rem; padding: .22rem .55rem; }
 
@@ -227,13 +308,12 @@ strong { font-weight: 600; }
   background: transparent;
 }
 
-/* Barre de progression de lecture */
+/* --- Barre de progression de lecture --- */
 .progress {
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 120;
   height: 2px;
-  background: transparent;
   pointer-events: none;
 }
 .progress__bar {
@@ -241,17 +321,19 @@ strong { font-weight: 600; }
   height: 100%;
   width: 0;
   background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
 }
 
 
-/* 05. FOND QUADRILLÉ
-   -------------------------------------------------------------------------- */
-/* Grille technique fixe, estompée par un masque radial pour rester discrète */
+/* 06. FOND QUADRILLÉ
+   --------------------------------------------------------------------------
+   Grille technique fixe, estompée par un masque radial, animée très lentement
+   pour donner de la profondeur sans jamais attirer l'œil. */
 body::before {
   content: '';
   position: fixed;
-  inset: 0;
-  z-index: -1;
+  inset: -10%;
+  z-index: -2;
   background-image:
     linear-gradient(to right, var(--grid) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
@@ -259,10 +341,35 @@ body::before {
   -webkit-mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 5%, transparent 78%);
           mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 5%, transparent 78%);
   pointer-events: none;
+  animation: gridDrift 32s linear infinite;
+}
+@keyframes gridDrift {
+  from { background-position: 0 0; }
+  to   { background-position: var(--grid-size) var(--grid-size); }
 }
 
 
-/* 06. NAVIGATION
+/* 07. VOILE DE TRANSITION ENTRE PAGES
+   --------------------------------------------------------------------------
+   Couvre l'écran le temps de la navigation vers une page projet, puis
+   s'efface au chargement de la nouvelle page. */
+.page-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  background: var(--veil);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .38s ease, visibility .38s;
+}
+.page-veil.is-on {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* 08. NAVIGATION
    -------------------------------------------------------------------------- */
 .nav {
   position: sticky;
@@ -275,7 +382,6 @@ body::before {
   border-bottom: 1px solid transparent;
   transition: border-color .3s ease;
 }
-/* Le filet n'apparaît qu'une fois la page défilée (classe posée par le JS) */
 .nav.is-stuck { border-bottom-color: var(--line); }
 
 .nav__inner {
@@ -300,7 +406,9 @@ body::before {
   font-size: .74rem;
   font-weight: 500;
   color: var(--accent);
+  transition: border-color .25s ease, background-color .25s ease;
 }
+.nav__brand:hover .nav__mark { border-color: var(--accent); background: var(--accent-wash); }
 
 .nav__name { font-family: var(--font-title); font-weight: 600; font-size: .95rem; }
 
@@ -322,9 +430,36 @@ body::before {
 }
 .nav__links a:hover { color: var(--ink); background: var(--accent-wash); }
 
-/* Section courante, mise à jour par l'observateur du JS */
+/* Soulignement qui se déploie sur la section courante */
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  left: .7rem;
+  right: .7rem;
+  bottom: .2rem;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s var(--ease-out);
+}
 .nav__links a.is-active { color: var(--accent); }
 .nav__links a.is-active span { opacity: 1; }
+.nav__links a.is-active::after { transform: scaleX(1); }
+
+/* Lien « retour » des pages projet.
+   nowrap : sur mobile, le libellé passerait sinon sur deux lignes et ferait
+   déborder la barre de sa hauteur fixe. */
+.nav__back {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  white-space: nowrap;
+  font-size: .87rem;
+  color: var(--muted);
+  transition: color .2s ease, gap .25s var(--ease-out);
+}
+.nav__back:hover { color: var(--accent); gap: .7rem; }
 
 .nav__actions { display: flex; align-items: center; gap: .4rem; }
 
@@ -336,19 +471,11 @@ body::before {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: transparent;
+  font-size: 17px;
   cursor: pointer;
-  transition: border-color .2s ease, color .2s ease;
+  transition: border-color .2s ease, color .2s ease, transform .3s var(--ease-out);
 }
-.icon-btn:hover { border-color: var(--accent); color: var(--accent); }
-.icon-btn svg {
-  width: 17px;
-  height: 17px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
+.icon-btn:hover { border-color: var(--accent); color: var(--accent); transform: rotate(-12deg); }
 
 /* Une seule icône visible selon le thème actif */
 [data-theme='light'] .icon-moon,
@@ -357,14 +484,34 @@ body::before {
 .nav__burger { display: none; }
 
 
-/* 07. HERO
+/* 09. HERO
    -------------------------------------------------------------------------- */
 .hero {
-  padding-block: clamp(3.5rem, 9vw, 7rem) clamp(3.5rem, 8vw, 6rem);
+  position: relative;
+  padding-block: clamp(3.5rem, 9vw, 7rem) clamp(3rem, 6vw, 4.5rem);
   border-bottom: 1px solid var(--line);
+  overflow: hidden;
 }
 
+/* Halo qui suit le curseur (--mx / --my posés par js/effects.js) */
+.hero__aura {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    420px circle at var(--mx, 70%) var(--my, 30%),
+    var(--accent-glow),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+.hero:hover .hero__aura { opacity: 1; }
+
 .hero__grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(0, .65fr);
   gap: clamp(2rem, 5vw, 4.5rem);
@@ -379,12 +526,11 @@ body::before {
   height: 7px;
   border-radius: 50%;
   background: var(--signal);
-  box-shadow: 0 0 0 0 var(--signal);
   animation: pulse 2.6s ease-out infinite;
 }
 @keyframes pulse {
   0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--signal) 55%, transparent); }
-  70%  { box-shadow: 0 0 0 8px transparent; }
+  70%  { box-shadow: 0 0 0 9px transparent; }
   100% { box-shadow: 0 0 0 0 transparent; }
 }
 
@@ -396,6 +542,14 @@ body::before {
   line-height: .92;
 }
 
+/* Chaque ligne masque son contenu, qui remonte à l'entrée (voir §20) */
+.line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .06em;
+}
+.line > span { display: block; }
+
 .hero__role {
   margin-top: 1.2rem;
   font-family: var(--font-title);
@@ -406,7 +560,7 @@ body::before {
 
 /* Le trait vertical rappelle les cotes d'un plan */
 .hero__pitch {
-  max-width: 46ch;
+  max-width: 52ch;
   margin-top: 1.1rem;
   padding-left: 1rem;
   border-left: 2px solid var(--line-2);
@@ -433,14 +587,43 @@ body::before {
   transition: color .2s ease;
 }
 .hero__social a:hover { color: var(--accent); }
-.hero__social svg {
-  width: 15px;
-  height: 15px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+
+/* Indicateur de défilement, en bas du hero */
+.hero__scroll {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  width: min(100% - 2.5rem, var(--wrap));
+  margin: clamp(2rem, 5vw, 3.5rem) auto 0;
+}
+.hero__scroll-line {
+  position: relative;
+  width: 62px;
+  height: 1px;
+  background: var(--line-2);
+  overflow: hidden;
+}
+/* Un segment d'accent parcourt le trait en boucle */
+.hero__scroll-line::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 40%;
+  background: var(--accent);
+  animation: scrollHint 2.4s ease-in-out infinite;
+}
+@keyframes scrollHint {
+  0%, 100% { transform: translateX(-110%); }
+  50%      { transform: translateX(180%); }
+}
+.hero__scroll-label {
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 /* --- Plaque monogramme (placeholder d'avatar) --- */
@@ -451,11 +634,16 @@ body::before {
   display: grid;
   place-items: center;
   aspect-ratio: 1;
+  overflow: hidden;
   background:
     linear-gradient(135deg, var(--accent-wash), transparent 65%),
     var(--surface);
   border: 1px solid var(--line);
+  /* --rx / --ry posés par l'effet de relief (js/effects.js) */
+  transform: perspective(700px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .35s var(--ease-out), box-shadow .35s ease;
 }
+.plate:hover { box-shadow: 0 24px 60px -30px var(--accent-glow); }
 
 /* Repères de coupe aux quatre angles */
 .plate__corner {
@@ -463,13 +651,31 @@ body::before {
   width: 14px;
   height: 14px;
   border: 2px solid var(--accent);
+  transition: width .35s var(--ease-out), height .35s var(--ease-out);
 }
+.plate:hover .plate__corner { width: 22px; height: 22px; }
 .plate__corner--tl { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
 .plate__corner--tr { top: -1px; right: -1px; border-left: 0; border-bottom: 0; }
 .plate__corner--bl { bottom: -1px; left: -1px; border-right: 0; border-top: 0; }
 .plate__corner--br { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
 
+/* Ligne de balayage, clin d'œil aux bancs de mesure */
+.plate__scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 28%;
+  background: linear-gradient(to bottom, transparent, var(--accent-wash), transparent);
+  animation: scan 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes scan {
+  0%, 100% { transform: translateY(-140%); }
+  50%      { transform: translateY(400%); }
+}
+
 .plate__mono {
+  position: relative;
   font-family: var(--font-title);
   font-size: clamp(3rem, 7vw, 4.6rem);
   font-weight: 700;
@@ -481,14 +687,16 @@ body::before {
 .plate__spec > div {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   gap: 1rem;
   padding-bottom: .5rem;
   border-bottom: 1px solid var(--line);
 }
+.plate__spec dt { display: inline-flex; align-items: center; gap: .4rem; }
 .plate__spec dd { font-size: .82rem; text-align: right; }
 
 
-/* 08. EN-TÊTES DE SECTION
+/* 10. EN-TÊTES DE SECTION
    -------------------------------------------------------------------------- */
 .section__head {
   display: flex;
@@ -497,10 +705,21 @@ body::before {
   margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 .section__num { color: var(--accent); }
-.section__rule { flex: 1; height: 1px; background: var(--line); }
+
+/* Le filet se déploie de la gauche vers la droite à l'apparition */
+.section__rule {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .9s var(--ease-out) .15s;
+}
+.reveal.is-visible .section__rule,
+.section__head.is-visible .section__rule { transform: scaleX(1); }
 
 
-/* 09. À PROPOS
+/* 11. À PROPOS
    -------------------------------------------------------------------------- */
 .about {
   display: grid;
@@ -527,9 +746,17 @@ body::before {
 .stats li {
   display: flex;
   align-items: baseline;
-  gap: .7rem;
+  gap: .6rem;
   padding: 1.1rem 1.2rem;
   background: var(--bg);
+  transition: background-color .25s ease;
+}
+.stats li:hover { background: var(--surface); }
+
+.stats__ico {
+  font-size: 1rem;
+  color: var(--accent);
+  align-self: center;
 }
 .stats__num {
   font-family: var(--font-title);
@@ -537,15 +764,35 @@ body::before {
   font-weight: 700;
   color: var(--accent);
   line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 .stats__label { font-size: .84rem; color: var(--muted); }
 
 
-/* 10. TIMELINE (PARCOURS)
+/* 12. TIMELINE (PARCOURS)
    -------------------------------------------------------------------------- */
-.timeline { display: grid; gap: 0; }
+.timeline { position: relative; display: grid; gap: 0; }
+
+/* Rail principal + remplissage progressif piloté au défilement */
+.timeline__rail {
+  position: absolute;
+  top: .5rem;
+  bottom: 1rem;
+  left: 152px;
+  width: 1px;
+  background: var(--line);
+}
+.timeline__fill {
+  display: block;
+  width: 100%;
+  height: 0;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+  transition: height .15s linear;
+}
 
 .tl {
+  position: relative;
   display: grid;
   grid-template-columns: 120px minmax(0, 1fr);
   gap: 2rem;
@@ -553,50 +800,63 @@ body::before {
 }
 .tl:first-child { padding-top: 0; }
 
-.tl__meta { display: flex; flex-direction: column; gap: .2rem; padding-top: .15rem; }
+.tl__meta { display: flex; flex-direction: column; gap: .25rem; padding-top: .15rem; }
+.tl__meta time,
+.tl__dur { display: inline-flex; align-items: center; gap: .38rem; }
 .tl__meta time { color: var(--accent); font-weight: 500; }
 .tl__dur { text-transform: none; letter-spacing: .02em; }
 
-/* Rail vertical + nœud : le repère chronologique du blueprint */
 .tl__body {
   position: relative;
   padding-left: 1.9rem;
-  border-left: 1px solid var(--line);
 }
+/* Nœud du rail, posé sur la ligne verticale */
 .tl__body::before {
   content: '';
   position: absolute;
   top: .5rem;
   left: -5px;
+  z-index: 1;
   width: 9px;
   height: 9px;
   border: 2px solid var(--accent);
   border-radius: 50%;
   background: var(--bg);
-  transition: background-color .25s ease;
+  transition: background-color .25s ease, transform .3s var(--ease-out),
+              box-shadow .3s ease;
 }
-.tl:hover .tl__body::before { background: var(--accent); }
+.tl:hover .tl__body::before {
+  background: var(--accent);
+  transform: scale(1.5);
+  box-shadow: 0 0 0 5px var(--accent-wash);
+}
 
-/* Le dernier élément arrête le rail à hauteur de son contenu */
-.tl:last-child .tl__body { border-left-color: transparent; box-shadow: -1px 0 0 0 var(--line); }
-
-.tl__role { color: var(--ink); }
+.tl__role { color: var(--ink); transition: color .25s ease; }
+.tl:hover .tl__role { color: var(--accent); }
 
 .tl__org {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .1rem .45rem;
   margin-top: .3rem;
   font-size: .92rem;
   color: var(--muted);
 }
+.tl__org > .ico { color: var(--accent); }
 .tl__org strong { color: var(--ink); }
 
 .tl__loc {
-  display: inline-block;
-  margin-left: .5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  margin-left: .3rem;
   padding-left: .6rem;
   border-left: 1px solid var(--line-2);
   font-family: var(--font-mono);
   font-size: .76rem;
 }
+.tl__loc .ico { color: var(--accent); }
 
 .tl__kind {
   margin-top: .45rem;
@@ -624,13 +884,17 @@ body::before {
   border-top: 1.5px solid var(--accent);
   border-right: 1.5px solid var(--accent);
   transform: rotate(45deg);
+  transition: transform .25s var(--ease-out);
 }
+.tl__list li:hover::before { transform: rotate(45deg) translate(2px, -2px); }
 
 .tl__body .tags { margin-top: 1rem; }
 
 
-/* 11. CARTES PROJETS
-   -------------------------------------------------------------------------- */
+/* 13. CARTES PROJETS
+   --------------------------------------------------------------------------
+   Blocs de prévisualisation : chaque carte est un lien vers la page dédiée
+   du projet, dans projets/. */
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -639,31 +903,62 @@ body::before {
   border: 1px solid var(--line);
 }
 
-/* Pas d'ombre portée : les cartes sont séparées par les filets de la grille */
-.card {
+.pcard {
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding: 1.6rem 1.5rem 1.7rem;
   background: var(--bg);
-  transition: background-color .25s ease;
+  overflow: hidden;
+  /* --rx / --ry posés par l'effet de relief (js/effects.js) */
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: background-color .3s ease, transform .35s var(--ease-out);
 }
-.card:hover { background: var(--surface); }
+.pcard:hover { background: var(--surface); }
 
 /* Liseré supérieur qui se déploie au survol */
-.card { position: relative; }
-.card::after {
+.pcard::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 2;
   width: 0;
   height: 2px;
   background: var(--accent);
-  transition: width .35s cubic-bezier(.2, .7, .3, 1);
+  transition: width .45s var(--ease-out);
 }
-.card:hover::after { width: 100%; }
+.pcard:hover::after { width: 100%; }
 
-.card__top {
+/* --- Vignette technique --- */
+.pcard__media {
+  position: relative;
+  padding: 1.4rem 1.5rem .6rem;
+  background: linear-gradient(160deg, var(--accent-wash), transparent 70%);
+  border-bottom: 1px solid var(--line);
+}
+.pcard__index {
+  position: absolute;
+  top: .9rem;
+  right: 1.2rem;
+  font-family: var(--font-mono);
+  font-size: 2.6rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--ink);
+  opacity: .07;
+  transition: opacity .35s ease, transform .45s var(--ease-out);
+}
+.pcard:hover .pcard__index { opacity: .16; transform: translateY(-3px); }
+
+/* --- Corps --- */
+.pcard__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.4rem 1.5rem 1.6rem;
+}
+
+.pcard__top {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -671,45 +966,102 @@ body::before {
   margin-bottom: 1rem;
   border-bottom: 1px solid var(--line);
 }
-.card__year { color: var(--accent); }
+.pcard__year,
+.pcard__team { display: inline-flex; align-items: center; gap: .4rem; }
+.pcard__year { color: var(--accent); }
 
-.card__title { color: var(--ink); }
+.pcard__title { color: var(--ink); transition: color .25s ease; }
+.pcard:hover .pcard__title { color: var(--accent); }
 
-.card__context {
-  margin-top: .35rem;
+.pcard__context {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  margin-top: .4rem;
   font-size: .82rem;
   color: var(--muted);
   font-style: italic;
 }
+.pcard__context .ico { color: var(--accent); font-style: normal; }
 
-.card__desc {
+.pcard__desc {
   margin-top: .9rem;
   font-size: .92rem;
   color: var(--muted);
 }
 
-.card__points { margin-top: 1rem; display: grid; gap: .35rem; }
-.card__points li {
-  position: relative;
-  padding-left: 1rem;
-  font-size: .85rem;
-  color: var(--muted);
+.pcard .tags { margin-top: 1.2rem; }
+
+/* Appel à l'action, poussé en bas de carte */
+.pcard__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: auto;
+  padding-top: 1.4rem;
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
-.card__points li::before {
-  content: '';
-  position: absolute;
-  top: .68em;
-  left: 0;
-  width: 6px;
-  height: 1px;
-  background: var(--line-2);
+.pcard__cta .ico { transition: transform .3s var(--ease-out); }
+.pcard:hover .pcard__cta .ico { transform: translateX(5px); }
+
+
+/* 14. DIAGRAMMES SVG
+   --------------------------------------------------------------------------
+   Illustrations abstraites dessinées en SVG plutôt qu'en images : aucune
+   ressource externe, et le trait suit la couleur du thème. */
+.diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.diagram--lg { max-width: 420px; }
+
+.diagram__grid  { stroke: var(--line); stroke-width: .5; fill: none; }
+.diagram__axis  { stroke: var(--line-2); stroke-width: .8; fill: none; }
+.diagram__box   { stroke: var(--accent); stroke-width: 1.4; fill: none; opacity: .75; }
+.diagram__dot   { fill: var(--accent); }
+
+/* Le tracé principal se dessine à l'apparition de la carte */
+.diagram__draw {
+  stroke: var(--accent);
+  stroke-width: 1.8;
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+}
+.is-visible .diagram__draw,
+.intro-done .diagram__draw {
+  animation: drawLine 2s var(--ease-out) forwards;
+}
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+
+/* Les points apparaissent après le tracé */
+.diagram__dot {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.is-visible .diagram__dot,
+.intro-done .diagram__dot {
+  animation: popDot .5s var(--ease-out) forwards;
+}
+.is-visible .diagram__dot:nth-of-type(2),
+.intro-done .diagram__dot:nth-of-type(2) { animation-delay: .15s; }
+.is-visible .diagram__dot:nth-of-type(3),
+.intro-done .diagram__dot:nth-of-type(3) { animation-delay: .3s; }
+@keyframes popDot {
+  from { opacity: 0; transform: scale(0); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
-/* Les étiquettes restent collées au bas de la carte, quelle que soit sa hauteur */
-.card .tags { margin-top: auto; padding-top: 1.3rem; }
 
-
-/* 12. COMPÉTENCES
+/* 15. COMPÉTENCES
    -------------------------------------------------------------------------- */
 .skills {
   display: grid;
@@ -717,10 +1069,12 @@ body::before {
   gap: clamp(1.6rem, 3.5vw, 2.6rem);
 }
 
+.skill { position: relative; padding: .2rem; border-radius: var(--radius); }
+
 .skill__title {
   display: flex;
   align-items: center;
-  gap: .45rem;
+  gap: .5rem;
   padding-bottom: .7rem;
   margin-bottom: 1rem;
   border-bottom: 1px solid var(--line);
@@ -728,7 +1082,7 @@ body::before {
   font-family: var(--font-mono);
   font-weight: 500;
 }
-.skill__title span { color: var(--accent); }
+.skill__title .ico { color: var(--accent); width: 1.15em; height: 1.15em; }
 
 .lang { display: grid; gap: .8rem; }
 .lang li { display: flex; flex-direction: column; gap: .1rem; }
@@ -743,39 +1097,62 @@ body::before {
   font-size: .92rem;
   color: var(--muted);
 }
-.interests__label { display: block; margin-bottom: .4rem; color: var(--signal); }
+.interests__label {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  margin-bottom: .4rem;
+  color: var(--signal);
+}
+.interests__label .ico { color: var(--signal); }
 
 
-/* 13. FORMATION
+/* 16. FORMATION
    -------------------------------------------------------------------------- */
 .edu { display: grid; }
 
 .edu__item {
   display: grid;
-  grid-template-columns: 120px minmax(0, 1fr);
+  grid-template-columns: 140px minmax(0, 1fr);
   gap: 2rem;
   padding-block: 1.6rem;
   border-bottom: 1px solid var(--line);
-  transition: padding-left .25s ease;
+  transition: padding-left .3s var(--ease-out), background-color .3s ease;
 }
 .edu__item:first-child { border-top: 1px solid var(--line); }
-.edu__item:hover { padding-left: .6rem; }
+.edu__item:hover { padding-left: .8rem; background: var(--surface); }
 
-.edu__years { padding-top: .2rem; color: var(--accent); }
-.edu__body h3 { font-size: 1rem; }
+.edu__years {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding-top: .2rem;
+  color: var(--accent);
+  align-self: start;
+}
+.edu__body h3 {
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+  font-size: 1rem;
+}
+.edu__body h3 .ico { color: var(--accent); align-self: center; }
 .edu__body p { margin-top: .3rem; font-size: .9rem; color: var(--muted); }
 
 .edu__loc {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
   margin-left: .5rem;
   padding-left: .6rem;
   border-left: 1px solid var(--line-2);
   font-family: var(--font-mono);
   font-size: .76rem;
 }
+.edu__loc .ico { color: var(--accent); }
 
 
-/* 14. CONTACT
+/* 17. CONTACT
    -------------------------------------------------------------------------- */
 .contact {
   display: grid;
@@ -785,7 +1162,7 @@ body::before {
 }
 
 .contact__pitch {
-  max-width: 40ch;
+  max-width: 42ch;
   font-family: var(--font-title);
   font-size: clamp(1.1rem, 2.2vw, 1.28rem);
   font-weight: 500;
@@ -795,17 +1172,28 @@ body::before {
 .contact__list { margin-top: 2rem; display: grid; }
 .contact__list li {
   display: grid;
-  grid-template-columns: 130px minmax(0, 1fr);
+  grid-template-columns: 150px minmax(0, 1fr);
   gap: 1rem;
   align-items: baseline;
   padding-block: .8rem;
   border-bottom: 1px solid var(--line);
+  transition: padding-left .3s var(--ease-out);
 }
 .contact__list li:first-child { border-top: 1px solid var(--line); }
+.contact__list li:hover { padding-left: .5rem; }
+
+.contact__k { display: inline-flex; align-items: center; gap: .45rem; }
 
 .contact__v { font-size: .92rem; display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
-.contact__v a { border-bottom: 1px solid var(--line-2); transition: color .2s ease, border-color .2s ease; }
-.contact__v a:hover { color: var(--accent); border-color: var(--accent); }
+.contact__v a {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  border-bottom: 1px solid var(--line-2);
+  transition: color .2s ease, background-size .35s var(--ease-out);
+}
+.contact__v a:hover { color: var(--accent); background-size: 100% 1px; }
 
 .copy {
   padding: .12rem .5rem;
@@ -818,13 +1206,14 @@ body::before {
   letter-spacing: .08em;
   color: var(--muted);
   cursor: pointer;
-  transition: border-color .2s ease, color .2s ease;
+  transition: border-color .2s ease, color .2s ease, transform .2s var(--ease-out);
 }
-.copy:hover { border-color: var(--accent); color: var(--accent); }
+.copy:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 .copy.is-done { border-color: var(--signal); color: var(--signal); }
 
 /* --- Formulaire mailto --- */
 .contact__form {
+  position: relative;
   display: grid;
   gap: 1rem;
   padding: clamp(1.4rem, 3vw, 2rem);
@@ -847,10 +1236,14 @@ body::before {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   font-size: .92rem;
-  transition: border-color .2s ease;
+  transition: border-color .2s ease, box-shadow .25s ease;
 }
 .field input:focus,
-.field textarea:focus { outline: none; border-color: var(--accent); }
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-wash);
+}
 .field textarea { resize: vertical; min-height: 110px; }
 
 .field input.is-invalid,
@@ -861,7 +1254,7 @@ body::before {
 .field__note { font-size: .78rem; color: var(--muted); line-height: 1.5; }
 
 
-/* 15. PIED DE PAGE
+/* 18. PIED DE PAGE
    -------------------------------------------------------------------------- */
 .footer { border-top: 1px solid var(--line); padding-block: 2rem; }
 .footer__inner {
@@ -875,17 +1268,81 @@ body::before {
 .footer__meta { font-family: var(--font-mono); font-size: .74rem; }
 
 
-/* 16. ANIMATIONS AU SCROLL
+/* 19. EFFETS AU POINTEUR
+   --------------------------------------------------------------------------
+   Les variables --mx / --my / --rx / --ry sont mises à jour par
+   js/effects.js. En leur absence (pas de JS, écran tactile), les éléments
+   gardent leur apparence par défaut : rien ne casse. */
+
+/* Halo local suivant le curseur sur les panneaux */
+.spotlight { position: relative; isolation: isolate; }
+.spotlight::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    var(--accent-wash),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity .35s ease;
+  pointer-events: none;
+}
+.spotlight:hover::before { opacity: 1; }
+
+/* Boutons légèrement aimantés par le curseur */
+.magnetic {
+  transition: transform .3s var(--ease-out), background-color .2s ease,
+              color .2s ease, border-color .2s ease, box-shadow .3s ease;
+}
+
+
+/* 20. ANIMATIONS D'ENTRÉE ET APPARITIONS AU SCROLL
    -------------------------------------------------------------------------- */
-/* État initial posé par le JS (classe .reveal-ready) pour que le contenu
-   reste visible si JavaScript est indisponible. */
+
+/* --- Entrée du hero, jouée une fois au chargement ---
+   L'état initial n'est posé que si le JS a pu prendre la main (.js-intro),
+   sinon tout reste visible. */
+.js-intro .intro {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.js-intro .intro .line > span { transform: translateY(105%); }
+
+.js-intro .intro.is-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity .8s var(--ease-out), transform .8s var(--ease-out);
+  transition-delay: calc(var(--intro, 0) * 90ms);
+}
+.js-intro .intro.is-in .line > span {
+  transform: none;
+  transition: transform .95s var(--ease-out);
+  transition-delay: calc(var(--intro, 0) * 90ms);
+}
+
+/* --- Apparitions au défilement ---
+   Idem : l'état masqué n'existe que si .reveal-ready a été posé par le JS. */
 .reveal-ready .reveal {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity .6s ease, transform .6s cubic-bezier(.2, .7, .3, 1);
-  transition-delay: calc(var(--i, 0) * 70ms);
+  transition: opacity .75s var(--ease-out), transform .75s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 80ms);
 }
-.reveal-ready .reveal.is-visible { opacity: 1; transform: none; }
+.reveal-ready .reveal[data-reveal='up']    { transform: translateY(28px); }
+.reveal-ready .reveal[data-reveal='left']  { transform: translateX(-28px); }
+/* `right` décale l'élément hors de la page tant que l'animation n'a pas joué :
+   à n'utiliser que dans une colonne qui n'atteint pas le bord droit.
+   Le `overflow-x: clip` posé sur <html> (§01) sert de filet. */
+.reveal-ready .reveal[data-reveal='right'] { transform: translateX(28px); }
+.reveal-ready .reveal[data-reveal='scale'] { transform: translateY(24px) scale(.97); }
+
+.reveal-ready .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
 
 /* Respect strict de la préférence système : plus aucun mouvement */
 @media (prefers-reduced-motion: reduce) {
@@ -894,28 +1351,33 @@ body::before {
     animation-duration: .001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: .001ms !important;
+    animation-delay: 0ms !important;
+    transition-delay: 0ms !important;
   }
-  .reveal-ready .reveal { opacity: 1; transform: none; }
+  .reveal-ready .reveal,
+  .js-intro .intro { opacity: 1 !important; transform: none !important; }
+  .js-intro .intro .line > span { transform: none !important; }
+  .diagram__draw { stroke-dashoffset: 0; }
+  .diagram__dot { opacity: 1; }
+  .plate { transform: none !important; }
+  .pcard { transform: none !important; }
 }
 
 
-/* 17. RESPONSIVE
+/* 21. RESPONSIVE
    -------------------------------------------------------------------------- */
 
 /* Tablette large : la plaque passe sous le texte du hero */
 @media (max-width: 960px) {
   .hero__grid { grid-template-columns: 1fr; }
-  .hero__plate {
-    flex-direction: row;
-    align-items: center;
-    gap: 1.6rem;
-  }
+  .hero__plate { flex-direction: row; align-items: center; gap: 1.6rem; }
   .plate { width: 132px; flex: 0 0 auto; }
   .plate__spec { flex: 1; }
 
   .about { grid-template-columns: 1fr; }
   .stats { grid-template-columns: repeat(3, 1fr); }
-  .stats li { flex-direction: column; gap: .2rem; }
+  .stats li { flex-direction: column; gap: .2rem; align-items: flex-start; }
+  .stats__ico { align-self: flex-start; }
 
   .contact { grid-template-columns: 1fr; }
 }
@@ -941,6 +1403,9 @@ body::before {
   .nav__links.is-open { display: flex; }
   .nav__links a { padding: .75rem .5rem; border-bottom: 1px solid var(--line); }
   .nav__links a:last-child { border-bottom: 0; }
+  .nav__links a::after { display: none; }
+
+  .nav__back { margin-left: auto; }
 }
 
 /* Mobile */
@@ -952,8 +1417,9 @@ body::before {
   .plate__spec { width: 100%; }
 
   /* Timeline : la date passe au-dessus, le rail reste à gauche */
+  .timeline__rail { left: 4px; }
   .tl { grid-template-columns: 1fr; gap: .6rem; }
-  .tl__meta { flex-direction: row; align-items: baseline; gap: .7rem; padding-left: 1.9rem; }
+  .tl__meta { flex-direction: row; align-items: baseline; gap: .9rem; padding-left: 1.9rem; }
 
   .edu__item { grid-template-columns: 1fr; gap: .4rem; }
 
@@ -961,22 +1427,30 @@ body::before {
 
   .stats { grid-template-columns: 1fr; }
   .stats li { flex-direction: row; align-items: baseline; }
+  .stats__ico { align-self: center; }
+
+  /* Le monogramme suffit à identifier la marque sur mobile : masquer le nom
+     écrit libère la place nécessaire au lien de retour des pages projet. */
+  .nav__name { display: none; }
 }
 
 /* Très petits écrans : on protège le titre du hero */
 @media (max-width: 380px) {
-  .nav__name { display: none; }
   .hero__name { font-size: 2.7rem; }
 }
 
 
-/* 18. IMPRESSION
+/* 22. IMPRESSION
    -------------------------------------------------------------------------- */
 @media print {
-  .nav, .progress, .hero__cta, .contact__form, .copy, .skip-link { display: none !important; }
+  .nav, .progress, .hero__cta, .hero__scroll, .contact__form,
+  .copy, .skip-link, .page-veil, .plate__scan, .hero__aura { display: none !important; }
   body { background: #fff; color: #000; }
   body::before { display: none; }
   .section { padding-block: 1.2rem; break-inside: avoid; }
-  .card, .tl { break-inside: avoid; }
-  .reveal-ready .reveal { opacity: 1 !important; transform: none !important; }
+  .pcard, .tl, .step { break-inside: avoid; }
+  .reveal-ready .reveal,
+  .js-intro .intro { opacity: 1 !important; transform: none !important; }
+  .js-intro .intro .line > span { transform: none !important; }
+  .plate, .pcard { transform: none !important; }
 }

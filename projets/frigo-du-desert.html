@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Frigo du désert — Romain Lance</title>
+  <meta name="description" content="Projet PISTE Junia HEI : conception et modélisation d'un système de refroidissement passif reposant sur l'évaporation.">
+  <meta name="theme-color" content="#f4f2ed" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Frigo du désert">
+  <meta property="og:description" content="Refroidissement passif par évaporation — projet PISTE, Junia HEI.">
+  <meta property="og:locale" content="fr_FR">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%231d6382'/><text x='50' y='69' font-family='ui-monospace,monospace' font-size='46' font-weight='700' fill='%23ffffff' text-anchor='middle'>RL</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/project.css">
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+
+      try {
+        var saved = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        root.dataset.theme = saved || (prefersDark ? 'dark' : 'light');
+      } catch (e) { /* stockage indisponible */ }
+
+      // Masque les éléments animés à l'entrée ; js/effects.js les dévoile.
+      root.classList.add('js-intro');
+
+      // Filet de sécurité si effects.js ne s'exécute pas.
+      window.setTimeout(function () {
+        if (!root.hasAttribute('data-intro-ready')) { root.classList.remove('js-intro'); }
+      }, 2500);
+    })();
+  </script>
+
+  <script src="../js/icons.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <div class="page-veil" id="pageVeil" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"><span class="progress__bar" id="progressBar"></span></div>
+
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__brand">
+        <span class="nav__mark" aria-hidden="true">RL</span>
+        <span class="nav__name">Romain&nbsp;Lance</span>
+      </a>
+
+      <a class="nav__back" href="../index.html#projets">
+        <svg class="ico" aria-hidden="true"><use href="#i-back"></use></svg>
+        Tous les projets
+      </a>
+
+      <div class="nav__actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Basculer le thème sombre" title="Basculer le thème">
+          <svg class="ico icon-sun" aria-hidden="true"><use href="#i-sun"></use></svg>
+          <svg class="ico icon-moon" aria-hidden="true"><use href="#i-moon"></use></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenu">
+
+    <!-- ============================================================
+         EN-TÊTE DU PROJET
+         ============================================================ -->
+    <section class="phero">
+      <div class="phero__aura" aria-hidden="true"></div>
+
+      <div class="wrap phero__grid">
+        <div class="phero__text">
+          <p class="eyebrow intro" data-intro="1">
+            <span class="phero__num">Projet 03</span>
+            <span class="phero__sep" aria-hidden="true"></span>
+            <svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg>
+            Thermique
+          </p>
+
+          <h1 class="phero__title">
+            <span class="line intro" data-intro="2"><span>Frigo</span></span>
+            <span class="line intro" data-intro="3"><span>du désert</span></span>
+          </h1>
+
+          <p class="phero__lede intro" data-intro="4">
+            Refroidir sans moteur, sans compresseur et sans électricité : toute la performance
+            se joue sur le dimensionnement.
+          </p>
+
+          <ul class="phero__meta intro" data-intro="5">
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg>
+              <span class="phero__k">Période</span>
+              <span class="phero__v">2023 — 2024</span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg>
+              <span class="phero__k">Équipe</span>
+              <span class="phero__v">8 étudiants</span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-cap"></use></svg>
+              <span class="phero__k">Cadre</span>
+              <span class="phero__v">Projet PISTE — Junia HEI</span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg>
+              <span class="phero__k">Principe</span>
+              <span class="phero__v">Refroidissement passif par évaporation</span>
+            </li>
+          </ul>
+        </div>
+
+        <figure class="phero__figure intro" data-intro="4">
+          <svg class="diagram diagram--lg" viewBox="0 0 200 120" aria-hidden="true">
+            <path class="diagram__grid" d="M0 30h200M0 60h200M0 90h200M40 0v120M80 0v120M120 0v120M160 0v120"/>
+            <path class="diagram__draw" d="M70 40c0-10 10-10 10-20s-10-10-10-20M100 40c0-10 10-10 10-20s-10-10-10-20M130 40c0-10 10-10 10-20s-10-10-10-20"/>
+            <rect class="diagram__box" x="58" y="52" width="84" height="52" rx="4"/>
+            <path class="diagram__axis" d="M72 68h56M72 80h56M72 92h36"/>
+          </svg>
+          <figcaption>Évaporation au-dessus de l'enceinte — représentation schématique</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LE CONTEXTE
+         ============================================================ -->
+    <section class="section">
+      <div class="wrap wrap--narrow">
+        <header class="section__head reveal" data-reveal="up">
+          <span class="section__num" aria-hidden="true">01</span>
+          <h2>Le contexte</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <div class="prose reveal" data-reveal="up">
+          <p>
+            Premier projet d'équipe de mon cursus à Junia HEI, mené dans le cadre PISTE à huit
+            étudiants, sur les années 2023 et 2024.
+          </p>
+          <p>
+            Le sujet : un système de refroidissement <strong>passif</strong>, c'est-à-dire sans
+            compresseur, sans moteur et sans apport d'énergie extérieur. Le refroidissement
+            repose sur l'évaporation — l'eau qui s'évapore prélève de la chaleur au milieu
+            qu'elle quitte, et c'est cette chaleur en moins qui fait baisser la température à
+            l'intérieur de l'enceinte.
+          </p>
+          <p>
+            Sans source d'énergie à ajuster, il ne reste qu'un levier : la conception elle-même.
+            Le travail a donc porté sur la conception et la modélisation du système.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CE QUE J'EN RETIENS
+         ============================================================ -->
+    <section class="section">
+      <div class="wrap wrap--narrow">
+        <header class="section__head reveal" data-reveal="up">
+          <span class="section__num" aria-hidden="true">02</span>
+          <h2>Ce que j'en retiens</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <div class="prose reveal" data-reveal="up">
+          <p>
+            C'est le projet qui m'a fait découvrir le travail d'ingénierie en équipe : huit
+            personnes, un objet à concevoir, et la nécessité de s'accorder sur des hypothèses
+            communes avant de calculer quoi que ce soit.
+          </p>
+          <p>
+            Il m'a aussi appris qu'un système sans énergie d'appoint ne pardonne rien : chaque
+            paramètre de conception se retrouve directement dans la performance finale.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         OUTILS & MÉTHODES
+         ============================================================ -->
+    <section class="section">
+      <div class="wrap wrap--narrow">
+        <header class="section__head reveal" data-reveal="up">
+          <span class="section__num" aria-hidden="true">03</span>
+          <h2>Outils &amp; méthodes</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <div class="toolset">
+          <section class="skill reveal spotlight" data-reveal="up">
+            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Thermique</h3>
+            <ul class="tags">
+              <li>Refroidissement passif</li><li>Évaporation</li>
+            </ul>
+          </section>
+
+          <section class="skill reveal spotlight" data-reveal="up">
+            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-flask"></use></svg> Démarche</h3>
+            <ul class="tags">
+              <li>Conception</li><li>Modélisation</li>
+            </ul>
+          </section>
+
+          <section class="skill reveal spotlight" data-reveal="up">
+            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Organisation</h3>
+            <ul class="tags">
+              <li>Travail en équipe de 8</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <nav class="pnav" aria-label="Autres projets">
+      <div class="wrap pnav__inner">
+        <a class="pnav__link pnav__link--all" href="../index.html#projets">
+          <svg class="ico" aria-hidden="true"><use href="#i-back"></use></svg>
+          Tous les projets
+        </a>
+        <a class="pnav__link pnav__link--next magnetic" href="fauteuil-roulant-intelligent.html">
+          <span>
+            <span class="pnav__k">Projet suivant</span>
+            <span class="pnav__v">Modèle dynamique d'un fauteuil roulant intelligent</span>
+          </span>
+          <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+        </a>
+      </div>
+    </nav>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <p>© <span id="year">2026</span> Romain Lance</p>
+      <p class="footer__meta">Ingénieur Mécatronique &amp; Robotique — Hauts-de-France</p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/effects.js"></script>
+</body>
+</html>

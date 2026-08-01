@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Modèle dynamique d'un fauteuil roulant intelligent — Romain Lance</title>
+  <meta name="description" content="Projet de recherche Junia HEI × laboratoire CRIStAL : modélisation dynamique d'un fauteuil roulant intelligent intégrant les roues folles, et commande prédictive simulée sous MATLAB/Simulink.">
+  <meta name="theme-color" content="#f4f2ed" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Modèle dynamique d'un fauteuil roulant intelligent">
+  <meta property="og:description" content="Projet de recherche Junia HEI × laboratoire CRIStAL — modélisation dynamique et commande prédictive.">
+  <meta property="og:locale" content="fr_FR">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%231d6382'/><text x='50' y='69' font-family='ui-monospace,monospace' font-size='46' font-weight='700' fill='%23ffffff' text-anchor='middle'>RL</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/project.css">
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+
+      try {
+        var saved = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        root.dataset.theme = saved || (prefersDark ? 'dark' : 'light');
+      } catch (e) { /* stockage indisponible */ }
+
+      // Masque les éléments animés à l'entrée ; js/effects.js les dévoile.
+      root.classList.add('js-intro');
+
+      // Filet de sécurité si effects.js ne s'exécute pas.
+      window.setTimeout(function () {
+        if (!root.hasAttribute('data-intro-ready')) { root.classList.remove('js-intro'); }
+      }, 2500);
+    })();
+  </script>
+
+  <script src="../js/icons.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <div class="page-veil" id="pageVeil" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"><span class="progress__bar" id="progressBar"></span></div>
+
+  <!-- ============================================================
+       NAVIGATION — version allégée des pages projet
+       ============================================================ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__brand">
+        <span class="nav__mark" aria-hidden="true">RL</span>
+        <span class="nav__name">Romain&nbsp;Lance</span>
+      </a>
+
+      <a class="nav__back" href="../index.html#projets">
+        <svg class="ico" aria-hidden="true"><use href="#i-back"></use></svg>
+        Tous les projets
+      </a>
+
+      <div class="nav__actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Basculer le thème sombre" title="Basculer le thème">
+          <svg class="ico icon-sun" aria-hidden="true"><use href="#i-sun"></use></svg>
+          <svg class="ico icon-moon" aria-hidden="true"><use href="#i-moon"></use></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenu">
+
+    <!-- ============================================================
+         EN-TÊTE DU PROJET
+         ============================================================ -->
+    <section class="phero">
+      <div class="phero__aura" aria-hidden="true"></div>
+
+      <div class="wrap phero__grid">
+        <div class="phero__text">
+          <p class="eyebrow intro" data-intro="1">
+            <span class="phero__num">Projet 01</span>
+            <span class="phero__sep" aria-hidden="true"></span>
+            <svg class="ico" aria-hidden="true"><use href="#i-flask"></use></svg>
+            Recherche
+          </p>
+
+          <h1 class="phero__title">
+            <span class="line intro" data-intro="2"><span>Modèle dynamique d'un</span></span>
+            <span class="line intro" data-intro="3"><span>fauteuil roulant intelligent</span></span>
+          </h1>
+
+          <p class="phero__lede intro" data-intro="4">
+            Décrire finement le comportement d'un fauteuil roulant intelligent, roues folles
+            comprises, puis se servir de ce modèle pour anticiper ses mouvements plutôt que
+            simplement les corriger.
+          </p>
+
+          <ul class="phero__meta intro" data-intro="5">
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg>
+              <span class="phero__k">Période</span>
+              <span class="phero__v">2025 — 2026</span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg>
+              <span class="phero__k">Équipe</span>
+              <span class="phero__v">4 étudiants</span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-cap"></use></svg>
+              <span class="phero__k">Cadre</span>
+              <span class="phero__v">Junia HEI × laboratoire CRIStAL</span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-doc"></use></svg>
+              <span class="phero__k">Livrable</span>
+              <span class="phero__v">Article scientifique</span>
+            </li>
+          </ul>
+        </div>
+
+        <figure class="phero__figure intro" data-intro="4">
+          <svg class="diagram diagram--lg" viewBox="0 0 200 120" aria-hidden="true">
+            <path class="diagram__grid" d="M0 30h200M0 60h200M0 90h200M40 0v120M80 0v120M120 0v120M160 0v120"/>
+            <path class="diagram__axis" d="M12 60h176M12 12v96"/>
+            <path class="diagram__draw" d="M12 60c14 0 14-38 28-38s14 62 28 62 14-46 28-46 14 32 28 32 14-22 28-22 14 12 28 12"/>
+            <circle class="diagram__dot" cx="40" cy="22" r="3"/>
+            <circle class="diagram__dot" cx="96" cy="38" r="3"/>
+            <circle class="diagram__dot" cx="152" cy="48" r="3"/>
+          </svg>
+          <figcaption>Réponse dynamique amortie — représentation schématique</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LE CONTEXTE
+         ============================================================ -->
+    <section class="section">
+      <div class="wrap wrap--narrow">
+        <header class="section__head reveal" data-reveal="up">
+          <span class="section__num" aria-hidden="true">01</span>
+          <h2>Le contexte</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <div class="prose reveal" data-reveal="up">
+          <p>
+            Ce projet de recherche en mécatronique et robotique a été mené à Junia HEI avec le
+            laboratoire CRIStAL, en équipe de quatre étudiants, sur les années 2025 et 2026.
+          </p>
+          <p>
+            Un fauteuil roulant se déplace sur des roues motrices, mais aussi sur des
+            <strong>roues folles</strong> — libres de pivoter sur elles-mêmes pour suivre la
+            direction imposée. Ces roues réagissent au mouvement au lieu de le produire, ce qui
+            rend leur contribution difficile à décrire. C'est précisément l'angle retenu ici :
+            faire entrer leur influence dans le modèle dynamique global du fauteuil.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LE DÉROULÉ
+         ============================================================ -->
+    <section class="section">
+      <div class="wrap wrap--narrow">
+        <header class="section__head reveal" data-reveal="up">
+          <span class="section__num" aria-hidden="true">02</span>
+          <h2>Le déroulé</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <ol class="steps">
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">01</span>
+            <div class="step__body">
+              <h3>Analyse bibliographique</h3>
+              <p>
+                Le travail a démarré par un état de l'art des modèles dynamiques déjà publiés
+                sur ce type de système, afin de partir de bases établies plutôt que d'une page
+                blanche.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">02</span>
+            <div class="step__body">
+              <h3>Modèle dynamique intégrant les roues folles</h3>
+              <p>
+                Développement du modèle dynamique proprement dit, avec pour spécificité de
+                prendre en compte l'influence des roues folles sur la dynamique globale du
+                fauteuil — la contribution propre de ce travail.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">03</span>
+            <div class="step__body">
+              <h3>Modèle à commande prédictive</h3>
+              <p>
+                Sur cette base, développement d'un modèle à commande prédictive : au lieu de
+                réagir à l'écart constaté, la commande s'appuie sur le modèle pour anticiper le
+                comportement du fauteuil.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">04</span>
+            <div class="step__body">
+              <h3>Simulation sous MATLAB/Simulink</h3>
+              <p>
+                L'ensemble des modèles a été simulé sous MATLAB/Simulink, l'environnement qui
+                a servi de banc d'essai tout au long du projet.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">05</span>
+            <div class="step__body">
+              <h3>Rédaction d'un article scientifique</h3>
+              <p>
+                Le projet s'est conclu par la rédaction d'un article scientifique formalisant
+                la démarche et les résultats.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         OUTILS & MÉTHODES
+         ============================================================ -->
+    <section class="section">
+      <div class="wrap wrap--narrow">
+        <header class="section__head reveal" data-reveal="up">
+          <span class="section__num" aria-hidden="true">03</span>
+          <h2>Outils &amp; méthodes</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <div class="toolset">
+          <section class="skill reveal spotlight" data-reveal="up">
+            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Modélisation</h3>
+            <ul class="tags">
+              <li>Dynamique</li><li>Roues folles</li><li>Analyse bibliographique</li>
+            </ul>
+          </section>
+
+          <section class="skill reveal spotlight" data-reveal="up">
+            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Commande</h3>
+            <ul class="tags">
+              <li>Commande prédictive</li>
+            </ul>
+          </section>
+
+          <section class="skill reveal spotlight" data-reveal="up">
+            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-code"></use></svg> Simulation</h3>
+            <ul class="tags">
+              <li>MATLAB</li><li>Simulink</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PROJET SUIVANT
+         ============================================================ -->
+    <nav class="pnav" aria-label="Autres projets">
+      <div class="wrap pnav__inner">
+        <a class="pnav__link pnav__link--all" href="../index.html#projets">
+          <svg class="ico" aria-hidden="true"><use href="#i-back"></use></svg>
+          Tous les projets
+        </a>
+        <a class="pnav__link pnav__link--next magnetic" href="robot-agricole-rover.html">
+          <span>
+            <span class="pnav__k">Projet suivant</span>
+            <span class="pnav__v">Robot agricole autonome type rover</span>
+          </span>
+          <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+        </a>
+      </div>
+    </nav>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <p>© <span id="year">2026</span> Romain Lance</p>
+      <p class="footer__meta">Ingénieur Mécatronique &amp; Robotique — Hauts-de-France</p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/effects.js"></script>
+</body>
+</html>

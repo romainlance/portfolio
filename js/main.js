@@ -2,20 +2,23 @@
    Portfolio — Romain Lance
    Comportements de la page. Aucune dépendance : uniquement des API natives.
 
-   Le contenu vit dans index.html : ce fichier ne fait qu'ajouter des
+   Partagé par la page d'accueil et les pages projet. Chaque bloc vérifie la
+   présence de ses éléments : ce qui n'existe pas sur une page donnée est
+   simplement ignoré.
+
+   Le contenu vit dans le HTML : ce fichier ne fait qu'ajouter des
    comportements par-dessus. Si le JS ne se charge pas, la page reste
    entièrement lisible et navigable.
 
    Sommaire
    01. Thème clair / sombre
    02. Menu mobile
-   03. Ombre de la barre de navigation
-   04. Barre de progression de lecture
-   05. Apparitions au scroll
-   06. Section active dans la navigation
-   07. Copie de l'adresse e-mail
-   08. Formulaire de contact (mailto)
-   09. Année du pied de page
+   03. Barre de navigation et progression de lecture
+   04. Apparitions au scroll
+   05. Section active dans la navigation
+   06. Copie de l'adresse e-mail
+   07. Formulaire de contact (mailto)
+   08. Année du pied de page
    ========================================================================== */
 
 (function () {
@@ -84,14 +87,20 @@
   }
 
 
-  /* 03. OMBRE DE LA BARRE DE NAVIGATION
-     04. BARRE DE PROGRESSION DE LECTURE
+  /* 03. BARRE DE NAVIGATION ET PROGRESSION DE LECTURE
      ------------------------------------------------------------------------
-     Les deux dépendent du défilement : on les traite dans le même callback,
-     lissé par requestAnimationFrame pour ne pas saturer le thread principal. */
+     Les deux dépendent du défilement : même callback, lissé par
+     requestAnimationFrame pour ne pas saturer le thread principal. */
   var nav = document.getElementById('nav');
   var progressBar = document.getElementById('progressBar');
   var ticking = false;
+
+  // Les effets visuels s'abonnent ici plutôt que d'ajouter leur propre
+  // écouteur de scroll (voir js/effects.js).
+  var scrollHandlers = [];
+  window.portfolioOnScroll = function (fn) {
+    if (typeof fn === 'function') { scrollHandlers.push(fn); fn(); }
+  };
 
   function onScroll() {
     var y = window.scrollY;
@@ -106,6 +115,8 @@
 
     updateActiveSection();
 
+    for (var i = 0; i < scrollHandlers.length; i++) { scrollHandlers[i](); }
+
     ticking = false;
   }
 
@@ -117,23 +128,26 @@
   }, { passive: true });
 
 
-  /* 05. APPARITIONS AU SCROLL
+  /* 04. APPARITIONS AU SCROLL
      ------------------------------------------------------------------------
      La classe .reveal-ready n'est ajoutée que si IntersectionObserver existe.
      Sans elle, le CSS laisse tout le contenu visible : pas de page blanche
-     en cas d'échec du script. */
+     en cas d'échec du script.
+
+     La variante d'animation (translation, échelle) se choisit dans le HTML
+     via data-reveal ; le décalage en cascade est calculé ici. */
   var revealables = document.querySelectorAll('.reveal');
 
   if ('IntersectionObserver' in window && !prefersReducedMotion && revealables.length) {
     document.body.classList.add('reveal-ready');
 
-    // Décalage progressif entre éléments frères, pour une entrée en cascade
-    var groups = {};
+    // Décalage progressif entre éléments frères
+    var counters = new Map();
     revealables.forEach(function (el) {
-      var key = el.parentElement ? (el.parentElement.className || 'root') : 'root';
-      groups[key] = (groups[key] || 0);
-      el.style.setProperty('--i', Math.min(groups[key], 4));
-      groups[key] += 1;
+      var parent = el.parentElement || document.body;
+      var n = counters.get(parent) || 0;
+      el.style.setProperty('--i', Math.min(n, 5));
+      counters.set(parent, n + 1);
     });
 
     var revealObserver = new IntersectionObserver(function (entries) {
@@ -149,12 +163,14 @@
   }
 
 
-  /* 06. SECTION ACTIVE DANS LA NAVIGATION
+  /* 05. SECTION ACTIVE DANS LA NAVIGATION
      ------------------------------------------------------------------------
      Calcul déterministe à chaque frame de défilement : on compare la position
      de chaque section à une ligne fixe placée sous la barre de navigation.
      Plus prévisible qu'un IntersectionObserver, dont le résultat dépend de
-     l'ordre d'arrivée des entrées. */
+     l'ordre d'arrivée des entrées.
+
+     Sans liens d'ancre dans la barre (pages projet), la fonction ne fait rien. */
   var navAnchors = Array.prototype.slice.call(
     document.querySelectorAll('.nav__links a[href^="#"]')
   );
@@ -191,11 +207,8 @@
   // Le redimensionnement déplace les sections sans provoquer de scroll
   window.addEventListener('resize', updateActiveSection, { passive: true });
 
-  // Premier passage : barre de navigation, progression et section active
-  onScroll();
 
-
-  /* 07. COPIE DE L'ADRESSE E-MAIL
+  /* 06. COPIE DE L'ADRESSE E-MAIL
      ---------------------------------------------------------------------- */
   var copyBtn = document.getElementById('copyMail');
 
@@ -213,12 +226,6 @@
         }, 1800);
       }
 
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(value).then(confirmCopy).catch(fallbackCopy);
-      } else {
-        fallbackCopy();
-      }
-
       // Repli pour les navigateurs sans Clipboard API (ou en http://)
       function fallbackCopy() {
         var tmp = document.createElement('textarea');
@@ -231,14 +238,21 @@
         try { document.execCommand('copy'); confirmCopy(); } catch (e) { /* abandon silencieux */ }
         document.body.removeChild(tmp);
       }
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(value).then(confirmCopy).catch(fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
     });
   }
 
 
-  /* 08. FORMULAIRE DE CONTACT (MAILTO)
+  /* 07. FORMULAIRE DE CONTACT (MAILTO)
      ------------------------------------------------------------------------
-     Pas de backend : on assemble un lien mailto: et on laisse le client de
-     messagerie du visiteur prendre le relais. */
+     Pas de backend : on assemble un lien mailto: et on l'ouvre dans une
+     NOUVELLE fenêtre, pour que le portfolio reste affiché dans l'onglet
+     d'origine quoi qu'il arrive. */
   var form = document.getElementById('contactForm');
   var note = document.getElementById('formNote');
   var RECIPIENT = 'romain.lance@outlook.com';
@@ -271,10 +285,11 @@
         '?subject=' + encodeURIComponent(subject) +
         '&body=' + encodeURIComponent(body);
 
-      window.location.href = href;
+      window.open(href, '_blank', 'noopener');
 
       if (note) {
-        note.textContent = 'Votre messagerie devrait s\'ouvrir. Si rien ne se passe, écrivez directement à ' + RECIPIENT + '.';
+        note.textContent = 'Votre messagerie s\'ouvre dans une nouvelle fenêtre. ' +
+          'Si rien ne se passe, écrivez directement à ' + RECIPIENT + '.';
       }
     });
 
@@ -285,9 +300,13 @@
   }
 
 
-  /* 09. ANNÉE DU PIED DE PAGE
+  /* 08. ANNÉE DU PIED DE PAGE
      ---------------------------------------------------------------------- */
   var year = document.getElementById('year');
   if (year) { year.textContent = String(new Date().getFullYear()); }
+
+
+  // Premier passage : barre de navigation, progression et section active
+  onScroll();
 
 })();

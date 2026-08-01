@@ -60,10 +60,12 @@
 
       <a class="nav__back" href="../index.html#projets">
         <svg class="ico" aria-hidden="true"><use href="#i-back"></use></svg>
-        Tous les projets
+        <span class="nav__back-label">Tous les projets</span>
       </a>
 
       <div class="nav__actions">
+        <button class="icon-btn icon-btn--lang" id="langToggle" type="button"
+                aria-label="Switch to English" title="Switch to English">EN</button>
         <button class="icon-btn" id="qrToggle" type="button" aria-label="Afficher le QR code de la page" title="Ouvrir sur téléphone" aria-haspopup="dialog">
           <svg class="ico" aria-hidden="true"><use href="#i-qr"></use></svg>
         </button>
@@ -98,8 +100,9 @@
           </h1>
 
           <p class="phero__lede intro" data-intro="4">
-            Refroidir sans moteur, sans compresseur et sans électricité : toute la performance
-            se joue sur le dimensionnement.
+            Comment conserver des aliments au frais sans électricité ? Un projet d'intégration
+            mené à dix, qui part d'une question sociale concrète pour aboutir à un réfrigérateur
+            sans moteur, sans batterie et sans fluide frigorigène.
           </p>
 
           <ul class="phero__meta intro" data-intro="5">
@@ -111,7 +114,7 @@
             <li>
               <svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg>
               <span class="phero__k">Équipe</span>
-              <span class="phero__v">8 étudiants</span>
+              <span class="phero__v">10 étudiants</span>
             </li>
             <li>
               <svg class="ico" aria-hidden="true"><use href="#i-cap"></use></svg>
@@ -151,21 +154,129 @@
 
         <div class="prose reveal" data-reveal="up">
           <p>
-            Premier projet d'équipe de mon cursus à Junia HEI, mené dans le cadre PISTE à huit
-            étudiants, sur les années 2023 et 2024.
+            Premier projet d'équipe de mon cursus, mené dans le cadre PISTE — Projet d'Intégration
+            Scientifique, Technologique et Économique — à dix étudiants, sur 2023 et 2024.
           </p>
           <p>
-            Le sujet : un système de refroidissement <strong>passif</strong>, c'est-à-dire sans
-            compresseur, sans moteur et sans apport d'énergie extérieur. Le refroidissement
-            repose sur l'évaporation — l'eau qui s'évapore prélève de la chaleur au milieu
-            qu'elle quitte, et c'est cette chaleur en moins qui fait baisser la température à
-            l'intérieur de l'enceinte.
+            Le sujet posé : comment aider les personnes à conserver des aliments au frais sans
+            électricité ? La question n'a rien d'abstrait — elle concerne les zones privées de
+            réseau et les foyers pour qui un réfrigérateur reste hors de portée.
           </p>
           <p>
-            Sans source d'énergie à ajuster, il ne reste qu'un levier : la conception elle-même.
-            Le travail a donc porté sur la conception et la modélisation du système.
+            Trois pistes ont été étudiées : le réfrigérateur enterré et le puits canadien, tous
+            deux géothermiques, et le frigo du désert. Les deux premières laissant peu de marge
+            d'amélioration réelle, le groupe s'est concentré sur la troisième.
           </p>
         </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LE PRINCIPE
+         ============================================================ -->
+    <section class="section">
+      <div class="wrap wrap--narrow">
+        <header class="section__head reveal" data-reveal="up">
+          <span class="section__num" aria-hidden="true">02</span>
+          <h2>Le principe</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <div class="prose reveal" data-reveal="up">
+          <p>
+            Le frigo du désert, aussi appelé canari frigo, a été conçu dans les années 1990 par
+            l'universitaire nigérian Mohammed Bah Abba. Il ne demande ni moteur, ni batterie, ni
+            fluide frigorigène.
+          </p>
+          <p>
+            Son fonctionnement tient à l'évaporation : l'eau qui s'évapore prélève de la chaleur au
+            milieu qu'elle quitte, et c'est cette chaleur en moins qui fait baisser la température
+            à l'intérieur de l'enceinte. Sans source d'énergie à ajuster, il ne reste qu'un levier,
+            la conception elle-même.
+          </p>
+        </div>
+
+        <div class="specs reveal" data-reveal="up">
+          <div class="spec">
+            <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg> Fruits et légumes</span>
+            <span class="spec__v">2 à 10 °C, pour ralentir la maturation sans provoquer de dégâts au froid</span>
+          </div>
+          <div class="spec">
+            <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg> Produits laitiers</span>
+            <span class="spec__v">0 à 4 °C</span>
+          </div>
+          <div class="spec">
+            <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg> Viande et poisson</span>
+            <span class="spec__v">Au plus près de 0 °C</span>
+          </div>
+          <div class="spec">
+            <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Contrainte</span>
+            <span class="spec__v">Aucune alimentation électrique, aucune pièce mobile</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LA DÉMARCHE
+         ============================================================ -->
+    <section class="section">
+      <div class="wrap wrap--narrow">
+        <header class="section__head reveal" data-reveal="up">
+          <span class="section__num" aria-hidden="true">03</span>
+          <h2>La démarche</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <ol class="steps">
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">01</span>
+            <div class="step__body">
+              <h3>Cadrage du besoin</h3>
+              <p>
+                Identification des besoins, définition des objectifs et rédaction du cahier des
+                charges, y compris les températures cibles par famille d'aliments, qui fixent la
+                performance à atteindre.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">02</span>
+            <div class="step__body">
+              <h3>Étude des solutions existantes</h3>
+              <p>
+                Comparaison du réfrigérateur enterré, du puits canadien et du frigo du désert.
+                La consigne de l'encadrant était nette : proposer une amélioration tangible plutôt
+                qu'un exposé de concepts.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">03</span>
+            <div class="step__body">
+              <h3>Conception et modélisation</h3>
+              <p>
+                Conception et modélisation du système de refroidissement passif, avec pour angle
+                d'amélioration le choix des matériaux — c'est là que se joue l'essentiel de la
+                performance d'un dispositif sans apport d'énergie.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">04</span>
+            <div class="step__body">
+              <h3>Prototype et conduite de projet</h3>
+              <p>
+                Planification, répartition des responsabilités, identification des risques et suivi
+                de l'avancement jusqu'à la clôture du projet. À dix, s'accorder sur des hypothèses
+                communes avant de calculer quoi que ce soit était une part entière du travail.
+              </p>
+            </div>
+          </li>
+        </ol>
       </div>
     </section>
 
@@ -175,55 +286,39 @@
     <section class="section">
       <div class="wrap wrap--narrow">
         <header class="section__head reveal" data-reveal="up">
-          <span class="section__num" aria-hidden="true">02</span>
+          <span class="section__num" aria-hidden="true">04</span>
           <h2>Ce que j'en retiens</h2>
           <span class="section__rule" aria-hidden="true"></span>
         </header>
 
         <div class="prose reveal" data-reveal="up">
           <p>
-            C'est le projet qui m'a fait découvrir le travail d'ingénierie en équipe : huit
-            personnes, un objet à concevoir, et la nécessité de s'accorder sur des hypothèses
-            communes avant de calculer quoi que ce soit.
-          </p>
-          <p>
-            Il m'a aussi appris qu'un système sans énergie d'appoint ne pardonne rien : chaque
-            paramètre de conception se retrouve directement dans la performance finale.
+            C'est le projet qui m'a fait découvrir le travail d'ingénierie en équipe, et la
+            différence entre une bonne idée et une solution défendable : un système sans énergie
+            d'appoint ne pardonne rien, chaque paramètre de conception se retrouve directement dans
+            la performance finale.
           </p>
         </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         OUTILS & MÉTHODES
-         ============================================================ -->
-    <section class="section">
-      <div class="wrap wrap--narrow">
-        <header class="section__head reveal" data-reveal="up">
-          <span class="section__num" aria-hidden="true">03</span>
-          <h2>Outils &amp; méthodes</h2>
-          <span class="section__rule" aria-hidden="true"></span>
-        </header>
 
         <div class="toolset">
           <section class="skill reveal spotlight tilt" data-reveal="up">
             <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Thermique</h3>
             <ul class="tags">
-              <li>Refroidissement passif</li><li>Évaporation</li>
+              <li>Refroidissement passif</li><li>Évaporation</li><li>Choix des matériaux</li>
             </ul>
           </section>
 
           <section class="skill reveal spotlight tilt" data-reveal="up">
             <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-flask"></use></svg> Démarche</h3>
             <ul class="tags">
-              <li>Conception</li><li>Modélisation</li>
+              <li>Cahier des charges</li><li>Conception</li><li>Modélisation</li><li>Prototypage</li>
             </ul>
           </section>
 
           <section class="skill reveal spotlight tilt" data-reveal="up">
             <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Organisation</h3>
             <ul class="tags">
-              <li>Travail en équipe de 8</li>
+              <li>Équipe de 10</li><li>Planification</li><li>Gestion des risques</li>
             </ul>
           </section>
         </div>
@@ -288,5 +383,6 @@
   <script src="../js/qr.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/effects.js"></script>
+  <script src="../js/i18n.js"></script>
 </body>
 </html>

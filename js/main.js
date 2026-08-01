@@ -287,9 +287,15 @@
         var quiet = 2;                       // marge silencieuse, en modules
         var span = code.size + quiet * 2;
 
+        // Le code est tracé à la demande : le libellé suit la langue affichée
+        // au moment du tracé, sans passer par le dictionnaire (l'URL varie).
+        var label = document.documentElement.lang === 'en'
+          ? 'QR code to ' + url
+          : 'QR code vers ' + url;
+
         var parts = [
           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + span + ' ' + span +
-          '" role="img" aria-label="QR code vers ' + url + '">',
+          '" role="img" aria-label="' + label + '">',
           '<rect width="' + span + '" height="' + span + '" fill="#ffffff"/>'
         ];
         for (var y = 0; y < code.size; y++) {

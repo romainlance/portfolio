@@ -86,11 +86,32 @@ a { color: inherit; text-decoration: none; }
 
 button, input, textarea { font: inherit; color: inherit; }
 
+/* Le liseré de focus épouse l'arrondi propre de l'élément : forcer un rayon
+   ici redresserait les boutons et les cartes au moment même où on les
+   sélectionne au clavier. */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 2px;
 }
+
+/* Sélection de texte : même teinte d'accent que le reste du site, plutôt que
+   le bleu système. */
+::selection {
+  background: var(--accent-wash);
+  color: var(--ink);
+}
+
+/* Barre de défilement discrète, accordée au thème actif. */
+* { scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background: var(--line-2);
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent); background-clip: content-box; }
 
 .skip-link {
   position: absolute;
@@ -540,6 +561,20 @@ body::before {
 [data-theme='light'] .icon-moon,
 [data-theme='dark'] .icon-sun { display: none; }
 
+/* Bascule de langue : le seul bouton de la barre qui porte du texte plutôt
+   qu'une icône. Largeur libre pour accueillir « EN » comme « FR », et police
+   monospace pour que les deux libellés occupent exactement la même place. */
+.icon-btn--lang {
+  width: auto;
+  padding-inline: .6rem;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .09em;
+  color: var(--muted);
+}
+.icon-btn--lang:hover { color: var(--accent); }
+
 .nav__burger { display: none; }
 
 
@@ -650,42 +685,60 @@ body::before {
 }
 .hero__social a:hover { color: var(--accent); }
 
-/* Indicateur de défilement, en bas du hero */
+/* Invitation au défilement : une molette qui descend puis deux chevrons qui
+   se relaient. C'est un vrai lien vers la première section, pas un décor. */
 .hero__scroll {
   position: relative;
   z-index: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: .7rem;
-  width: min(100% - 2.5rem, var(--wrap));
-  margin: clamp(2rem, 5vw, 3.5rem) auto 0;
-}
-.hero__scroll-line {
-  position: relative;
-  width: 62px;
-  height: 1px;
-  background: var(--line-2);
-  overflow: hidden;
-}
-/* Un segment d'accent parcourt le trait en boucle */
-.hero__scroll-line::after {
-  content: '';
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 40%;
-  background: var(--accent);
-  animation: scrollHint 2.4s ease-in-out infinite;
-}
-@keyframes scrollHint {
-  0%, 100% { transform: translateX(-110%); }
-  50%      { transform: translateX(180%); }
-}
-.hero__scroll-label {
-  font-family: var(--font-mono);
-  font-size: .68rem;
-  letter-spacing: .16em;
-  text-transform: uppercase;
+  gap: .5rem;
+  width: fit-content;
+  margin: clamp(2rem, 5vw, 3.2rem) auto 0;
+  padding: .4rem;
   color: var(--muted);
+  transition: color .25s ease, transform .35s var(--ease-out);
+}
+.hero__scroll:hover { color: var(--accent); transform: translateY(3px); }
+
+.hero__mouse {
+  position: relative;
+  width: 22px;
+  height: 34px;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  opacity: .75;
+}
+.hero__wheel {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  width: 3px;
+  height: 6px;
+  margin-left: -1.5px;
+  border-radius: 999px;
+  background: currentColor;
+  animation: wheelDrift 2.1s ease-in-out infinite;
+}
+@keyframes wheelDrift {
+  0%, 100% { transform: translateY(0);   opacity: 0; }
+  25%      {                             opacity: 1; }
+  70%      { transform: translateY(11px); opacity: 0; }
+}
+
+.hero__chevrons { display: grid; gap: 0; line-height: 0; }
+.hero__chevrons .ico {
+  width: 15px;
+  height: 15px;
+  stroke-width: 2;
+  opacity: 0;
+  animation: chevronFade 2.1s ease-in-out infinite;
+}
+.hero__chevrons .ico:nth-child(2) { margin-top: -7px; animation-delay: .22s; }
+@keyframes chevronFade {
+  0%, 100% { opacity: 0; transform: translateY(-3px); }
+  45%      { opacity: .9; transform: translateY(0); }
 }
 
 /* --- Aperçu du CV ---
@@ -715,21 +768,6 @@ body::before {
 }
 [data-theme='dark'] .cv__page { filter: brightness(.9) contrast(1.02); }
 .cv:hover .cv__page { transform: scale(1.015); }
-
-/* Repères de coupe, rentrés pour suivre l'arrondi du bloc */
-.cv__corner {
-  position: absolute;
-  z-index: 2;
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--accent);
-  transition: width .35s var(--ease-out), height .35s var(--ease-out);
-}
-.cv:hover .cv__corner { width: 28px; height: 28px; }
-.cv__corner--tl { top: 7px; left: 7px; border-right: 0; border-bottom: 0; border-top-left-radius: 8px; }
-.cv__corner--tr { top: 7px; right: 7px; border-left: 0; border-bottom: 0; border-top-right-radius: 8px; }
-.cv__corner--bl { bottom: 7px; left: 7px; border-right: 0; border-top: 0; border-bottom-left-radius: 8px; }
-.cv__corner--br { bottom: 7px; right: 7px; border-left: 0; border-top: 0; border-bottom-right-radius: 8px; }
 
 /* Ligne de balayage, clin d'œil aux bancs de mesure */
 .cv__scan {
@@ -819,12 +857,9 @@ body::before {
 
 /* 11. À PROPOS
    -------------------------------------------------------------------------- */
-.about {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, .5fr);
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: start;
-}
+/* Une seule colonne depuis le retrait des chiffres clés : la mesure de ligne
+   est bridée pour rester confortable à lire. */
+.about__text { max-width: 74ch; }
 
 .about__text p + p { margin-top: 1rem; }
 .about__text p { color: var(--muted); }
@@ -840,43 +875,56 @@ body::before {
 
 .about__text strong { color: var(--ink); }
 
-.stats { display: grid; gap: .6rem; }
-.stats li {
-  display: flex;
-  align-items: baseline;
-  gap: .6rem;
-  padding: 1.1rem 1.2rem;
+/* La ligne de disponibilité est la seule information actionnable de la
+   section : elle sort du texte courant sur une plaque de verre, reprenant le
+   point clignotant déjà présent dans le hero. */
+.about .avail {
+  position: relative;
+  margin-top: 1.8rem;
+  padding: 1rem 1.3rem 1rem 2.7rem;
   border-radius: var(--radius-lg);
-  transition: border-color .25s ease, box-shadow .3s ease;
+  border: 1px solid var(--glass-edge);
+  background: var(--glass-fill), var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow-stack);
+  color: var(--ink);
+  transition: border-color .3s ease, transform .4s var(--ease-out);
 }
-.stats li:hover { border-color: var(--accent); }
+.about .avail:hover { border-color: var(--accent); transform: translateY(-2px); }
 
-.stats__ico {
-  font-size: 1rem;
-  color: var(--accent);
-  align-self: center;
+/* Point posé en absolu plutôt qu'en flex : le paragraphe doit rester un
+   paragraphe, sinon `décembre 2026` — qui est un <strong> — deviendrait une
+   colonne à part au lieu de rester dans la phrase.
+   1 rem de marge haute + une demi-hauteur de ligne cale le point sur la
+   première ligne de texte. */
+/* Sélecteur volontairement plus spécifique que `.spotlight > *`, qui repasse
+   sinon le point en position relative. */
+.about .avail__dot {
+  position: absolute;
+  left: 1.3rem;
+  top: 1rem;
+  margin-top: calc(.83em - 3.5px);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--signal);
+  animation: pulse 2.6s ease-out infinite;
 }
-.stats__num {
-  font-family: var(--font-title);
-  font-size: 1.9rem;
-  font-weight: 700;
-  color: var(--accent);
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-.stats__label { font-size: .84rem; color: var(--muted); }
-
 
 /* 12. TIMELINE (PARCOURS)
    -------------------------------------------------------------------------- */
 .timeline { position: relative; display: grid; gap: 0; }
 
 /* Rail principal + remplissage progressif piloté au défilement */
+/* Le nœud d'une expérience occupe 147→156 px (bord gauche du corps à 152 px,
+   décalé de -5 px, 9 px de large) : son centre tombe donc à 151,5 px. Le rail
+   fait 1 px de large et doit partager ce centre, d'où `left: 151px`. */
 .timeline__rail {
   position: absolute;
   top: .5rem;
   bottom: 1rem;
-  left: 152px;
+  left: 151px;
   width: 1px;
   background: var(--line);
 }
@@ -886,7 +934,9 @@ body::before {
   height: 0;
   background: var(--accent);
   box-shadow: 0 0 10px var(--accent-glow);
-  transition: height .15s linear;
+  /* La hauteur se cale sur les nœuds, pas sur une proportion continue : la
+     transition adoucit ce passage d'un point au suivant. */
+  transition: height .45s var(--ease-out);
 }
 
 /* Chaque expérience est cliquable : le clic la recentre à l'écran
@@ -1179,6 +1229,10 @@ body::before {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
   gap: clamp(1.6rem, 3.5vw, 2.6rem);
+  /* Chaque panneau s'arrête à son contenu. Étirés à la hauteur de la rangée,
+     les blocs courts se terminaient sur un grand vide de verre — plus visible
+     encore que la dénivellation entre les cartes. */
+  align-items: start;
 }
 
 .skill {
@@ -1549,7 +1603,6 @@ body::before {
 /* Panneaux : verre complet, flou d'arrière-plan et ombre portée */
 .pcard,
 .skill,
-.stats li,
 .contact__form,
 .cv,
 .edu__item,
@@ -1591,7 +1644,6 @@ body::before {
 
 /* Le survol creuse le relief plutôt que de changer la couleur du fond */
 .pcard:hover,
-.stats li:hover,
 .pnav__link--next:hover {
   box-shadow:
     inset 0 1px 0 0 var(--glass-sheen),
@@ -1601,7 +1653,6 @@ body::before {
 
 /* --- Arrondis --- */
 .skill,
-.stats li,
 .cv,
 .edu__item,
 .interests,
@@ -1786,25 +1837,6 @@ body::before {
 [data-hint]:hover::after,
 [data-hint]:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }
 
-/* Affordance de recentrage, révélée au survol d'une expérience */
-.tl__meta::after {
-  content: 'Centrer';
-  font-family: var(--font-mono);
-  font-size: .62rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  opacity: 0;
-  transform: translateY(-3px);
-  transition: opacity .3s ease, transform .3s var(--ease-out);
-}
-.tl:hover .tl__meta::after,
-.tl:focus-visible .tl__meta::after { opacity: 1; transform: none; }
-
-/* Le chiffre-clé reprend du relief quand on le survole */
-.stats li:hover .stats__num { transform: scale(1.08); }
-.stats__num { display: inline-block; transition: transform .3s var(--ease-out); }
-
 /* Le lien social se souligne progressivement */
 .hero__social a {
   background-image: linear-gradient(var(--accent), var(--accent));
@@ -1900,9 +1932,6 @@ body::before {
   .cv { max-width: 300px; }
 
   .about { grid-template-columns: 1fr; }
-  .stats { grid-template-columns: repeat(3, 1fr); }
-  .stats li { flex-direction: column; gap: .2rem; align-items: flex-start; }
-  .stats__ico { align-self: flex-start; }
 
   .contact { grid-template-columns: 1fr; }
 }
@@ -1952,13 +1981,40 @@ body::before {
 
   .contact__list li { grid-template-columns: 1fr; gap: .15rem; }
 
-  .stats { grid-template-columns: 1fr; }
-  .stats li { flex-direction: row; align-items: baseline; }
-  .stats__ico { align-self: center; }
 
   /* Le monogramme suffit à identifier la marque sur mobile : masquer le nom
      écrit libère la place nécessaire au lien de retour des pages projet. */
   .nav__name { display: none; }
+}
+
+/* Écrans étroits : la barre des pages projet porte le monogramme, le lien de
+   retour et trois boutons. En dessous de ~420 px, le tout ne tient plus : le
+   libellé du retour est masqué à l'œil — mais laissé aux lecteurs d'écran —
+   et l'espacement de la barre se resserre. */
+@media (max-width: 420px) {
+  .nav__inner { gap: .75rem; }
+
+  .nav__back-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  /* Sans libellé, le lien reprend l'habillage des boutons de la barre : une
+     flèche nue à côté de trois pastilles se lisait comme un oubli. */
+  .nav__back {
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius);
+    border: 1px solid var(--glass-edge);
+    background: var(--glass-fill), var(--glass-bg);
+  }
+  .nav__back:hover { gap: .45rem; border-color: var(--accent); }
 }
 
 /* Très petits écrans : on protège le titre du hero */

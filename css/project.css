@@ -55,6 +55,7 @@
 /* Numéro de projet, encadré comme une référence de plan */
 .phero__num {
   padding: .15rem .5rem;
+  white-space: nowrap;   /* « Projet 01 » ne se coupe pas sur petit écran */
   border: 1px solid var(--line-2);
   border-radius: var(--radius-sm);
   color: var(--accent);
@@ -130,6 +131,44 @@
   text-transform: uppercase;
   color: var(--muted);
 }
+
+
+/* Fiche de caractéristiques : chiffres et contraintes d'un projet, présentés
+   en paires clé/valeur sur la même matière de verre que le reste du site. */
+.specs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: .6rem;
+  margin-top: 2rem;
+}
+.spec {
+  display: grid;
+  gap: .3rem;
+  padding: .9rem 1.1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-edge);
+  background: var(--glass-fill), var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow:
+    inset 0 1px 0 0 var(--glass-sheen),
+    inset 0 -1px 0 0 var(--glass-shade);
+  transition: border-color .25s ease;
+}
+.spec:hover { border-color: var(--accent); }
+
+.spec__k {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.spec__k .ico { color: var(--accent); width: 1.15em; height: 1.15em; }
+.spec__v { font-size: .9rem; line-height: 1.45; color: var(--ink); }
 
 
 /* 02. TEXTE COURANT

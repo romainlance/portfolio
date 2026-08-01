@@ -60,10 +60,12 @@
 
       <a class="nav__back" href="../index.html#projets">
         <svg class="ico" aria-hidden="true"><use href="#i-back"></use></svg>
-        Tous les projets
+        <span class="nav__back-label">Tous les projets</span>
       </a>
 
       <div class="nav__actions">
+        <button class="icon-btn icon-btn--lang" id="langToggle" type="button"
+                aria-label="Switch to English" title="Switch to English">EN</button>
         <button class="icon-btn" id="qrToggle" type="button" aria-label="Afficher le QR code de la page" title="Ouvrir sur téléphone" aria-haspopup="dialog">
           <svg class="ico" aria-hidden="true"><use href="#i-qr"></use></svg>
         </button>
@@ -98,8 +100,9 @@
           </h1>
 
           <p class="phero__lede intro" data-intro="4">
-            Prendre un robot agricole vendu clé en main, l'ouvrir, et le rendre pilotable par
-            des chercheurs — jusqu'à ce qu'il se déplace seul.
+            Le Dino de Naïo Technologies est une plateforme de désherbage commerciale, fermée.
+            Tout l'enjeu : reconstituer son fonctionnement pour le rouvrir en robot de recherche
+            programmable, sans toucher à ses sécurités d'origine.
           </p>
 
           <ul class="phero__meta intro" data-intro="5">
@@ -156,21 +159,44 @@
 
         <div class="prose reveal" data-reveal="up">
           <p>
-            Stage de fin d'études de six mois au sein d'INIT&nbsp;Robots, laboratoire de recherche
-            à Montréal, en 2026.
+            Stage de fin d'études de six mois au laboratoire INIT&nbsp;Robots, à Montréal, mené avec
+            l'appui d'un technicien du laboratoire pour l'intégration matérielle et d'un doctorant
+            en robotique agricole et navigation autonome.
           </p>
           <p>
-            Le point de départ est un <strong>robot agricole commercial</strong> : une machine
-            conçue pour faire une chose et la faire bien, mais pensée pour être utilisée, pas
-            pour être ouverte. Un laboratoire, lui, a besoin de l'inverse — pouvoir remplacer
-            n'importe quelle brique, brancher ses propres algorithmes, observer ce qui se passe
-            entre la commande et la roue.
+            Le <strong>Dino</strong> est un robot de désherbage mécanique conçu par Naïo
+            Technologies. Comme beaucoup de systèmes industriels, c'est une plateforme fermée :
+            son architecture interne, ses protocoles et ses méthodes de commande ne sont pas
+            documentés pour être modifiés de l'extérieur.
           </p>
           <p>
-            La mission consistait donc à transformer ce robot en <strong>plateforme ouverte de
-            recherche sous ROS&nbsp;2</strong> : reprendre la main sur ses actionneurs, puis
-            reconstruire par-dessus une chaîne de commande complète.
+            L'objectif est de conserver toute la mécanique et l'électromécanique existantes — qui
+            fonctionnent — et de remplacer la seule couche de commande propriétaire par une
+            architecture ROS&nbsp;2 ouverte. Une contrainte structure tout le projet :
+            <strong>l'automate de sécurité doit rester indépendant du nouveau logiciel</strong>.
+            L'ordinateur de bord peut demander un mouvement, jamais empêcher l'automate de couper
+            l'alimentation.
           </p>
+        </div>
+
+        <!-- Fiche matérielle : ce qu'il faut piloter -->
+        <div class="specs reveal" data-reveal="up">
+          <div class="spec">
+            <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Traction</span>
+            <span class="spec__v">4 roues motrices indépendantes, moteurs à courant continu et freins électromagnétiques</span>
+          </div>
+          <div class="spec">
+            <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-route"></use></svg> Direction</span>
+            <span class="spec__v">4 actionneurs linéaires — soit 8 articulations commandées au total</span>
+          </div>
+          <div class="spec">
+            <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-chip"></use></svg> Perception</span>
+            <span class="spec__v">2 Lidars, GPS, centrale inertielle, retours de position et de vitesse des actionneurs</span>
+          </div>
+          <div class="spec">
+            <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg> Sécurité</span>
+            <span class="spec__v">Automate dédié : arrêts d'urgence, bumpers, réarmement, sélecteur à clé, état des freins</span>
+          </div>
         </div>
       </div>
     </section>
@@ -190,10 +216,12 @@
           <li class="step reveal" data-reveal="up">
             <span class="step__num" aria-hidden="true">01</span>
             <div class="step__body">
-              <h3>Ouverture de la plateforme</h3>
+              <h3>Rétro-ingénierie du bus CAN</h3>
               <p>
-                Transformation du robot agricole commercial en plateforme ouverte de recherche
-                sous ROS&nbsp;2 — le socle sur lequel tout le reste vient se greffer.
+                Partir du système fini pour en reconstruire l'architecture : schémas électriques,
+                nomenclature, observation du robot, puis écoute du réseau au CAN-sniffer. Comparer
+                les trames à l'arrêt et en mouvement, envoyer des commandes contrôlées, observer la
+                réaction, recouper avec les mesures physiques.
               </p>
             </div>
           </li>
@@ -201,11 +229,13 @@
           <li class="step reveal" data-reveal="up">
             <span class="step__num" aria-hidden="true">02</span>
             <div class="step__body">
-              <h3>Modèle cinématique</h3>
+              <h3>Rédaction de l'ICD</h3>
               <p>
-                Conception et implémentation du modèle cinématique commandant les actionneurs
-                du robot : la traduction entre un déplacement demandé et ce que chaque
-                actionneur doit faire pour l'obtenir.
+                Se brancher sur le bus ne suffit pas : encore faut-il comprendre chaque message.
+                L'<em>Interface Control Document</em> consigne, pour chaque trame, l'identifiant,
+                l'émetteur, la longueur, la fréquence, la signification de chaque octet, le facteur
+                d'échelle, l'unité et les codes d'erreur. C'est ce document qui rend le réseau
+                propriétaire exploitable.
               </p>
             </div>
           </li>
@@ -213,11 +243,12 @@
           <li class="step reveal" data-reveal="up">
             <span class="step__num" aria-hidden="true">03</span>
             <div class="step__body">
-              <h3>Interface matérielle ROS 2 ↔ CAN</h3>
+              <h3>Passerelle ROS 2 ↔ CAN</h3>
               <p>
-                Conception et intégration de l'interface matérielle reliant l'architecture
-                ROS&nbsp;2 au réseau CAN embarqué du robot — la passerelle par laquelle les
-                messages logiciels deviennent des ordres électriques.
+                Un nouvel ordinateur de bord sous ROS&nbsp;2 est relié au bus principal via une
+                interface USB-CAN, déployée sur un Raspberry&nbsp;Pi dédié. La passerelle ne décide
+                rien : elle traduit, dans les deux sens, entre le monde informatique et le réseau
+                temps réel du robot.
               </p>
             </div>
           </li>
@@ -225,15 +256,100 @@
           <li class="step reveal" data-reveal="up">
             <span class="step__num" aria-hidden="true">04</span>
             <div class="step__body">
-              <h3>Pilotage manuel, puis navigation autonome</h3>
+              <h3>Couche d'abstraction</h3>
               <p>
-                Conception et intégration du contrôle manuel d'abord, de la navigation autonome
-                ensuite. Dans cet ordre : tant qu'on ne sait pas conduire la machine à la main,
-                on ne peut pas juger ce que fait l'algorithme à sa place.
+                Aucun nœud ROS&nbsp;2 n'envoie d'octets CAN directement. Le contrôleur raisonne en
+                grandeurs physiques — une vitesse en rad/s, un angle en degrés — et un driver
+                unique se charge de la conversion. L'ICD reste ainsi centralisé dans un seul
+                paquet, et le passage de la simulation au robot réel ne change qu'une brique.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">05</span>
+            <div class="step__body">
+              <h3>Contrôleur cinématique 4WD–4WS</h3>
+              <p>
+                Le Dino n'est pas un robot différentiel : chaque roue a sa vitesse et son angle
+                propres. Une consigne (v<sub>x</sub>, v<sub>y</sub>, ω) doit devenir huit consignes
+                — quatre vitesses de roue et quatre angles de direction. Ce contrôleur ouvre trois
+                modes de déplacement : opposé, crabe et pivot.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">06</span>
+            <div class="step__body">
+              <h3>Jumeau numérique sous Gazebo</h3>
+              <p>
+                Avant tout essai réel, une simulation reprenant le modèle mécanique, les huit
+                articulations, les masses et inerties, les collisions et les capteurs. Elle sert à
+                vérifier ce qui coûte cher à découvrir sur le terrain : signe des vitesses, sens de
+                rotation, conventions d'angle, limites articulaires.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">07</span>
+            <div class="step__body">
+              <h3>Téléopération, GPS et arrêt d'urgence sans fil</h3>
+              <p>
+                Pilotage manuel à la manette Bluetooth pour les phases de test et de calibration,
+                intégration du GPS pour le suivi de trajectoire en extérieur, et conception d'un
+                arrêt d'urgence sans fil pour sécuriser les essais. Tant qu'on ne sait pas conduire
+                la machine à la main, on ne peut pas juger ce qu'un algorithme fait à sa place.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">08</span>
+            <div class="step__body">
+              <h3>Barrière logicielle</h3>
+              <p>
+                Avant émission, chaque commande passe par les limites cinématiques, l'état des
+                dispositifs de sécurité, puis les bornes de vitesse, de courant et de position.
+                Elle n'est convertie en trame CAN que si toutes les conditions sont réunies — les
+                protections matérielles d'origine restant, elles, intactes et prioritaires.
               </p>
             </div>
           </li>
         </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CE QUE DEVIENT LE ROBOT
+         ============================================================ -->
+    <section class="section">
+      <div class="wrap wrap--narrow">
+        <header class="section__head reveal" data-reveal="up">
+          <span class="section__num" aria-hidden="true">03</span>
+          <h2>Ce que devient le robot</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <div class="prose reveal" data-reveal="up">
+          <p>
+            Au terme du projet, le Dino n'est plus seulement un robot de désherbage : c'est une
+            plateforme expérimentale dotée d'un ordinateur de bord moderne, d'une architecture
+            ROS&nbsp;2 modulaire, d'une interface CAN documentée, d'un contrôleur 4WD–4WS, d'un
+            jumeau numérique et d'une navigation autonome.
+          </p>
+          <p>
+            L'intérêt de la démarche tient en une phrase : réutiliser une base mécanique
+            industrielle déjà éprouvée, et ne remplacer que ce qui limitait son usage — le
+            logiciel.
+          </p>
+        </div>
+
+        <ul class="tags reveal" data-reveal="up">
+          <li>Navigation autonome</li><li>Localisation GPS–IMU–Lidar</li>
+          <li>Contrôle 4 roues directrices</li><li>Perception</li><li>Diagnostic</li>
+        </ul>
       </div>
     </section>
 
@@ -243,7 +359,7 @@
     <section class="section">
       <div class="wrap wrap--narrow">
         <header class="section__head reveal" data-reveal="up">
-          <span class="section__num" aria-hidden="true">03</span>
+          <span class="section__num" aria-hidden="true">04</span>
           <h2>Outils &amp; méthodes</h2>
           <span class="section__rule" aria-hidden="true"></span>
         </header>
@@ -252,21 +368,24 @@
           <section class="skill reveal spotlight tilt" data-reveal="up">
             <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Robotique</h3>
             <ul class="tags">
-              <li>ROS 2</li><li>Robotique mobile</li><li>Navigation autonome</li><li>Contrôle manuel</li>
+              <li>ROS 2</li><li>Nœuds &amp; topics</li><li>Cinématique 4WD–4WS</li>
+              <li>Gazebo</li><li>Navigation autonome</li><li>Téléopération</li>
             </ul>
           </section>
 
           <section class="skill reveal spotlight tilt" data-reveal="up">
             <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-chip"></use></svg> Embarqué</h3>
             <ul class="tags">
-              <li>Réseau CAN</li><li>Interface matérielle</li><li>Actionneurs</li>
+              <li>Bus CAN</li><li>SocketCAN</li><li>USB-CAN</li><li>Raspberry Pi</li>
+              <li>CAN-sniffer</li><li>Linux</li>
             </ul>
           </section>
 
           <section class="skill reveal spotlight tilt" data-reveal="up">
-            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Modélisation</h3>
+            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-doc"></use></svg> Méthode</h3>
             <ul class="tags">
-              <li>Cinématique</li>
+              <li>Rétro-ingénierie</li><li>ICD</li><li>Couche d'abstraction</li>
+              <li>Sécurité fonctionnelle</li>
             </ul>
           </section>
         </div>
@@ -331,5 +450,6 @@
   <script src="../js/qr.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/effects.js"></script>
+  <script src="../js/i18n.js"></script>
 </body>
 </html>

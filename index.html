@@ -99,6 +99,8 @@
       </nav>
 
       <div class="nav__actions">
+        <button class="icon-btn icon-btn--lang" id="langToggle" type="button"
+                aria-label="Switch to English" title="Switch to English">EN</button>
         <button class="icon-btn" id="qrToggle" type="button" aria-label="Afficher le QR code du site" title="Ouvrir sur téléphone" aria-haspopup="dialog">
           <svg class="ico" aria-hidden="true"><use href="#i-qr"></use></svg>
         </button>
@@ -138,11 +140,6 @@
 
           <p class="hero__role intro" data-intro="4">Ingénieur Junior — Mécatronique &amp;&nbsp;Robotique</p>
 
-          <p class="hero__pitch intro" data-intro="5">
-            Faire tenir ensemble la mécanique, l'électronique et le logiciel,
-            jusqu'à ce qu'une machine finisse par avancer toute seule.
-          </p>
-
           <div class="hero__cta intro" data-intro="6">
             <a class="btn btn--primary magnetic" href="#contact">
               Me contacter
@@ -172,11 +169,6 @@
         <aside class="hero__plate intro" data-intro="4">
           <a class="cv tilt" id="cvCard"
              href="assets/cv-romain-lance.pdf" target="_blank" rel="noopener noreferrer">
-            <span class="cv__corner cv__corner--tl" aria-hidden="true"></span>
-            <span class="cv__corner cv__corner--tr" aria-hidden="true"></span>
-            <span class="cv__corner cv__corner--bl" aria-hidden="true"></span>
-            <span class="cv__corner cv__corner--br" aria-hidden="true"></span>
-
             <img class="cv__page" src="assets/cv-preview.webp" width="900" height="1272"
                  alt="Aperçu du CV de Romain Lance" decoding="async">
 
@@ -198,10 +190,14 @@
 
       </div>
 
-      <div class="hero__scroll intro" data-intro="8" aria-hidden="true">
-        <span class="hero__scroll-line"></span>
-        <span class="hero__scroll-label">Défiler</span>
-      </div>
+      <a class="hero__scroll intro" data-intro="7" href="#apropos"
+         aria-label="Aller à la section À propos">
+        <span class="hero__mouse" aria-hidden="true"><span class="hero__wheel"></span></span>
+        <span class="hero__chevrons" aria-hidden="true">
+          <svg class="ico"><use href="#i-chevron"></use></svg>
+          <svg class="ico"><use href="#i-chevron"></use></svg>
+        </span>
+      </a>
     </section>
 
     <!-- ============================================================
@@ -236,29 +232,13 @@
               ROS&nbsp;2, pendant qu'un projet de recherche avec le laboratoire CRIStAL me faisait
               creuser la modélisation dynamique et la commande prédictive.
             </p>
-            <p class="reveal" data-reveal="up">
+            <p class="avail reveal spotlight" data-reveal="up">
+              <span class="avail__dot" aria-hidden="true"></span>
               Je suis disponible à partir de <strong>décembre 2026</strong> pour un poste autour
               de la mécatronique et de la robotique.
             </p>
           </div>
 
-          <ul class="stats reveal" data-reveal="up">
-            <li>
-              <svg class="ico stats__ico" aria-hidden="true"><use href="#i-clock"></use></svg>
-              <span class="stats__num" data-count="13">13</span>
-              <span class="stats__label" data-hint="6 + 4 + 2 + 1 mois">mois de stage</span>
-            </li>
-            <li>
-              <svg class="ico stats__ico" aria-hidden="true"><use href="#i-globe"></use></svg>
-              <span class="stats__num" data-count="3">3</span>
-              <span class="stats__label" data-hint="France · Canada · Malte">pays traversés</span>
-            </li>
-            <li>
-              <svg class="ico stats__ico" aria-hidden="true"><use href="#i-flask"></use></svg>
-              <span class="stats__num" data-count="4">4</span>
-              <span class="stats__label">projets d\'ingénierie</span>
-            </li>
-          </ul>
         </div>
       </div>
     </section>
@@ -414,8 +394,8 @@
               <h3 class="pcard__title">Dino — plateforme de recherche ROS&nbsp;2</h3>
               <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Stage de fin d'études — INIT Robots, Montréal</p>
               <p class="pcard__desc">
-                Ouvrir un robot agricole commercial pour en faire une plateforme de recherche,
-                du modèle cinématique jusqu'à la navigation autonome.
+                Rétro-ingénierie du bus CAN d'un robot de désherbage Naïo, puis reconstruction
+                d'une chaîne de commande ROS 2 complète — sans toucher à ses sécurités.
               </p>
 
               <ul class="tags tags--sm">
@@ -452,8 +432,8 @@
               <h3 class="pcard__title">Modèle dynamique d'un fauteuil roulant intelligent</h3>
               <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-flask"></use></svg> Projet de recherche Junia HEI × laboratoire CRIStAL</p>
               <p class="pcard__desc">
-                Modéliser la dynamique d'un fauteuil roulant intelligent en tenant compte des
-                roues folles, puis en tirer une commande prédictive.
+                Estimer en temps réel les perturbations qui écartent un fauteuil roulant de sa
+                trajectoire — roues folles comprises — pour les compenser avant qu'elles n'agissent.
               </p>
 
               <ul class="tags tags--sm">
@@ -491,8 +471,8 @@
               <h3 class="pcard__title">Robot agricole autonome type rover</h3>
               <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Projet de mécatronique et robotique — Junia HEI</p>
               <p class="pcard__desc">
-                Concevoir et fabriquer un rover agricole autonome de bout en bout, du choix des
-                capteurs à la programmation sous ROS.
+                D'un cahier des charges chiffré à une machine assemblée : conception mécanique,
+                électronique embarquée et pilotage d'une équipe de six.
               </p>
 
               <ul class="tags tags--sm">
@@ -521,14 +501,14 @@
             <div class="pcard__body">
               <div class="pcard__top">
                 <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2023 — 2024</span>
-                <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Équipe de 8</span>
+                <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Équipe de 10</span>
               </div>
 
               <h3 class="pcard__title">Frigo du désert</h3>
               <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Projet PISTE — Junia HEI</p>
               <p class="pcard__desc">
-                Concevoir et modéliser un système de refroidissement passif reposant sur
-                l'évaporation, sans apport d'énergie.
+                Conserver des aliments au frais sans électricité : un réfrigérateur par
+                évaporation, sans moteur ni fluide frigorigène.
               </p>
 
               <ul class="tags tags--sm">
@@ -679,10 +659,6 @@
             </div>
           </div>
 
-          <p class="interests__note">
-            Un bricolage qui ressemble beaucoup au métier — c'est souvent là que les idées se testent
-            avant d'arriver au bureau.
-          </p>
         </section>
       </div>
     </section>
@@ -853,5 +829,6 @@
   <script src="js/qr.js"></script>
   <script src="js/main.js"></script>
   <script src="js/effects.js"></script>
+  <script src="js/i18n.js"></script>
 </body>
 </html>

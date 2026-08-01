@@ -63,10 +63,12 @@
 
       <a class="nav__back" href="../index.html#projets">
         <svg class="ico" aria-hidden="true"><use href="#i-back"></use></svg>
-        Tous les projets
+        <span class="nav__back-label">Tous les projets</span>
       </a>
 
       <div class="nav__actions">
+        <button class="icon-btn icon-btn--lang" id="langToggle" type="button"
+                aria-label="Switch to English" title="Switch to English">EN</button>
         <button class="icon-btn" id="qrToggle" type="button" aria-label="Afficher le QR code de la page" title="Ouvrir sur téléphone" aria-haspopup="dialog">
           <svg class="ico" aria-hidden="true"><use href="#i-qr"></use></svg>
         </button>
@@ -101,9 +103,9 @@
           </h1>
 
           <p class="phero__lede intro" data-intro="4">
-            Décrire finement le comportement d'un fauteuil roulant intelligent, roues folles
-            comprises, puis se servir de ce modèle pour anticiper ses mouvements plutôt que
-            simplement les corriger.
+            Faire suivre une trajectoire à un fauteuil roulant intelligent malgré tout ce qui l'en
+            écarte — frottements, incertitudes, roues folles. Non pas en corrigeant l'écart après
+            coup, mais en estimant la perturbation pour la compenser à l'avance.
           </p>
 
           <ul class="phero__meta intro" data-intro="5">
@@ -125,7 +127,7 @@
             <li>
               <svg class="ico" aria-hidden="true"><use href="#i-doc"></use></svg>
               <span class="phero__k">Livrable</span>
-              <span class="phero__v">Article scientifique</span>
+              <span class="phero__v">Article scientifique + rapport</span>
             </li>
           </ul>
         </div>
@@ -157,15 +159,22 @@
 
         <div class="prose reveal" data-reveal="up">
           <p>
-            Ce projet de recherche en mécatronique et robotique a été mené à Junia HEI avec le
-            laboratoire CRIStAL, en équipe de quatre étudiants, sur les années 2025 et 2026.
+            Projet de recherche et innovation mené à Junia HEI avec le laboratoire CRIStAL, en
+            équipe de quatre étudiants, sur 2025 et 2026, sous l'encadrement de M.&nbsp;Meziane
+            Larbi et M.&nbsp;Gilles Tagne.
           </p>
           <p>
-            Un fauteuil roulant se déplace sur des roues motrices, mais aussi sur des
-            <strong>roues folles</strong> — libres de pivoter sur elles-mêmes pour suivre la
-            direction imposée. Ces roues réagissent au mouvement au lieu de le produire, ce qui
-            rend leur contribution difficile à décrire. C'est précisément l'angle retenu ici :
-            faire entrer leur influence dans le modèle dynamique global du fauteuil.
+            Le fauteuil roulant intelligent étudié repose sur <strong>deux roues motrices</strong>
+            et <strong>deux roues folles</strong> qui assurent son équilibre. Ces dernières
+            réagissent au mouvement au lieu de le produire : elles pivotent librement, introduisent
+            des efforts de contact difficiles à décrire, et pèsent pourtant sur la stabilité et la
+            maniabilité de l'ensemble.
+          </p>
+          <p>
+            L'objectif est double : construire un jumeau numérique fidèle du fauteuil, puis en
+            tirer une loi de commande capable d'assurer un suivi de trajectoire précis et stable
+            face aux perturbations — un enjeu de sécurité autant que de confort pour une
+            application d'assistance à la mobilité.
           </p>
         </div>
       </div>
@@ -186,11 +195,10 @@
           <li class="step reveal" data-reveal="up">
             <span class="step__num" aria-hidden="true">01</span>
             <div class="step__body">
-              <h3>Analyse bibliographique</h3>
+              <h3>État de l'art</h3>
               <p>
-                Le travail a démarré par un état de l'art des modèles dynamiques déjà publiés
-                sur ce type de système, afin de partir de bases établies plutôt que d'une page
-                blanche.
+                Analyse bibliographique des modèles dynamiques déjà publiés sur ce type de système,
+                pour partir de bases établies plutôt que d'une page blanche.
               </p>
             </div>
           </li>
@@ -198,11 +206,11 @@
           <li class="step reveal" data-reveal="up">
             <span class="step__num" aria-hidden="true">02</span>
             <div class="step__body">
-              <h3>Modèle dynamique intégrant les roues folles</h3>
+              <h3>Modèle cinématique différentiel</h3>
               <p>
-                Développement du modèle dynamique proprement dit, avec pour spécificité de
-                prendre en compte l'influence des roues folles sur la dynamique globale du
-                fauteuil — la contribution propre de ce travail.
+                Un premier modèle non holonomique limité aux deux roues motrices, reliant leurs
+                vitesses à la vitesse linéaire et angulaire du châssis. Utile, mais trop pauvre
+                pour commander le fauteuil avec précision — d'où la suite.
               </p>
             </div>
           </li>
@@ -210,11 +218,12 @@
           <li class="step reveal" data-reveal="up">
             <span class="step__num" aria-hidden="true">03</span>
             <div class="step__body">
-              <h3>Modèle à commande prédictive</h3>
+              <h3>Modèle dynamique, puis roues folles</h3>
               <p>
-                Sur cette base, développement d'un modèle à commande prédictive : au lieu de
-                réagir à l'écart constaté, la commande s'appuie sur le modèle pour anticiper le
-                comportement du fauteuil.
+                Le modèle dynamique est d'abord établi sans les roues folles, puis étendu pour les
+                intégrer : efforts de contact au sol, effets d'inertie, réactions traitées par
+                multiplicateurs de Lagrange. C'est cette extension qui rapproche réellement la
+                simulation du comportement observé.
               </p>
             </div>
           </li>
@@ -222,10 +231,11 @@
           <li class="step reveal" data-reveal="up">
             <span class="step__num" aria-hidden="true">04</span>
             <div class="step__body">
-              <h3>Simulation sous MATLAB/Simulink</h3>
+              <h3>Observateur de perturbations (NESO)</h3>
               <p>
-                L'ensemble des modèles a été simulé sous MATLAB/Simulink, l'environnement qui
-                a servi de banc d'essai tout au long du projet.
+                Plutôt que de tenter de modéliser chaque frottement, un observateur non linéaire
+                étendu estime en temps réel la <em>perturbation globale</em> agissant sur le
+                système — frottements, incertitudes de paramètres, influence des roues folles.
               </p>
             </div>
           </li>
@@ -233,10 +243,35 @@
           <li class="step reveal" data-reveal="up">
             <span class="step__num" aria-hidden="true">05</span>
             <div class="step__body">
-              <h3>Rédaction d'un article scientifique</h3>
+              <h3>Commande hiérarchique : MPC bas niveau, LQR haut niveau</h3>
               <p>
-                Le projet s'est conclu par la rédaction d'un article scientifique formalisant
-                la démarche et les résultats.
+                Au niveau bas, un contrôleur à modèle prédictif régule la dynamique des moteurs à
+                courant continu. Au niveau haut, un régulateur optimal LQR couplé au même
+                observateur minimise les erreurs longitudinale, latérale et d'orientation. La
+                perturbation estimée est compensée avant qu'elle ne dévie la trajectoire.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">06</span>
+            <div class="step__body">
+              <h3>Simulation, puis validation sur plateforme</h3>
+              <p>
+                L'ensemble est simulé sous MATLAB/Simulink, puis validé sur la plateforme Quanser.
+                Les résultats montrent que l'estimation active des perturbations suffit à garantir
+                un suivi stable et précis, y compris en présence d'incertitudes.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">07</span>
+            <div class="step__body">
+              <h3>Rédaction scientifique</h3>
+              <p>
+                Le travail a donné lieu à un rapport complet et à un article scientifique
+                formalisant la démarche, les modèles et les résultats.
               </p>
             </div>
           </li>
@@ -259,30 +294,29 @@
           <section class="skill reveal spotlight tilt" data-reveal="up">
             <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Modélisation</h3>
             <ul class="tags">
-              <li>Dynamique</li><li>Roues folles</li><li>Analyse bibliographique</li>
+              <li>Cinématique différentielle</li><li>Dynamique</li><li>Roues folles</li>
+              <li>Multiplicateurs de Lagrange</li><li>Jumeau numérique</li>
             </ul>
           </section>
 
           <section class="skill reveal spotlight tilt" data-reveal="up">
-            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Commande</h3>
+            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Automatique</h3>
             <ul class="tags">
-              <li>Commande prédictive</li>
+              <li>Commande prédictive (MPC)</li><li>LQR</li><li>Observateur NESO</li>
+              <li>Rejet de perturbations</li><li>Suivi de trajectoire</li>
             </ul>
           </section>
 
           <section class="skill reveal spotlight tilt" data-reveal="up">
-            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-code"></use></svg> Simulation</h3>
+            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-code"></use></svg> Validation</h3>
             <ul class="tags">
-              <li>MATLAB</li><li>Simulink</li>
+              <li>MATLAB</li><li>Simulink</li><li>Plateforme Quanser</li>
             </ul>
           </section>
         </div>
       </div>
     </section>
 
-    <!-- ============================================================
-         PROJET SUIVANT
-         ============================================================ -->
     <nav class="pnav" aria-label="Autres projets">
       <div class="wrap pnav__inner">
         <a class="pnav__link pnav__link--all" href="../index.html#projets">
@@ -341,5 +375,6 @@
   <script src="../js/qr.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/effects.js"></script>
+  <script src="../js/i18n.js"></script>
 </body>
 </html>

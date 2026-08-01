@@ -60,10 +60,12 @@
 
       <a class="nav__back" href="../index.html#projets">
         <svg class="ico" aria-hidden="true"><use href="#i-back"></use></svg>
-        Tous les projets
+        <span class="nav__back-label">Tous les projets</span>
       </a>
 
       <div class="nav__actions">
+        <button class="icon-btn icon-btn--lang" id="langToggle" type="button"
+                aria-label="Switch to English" title="Switch to English">EN</button>
         <button class="icon-btn" id="qrToggle" type="button" aria-label="Afficher le QR code de la page" title="Ouvrir sur téléphone" aria-haspopup="dialog">
           <svg class="ico" aria-hidden="true"><use href="#i-qr"></use></svg>
         </button>
@@ -98,9 +100,9 @@
           </h1>
 
           <p class="phero__lede intro" data-intro="4">
-            Partir d'une feuille blanche et arriver à une machine qui roule seule : choisir les
-            actionneurs et les capteurs, dessiner les pièces, les fabriquer, puis les faire
-            obéir à du code.
+            Concevoir et fabriquer un rover agricole à six, sur deux semestres : d'un cahier des
+            charges chiffré jusqu'à une machine assemblée, pilotable à distance depuis une
+            interface web puis capable de se déplacer seule.
           </p>
 
           <ul class="phero__meta intro" data-intro="5">
@@ -122,7 +124,7 @@
             <li>
               <svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg>
               <span class="phero__k">Mon rôle</span>
-              <span class="phero__v">Conception mécanique &amp; pilotage du projet</span>
+              <span class="phero__v">Pilotage du projet, cahier des charges, commande moteurs</span>
             </li>
           </ul>
         </div>
@@ -156,15 +158,38 @@
         <div class="prose reveal" data-reveal="up">
           <p>
             Projet de mécatronique et robotique mené à Junia HEI en équipe de six étudiants, sur
-            les années 2024 et 2025. L'objectif : concevoir <em>et</em> fabriquer un robot
-            agricole mobile et autonome — pas une maquette, une machine complète.
+            deux semestres, sous l'encadrement de M.&nbsp;Tagne. L'objectif : concevoir
+            <em>et</em> fabriquer un rover agricole — pas une maquette, une machine complète.
           </p>
           <p>
             C'est le projet qui rassemble le plus de disciplines à la fois : sans les bons
             actionneurs le robot ne bouge pas, sans les bons capteurs il ne sait pas où il est,
-            sans châssis correctement dimensionné rien ne tient, et sans code cohérent
-            l'ensemble reste inerte.
+            sans châssis correctement dimensionné rien ne tient, et sans code cohérent l'ensemble
+            reste inerte.
           </p>
+          <p>
+            Le cahier des charges a été construit par analyse fonctionnelle, en distinguant
+            fonctions principales et contraintes, puis traduit en critères chiffrés et vérifiables.
+          </p>
+        </div>
+
+        <div class="specs reveal" data-reveal="up">
+          <div class="spec">
+            <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-route"></use></svg> Franchissement</span>
+            <span class="spec__v">Obstacles jusqu'à 30 cm de dénivelé</span>
+          </div>
+          <div class="spec">
+            <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg> Vitesse</span>
+            <span class="spec__v">5 km/h, soit environ 27,8 rad/s pour des roues de 5 cm de rayon</span>
+          </div>
+          <div class="spec">
+            <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg> Évitement</span>
+            <span class="spec__v">Obstacles contournés à 20 cm minimum</span>
+          </div>
+          <div class="spec">
+            <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Trajectoire</span>
+            <span class="spec__v">Planification avec un angle maximal de 50 degrés</span>
+          </div>
         </div>
       </div>
     </section>
@@ -184,11 +209,11 @@
           <li class="step reveal" data-reveal="up">
             <span class="step__num" aria-hidden="true">01</span>
             <div class="step__body">
-              <h3>Analyse des actionneurs et des capteurs</h3>
+              <h3>Cadrage et planification</h3>
               <p>
-                Première étape : déterminer ce qu'il fallait embarquer. Quels actionneurs pour
-                mettre le robot en mouvement, quels capteurs pour qu'il perçoive son
-                environnement et se situe.
+                J'ai commencé par découper le projet en lots et bâtir un diagramme de Gantt, pour
+                que le groupe garde une ligne directrice sur toute la durée. J'ai ensuite participé
+                à l'élaboration du cahier des charges et à l'analyse fonctionnelle.
               </p>
             </div>
           </li>
@@ -196,11 +221,11 @@
           <li class="step reveal" data-reveal="up">
             <span class="step__num" aria-hidden="true">02</span>
             <div class="step__body">
-              <h3>Conception mécanique sur SolidWorks</h3>
+              <h3>Choix des composants</h3>
               <p>
-                Dessin des pièces mécaniques du robot sous SolidWorks, en vue de leur
-                fabrication — l'étape où les choix du dessin se paient ou se rentabilisent à
-                l'assemblage.
+                Analyse des actionneurs et des capteurs nécessaires. Le cœur retenu est une carte
+                OpenCR — compatible Arduino IDE et ROS, pensée pour les robots mobiles — associée à
+                un Raspberry Pi pour la partie haut niveau.
               </p>
             </div>
           </li>
@@ -208,10 +233,10 @@
           <li class="step reveal" data-reveal="up">
             <span class="step__num" aria-hidden="true">03</span>
             <div class="step__body">
-              <h3>Fabrication et assemblage</h3>
+              <h3>Conception mécanique sur SolidWorks</h3>
               <p>
-                Le robot a été réellement fabriqué et assemblé, jusqu'à obtenir une plateforme
-                mobile complète.
+                Dessin des pièces du rover en vue de leur fabrication, impression 3D comprise —
+                l'étape où les choix du dessin se paient ou se rentabilisent à l'assemblage.
               </p>
             </div>
           </li>
@@ -219,10 +244,13 @@
           <li class="step reveal" data-reveal="up">
             <span class="step__num" aria-hidden="true">04</span>
             <div class="step__body">
-              <h3>Programmation sous ROS</h3>
+              <h3>Chaîne logicielle distribuée</h3>
               <p>
-                Programmation du robot sous ROS, pour relier capteurs, actionneurs et logique de
-                déplacement au sein d'une même architecture.
+                L'architecture répartit les rôles : un firmware sur l'OpenCR pour la commande des
+                moteurs, une interface Python sur le Raspberry Pi, et un serveur web capable de
+                traiter plusieurs requêtes en parallèle pour piloter le rover depuis un navigateur.
+                J'ai contribué au code de commande des moteurs et au transfert des données de
+                l'OpenCR vers le Raspberry Pi.
               </p>
             </div>
           </li>
@@ -230,11 +258,24 @@
           <li class="step reveal" data-reveal="up">
             <span class="step__num" aria-hidden="true">05</span>
             <div class="step__body">
-              <h3>Pilotage du projet</h3>
+              <h3>Vers la navigation autonome</h3>
               <p>
-                En parallèle du travail technique, j'ai assuré la répartition des tâches au sein
-                du groupe de six et la gestion des échéances — coordonner six personnes sur un
-                objet unique était une part entière du projet.
+                Le second semestre introduit une architecture ROS 2 et les briques de planification
+                de trajectoire, locale et globale, pour passer du pilotage à distance au
+                déplacement autonome.
+              </p>
+            </div>
+          </li>
+
+          <li class="step reveal" data-reveal="up">
+            <span class="step__num" aria-hidden="true">06</span>
+            <div class="step__body">
+              <h3>Arbitrage en cours de route</h3>
+              <p>
+                À mi-parcours, concevoir un rover entièrement neuf s'est révélé irréaliste dans le
+                temps imparti. Le groupe a fait le choix de sécuriser la conception mécanique et
+                d'avancer plus tôt que prévu sur la partie logicielle. Le prototype a été assemblé
+                et rendu testable — savoir renoncer à temps fait aussi partie du pilotage.
               </p>
             </div>
           </li>
@@ -257,21 +298,23 @@
           <section class="skill reveal spotlight tilt" data-reveal="up">
             <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Mécanique</h3>
             <ul class="tags">
-              <li>SolidWorks</li><li>Conception de pièces</li><li>Fabrication</li>
+              <li>SolidWorks</li><li>Conception de pièces</li><li>Impression 3D</li><li>Assemblage</li>
             </ul>
           </section>
 
           <section class="skill reveal spotlight tilt" data-reveal="up">
-            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Robotique</h3>
+            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-chip"></use></svg> Électronique &amp; code</h3>
             <ul class="tags">
-              <li>ROS</li><li>Actionneurs</li><li>Capteurs</li><li>Autonomie de déplacement</li>
+              <li>OpenCR</li><li>Raspberry Pi</li><li>Arduino IDE</li><li>Python</li>
+              <li>ROS / ROS 2</li><li>Interface web</li>
             </ul>
           </section>
 
           <section class="skill reveal spotlight tilt" data-reveal="up">
-            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Organisation</h3>
+            <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Pilotage</h3>
             <ul class="tags">
-              <li>Répartition des tâches</li><li>Gestion des échéances</li>
+              <li>Diagramme de Gantt</li><li>Analyse fonctionnelle</li>
+              <li>Cahier des charges</li><li>Répartition des tâches</li>
             </ul>
           </section>
         </div>
@@ -336,5 +379,6 @@
   <script src="../js/qr.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/effects.js"></script>
+  <script src="../js/i18n.js"></script>
 </body>
 </html>

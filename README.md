@@ -33,6 +33,7 @@ Puis ouvrir <http://localhost:8000>.
 ├── index.html                  # Page d'accueil : les 6 sections ancrées
 ├── assets/
 │   ├── cv-romain-lance.pdf     # CV publié (sans le numéro de téléphone)
+│   ├── cv-romain-lance-en.pdf  # Version anglaise — à déposer (voir plus bas)
 │   └── cv-preview.webp         # Vignette du CV, rendue depuis ce PDF
 ├── projets/                    # Une page par projet
 │   ├── dino-plateforme-ros2.html
@@ -46,7 +47,8 @@ Puis ouvrir <http://localhost:8000>.
 │   ├── icons.js                # Sprite SVG partagé par toutes les pages
 │   ├── qr.js                   # Encodeur de QR code (aucune dépendance)
 │   ├── main.js                 # Thème, menu, navigation, formulaire
-│   └── effects.js              # Effets visuels uniquement
+│   ├── effects.js              # Effets visuels uniquement
+│   └── i18n.js                 # Bascule français / anglais
 └── README.md
 ```
 
@@ -60,7 +62,7 @@ fichiers JS n'ajoutent que des comportements par-dessus.
 curseur, relief des cartes, compteurs, remplissage du rail de la timeline,
 transition entre les pages. On peut le supprimer entièrement de toutes les
 pages sans casser une seule fonctionnalité — le contenu, la navigation, le
-thème et le formulaire continuent de marcher.
+thème, la bascule de langue et le formulaire continuent de marcher.
 
 ---
 
@@ -159,26 +161,50 @@ une grille `0 0 200 120`. Le tracé principal porte la classe `diagram__draw`
 et s'anime tout seul. Pour remplacer une vignette par une photo, substituer le
 `<svg>` par une `<img>` dans `.pcard__media`.
 
-### Remplacer le monogramme par une photo
+### La bascule français / anglais
 
-Le hero affiche un placeholder « RL ». Pour utiliser une vraie photo, déposer
-le fichier dans un dossier `assets/` puis remplacer, dans `index.html` :
+Le bouton `EN` / `FR` de la barre d'en-tête traduit le site entier. Le
+mécanisme tient dans `js/i18n.js` :
 
-```html
-<span class="plate__mono">RL</span>
+- **Le français vit dans le HTML.** C'est la version servie sans JavaScript et
+  celle que lisent les moteurs de recherche ; l'anglais est appliqué par-dessus.
+- **Le dictionnaire est indexé par la phrase française elle-même**, pas par des
+  clés abstraites. Le HTML reste donc lisible, et une chaîne oubliée se repère
+  immédiatement : elle s'affiche en français au milieu de l'anglais.
+- La comparaison se fait après normalisation des blancs. Une phrase coupée sur
+  plusieurs lignes dans le HTML, ou contenant des espaces insécables, est
+  retrouvée sans avoir à recopier sa mise en forme dans le dictionnaire.
+- Sont traduits : le texte visible, les attributs `title`, `aria-label`,
+  `placeholder` et `alt`, le `<title>` de la page et l'attribut `lang` de
+  `<html>`. Le choix est mémorisé dans `localStorage`.
+
+Pour ajouter une phrase, compléter l'objet correspondant en haut du fichier
+(`UI`, `HOME`, `PROJECTS`, `ATTRS` ou `TITLES`) :
+
+```js
+'Ma nouvelle phrase.': 'My new sentence.',
 ```
 
-par :
+Les noms propres, les technologies (ROS 2, SolidWorks, Python…) et les nombres
+n'ont volontairement pas d'entrée : ils sont identiques dans les deux langues.
 
-```html
-<img src="assets/photo.jpg" alt="Portrait de Romain Lance">
-```
+### Le CV en anglais
 
-et ajouter dans `css/style.css` :
+Le lien de l'aperçu du CV suit la langue affichée :
 
-```css
-.plate img { width: 100%; height: 100%; object-fit: cover; }
-```
+| Langue | Fichier ouvert |
+| --- | --- |
+| Français | `assets/cv-romain-lance.pdf` |
+| Anglais | `assets/cv-romain-lance-en.pdf` |
+
+Le fichier anglais est testé une seule fois, à la première bascule. **Tant
+qu'il n'est pas déposé dans `assets/`, le lien reste sur la version
+française** plutôt que de mener à une page d'erreur — il suffit donc d'ajouter
+le PDF, sans toucher au code. Le test laisse une erreur 404 dans la console du
+navigateur ; elle disparaît dès que le fichier existe.
+
+Ces deux noms de fichiers sont définis en haut de `js/i18n.js`, dans l'objet
+`CV`.
 
 ### Ajouter un lien GitHub
 
@@ -237,6 +263,9 @@ disponibilité, savoir-être, centres d'intérêt).
 - **Accessibilité** — HTML sémantique, lien d'évitement, focus visible,
   navigation clavier, contrastes vérifiés sur les deux thèmes, icônes
   décoratives en `aria-hidden`.
+- **Bascule de langue** — traduction appliquée sur les nœuds de texte déjà
+  présents, sans rechargement ni duplication des pages. Voir
+  « La bascule français / anglais » plus haut.
 - **SEO** — métadonnées Open Graph et données structurées `schema.org/Person`.
 - **Impression** — une feuille de styles dédiée nettoie la page (navigation,
   formulaire et animations retirés) pour un export PDF propre.

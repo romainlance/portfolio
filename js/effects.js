@@ -247,16 +247,45 @@
   (function initTimelineFill() {
     var timeline = document.getElementById('timeline');
     var fill = document.getElementById('timelineFill');
-    if (!timeline || !fill) { return; }
+    var rail = timeline && timeline.querySelector('.timeline__rail');
+    if (!timeline || !fill || !rail) { return; }
 
     if (reduceMotion) { fill.style.height = '100%'; return; }
 
+    var bodies = Array.prototype.map.call(
+      timeline.querySelectorAll('.tl'),
+      function (item) { return item.querySelector('.tl__body'); }
+    ).filter(Boolean);
+    if (!bodies.length) { return; }
+
+    // Distance entre le haut du corps d'une expérience et le centre de son
+    // nœud, lue depuis le CSS pour rester juste si les valeurs y changent.
+    var nodeOffset = 0;
+    function measureNode() {
+      var node = window.getComputedStyle(bodies[0], '::before');
+      nodeOffset = parseFloat(node.top || 0) + parseFloat(node.height || 0) / 2;
+    }
+    measureNode();
+    window.addEventListener('resize', measureNode, { passive: true });
+
     onScroll(function () {
-      var r = timeline.getBoundingClientRect();
-      // Point de référence : le milieu de l'écran
-      var marker = window.innerHeight * 0.5;
-      var ratio = (marker - r.top) / r.height;
-      fill.style.height = (Math.max(0, Math.min(1, ratio)) * 100).toFixed(1) + '%';
+      var railRect = rail.getBoundingClientRect();
+      var marker = window.innerHeight * 0.5;   // ligne de référence à l'écran
+
+      /* La barre s'arrête au dernier nœud franchi, et non à une proportion
+         continue du parcours. Recentrer une expérience place son nœud
+         au-dessus de la ligne de référence et le suivant en dessous : la
+         barre vient donc mourir exactement sur le point de cette
+         expérience. */
+      var reached = 0;
+      for (var i = 0; i < bodies.length; i++) {
+        var nodeCenter = bodies[i].getBoundingClientRect().top + nodeOffset;
+        if (nodeCenter <= marker) {
+          reached = Math.max(reached, nodeCenter - railRect.top);
+        }
+      }
+
+      fill.style.height = Math.max(0, Math.min(reached, railRect.height)).toFixed(1) + 'px';
     });
   })();
 

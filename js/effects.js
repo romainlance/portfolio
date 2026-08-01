@@ -154,7 +154,7 @@
     if (!finePointer || reduceMotion) { return; }
 
     var MAX_DEG = 5;
-    var targets = document.querySelectorAll('.tilt, #plate');
+    var targets = document.querySelectorAll('.tilt');
 
     targets.forEach(function (el) {
       el.addEventListener('pointermove', function (e) {

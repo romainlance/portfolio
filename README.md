@@ -31,6 +31,9 @@ Puis ouvrir <http://localhost:8000>.
 ```
 .
 ├── index.html                  # Page d'accueil : les 6 sections ancrées
+├── assets/
+│   ├── cv-romain-lance.pdf     # CV publié (sans le numéro de téléphone)
+│   └── cv-preview.webp         # Vignette du CV, rendue depuis ce PDF
 ├── projets/                    # Une page par projet
 │   ├── dino-plateforme-ros2.html
 │   ├── fauteuil-roulant-intelligent.html
@@ -41,6 +44,7 @@ Puis ouvrir <http://localhost:8000>.
 │   └── project.css             # Styles propres aux pages projet
 ├── js/
 │   ├── icons.js                # Sprite SVG partagé par toutes les pages
+│   ├── qr.js                   # Encodeur de QR code (aucune dépendance)
 │   ├── main.js                 # Thème, menu, navigation, formulaire
 │   └── effects.js              # Effets visuels uniquement
 └── README.md
@@ -111,6 +115,26 @@ suffit à en ajouter un.
    pointer son `href` vers la nouvelle page.
 3. Mettre à jour le lien « projet suivant » en bas des pages projet pour
    inclure la nouvelle dans la boucle.
+
+### Remplacer le CV
+
+Le hero affiche `assets/cv-preview.webp`, une image de la première page de
+`assets/cv-romain-lance.pdf`. Pour publier une nouvelle version : remplacer le
+PDF, puis régénérer la vignette (n'importe quel export d'image de la page 1
+convient, autour de 900 px de large). Les deux fichiers doivent rester
+cohérents — c'est le PDF qui s'ouvre au clic.
+
+Le PDF publié ne contient volontairement pas de numéro de téléphone.
+
+### Le QR code
+
+`js/qr.js` encode le QR au moment où la fenêtre s'ouvre, à partir de
+`location.href`. Il n'y a donc aucune image à régénérer après un changement
+d'hébergement ou de domaine : le code suit toujours l'adresse réelle.
+
+L'implémentation couvre le mode octet, le niveau de correction M et les
+versions 1 à 10 (jusqu'à 213 caractères) — largement au-delà d'une URL de
+portfolio. Sa sortie a été vérifiée en décodant les symboles produits.
 
 ### Les icônes
 
@@ -197,6 +221,12 @@ disponibilité, savoir-être, centres d'intérêt).
 - **Expériences cliquables** — un clic sur une entrée du parcours la recentre
   à l'écran. C'est un confort de lecture : rien n'est masqué au départ et le
   geste est accessible au clavier.
+- **Aperçu du CV** — bloc de verre avec relief au pointeur ; le clic ouvre le
+  PDF dans un nouvel onglet.
+- **QR code** — calculé à l'ouverture depuis l'URL courante, présenté dans une
+  fenêtre modale avec fond clair imposé (un code sombre sur fond sombre n'est
+  pas lisible par un appareil photo), fermeture par Échap ou clic extérieur, et
+  focus maintenu dans la fenêtre.
 - **Curseur** — la page force `cursor: default` ; seuls les éléments
   actionnables passent en `pointer` et les champs en `text`. Le pointeur ne
   change donc plus de forme au survol du texte courant.

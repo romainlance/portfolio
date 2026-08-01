@@ -99,6 +99,9 @@
       </nav>
 
       <div class="nav__actions">
+        <button class="icon-btn" id="qrToggle" type="button" aria-label="Afficher le QR code du site" title="Ouvrir sur téléphone" aria-haspopup="dialog">
+          <svg class="ico" aria-hidden="true"><use href="#i-qr"></use></svg>
+        </button>
         <button class="icon-btn" id="themeToggle" type="button" aria-label="Basculer le thème sombre" title="Basculer le thème">
           <svg class="ico icon-sun" aria-hidden="true"><use href="#i-sun"></use></svg>
           <svg class="ico icon-moon" aria-hidden="true"><use href="#i-moon"></use></svg>
@@ -164,22 +167,33 @@
           </ul>
         </div>
 
-        <!-- Plaque monogramme : placeholder d'avatar, style plan technique.
-             Pour utiliser une photo, voir la section « Personnaliser » du README. -->
-        <aside class="hero__plate intro" data-intro="4" aria-hidden="true">
-          <div class="plate" id="plate">
-            <span class="plate__corner plate__corner--tl"></span>
-            <span class="plate__corner plate__corner--tr"></span>
-            <span class="plate__corner plate__corner--bl"></span>
-            <span class="plate__corner plate__corner--br"></span>
-            <span class="plate__scan"></span>
-            <span class="plate__mono">RL</span>
-          </div>
-          <dl class="plate__spec">
-            <div><dt><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg> Base</dt><dd>Saint-Martin-Choquel (62)</dd></div>
-            <div><dt><svg class="ico" aria-hidden="true"><use href="#i-globe"></use></svg> Terrain</dt><dd>France</dd></div>
-            <div><dt><svg class="ico" aria-hidden="true"><use href="#i-route"></use></svg> Mobilité</dt><dd>Permis B — véhicule</dd></div>
-          </dl>
+        <!-- Aperçu du CV : la vignette est un rendu de assets/cv-romain-lance.pdf,
+             et le bloc entier ouvre ce PDF dans un nouvel onglet. -->
+        <aside class="hero__plate intro" data-intro="4">
+          <a class="cv tilt" id="cvCard"
+             href="assets/cv-romain-lance.pdf" target="_blank" rel="noopener noreferrer">
+            <span class="cv__corner cv__corner--tl" aria-hidden="true"></span>
+            <span class="cv__corner cv__corner--tr" aria-hidden="true"></span>
+            <span class="cv__corner cv__corner--bl" aria-hidden="true"></span>
+            <span class="cv__corner cv__corner--br" aria-hidden="true"></span>
+
+            <img class="cv__page" src="assets/cv-preview.webp" width="900" height="1272"
+                 alt="Aperçu du CV de Romain Lance" decoding="async">
+
+            <span class="cv__scan" aria-hidden="true"></span>
+
+            <span class="cv__overlay">
+              <span class="cv__action">
+                <svg class="ico" aria-hidden="true"><use href="#i-download"></use></svg>
+                Ouvrir le CV
+              </span>
+            </span>
+          </a>
+
+          <p class="cv__caption">
+            <svg class="ico" aria-hidden="true"><use href="#i-doc"></use></svg>
+            Curriculum vitæ — PDF, 1 page
+          </p>
         </aside>
 
       </div>
@@ -232,12 +246,12 @@
             <li>
               <svg class="ico stats__ico" aria-hidden="true"><use href="#i-clock"></use></svg>
               <span class="stats__num" data-count="13">13</span>
-              <span class="stats__label">mois de stage</span>
+              <span class="stats__label" data-hint="6 + 4 + 2 + 1 mois">mois de stage</span>
             </li>
             <li>
               <svg class="ico stats__ico" aria-hidden="true"><use href="#i-globe"></use></svg>
               <span class="stats__num" data-count="3">3</span>
-              <span class="stats__label">pays traversés</span>
+              <span class="stats__label" data-hint="France · Canada · Malte">pays traversés</span>
             </li>
             <li>
               <svg class="ico stats__ico" aria-hidden="true"><use href="#i-flask"></use></svg>
@@ -581,26 +595,95 @@
 
           <section class="skill reveal spotlight tilt" data-reveal="up">
             <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-globe"></use></svg> Langues</h3>
+
             <ul class="lang">
-              <li><strong>Français</strong> <span>Langue maternelle</span></li>
-              <li><strong>Anglais</strong> <span>B2 — Linguaskill 161/180 · TOEIC 775/990</span></li>
+              <li class="lang__item">
+                <div class="lang__head">
+                  <span class="lang__name">Français</span>
+                  <span class="lang__badge lang__badge--native">Langue maternelle</span>
+                </div>
+              </li>
+
+              <li class="lang__item">
+                <div class="lang__head">
+                  <span class="lang__name">Anglais</span>
+                  <span class="lang__badge">B2</span>
+                </div>
+
+                <!-- Échelle européenne : le niveau atteint est mis en évidence,
+                     sans quantification inventée. -->
+                <ol class="cefr" aria-label="Niveau européen atteint : B2">
+                  <li class="is-reached">A1</li>
+                  <li class="is-reached">A2</li>
+                  <li class="is-reached">B1</li>
+                  <li class="is-reached is-current">B2</li>
+                  <li>C1</li>
+                  <li>C2</li>
+                </ol>
+
+                <!-- Scores réels rapportés à leur maximum réel : les jauges
+                     ne reposent sur aucune estimation. -->
+                <ul class="scores">
+                  <li>
+                    <span class="scores__name">Linguaskill</span>
+                    <span class="scores__bar"><span style="--v: 89.4%"></span></span>
+                    <span class="scores__value">161<i>/180</i></span>
+                  </li>
+                  <li>
+                    <span class="scores__name">TOEIC</span>
+                    <span class="scores__bar"><span style="--v: 78.3%"></span></span>
+                    <span class="scores__value">775<i>/990</i></span>
+                  </li>
+                </ul>
+              </li>
             </ul>
           </section>
 
           <section class="skill reveal spotlight tilt" data-reveal="up">
             <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-spark"></use></svg> Savoir-être</h3>
-            <ul class="tags tags--soft">
-              <li>Rigueur</li><li>Autonomie</li><li>Capacité d'adaptation</li><li>Réactivité</li>
+            <ul class="tags tags--icon">
+              <li><svg class="ico" aria-hidden="true"><use href="#i-spark"></use></svg> Rigueur</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-spark"></use></svg> Autonomie</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-spark"></use></svg> Capacité d'adaptation</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-spark"></use></svg> Réactivité</li>
             </ul>
           </section>
 
         </div>
 
-        <p class="interests reveal" data-reveal="up">
-          <span class="interests__label"><svg class="ico" aria-hidden="true"><use href="#i-wrench"></use></svg> Hors du bureau</span>
-          Football en club, tennis, musculation et running — et du bricolage qui ressemble beaucoup
-          au métier : CAO, impression 3D, mécanique et électronique.
-        </p>
+        <section class="interests reveal spotlight" data-reveal="up">
+          <h3 class="interests__title">
+            <svg class="ico" aria-hidden="true"><use href="#i-spark"></use></svg>
+            Hors du bureau
+          </h3>
+
+          <div class="interests__grid">
+            <div class="interest">
+              <span class="interest__label">Sport</span>
+              <ul class="tags tags--icon">
+                <li><svg class="ico" aria-hidden="true"><use href="#i-ball"></use></svg> Football en club</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-racket"></use></svg> Tennis</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-dumbbell"></use></svg> Musculation</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-run"></use></svg> Running</li>
+              </ul>
+            </div>
+
+            <div class="interest">
+              <span class="interest__label">Bricolage</span>
+              <ul class="tags tags--icon">
+                <li><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> CAO</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-cube"></use></svg> Impression 3D</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-wrench"></use></svg> Mécanique</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-chip"></use></svg> Électronique</li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="interests__note">
+            Un bricolage qui ressemble beaucoup au métier — c'est souvent là que les idées se testent
+            avant d'arriver au bureau.
+          </p>
+        </section>
       </div>
     </section>
 
@@ -616,19 +699,34 @@
         </header>
 
         <ol class="edu">
-          <li class="edu__item reveal" data-reveal="left">
-            <span class="edu__years"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2023 — 2026</span>
-            <div class="edu__body">
-              <h3><svg class="ico" aria-hidden="true"><use href="#i-cap"></use></svg> Diplôme d'ingénieur généraliste — spécialité Mécatronique et Robotique</h3>
-              <p>Junia HEI, École des Hautes Études d'Ingénieur <span class="edu__loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg> Lille (59)</span></p>
+          <li class="edu__item reveal spotlight tilt" data-reveal="up">
+            <div class="edu__top">
+              <span class="edu__years"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2023 — 2026</span>
+              <span class="edu__badge">Diplôme d'ingénieur</span>
             </div>
+            <h3 class="edu__title">
+              <svg class="ico" aria-hidden="true"><use href="#i-cap"></use></svg>
+              Ingénieur généraliste — spécialité Mécatronique et Robotique
+            </h3>
+            <p class="edu__school">Junia HEI, École des Hautes Études d'Ingénieur</p>
+            <p class="edu__place">
+              <svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg> Lille (59)
+            </p>
           </li>
-          <li class="edu__item reveal" data-reveal="left">
-            <span class="edu__years"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2021 — 2023</span>
-            <div class="edu__body">
-              <h3><svg class="ico" aria-hidden="true"><use href="#i-cap"></use></svg> Classe préparatoire MPSI</h3>
-              <p>Junia HEI (LaSalle) <span class="edu__loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg> Lille (59)</span></p>
+
+          <li class="edu__item reveal spotlight tilt" data-reveal="up">
+            <div class="edu__top">
+              <span class="edu__years"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2021 — 2023</span>
+              <span class="edu__badge">Classe préparatoire</span>
             </div>
+            <h3 class="edu__title">
+              <svg class="ico" aria-hidden="true"><use href="#i-cap"></use></svg>
+              MPSI — mathématiques, physique et sciences de l'ingénieur
+            </h3>
+            <p class="edu__school">Junia HEI (LaSalle)</p>
+            <p class="edu__place">
+              <svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg> Lille (59)
+            </p>
           </li>
         </ol>
       </div>
@@ -658,7 +756,7 @@
                 <span class="contact__k"><svg class="ico" aria-hidden="true"><use href="#i-mail"></use></svg> E-mail</span>
                 <span class="contact__v">
                   <a href="mailto:romain.lance@outlook.com" target="_blank" rel="noopener noreferrer">romain.lance@outlook.com</a>
-                  <button class="copy" id="copyMail" type="button" data-copy="romain.lance@outlook.com" aria-label="Copier l'adresse e-mail">Copier</button>
+                  <button class="copy" id="copyMail" type="button" data-copy="romain.lance@outlook.com" data-hint="Copier dans le presse-papiers" aria-label="Copier l'adresse e-mail">Copier</button>
                 </span>
               </li>
               <li>
@@ -668,6 +766,10 @@
               <li>
                 <span class="contact__k"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg> Localisation</span>
                 <span class="contact__v">Saint-Martin-Choquel (62), France</span>
+              </li>
+              <li>
+                <span class="contact__k"><svg class="ico" aria-hidden="true"><use href="#i-route"></use></svg> Mobilité</span>
+                <span class="contact__v">Permis B — véhicule personnel</span>
               </li>
               <li>
                 <span class="contact__k"><svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg> Disponibilité</span>
@@ -718,6 +820,37 @@
     </div>
   </footer>
 
+  <!-- ============================================================
+       FENÊTRE DU QR CODE
+       Le code est calculé au moment de l'ouverture à partir de l'URL
+       courante (voir js/qr.js), il pointe donc toujours vers l'adresse
+       réelle du site, quel que soit l'hébergement.
+       ============================================================ -->
+  <div class="modal" id="qrModal" role="dialog" aria-modal="true"
+       aria-labelledby="qrTitle" aria-describedby="qrHint" hidden>
+    <div class="modal__backdrop" data-modal-close></div>
+
+    <div class="modal__panel" role="document">
+      <button class="modal__close" type="button" data-modal-close aria-label="Fermer">
+        <svg class="ico" aria-hidden="true"><use href="#i-close"></use></svg>
+      </button>
+
+      <p class="modal__eyebrow">
+        <svg class="ico" aria-hidden="true"><use href="#i-phone"></use></svg>
+        Continuer sur mobile
+      </p>
+      <h2 class="modal__title" id="qrTitle">Ouvrir ce site sur votre téléphone</h2>
+      <p class="modal__hint" id="qrHint">
+        Scannez ce code avec l'appareil photo de votre mobile pour y retrouver cette page.
+      </p>
+
+      <div class="qr" id="qrTarget" aria-hidden="true"></div>
+
+      <p class="qr__url" id="qrUrl"></p>
+    </div>
+  </div>
+
+  <script src="js/qr.js"></script>
   <script src="js/main.js"></script>
   <script src="js/effects.js"></script>
 </body>

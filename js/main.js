@@ -17,9 +17,10 @@
    04. Apparitions au scroll
    05. Section active dans la navigation
    06. Recentrage d'une expérience
-   07. Copie de l'adresse e-mail
-   08. Formulaire de contact (mailto)
-   09. Année du pied de page
+   07. Fenêtre du QR code
+   08. Copie de l'adresse e-mail
+   09. Formulaire de contact (mailto)
+   10. Année du pied de page
    ========================================================================== */
 
 (function () {
@@ -258,7 +259,99 @@
   });
 
 
-  /* 07. COPIE DE L'ADRESSE E-MAIL
+  /* 07. FENÊTRE DU QR CODE
+     ------------------------------------------------------------------------
+     Le code est calculé à l'ouverture depuis `location.href`, il pointe donc
+     toujours vers l'adresse réelle du site quel que soit l'hébergement.
+     Sans js/qr.js chargé, le bouton se retire de lui-même. */
+  var qrToggle = document.getElementById('qrToggle');
+  var qrModal = document.getElementById('qrModal');
+
+  if (qrToggle && qrModal) {
+    var qrTarget = document.getElementById('qrTarget');
+    var qrUrlLabel = document.getElementById('qrUrl');
+    var lastFocused = null;
+    var qrDrawn = false;
+
+    if (typeof window.QRCode === 'undefined') {
+      qrToggle.remove();          // l'encodeur n'est pas là : pas de bouton mort
+    } else {
+
+      function drawQR() {
+        if (qrDrawn) { return; }
+
+        // On retire le fragment : il n'apporte rien une fois sur mobile et
+        // rallongerait l'URL, donc la densité du code.
+        var url = window.location.href.split('#')[0];
+        var code = window.QRCode.build(url);
+        var quiet = 2;                       // marge silencieuse, en modules
+        var span = code.size + quiet * 2;
+
+        var parts = [
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + span + ' ' + span +
+          '" role="img" aria-label="QR code vers ' + url + '">',
+          '<rect width="' + span + '" height="' + span + '" fill="#ffffff"/>'
+        ];
+        for (var y = 0; y < code.size; y++) {
+          for (var x = 0; x < code.size; x++) {
+            if (code.get(x, y)) {
+              parts.push('<rect x="' + (x + quiet) + '" y="' + (y + quiet) +
+                         '" width="1" height="1" fill="#14161a"/>');
+            }
+          }
+        }
+        parts.push('</svg>');
+
+        qrTarget.innerHTML = parts.join('');
+        if (qrUrlLabel) { qrUrlLabel.textContent = url; }
+        qrDrawn = true;
+      }
+
+      function openQR() {
+        drawQR();
+        lastFocused = document.activeElement;
+        qrModal.hidden = false;
+        // Un frame d'écart pour que la transition d'ouverture soit jouée
+        requestAnimationFrame(function () { qrModal.classList.add('is-open'); });
+        qrToggle.setAttribute('aria-expanded', 'true');
+        var close = qrModal.querySelector('.modal__close');
+        if (close) { close.focus(); }
+      }
+
+      function closeQR() {
+        qrModal.classList.remove('is-open');
+        qrToggle.setAttribute('aria-expanded', 'false');
+        window.setTimeout(function () { qrModal.hidden = true; }, 300);
+        if (lastFocused && lastFocused.focus) { lastFocused.focus(); }
+      }
+
+      qrToggle.setAttribute('aria-expanded', 'false');
+      qrToggle.addEventListener('click', openQR);
+
+      qrModal.addEventListener('click', function (e) {
+        if (e.target.closest('[data-modal-close]')) { closeQR(); }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (qrModal.hidden) { return; }
+
+        if (e.key === 'Escape') { closeQR(); return; }
+
+        // Le focus reste enfermé dans la fenêtre tant qu'elle est ouverte
+        if (e.key === 'Tab') {
+          var focusables = qrModal.querySelectorAll('button, [href], input, [tabindex]:not([tabindex="-1"])');
+          if (!focusables.length) { return; }
+          var first = focusables[0];
+          var last = focusables[focusables.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      });
+    }
+  }
+
+
+  /* 08. COPIE DE L'ADRESSE E-MAIL
      ---------------------------------------------------------------------- */
   var copyBtn = document.getElementById('copyMail');
 
@@ -298,7 +391,7 @@
   }
 
 
-  /* 08. FORMULAIRE DE CONTACT (MAILTO)
+  /* 09. FORMULAIRE DE CONTACT (MAILTO)
      ------------------------------------------------------------------------
      Pas de backend : on assemble un lien mailto: et on l'ouvre dans une
      NOUVELLE fenêtre, pour que le portfolio reste affiché dans l'onglet
@@ -350,7 +443,7 @@
   }
 
 
-  /* 09. ANNÉE DU PIED DE PAGE
+  /* 10. ANNÉE DU PIED DE PAGE
      ---------------------------------------------------------------------- */
   var year = document.getElementById('year');
   if (year) { year.textContent = String(new Date().getFullYear()); }

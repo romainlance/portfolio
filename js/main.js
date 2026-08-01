@@ -16,9 +16,10 @@
    03. Barre de navigation et progression de lecture
    04. Apparitions au scroll
    05. Section active dans la navigation
-   06. Copie de l'adresse e-mail
-   07. Formulaire de contact (mailto)
-   08. Année du pied de page
+   06. Recentrage d'une expérience
+   07. Copie de l'adresse e-mail
+   08. Formulaire de contact (mailto)
+   09. Année du pied de page
    ========================================================================== */
 
 (function () {
@@ -150,16 +151,36 @@
       counters.set(parent, n + 1);
     });
 
+    // Éléments encore à révéler, pour le rattrapage décrit plus bas
+    var pending = new Set(revealables);
+
+    function show(el) {
+      el.classList.add('is-visible');
+      pending.delete(el);
+      revealObserver.unobserve(el); // une seule animation par élément
+    }
+
     var revealObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          revealObserver.unobserve(entry.target); // une seule animation par élément
-        }
+        if (entry.isIntersecting) { show(entry.target); }
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
 
     revealables.forEach(function (el) { revealObserver.observe(el); });
+
+    /* Rattrapage des éléments franchis sans être vus.
+       Un IntersectionObserver ne notifie qu'un changement d'état : si la page
+       saute directement au-delà d'un élément — clic sur une ancre, ouverture
+       sur un #fragment, rechargement qui restaure la position — celui-ci passe
+       de « pas encore visible » à « déjà dépassé » sans jamais croiser le
+       viewport, et resterait invisible si l'on remontait.
+       On révèle donc au passage tout ce qui se retrouve au-dessus de l'écran. */
+    window.portfolioOnScroll(function () {
+      if (!pending.size) { return; }
+      pending.forEach(function (el) {
+        if (el.getBoundingClientRect().bottom < 0) { show(el); }
+      });
+    });
   }
 
 
@@ -208,7 +229,36 @@
   window.addEventListener('resize', updateActiveSection, { passive: true });
 
 
-  /* 06. COPIE DE L'ADRESSE E-MAIL
+  /* 06. RECENTRAGE D'UNE EXPÉRIENCE
+     ------------------------------------------------------------------------
+     Cliquer une expérience du parcours la ramène au centre de l'écran, pour
+     l'isoler du reste de la timeline pendant la lecture.
+
+     C'est un confort de lecture, pas une navigation : aucun contenu n'est
+     masqué au départ et rien n'est perdu si le clic n'est pas déclenché.
+     Le tabindex posé dans le HTML rend le geste accessible au clavier. */
+  var experiences = document.querySelectorAll('.tl');
+
+  experiences.forEach(function (item) {
+    function center() {
+      item.scrollIntoView({
+        block: 'center',
+        behavior: prefersReducedMotion ? 'auto' : 'smooth'
+      });
+    }
+
+    item.addEventListener('click', center);
+
+    item.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();          // empêche la barre d'espace de faire défiler
+        center();
+      }
+    });
+  });
+
+
+  /* 07. COPIE DE L'ADRESSE E-MAIL
      ---------------------------------------------------------------------- */
   var copyBtn = document.getElementById('copyMail');
 
@@ -248,7 +298,7 @@
   }
 
 
-  /* 07. FORMULAIRE DE CONTACT (MAILTO)
+  /* 08. FORMULAIRE DE CONTACT (MAILTO)
      ------------------------------------------------------------------------
      Pas de backend : on assemble un lien mailto: et on l'ouvre dans une
      NOUVELLE fenêtre, pour que le portfolio reste affiché dans l'onglet
@@ -300,7 +350,7 @@
   }
 
 
-  /* 08. ANNÉE DU PIED DE PAGE
+  /* 09. ANNÉE DU PIED DE PAGE
      ---------------------------------------------------------------------- */
   var year = document.getElementById('year');
   if (year) { year.textContent = String(new Date().getFullYear()); }

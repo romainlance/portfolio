@@ -32,6 +32,7 @@ Puis ouvrir <http://localhost:8000>.
 .
 ├── index.html                  # Page d'accueil : les 6 sections ancrées
 ├── projets/                    # Une page par projet
+│   ├── dino-plateforme-ros2.html
 │   ├── fauteuil-roulant-intelligent.html
 │   ├── robot-agricole-rover.html
 │   └── frigo-du-desert.html
@@ -172,6 +173,13 @@ disponibilité, savoir-être, centres d'intérêt).
 
 ## Détails techniques
 
+- **Verre liquide** — les panneaux (cartes, compétences, formulaire, plaque,
+  fiches projet) partagent un même traitement de surface : fond translucide,
+  flou d'arrière-plan, liseré clair sur l'arête haute et ombre sur l'arête
+  basse. La recette est centralisée dans la section « Verre liquide » de
+  `css/style.css` ; les quatre variables `--glass-*` de chaque thème suffisent
+  à la régler. Les arrondis suivent une échelle unique
+  (`--radius-sm` / `--radius` / `--radius-lg` / `--radius-xl`).
 - **Thème clair / sombre** — suit la préférence système au premier chargement,
   puis mémorise le choix dans `localStorage`. Un court script inline dans le
   `<head>` applique le thème avant le premier rendu pour éviter le flash blanc,
@@ -184,7 +192,14 @@ disponibilité, savoir-être, centres d'intérêt).
   système demande `prefers-reduced-motion: reduce`.
 - **Effets au curseur** — halos, relief 3D et boutons aimantés ne s'activent
   que sur un pointeur fin (`hover: hover and pointer: fine`), donc jamais sur
-  écran tactile.
+  écran tactile. Le halo rattrape le curseur par interpolation plutôt que de
+  s'y coller, ce qui adoucit le mouvement.
+- **Expériences cliquables** — un clic sur une entrée du parcours la recentre
+  à l'écran. C'est un confort de lecture : rien n'est masqué au départ et le
+  geste est accessible au clavier.
+- **Curseur** — la page force `cursor: default` ; seuls les éléments
+  actionnables passent en `pointer` et les champs en `text`. Le pointeur ne
+  change donc plus de forme au survol du texte courant.
 - **Formulaire de contact** — sans backend : le JavaScript compose un lien
   `mailto:` et l'ouvre dans une **nouvelle fenêtre**, pour que le portfolio
   reste affiché dans l'onglet d'origine. L'adresse est affichée en clair à

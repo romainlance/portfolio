@@ -60,7 +60,7 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Romain Lance",
-    "jobTitle": "Ingénieur Mécatronique et Robotique",
+    "jobTitle": "Ingénieur Junior Mécatronique et Robotique",
     "email": "mailto:romain.lance@outlook.com",
     "address": { "@type": "PostalAddress", "addressLocality": "Saint-Martin-Choquel", "addressRegion": "Pas-de-Calais", "addressCountry": "FR" },
     "alumniOf": { "@type": "CollegeOrUniversity", "name": "Junia HEI — École des Hautes Études d'Ingénieur" },
@@ -133,12 +133,11 @@
             <span class="line intro" data-intro="3"><span>Lance</span></span>
           </h1>
 
-          <p class="hero__role intro" data-intro="4">Ingénieur — Mécatronique &amp;&nbsp;Robotique</p>
+          <p class="hero__role intro" data-intro="4">Ingénieur Junior — Mécatronique &amp;&nbsp;Robotique</p>
 
           <p class="hero__pitch intro" data-intro="5">
-            Modèles cinématiques et dynamiques, ROS&nbsp;2, bus CAN, cartes STM32/ESP32,
-            pièces dessinées sur SolidWorks — je fais tenir ensemble la mécanique,
-            l'électronique et le code d'un robot mobile.
+            Faire tenir ensemble la mécanique, l'électronique et le logiciel,
+            jusqu'à ce qu'une machine finisse par avancer toute seule.
           </p>
 
           <div class="hero__cta intro" data-intro="6">
@@ -242,8 +241,8 @@
             </li>
             <li>
               <svg class="ico stats__ico" aria-hidden="true"><use href="#i-flask"></use></svg>
-              <span class="stats__num" data-count="3">3</span>
-              <span class="stats__label">projets d'ingénierie</span>
+              <span class="stats__num" data-count="4">4</span>
+              <span class="stats__label">projets d\'ingénierie</span>
             </li>
           </ul>
         </div>
@@ -265,7 +264,7 @@
         <ol class="timeline" id="timeline">
           <span class="timeline__rail" aria-hidden="true"><span class="timeline__fill" id="timelineFill"></span></span>
 
-          <li class="tl reveal" data-reveal="up">
+          <li class="tl reveal" data-reveal="up" tabindex="0">
             <div class="tl__meta">
               <time datetime="2026"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2026</time>
               <span class="tl__dur"><svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg> 6 mois</span>
@@ -290,7 +289,7 @@
             </div>
           </li>
 
-          <li class="tl reveal" data-reveal="up">
+          <li class="tl reveal" data-reveal="up" tabindex="0">
             <div class="tl__meta">
               <time datetime="2025"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2025</time>
               <span class="tl__dur"><svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg> 4 mois</span>
@@ -313,7 +312,7 @@
             </div>
           </li>
 
-          <li class="tl reveal" data-reveal="up">
+          <li class="tl reveal" data-reveal="up" tabindex="0">
             <div class="tl__meta">
               <time datetime="2024"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2024</time>
               <span class="tl__dur"><svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg> 2 mois</span>
@@ -335,7 +334,7 @@
             </div>
           </li>
 
-          <li class="tl reveal" data-reveal="up">
+          <li class="tl reveal" data-reveal="up" tabindex="0">
             <div class="tl__meta">
               <time datetime="2023"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2023</time>
               <span class="tl__dur"><svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg> 1 mois</span>
@@ -375,6 +374,47 @@
 
         <div class="projects">
 
+          <a class="pcard reveal tilt" data-reveal="scale" href="projets/dino-plateforme-ros2.html">
+            <div class="pcard__media">
+              <!-- Passerelle entre l'architecture ROS 2 et le réseau CAN du robot -->
+              <svg class="diagram" viewBox="0 0 200 120" aria-hidden="true">
+                <path class="diagram__grid" d="M0 30h200M0 60h200M0 90h200M40 0v120M80 0v120M120 0v120M160 0v120"/>
+                <path class="diagram__draw" d="M56 34h12v26h11M56 86h12V60M121 60h11V34h12M132 60v26h12"/>
+                <rect class="diagram__box" x="14" y="22" width="42" height="24" rx="3"/>
+                <rect class="diagram__box" x="14" y="74" width="42" height="24" rx="3"/>
+                <rect class="diagram__box" x="79" y="48" width="42" height="24" rx="3"/>
+                <rect class="diagram__box" x="144" y="22" width="42" height="24" rx="3"/>
+                <rect class="diagram__box" x="144" y="74" width="42" height="24" rx="3"/>
+                <circle class="diagram__dot" cx="68" cy="60" r="3"/>
+                <circle class="diagram__dot" cx="132" cy="60" r="3"/>
+              </svg>
+              <span class="pcard__index" aria-hidden="true">01</span>
+            </div>
+
+            <div class="pcard__body">
+              <div class="pcard__top">
+                <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2026</span>
+                <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg> 6 mois</span>
+              </div>
+
+              <h3 class="pcard__title">Dino — plateforme de recherche ROS&nbsp;2</h3>
+              <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Stage de fin d'études — INIT Robots, Montréal</p>
+              <p class="pcard__desc">
+                Ouvrir un robot agricole commercial pour en faire une plateforme de recherche,
+                du modèle cinématique jusqu'à la navigation autonome.
+              </p>
+
+              <ul class="tags tags--sm">
+                <li>ROS 2</li><li>Bus CAN</li><li>Navigation autonome</li>
+              </ul>
+
+              <span class="pcard__cta">
+                Voir le projet
+                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+              </span>
+            </div>
+          </a>
+
           <a class="pcard reveal tilt" data-reveal="scale" href="projets/fauteuil-roulant-intelligent.html">
             <div class="pcard__media">
               <!-- Réponse dynamique amortie : évoque la modélisation du système -->
@@ -386,7 +426,7 @@
                 <circle class="diagram__dot" cx="96" cy="38" r="3"/>
                 <circle class="diagram__dot" cx="152" cy="48" r="3"/>
               </svg>
-              <span class="pcard__index" aria-hidden="true">01</span>
+              <span class="pcard__index" aria-hidden="true">02</span>
             </div>
 
             <div class="pcard__body">
@@ -425,7 +465,7 @@
                 <circle class="diagram__dot" cx="124" cy="46" r="3"/>
                 <rect class="diagram__box" x="150" y="90" width="16" height="16" rx="3"/>
               </svg>
-              <span class="pcard__index" aria-hidden="true">02</span>
+              <span class="pcard__index" aria-hidden="true">03</span>
             </div>
 
             <div class="pcard__body">
@@ -461,7 +501,7 @@
                 <rect class="diagram__box" x="58" y="52" width="84" height="52" rx="4"/>
                 <path class="diagram__axis" d="M72 68h56M72 80h56M72 92h36"/>
               </svg>
-              <span class="pcard__index" aria-hidden="true">03</span>
+              <span class="pcard__index" aria-hidden="true">04</span>
             </div>
 
             <div class="pcard__body">
@@ -505,7 +545,7 @@
 
         <div class="skills">
 
-          <section class="skill reveal spotlight" data-reveal="up">
+          <section class="skill reveal spotlight tilt" data-reveal="up">
             <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Robotique</h3>
             <ul class="tags">
               <li>ROS / ROS 2</li><li>Localisation</li><li>Navigation autonome</li><li>SLAM</li>
@@ -515,7 +555,7 @@
             </ul>
           </section>
 
-          <section class="skill reveal spotlight" data-reveal="up">
+          <section class="skill reveal spotlight tilt" data-reveal="up">
             <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Mécanique</h3>
             <ul class="tags">
               <li>SolidWorks</li><li>Fusion 360</li><li>Statique</li><li>Dynamique</li>
@@ -524,7 +564,7 @@
             </ul>
           </section>
 
-          <section class="skill reveal spotlight" data-reveal="up">
+          <section class="skill reveal spotlight tilt" data-reveal="up">
             <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-chip"></use></svg> Électronique &amp; embarqué</h3>
             <ul class="tags">
               <li>ESP32</li><li>STM32</li><li>Arduino</li><li>UART</li><li>I2C</li><li>SPI</li>
@@ -532,14 +572,14 @@
             </ul>
           </section>
 
-          <section class="skill reveal spotlight" data-reveal="up">
+          <section class="skill reveal spotlight tilt" data-reveal="up">
             <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-code"></use></svg> Programmation</h3>
             <ul class="tags">
               <li>Python</li><li>C++</li><li>HTML</li><li>Git / versionning</li>
             </ul>
           </section>
 
-          <section class="skill reveal spotlight" data-reveal="up">
+          <section class="skill reveal spotlight tilt" data-reveal="up">
             <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-globe"></use></svg> Langues</h3>
             <ul class="lang">
               <li><strong>Français</strong> <span>Langue maternelle</span></li>
@@ -547,7 +587,7 @@
             </ul>
           </section>
 
-          <section class="skill reveal spotlight" data-reveal="up">
+          <section class="skill reveal spotlight tilt" data-reveal="up">
             <h3 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-spark"></use></svg> Savoir-être</h3>
             <ul class="tags tags--soft">
               <li>Rigueur</li><li>Autonomie</li><li>Capacité d'adaptation</li><li>Réactivité</li>
@@ -674,7 +714,7 @@
   <footer class="footer">
     <div class="wrap footer__inner">
       <p>© <span id="year">2026</span> Romain Lance</p>
-      <p class="footer__meta">Ingénieur Mécatronique &amp; Robotique — Hauts-de-France</p>
+      <p class="footer__meta">Ingénieur Junior Mécatronique &amp; Robotique — Hauts-de-France</p>
     </div>
   </footer>
 

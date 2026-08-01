@@ -77,18 +77,50 @@
   /* 02. HALO SUIVANT LE CURSEUR
      ------------------------------------------------------------------------
      Le hero (et l'en-tête des pages projet) porte un dégradé radial dont le
-     centre suit la souris, exprimé en pourcentage de la zone. */
+     centre suit la souris.
+
+     Le halo ne colle pas au curseur : il le rattrape par interpolation à
+     chaque frame. Ce léger retard suffit à transformer un suivi mécanique en
+     mouvement fluide, et évite les à-coups sur les déplacements rapides. */
   (function initAura() {
     if (!finePointer || reduceMotion) { return; }
 
-    var zones = document.querySelectorAll('.hero, .phero');
+    var EASING = 0.1; // fraction de l'écart rattrapée par frame
 
-    zones.forEach(function (zone) {
-      zone.addEventListener('pointermove', function (e) {
+    document.querySelectorAll('.hero, .phero').forEach(function (zone) {
+      var targetX = 72, targetY = 34;   // position visée, en % de la zone
+      var currentX = targetX, currentY = targetY;
+      var frame = null;
+
+      function render() {
+        currentX += (targetX - currentX) * EASING;
+        currentY += (targetY - currentY) * EASING;
+
+        zone.style.setProperty('--mx', currentX.toFixed(2) + '%');
+        zone.style.setProperty('--my', currentY.toFixed(2) + '%');
+
+        // On s'arrête net une fois le curseur rattrapé, pour ne pas laisser
+        // tourner une boucle d'animation inutile.
+        if (Math.abs(targetX - currentX) > 0.05 || Math.abs(targetY - currentY) > 0.05) {
+          frame = requestAnimationFrame(render);
+        } else {
+          frame = null;
+        }
+      }
+
+      function track(e, snap) {
         var r = zone.getBoundingClientRect();
-        zone.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
-        zone.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
-      }, { passive: true });
+        targetX = (e.clientX - r.left) / r.width * 100;
+        targetY = (e.clientY - r.top) / r.height * 100;
+
+        // À l'entrée dans la zone, le halo apparaît directement sous le
+        // curseur plutôt que de traverser l'écran pour le rejoindre.
+        if (snap) { currentX = targetX; currentY = targetY; }
+        if (!frame) { frame = requestAnimationFrame(render); }
+      }
+
+      zone.addEventListener('pointerenter', function (e) { track(e, true); }, { passive: true });
+      zone.addEventListener('pointermove', function (e) { track(e, false); }, { passive: true });
     });
   })();
 

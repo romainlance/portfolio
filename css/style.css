@@ -25,10 +25,11 @@
    16. Formation
    17. Contact
    18. Pied de page
-   19. Effets au pointeur (halo, relief, aimantation)
-   20. Animations d'entrée et apparitions au scroll
-   21. Responsive
-   22. Impression
+   19. Verre liquide
+   20. Effets au pointeur (halo, relief, aimantation)
+   21. Animations d'entrée et apparitions au scroll
+   22. Responsive
+   23. Impression
    ========================================================================== */
 
 
@@ -54,7 +55,27 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   transition: background-color .3s ease, color .3s ease;
+  /* Le pointeur garde la même forme sur toute la page : la valeur par défaut
+     `auto` fait basculer en curseur de saisie dès qu'on passe sur du texte,
+     ce qui donne une impression d'instabilité. La sélection du texte reste
+     évidemment possible. */
+  cursor: default;
 }
+
+/* Seuls les éléments réellement actionnables changent la forme du pointeur */
+a,
+button,
+label,
+summary,
+.tl { cursor: pointer; }
+
+input,
+textarea,
+select { cursor: text; }
+
+button,
+input[type='submit'],
+input[type='button'] { cursor: pointer; }
 
 img { display: block; max-width: 100%; }
 
@@ -94,10 +115,25 @@ button, input, textarea { font: inherit; color: inherit; }
   --wrap: 1120px;
   --wrap-narrow: 760px;
   --nav-h: 64px;
-  --radius: 3px;              /* volontairement minimal : pas d'arrondi « carte » */
   --grid-size: 76px;
 
+  /* Échelle d'arrondis : petits contrôles, panneaux, grands blocs */
+  --radius-sm: 7px;
+  --radius: 11px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
   --ease-out: cubic-bezier(.2, .7, .3, 1);
+
+  /* Recette du verre liquide, assemblée une fois et réutilisée partout.
+     Les variables citées ici sont redéfinies par thème plus bas : la
+     résolution ayant lieu sur l'élément, chaque thème obtient sa version. */
+  --glass-fill: linear-gradient(152deg, var(--glass-sheen), transparent 42%);
+  --glass-shadow-stack:
+    inset 0 1px 0 0 var(--glass-sheen),
+    inset 0 -1px 0 0 var(--glass-shade),
+    0 16px 36px -26px var(--glass-cast);
+  --glass-blur: blur(12px) saturate(165%);
 }
 
 /* Thème clair — ivoire / charbon */
@@ -114,9 +150,20 @@ button, input, textarea { font: inherit; color: inherit; }
   --accent-ink: #ffffff;
   --accent-wash: rgba(29, 99, 130, .09);
   --accent-glow: rgba(29, 99, 130, .16);
+  /* Halos au curseur : volontairement très peu opaques, l'effet doit se
+     deviner plutôt que se voir. */
+  --aura: rgba(29, 99, 130, .11);
+  --aura-soft: rgba(29, 99, 130, .045);
   --signal: #a9532a;
   --nav-bg: rgba(244, 242, 237, .82);
   --veil: #f4f2ed;
+
+  /* Verre liquide — thème clair */
+  --glass-bg: rgba(253, 252, 250, .58);
+  --glass-edge: rgba(20, 22, 26, .10);
+  --glass-sheen: rgba(255, 255, 255, .85);
+  --glass-shade: rgba(20, 22, 26, .05);
+  --glass-cast: rgba(20, 22, 26, .30);
 }
 
 /* Thème sombre — nuit d'atelier */
@@ -133,9 +180,18 @@ button, input, textarea { font: inherit; color: inherit; }
   --accent-ink: #0e1014;
   --accent-wash: rgba(99, 179, 212, .12);
   --accent-glow: rgba(99, 179, 212, .22);
+  --aura: rgba(99, 179, 212, .14);
+  --aura-soft: rgba(99, 179, 212, .055);
   --signal: #dd9a63;
   --nav-bg: rgba(14, 16, 20, .82);
   --veil: #0e1014;
+
+  /* Verre liquide — thème sombre */
+  --glass-bg: rgba(30, 36, 45, .55);
+  --glass-edge: rgba(231, 234, 238, .12);
+  --glass-sheen: rgba(255, 255, 255, .10);
+  --glass-shade: rgba(0, 0, 0, .22);
+  --glass-cast: rgba(0, 0, 0, .60);
 }
 
 
@@ -295,7 +351,7 @@ strong { font-weight: 600; }
 .tags li:hover {
   border-color: var(--accent);
   color: var(--ink);
-  background: var(--accent-wash);
+  background: var(--glass-fill), var(--accent-wash);
   transform: translateY(-2px);
 }
 
@@ -473,9 +529,13 @@ body::before {
   background: transparent;
   font-size: 17px;
   cursor: pointer;
-  transition: border-color .2s ease, color .2s ease, transform .3s var(--ease-out);
+  transition: border-color .25s ease, color .25s ease, background-color .25s ease;
 }
-.icon-btn:hover { border-color: var(--accent); color: var(--accent); transform: rotate(-12deg); }
+.icon-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--glass-fill), var(--accent-wash);
+}
 
 /* Une seule icône visible selon le thème actif */
 [data-theme='light'] .icon-moon,
@@ -493,19 +553,22 @@ body::before {
   overflow: hidden;
 }
 
-/* Halo qui suit le curseur (--mx / --my posés par js/effects.js) */
+/* Halo qui suit le curseur (--mx / --my posés par js/effects.js).
+   Deux paliers de dégradé plutôt qu'un seul : le cœur reste discret et la
+   décroissance est assez longue pour qu'aucun bord ne se devine. */
 .hero__aura {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
   background: radial-gradient(
-    420px circle at var(--mx, 70%) var(--my, 30%),
-    var(--accent-glow),
-    transparent 65%
+    circle 260px at var(--mx, 72%) var(--my, 34%),
+    var(--aura) 0%,
+    var(--aura-soft) 42%,
+    transparent 72%
   );
   opacity: 0;
-  transition: opacity .5s ease;
+  transition: opacity .6s ease;
 }
 .hero:hover .hero__aura { opacity: 1; }
 
@@ -645,19 +708,23 @@ body::before {
 }
 .plate:hover { box-shadow: 0 24px 60px -30px var(--accent-glow); }
 
-/* Repères de coupe aux quatre angles */
+/* Repères de coupe aux quatre angles.
+   Rentrés de 9 px à l'intérieur plutôt que collés à l'arête : la plaque étant
+   arrondie et masquant ce qui dépasse, des équerres posées sur l'angle même
+   seraient entièrement rognées par la courbe. Leur propre arrondi reprend
+   celui du panneau, moins le retrait. */
 .plate__corner {
   position: absolute;
-  width: 14px;
-  height: 14px;
+  width: 22px;
+  height: 22px;
   border: 2px solid var(--accent);
   transition: width .35s var(--ease-out), height .35s var(--ease-out);
 }
-.plate:hover .plate__corner { width: 22px; height: 22px; }
-.plate__corner--tl { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
-.plate__corner--tr { top: -1px; right: -1px; border-left: 0; border-bottom: 0; }
-.plate__corner--bl { bottom: -1px; left: -1px; border-right: 0; border-top: 0; }
-.plate__corner--br { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+.plate:hover .plate__corner { width: 30px; height: 30px; }
+.plate__corner--tl { top: 9px; left: 9px; border-right: 0; border-bottom: 0; border-top-left-radius: 9px; }
+.plate__corner--tr { top: 9px; right: 9px; border-left: 0; border-bottom: 0; border-top-right-radius: 9px; }
+.plate__corner--bl { bottom: 9px; left: 9px; border-right: 0; border-top: 0; border-bottom-left-radius: 9px; }
+.plate__corner--br { bottom: 9px; right: 9px; border-left: 0; border-top: 0; border-bottom-right-radius: 9px; }
 
 /* Ligne de balayage, clin d'œil aux bancs de mesure */
 .plate__scan {
@@ -742,16 +809,16 @@ body::before {
 
 .about__text strong { color: var(--ink); }
 
-.stats { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.stats { display: grid; gap: .6rem; }
 .stats li {
   display: flex;
   align-items: baseline;
   gap: .6rem;
   padding: 1.1rem 1.2rem;
-  background: var(--bg);
-  transition: background-color .25s ease;
+  border-radius: var(--radius-lg);
+  transition: border-color .25s ease, box-shadow .3s ease;
 }
-.stats li:hover { background: var(--surface); }
+.stats li:hover { border-color: var(--accent); }
 
 .stats__ico {
   font-size: 1rem;
@@ -791,14 +858,19 @@ body::before {
   transition: height .15s linear;
 }
 
+/* Chaque expérience est cliquable : le clic la recentre à l'écran
+   (voir js/main.js). Le pointeur et le nœud qui s'allume au survol
+   suffisent à signaler l'interaction, sans ajouter de bouton. */
 .tl {
   position: relative;
   display: grid;
   grid-template-columns: 120px minmax(0, 1fr);
   gap: 2rem;
   padding-block: 2rem;
+  border-radius: var(--radius);
 }
 .tl:first-child { padding-top: 0; }
+.tl:focus-visible { outline: 2px solid var(--accent); outline-offset: 8px; }
 
 .tl__meta { display: flex; flex-direction: column; gap: .25rem; padding-top: .15rem; }
 .tl__meta time,
@@ -898,22 +970,31 @@ body::before {
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
+  /* Gouttière réelle : avec des cartes arrondies, l'ancienne astuce du
+     « gap: 1px sur fond coloré » laisserait des filets qui ne suivent pas
+     les angles. Chaque carte porte désormais sa propre bordure. */
+  gap: 1rem;
+}
+/* Au-delà du mobile, une grille 2 × 2 fixe : avec quatre projets, `auto-fit`
+   produirait une rangée de trois puis un orphelin, et laisserait trop peu de
+   place aux schémas. */
+@media (min-width: 860px) {
+  .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .pcard {
   position: relative;
+  border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   background: var(--bg);
   overflow: hidden;
   /* --rx / --ry posés par l'effet de relief (js/effects.js) */
   transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transition: background-color .3s ease, transform .35s var(--ease-out);
+  transition: border-color .3s ease, transform .35s var(--ease-out),
+              box-shadow .35s ease;
 }
-.pcard:hover { background: var(--surface); }
+.pcard:hover { border-color: var(--accent); }
 
 /* Liseré supérieur qui se déploie au survol */
 .pcard::after {
@@ -1069,7 +1150,16 @@ body::before {
   gap: clamp(1.6rem, 3.5vw, 2.6rem);
 }
 
-.skill { position: relative; padding: .2rem; border-radius: var(--radius); }
+.skill {
+  position: relative;
+  /* Marge intérieure franche : depuis que le bloc est un panneau de verre,
+     le contenu ne doit plus toucher l'arête. */
+  padding: 1.15rem 1.3rem 1.35rem;
+  /* Relief au pointeur, comme la plaque du hero. Sans la classe .tilt,
+     --rx / --ry restent à 0 et l'élément ne bouge pas. */
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .35s var(--ease-out);
+}
 
 .skill__title {
   display: flex;
@@ -1097,8 +1187,10 @@ body::before {
   font-size: .92rem;
   color: var(--muted);
 }
+/* `flex` et non `inline-flex` : le libellé doit occuper sa propre ligne,
+   au-dessus du paragraphe, et non s'insérer dans son premier mot. */
 .interests__label {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: .45rem;
   margin-bottom: .4rem;
@@ -1111,16 +1203,39 @@ body::before {
    -------------------------------------------------------------------------- */
 .edu { display: grid; }
 
+/* Le survol ne joue que sur `transform` et `background-color` : animer
+   `padding` obligerait le navigateur à refaire la mise en page à chaque
+   frame, ce qui rendait l'effet saccadé. */
 .edu__item {
+  position: relative;
+  border-radius: var(--radius);
   display: grid;
   grid-template-columns: 140px minmax(0, 1fr);
   gap: 2rem;
   padding-block: 1.6rem;
   border-bottom: 1px solid var(--line);
-  transition: padding-left .3s var(--ease-out), background-color .3s ease;
+  transition: background-color .35s ease;
 }
 .edu__item:first-child { border-top: 1px solid var(--line); }
-.edu__item:hover { padding-left: .8rem; background: var(--surface); }
+.edu__item:hover { background: var(--surface); }
+
+/* Repère d'accent révélé par le décalage du contenu */
+.edu__item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.2rem;
+  bottom: 1.2rem;
+  width: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .35s var(--ease-out);
+}
+.edu__item:hover::before { transform: scaleX(1); }
+
+.edu__item > * { transition: transform .4s var(--ease-out); }
+.edu__item:hover > * { transform: translateX(10px); }
 
 .edu__years {
   display: inline-flex;
@@ -1177,10 +1292,11 @@ body::before {
   align-items: baseline;
   padding-block: .8rem;
   border-bottom: 1px solid var(--line);
-  transition: padding-left .3s var(--ease-out);
 }
 .contact__list li:first-child { border-top: 1px solid var(--line); }
-.contact__list li:hover { padding-left: .5rem; }
+/* Décalage par transform, pour les mêmes raisons que la section Formation */
+.contact__list li > * { transition: transform .35s var(--ease-out); }
+.contact__list li:hover > * { transform: translateX(6px); }
 
 .contact__k { display: inline-flex; align-items: center; gap: .45rem; }
 
@@ -1214,6 +1330,7 @@ body::before {
 /* --- Formulaire mailto --- */
 .contact__form {
   position: relative;
+  border-radius: var(--radius-xl);
   display: grid;
   gap: 1rem;
   padding: clamp(1.4rem, 3vw, 2rem);
@@ -1242,7 +1359,8 @@ body::before {
 .field textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-wash);
+  /* On conserve le relief de verre sous l'anneau de focus */
+  box-shadow: var(--glass-shadow-stack), 0 0 0 3px var(--accent-wash);
 }
 .field textarea { resize: vertical; min-height: 110px; }
 
@@ -1268,27 +1386,117 @@ body::before {
 .footer__meta { font-family: var(--font-mono); font-size: .74rem; }
 
 
-/* 19. EFFETS AU POINTEUR
+/* 19. VERRE LIQUIDE
+   --------------------------------------------------------------------------
+   Surface translucide qui laisse transparaître le fond quadrillé et les
+   halos, rehaussée d'un liseré clair sur l'arête haute et d'une ombre sur
+   l'arête basse : la lumière semble glisser sur une plaque de verre au lieu
+   de s'arrêter sur un carton opaque.
+
+   Ce bloc arrive délibérément APRÈS les définitions de composants, pour que
+   le traitement de surface l'emporte sur les fonds posés plus haut. Les
+   sélecteurs des pages projet (.phero__figure, .phero__meta li,
+   .pnav__link--next) y figurent également : mieux vaut une seule définition
+   de l'effet que deux copies à tenir synchronisées.
+   -------------------------------------------------------------------------- */
+
+/* Panneaux : verre complet, flou d'arrière-plan et ombre portée */
+.pcard,
+.skill,
+.stats li,
+.contact__form,
+.plate,
+.phero__figure,
+.phero__meta li,
+.pnav__link--next {
+  background: var(--glass-fill), var(--glass-bg);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--glass-shadow-stack);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+/* Contrôles : même matière, sans ombre portée ni flou — trop coûteux pour
+   des éléments aussi nombreux, et inutile à cette taille. */
+.tags li,
+.icon-btn,
+.btn--ghost,
+.copy,
+.field input,
+.field textarea {
+  background: var(--glass-fill), var(--glass-bg);
+  border: 1px solid var(--glass-edge);
+  box-shadow:
+    inset 0 1px 0 0 var(--glass-sheen),
+    inset 0 -1px 0 0 var(--glass-shade);
+}
+
+/* Le savoir-être conserve son liseré coloré par-dessus le verre */
+.tags--soft li { border-left: 2px solid var(--signal); }
+
+/* Panneaux teintés : la couche d'accent se pose au-dessus du verre */
+.plate,
+.phero__figure,
+.pcard__media {
+  background:
+    linear-gradient(150deg, var(--accent-wash), transparent 62%),
+    var(--glass-fill),
+    var(--glass-bg);
+}
+
+/* Le survol creuse le relief plutôt que de changer la couleur du fond */
+.pcard:hover,
+.stats li:hover,
+.pnav__link--next:hover {
+  box-shadow:
+    inset 0 1px 0 0 var(--glass-sheen),
+    inset 0 -1px 0 0 var(--glass-shade),
+    0 24px 48px -24px var(--glass-cast);
+}
+
+/* --- Arrondis --- */
+.skill,
+.stats li,
+.plate,
+.phero__figure,
+.pnav__link--next { border-radius: var(--radius-lg); }
+
+.tags li,
+.icon-btn,
+.btn--ghost,
+.field input,
+.field textarea,
+.nav__mark,
+.phero__meta li { border-radius: var(--radius); }
+
+.copy { border-radius: var(--radius-sm); }
+
+/* 20. EFFETS AU POINTEUR
    --------------------------------------------------------------------------
    Les variables --mx / --my / --rx / --ry sont mises à jour par
    js/effects.js. En leur absence (pas de JS, écran tactile), les éléments
    gardent leur apparence par défaut : rien ne casse. */
 
-/* Halo local suivant le curseur sur les panneaux */
-.spotlight { position: relative; isolation: isolate; }
+/* Halo local suivant le curseur sur les panneaux.
+   Peint AU-DESSUS de la surface, et non derrière : depuis que les panneaux
+   sont en verre, un calque en z-index négatif serait masqué par leur fond.
+   C'est aussi plus juste — un reflet se pose sur le verre, il ne le traverse
+   pas. L'opacité reste assez basse pour ne jamais gêner la lecture. */
+.spotlight { position: relative; }
 .spotlight::before {
   content: '';
   position: absolute;
-  inset: -1px;
-  z-index: -1;
+  inset: 0;
+  z-index: 1;
   border-radius: inherit;
   background: radial-gradient(
-    260px circle at var(--mx, 50%) var(--my, 50%),
-    var(--accent-wash),
-    transparent 70%
+    circle 180px at var(--mx, 50%) var(--my, 50%),
+    var(--aura) 0%,
+    var(--aura-soft) 45%,
+    transparent 75%
   );
   opacity: 0;
-  transition: opacity .35s ease;
+  transition: opacity .4s ease;
   pointer-events: none;
 }
 .spotlight:hover::before { opacity: 1; }
@@ -1300,7 +1508,7 @@ body::before {
 }
 
 
-/* 20. ANIMATIONS D'ENTRÉE ET APPARITIONS AU SCROLL
+/* 21. ANIMATIONS D'ENTRÉE ET APPARITIONS AU SCROLL
    -------------------------------------------------------------------------- */
 
 /* --- Entrée du hero, jouée une fois au chargement ---
@@ -1364,7 +1572,7 @@ body::before {
 }
 
 
-/* 21. RESPONSIVE
+/* 22. RESPONSIVE
    -------------------------------------------------------------------------- */
 
 /* Tablette large : la plaque passe sous le texte du hero */
@@ -1440,7 +1648,7 @@ body::before {
 }
 
 
-/* 22. IMPRESSION
+/* 23. IMPRESSION
    -------------------------------------------------------------------------- */
 @media print {
   .nav, .progress, .hero__cta, .hero__scroll, .contact__form,

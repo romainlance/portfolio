@@ -33,12 +33,13 @@
   z-index: 0;
   pointer-events: none;
   background: radial-gradient(
-    460px circle at var(--mx, 75%) var(--my, 35%),
-    var(--accent-glow),
-    transparent 65%
+    circle 260px at var(--mx, 75%) var(--my, 35%),
+    var(--aura) 0%,
+    var(--aura-soft) 42%,
+    transparent 72%
   );
   opacity: 0;
-  transition: opacity .5s ease;
+  transition: opacity .6s ease;
 }
 .phero:hover .phero__aura { opacity: 1; }
 
@@ -55,7 +56,7 @@
 .phero__num {
   padding: .15rem .5rem;
   border: 1px solid var(--line-2);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   color: var(--accent);
 }
 .phero__sep {
@@ -85,10 +86,10 @@
 .phero__meta {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
+  /* Gouttière réelle plutôt que filets de grille : les cases sont arrondies
+     et portent chacune leur bordure (voir « Verre liquide » dans style.css). */
+  gap: .6rem;
   margin-top: 2.2rem;
-  background: var(--line);
-  border: 1px solid var(--line);
 }
 .phero__meta li {
   display: grid;
@@ -96,10 +97,9 @@
   grid-template-rows: auto auto;
   column-gap: .55rem;
   padding: .9rem 1rem;
-  background: var(--bg);
-  transition: background-color .25s ease;
+  transition: border-color .25s ease;
 }
-.phero__meta li:hover { background: var(--surface); }
+.phero__meta li:hover { border-color: var(--accent); }
 .phero__meta .ico {
   grid-row: 1 / 3;
   align-self: center;
@@ -119,8 +119,6 @@
 .phero__figure {
   margin: 0;
   padding: 1.6rem;
-  background: linear-gradient(160deg, var(--accent-wash), transparent 70%);
-  border: 1px solid var(--line);
 }
 .phero__figure figcaption {
   margin-top: 1rem;
@@ -151,15 +149,21 @@
 
 .step {
   position: relative;
+  border-radius: var(--radius);
   display: grid;
   grid-template-columns: 58px minmax(0, 1fr);
   gap: 1.4rem;
   padding-block: 1.5rem;
   border-bottom: 1px solid var(--line);
-  transition: background-color .3s ease, padding-left .3s var(--ease-out);
+  transition: background-color .35s ease;
 }
 .step:first-child { border-top: 1px solid var(--line); }
-.step:hover { background: var(--surface); padding-left: .7rem; }
+.step:hover { background: var(--surface); }
+
+/* Décalage par transform : animer `padding` provoquerait un recalcul de
+   mise en page à chaque frame, et donc un effet saccadé. */
+.step > * { transition: transform .4s var(--ease-out); }
+.step:hover > * { transform: translateX(8px); }
 
 .step__num {
   font-family: var(--font-mono);
@@ -231,9 +235,6 @@
 /* Carte « projet suivant », alignée à droite */
 .pnav__link--next {
   padding: 1rem 1.3rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
   text-align: right;
   transition: border-color .25s ease, background-color .25s ease,
               transform .3s var(--ease-out);

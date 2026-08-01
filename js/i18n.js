@@ -201,7 +201,7 @@
     'Autonomie': 'Autonomy',
     'Capacité d\'adaptation': 'Adaptability',
     'Réactivité': 'Responsiveness',
-    'Hors du bureau': 'Outside the office',
+    'Centres d\'intérêt': 'Interests',
     'Sport': 'Sport',
     'Bricolage': 'Tinkering',
     'Football en club': 'Club football',
@@ -222,8 +222,8 @@
       'MPSI — mathematics, physics and engineering science',
 
     // Contact
-    'Un poste autour de la mécatronique et de la robotique, un projet, ou simplement une question technique ? Le plus simple reste l\'e-mail.':
-      'A role around mechatronics and robotics, a project, or simply a technical question? Email is the easiest way.',
+    'Mon profil vous intéresse ? N\'hésitez pas à me contacter, je serai ravi d\'échanger avec vous !':
+      'Does my profile interest you? Feel free to get in touch — I would be glad to talk.',
     'E-mail': 'Email',
     'Localisation ': 'Location ',
     'Mobilité': 'Mobility',

@@ -1072,23 +1072,6 @@ body::before {
 
 .tl__body .tags { margin-top: 1rem; }
 
-/* Renvoi vers la page d'un projet issu de cette expérience */
-.tl__link {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  margin-top: 1.1rem;
-  font-family: var(--font-mono);
-  font-size: .72rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  transition: gap .25s var(--ease-out);
-}
-.tl__link:hover { gap: .8rem; }
-.tl__link .ico { transition: transform .3s var(--ease-out); }
-.tl__link:hover .ico { transform: translateX(3px); }
-
 /* Vignette photo d'une expérience : elle ouvre la visionneuse des albums.
    Format volontairement modeste — la timeline reste une liste, la photo
    l'illustre sans la transformer en galerie. */
@@ -1125,6 +1108,23 @@ body::before {
   letter-spacing: .08em;
   text-transform: uppercase;
   color: #fff;
+}
+.tl__shot-label .ico { transition: transform .3s var(--ease-out); }
+.tl__shot:hover .tl__shot-label .ico { transform: translateX(3px); }
+
+/* Crédit d'une photo dont je ne suis pas l'auteur, posé en haut de la
+   vignette pour ne pas gêner le libellé du bas. */
+.tl__shot-credit {
+  position: absolute;
+  top: .5rem;
+  left: .55rem;
+  padding: .1rem .4rem;
+  border-radius: 999px;
+  background: rgba(20, 22, 26, .55);
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  letter-spacing: .03em;
+  color: rgba(255, 255, 255, .8);
 }
 
 
@@ -1178,11 +1178,21 @@ body::before {
 
 /* Variante photographique : la photo occupe toute la vignette, sans marge */
 .pcard__media--photo { padding: 0; overflow: hidden; }
+/* La photo est posée en absolu pour remplir exactement la vignette. En flux,
+   elle gardait ses propres proportions et débordait : c'était alors le
+   `overflow: hidden` du conteneur qui rognait, toujours au centre, et
+   `object-position` n'avait plus aucune prise.
+
+   --focus règle le point de la photo qui reste dans le cadre : 0 % garde le
+   haut, 100 % le bas. Le sujet n'est pas toujours au milieu du cliché. */
 .pcard__photo {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center var(--focus, 50%);
   transition: transform .6s var(--ease-out);
 }
 .pcard:hover .pcard__photo { transform: scale(1.05); }

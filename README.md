@@ -147,8 +147,17 @@ c'est une mention obligatoire, pas une décoration :
 <span class="pcard__credit">Photo : Nom de l'auteur</span>
 ```
 
+Le cadrage se règle par photo avec la variable `--focus` : `0 %` garde le haut
+du cliché, `100 %` le bas, `50 %` par défaut. Utile quand le sujet n'est pas au
+milieu de l'image.
+
+```html
+<img class="pcard__photo" style="--focus: 74%" …>
+```
+
 Une expérience du parcours qui a donné lieu à une page projet peut y renvoyer
-directement, avec un `<a class="tl__link">` placé après ses étiquettes.
+directement : un `<a class="tl__shot">` portant une photo, comme la vignette
+d'atelier du stage chez Industeam.
 
 ### Remplacer le CV
 
@@ -202,7 +211,9 @@ Pour ajouter un album :
    `assets/albums/mon-projet/`.
 2. **Ajouter la carte** dans la grille `.albums` de la section voulue :
    dupliquer un `<button class="album reveal tilt" data-album="alb-mon-projet">`
-   et pointer sa couverture sur `1-sm.webp`.
+   et pointer sa couverture sur `1-sm.webp`. Le libellé d'ouverture nomme ce
+   qu'on ouvre — « Ouvrir le projet », « Ouvrir le TP » — plutôt qu'un vague
+   « album ».
 3. **Ajouter la fiche** dans `#albumModal` : dupliquer un
    `<article class="album__detail" id="alb-mon-projet">`, avec une
    `<figure class="album__slide">` par photo. La première porte `is-current`.

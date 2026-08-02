@@ -31,10 +31,14 @@ Puis ouvrir <http://localhost:8000>.
 ```
 .
 ├── index.html                  # Page d'accueil : les 8 sections ancrées
+├── 404.html                    # Page d'erreur, autonome (styles inclus)
+├── robots.txt
+├── sitemap.xml
 ├── assets/
 │   ├── cv-romain-lance.pdf     # CV publié (sans le numéro de téléphone)
 │   ├── cv-romain-lance-en.pdf  # Version anglaise — à déposer (voir plus bas)
 │   ├── cv-preview.webp         # Vignette du CV, rendue depuis ce PDF
+│   ├── og-card.jpg             # Image de partage (LinkedIn, messageries)
 │   ├── albums/                 # Photos des projets personnels et des TP
 │   ├── projets/                # Photos des projets (cartes et pages)
 │   └── parcours/               # Photos illustrant le parcours
@@ -102,6 +106,35 @@ vercel
 
 Répondre « no » à la détection de framework et garder le répertoire racine
 comme dossier de sortie.
+
+---
+
+## L'adresse du site
+
+Trois fichiers contiennent l'adresse publique en dur, parce que les
+métadonnées de partage et le plan du site exigent des adresses absolues :
+
+- l'en-tête de chaque page HTML (`canonical`, `og:url`, `og:image`) ;
+- `robots.txt` ;
+- `sitemap.xml`.
+
+Elle vaut aujourd'hui `https://romainlance.github.io/portfolio/`. **En cas de
+nom de domaine personnalisé, c'est la seule chose à remplacer** — partout
+ailleurs les chemins sont relatifs, le site fonctionne à n'importe quelle
+profondeur :
+
+```bash
+grep -rl 'romainlance.github.io/portfolio' . --include='*.html' --include='*.txt' --include='*.xml' \
+  | xargs sed -i 's|https://romainlance.github.io/portfolio/|https://mon-domaine.fr/|g'
+```
+
+### L'image de partage
+
+`assets/og-card.jpg` (1200 × 630) est ce qu'affichent LinkedIn, WhatsApp ou
+Slack quand on colle le lien. Sans elle, le lien apparaît en carte de texte
+nue. Elle a été rendue depuis une page HTML reprenant la charte du site ; pour
+la refaire après un changement d'intitulé, il suffit de refaire une capture
+1200 × 630 avec le nom, le titre et quelques mots-clés.
 
 ---
 
@@ -423,6 +456,11 @@ disponibilité, savoir-être, centres d'intérêt).
   même respiration, définie une seule fois dans `css/project.css`.
 - **Vidéos** — façade locale, lecteur YouTube créé au clic seulement, sur le
   domaine sans cookie. Rien ne part vers Google avant un geste explicite.
-- **SEO** — métadonnées Open Graph et données structurées `schema.org/Person`.
+- **SEO** — métadonnées Open Graph avec image de partage, adresse canonique,
+  données structurées `schema.org/Person`, `robots.txt` et `sitemap.xml`.
+- **Page 404** — entièrement autonome : styles inclus, aucune image, aucune
+  ressource liée. L'hébergeur la sert à n'importe quelle profondeur d'adresse,
+  où un chemin relatif se casserait ; le lien de retour est reconstruit depuis
+  l'adresse courante.
 - **Impression** — une feuille de styles dédiée nettoie la page (navigation,
   formulaire et animations retirés) pour un export PDF propre.

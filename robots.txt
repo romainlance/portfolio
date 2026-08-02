@@ -1,0 +1,7 @@
+# Portfolio — Romain Lance
+# Site public : rien à cacher aux moteurs de recherche.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://romainlance.github.io/portfolio/sitemap.xml

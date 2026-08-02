@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Cinq pages, écrites à la main : c'est plus court à tenir à jour qu'un
+  générateur. Mettre <lastmod> à la date de la dernière modification réelle.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://romainlance.github.io/portfolio/</loc>
+    <lastmod>2026-08-02</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://romainlance.github.io/portfolio/projets/dino-plateforme-ros2.html</loc>
+    <lastmod>2026-08-02</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://romainlance.github.io/portfolio/projets/fauteuil-roulant-intelligent.html</loc>
+    <lastmod>2026-08-02</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://romainlance.github.io/portfolio/projets/robot-agricole-rover.html</loc>
+    <lastmod>2026-08-02</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://romainlance.github.io/portfolio/projets/frigo-du-desert.html</loc>
+    <lastmod>2026-08-02</lastmod>
+    <priority>0.8</priority>
+  </url>
+</urlset>

@@ -169,7 +169,6 @@ d'une rangée restent alignées quelles que soient les proportions du cliché :
 <div class="pcard__media pcard__media--photo">
   <img class="pcard__photo" src="assets/projets/mon-projet/1-sm.webp"
        width="800" height="600" loading="lazy" decoding="async" alt="…">
-  <span class="pcard__index" aria-hidden="true">05</span>
 </div>
 ```
 

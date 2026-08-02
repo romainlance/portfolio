@@ -248,7 +248,12 @@
       });
     }
 
-    item.addEventListener('click', center);
+    item.addEventListener('click', function (e) {
+      // Un lien ou une vignette à l'intérieur de l'expérience fait son propre
+      // travail : recentrer par-dessus n'aurait pas de sens.
+      if (e.target.closest('a, button')) { return; }
+      center();
+    });
 
     item.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {

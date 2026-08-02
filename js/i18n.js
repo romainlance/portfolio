@@ -127,6 +127,7 @@
     'Bus CAN': 'CAN bus',
     'Cinématique': 'Kinematics',
     'Navigation autonome': 'Autonomous navigation',
+    'Voir le projet Dino': 'View the Dino project',
 
     'Assistant chef de projet': 'Assistant project manager',
     'Stage de professionnalisation': 'Professional internship',
@@ -513,6 +514,23 @@
       'Caster wheel and driven wheel of the chair, seen at three-quarters',
     'Le fauteuil en essai, sur la plateforme du laboratoire.':
       'The chair under test, on the laboratory platform.',
+    'Le prototype assemblé, châssis et carters imprimés en 3D.':
+      'The assembled prototype, chassis and covers 3D-printed.',
+    'Le modèle SolidWorks dont sont issues les pièces imprimées.':
+      'The SolidWorks model the printed parts came from.',
+    'Vue éclatée : batterie, cartes, télémètre laser et ensembles moteur-roue.':
+      'Exploded view: battery, boards, laser rangefinder and wheel-motor assemblies.',
+    'Le rover assemblé, posé sur un plan de travail': 'The assembled rover on a workbench',
+    'Le rover modélisé sous SolidWorks': 'The rover modelled in SolidWorks',
+    'Vue éclatée des composants du rover': 'Exploded view of the rover components',
+    'Le Dino dans son usage d\'origine : désherbage mécanique entre les rangs.':
+      'The Dino in its original use: mechanical weeding between the rows.',
+    'Photo : Naïo Technologies': 'Photo: Naïo Technologies',
+    'Image d\'illustration : Naïo Technologies': 'Illustration image: Naïo Technologies',
+    'Le Dino de Naïo Technologies au travail dans un champ de salades':
+      'Naïo Technologies\' Dino at work in a lettuce field',
+    'Le prototype imprimé du frigo du désert': 'The printed prototype of the desert fridge',
+    'Le rover agricole modélisé sous SolidWorks': 'The agricultural rover modelled in SolidWorks',
     'Cinématique différentielle': 'Differential kinematics',
     'Roues folles': 'Caster wheels',
     'Multiplicateurs de Lagrange': 'Lagrange multipliers',

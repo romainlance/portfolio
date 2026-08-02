@@ -36,7 +36,7 @@ Puis ouvrir <http://localhost:8000>.
 │   ├── cv-romain-lance-en.pdf  # Version anglaise — à déposer (voir plus bas)
 │   ├── cv-preview.webp         # Vignette du CV, rendue depuis ce PDF
 │   ├── albums/                 # Photos des projets personnels et des TP
-│   ├── projets/                # Photos illustrant les pages projet
+│   ├── projets/                # Photos des projets (cartes et pages)
 │   └── parcours/               # Photos illustrant le parcours
 ├── projets/                    # Une page par projet
 │   ├── dino-plateforme-ros2.html
@@ -129,23 +129,26 @@ son lien dans `.nav__links`, et son entrée dans le dictionnaire de traduction.
 3. Mettre à jour le lien « projet suivant » en bas des pages projet pour
    inclure la nouvelle dans la boucle.
 
-La vignette d'une carte accepte deux formes, au même format 5:3 pour que les
-cartes d'une rangée restent alignées :
+La vignette d'une carte est une photo, cadrée en 5:3 pour que les cartes
+d'une rangée restent alignées quelles que soient les proportions du cliché :
 
 ```html
-<!-- Une photo -->
 <div class="pcard__media pcard__media--photo">
   <img class="pcard__photo" src="assets/projets/mon-projet/1-sm.webp"
        width="800" height="600" loading="lazy" decoding="async" alt="…">
   <span class="pcard__index" aria-hidden="true">05</span>
 </div>
-
-<!-- Ou un schéma SVG, tracé sur une grille 200 × 120 -->
-<div class="pcard__media">
-  <svg class="diagram" viewBox="0 0 200 120" aria-hidden="true">…</svg>
-  <span class="pcard__index" aria-hidden="true">05</span>
-</div>
 ```
+
+Pour une photo dont tu n'es pas l'auteur, ajouter le crédit dans la vignette —
+c'est une mention obligatoire, pas une décoration :
+
+```html
+<span class="pcard__credit">Photo : Nom de l'auteur</span>
+```
+
+Une expérience du parcours qui a donné lieu à une page projet peut y renvoyer
+directement, avec un `<a class="tl__link">` placé après ses étiquettes.
 
 ### Remplacer le CV
 
@@ -182,13 +185,6 @@ Un fichier JS plutôt qu'un `.svg` externe : les références
 sans étape de build il n'y a pas moyen d'inclure un partiel HTML dans les
 quatre pages. Les icônes étant purement décoratives, leur absence ne retire
 aucune information.
-
-### Les diagrammes des projets
-
-Certaines vignettes sont des SVG dessinés à la main dans le HTML (aucune
-image), sur une grille `0 0 200 120` — le même format 5:3 que les vignettes
-photographiques, pour que les deux s'alignent dans une rangée. Le tracé
-principal porte la classe `diagram__draw` et s'anime tout seul.
 
 ### Les albums photo
 
@@ -411,6 +407,9 @@ disponibilité, savoir-être, centres d'intérêt).
   (`scrollbar-gutter: stable`), la page ne saute pas.
 - **Images** — toutes en WebP, chargées à la demande (`loading="lazy"`) et
   dimensionnées dans le HTML pour réserver leur place avant chargement.
+- **Rythme vertical** — dans une section de page projet, tout bloc qui suit le
+  texte courant (caractéristiques, photos, vidéo, étiquettes, outils) prend la
+  même respiration, définie une seule fois dans `css/project.css`.
 - **Vidéos** — façade locale, lecteur YouTube créé au clic seulement, sur le
   domaine sans cookie. Rien ne part vers Google avant un geste explicite.
 - **SEO** — métadonnées Open Graph et données structurées `schema.org/Person`.

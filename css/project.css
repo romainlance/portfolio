@@ -3,8 +3,8 @@
    Styles propres aux pages projet (projets/*.html).
 
    Se charge APRÈS css/style.css, dont il réutilise les jetons de thème, les
-   composants communs (étiquettes, en-têtes de section, diagrammes) et les
-   règles d'animation.
+   composants communs (étiquettes, en-têtes de section, matière de verre) et
+   les règles d'animation.
 
    Sommaire
    01. En-tête du projet
@@ -43,14 +43,11 @@
 }
 .phero:hover .phero__aura { opacity: 1; }
 
-.phero__grid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr);
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: center;
-}
+/* En-tête sur une seule colonne depuis le retrait des schémas : le titre et
+   le texte gardent une mesure de lecture confortable, la fiche signalétique
+   s'étale ensuite sur toute la largeur. */
+.phero__head { position: relative; z-index: 1; }
+.phero__head > :not(.phero__meta) { max-width: 62ch; }
 
 /* Numéro de projet, encadré comme une référence de plan */
 .phero__num {
@@ -83,14 +80,14 @@
   color: var(--muted);
 }
 
-/* Fiche signalétique du projet */
+/* Fiche signalétique du projet : une bande de quatre cases sous le titre. */
 .phero__meta {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   /* Gouttière réelle plutôt que filets de grille : les cases sont arrondies
      et portent chacune leur bordure (voir « Verre liquide » dans style.css). */
   gap: .6rem;
-  margin-top: 2.2rem;
+  margin-top: clamp(2rem, 4vw, 2.6rem);
 }
 .phero__meta li {
   display: grid;
@@ -116,23 +113,15 @@
 }
 .phero__v { font-size: .9rem; line-height: 1.4; }
 
-/* --- Illustration --- */
-.phero__figure {
-  margin: 0;
-  padding: 1.6rem;
-  transition: transform .35s var(--ease-out);
-}
-.phero__figure figcaption {
-  margin-top: 1rem;
-  padding-top: .8rem;
-  border-top: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: .68rem;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
+/* Rythme vertical d'une section : tout bloc qui suit le texte courant — ou un
+   autre bloc — prend la même respiration. Sans cette règle, une liste
+   d'étiquettes ou une grille d'outils venait se coller au paragraphe
+   précédent, sans aucune marge. */
+.section .wrap > .specs,
+.section .wrap > .shots,
+.section .wrap > .filmstrip,
+.section .wrap > .tags,
+.section .wrap > .toolset { margin-top: clamp(1.8rem, 3.5vw, 2.4rem); }
 
 /* Fiche de caractéristiques : chiffres et contraintes d'un projet, présentés
    en paires clé/valeur sur la même matière de verre que le reste du site. */
@@ -140,7 +129,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: .6rem;
-  margin-top: 2rem;
 }
 .spec {
   display: grid;
@@ -171,15 +159,14 @@
 .spec__v { font-size: .9rem; line-height: 1.45; color: var(--ink); }
 
 
-/* Photos du projet : le matériel réel, à côté des schémas et du texte.
-   Deux clichés par rangée au maximum — au-delà, la page devient une galerie
-   et le propos se dilue. */
+/* Photos du projet : le matériel réel, à côté du texte. */
 .shots {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
-  margin-top: 2rem;
 }
+/* Un cliché seul ne s'étire pas sur toute la largeur du texte */
+.shots--single { grid-template-columns: minmax(0, 1fr); max-width: 520px; }
 
 .shot {
   margin: 0;
@@ -197,6 +184,10 @@
 }
 .shot:hover img { transform: scale(1.04); }
 
+/* Cliché en hauteur recadré en paysage : centrer verticalement couperait le
+   sujet. On remonte le point d'ancrage. */
+.shot__img--high { object-position: center 30%; }
+
 .shot figcaption {
   padding: .75rem .95rem .85rem;
   border-top: 1px solid var(--line);
@@ -205,9 +196,19 @@
   color: var(--muted);
 }
 
+/* Crédit d'une photo dont je ne suis pas l'auteur */
+.shot__credit {
+  display: block;
+  margin-top: .35rem;
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  letter-spacing: .04em;
+  color: var(--line-2);
+}
+
 /* Vidéo d'un projet, avec sa légende. Le lecteur lui-même est décrit dans
    « Vidéo YouTube » (style.css) et n'appelle YouTube qu'après un clic. */
-.filmstrip { margin: 2rem 0 0; }
+.filmstrip { margin: 0; }
 .filmstrip figcaption {
   margin-top: .8rem;
   font-family: var(--font-mono);
@@ -353,14 +354,6 @@
 
 /* 06. RESPONSIVE
    -------------------------------------------------------------------------- */
-@media (max-width: 900px) {
-  .phero__grid { grid-template-columns: 1fr; }
-  /* Le schéma reste APRÈS le titre : sur une colonne, c'est l'intitulé du
-     projet qui doit arriver en premier, pas l'illustration. */
-  .phero__figure { max-width: 420px; }
-  .diagram--lg { max-width: none; }
-}
-
 @media (max-width: 560px) {
   .phero__meta { grid-template-columns: 1fr; }
 

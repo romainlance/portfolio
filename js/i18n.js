@@ -46,6 +46,8 @@
     'Tous les projets': 'All projects',
     'Voir le projet': 'View project',
     'Ouvrir l\'album': 'Open the album',
+    'Lire la vidéo': 'Play the video',
+    'Voir la vidéo sur YouTube': 'Watch the video on YouTube',
     'Photo précédente': 'Previous photo',
     'Photo suivante': 'Next photo',
     'Projet personnel': 'Personal project',
@@ -273,6 +275,13 @@
     'Programme du Robotino dans l\'environnement Robotino View':
       'The Robotino program in the Robotino View environment',
     'Robot omnidirectionnel': 'Omnidirectional robot',
+    '1 photo · 1 vidéo': '1 photo · 1 video',
+    'Le robot en déplacement, piloté par le programme ci-contre.':
+      'The robot on the move, driven by the program shown alongside.',
+    'Roue folle du fauteuil roulant, montée sur sa fourche pivotante':
+      'Caster wheel of the wheelchair, mounted on its swivelling fork',
+    'L\'enceinte du frigo du désert en cours d\'impression 3D':
+      'The desert fridge enclosure being 3D-printed',
     'Programmation par blocs': 'Block programming',
 
     // Photo du stage Industeam, dans le parcours
@@ -438,6 +447,8 @@
       'By the end of the project, the Dino is no longer just a weeding robot: it is an experimental platform with a modern on-board computer, a modular ROS 2 architecture, a documented CAN interface, a 4WD–4WS controller, a digital twin and autonomous navigation.',
     'L\'intérêt de la démarche tient en une phrase : réutiliser une base mécanique industrielle déjà éprouvée, et ne remplacer que ce qui limitait son usage — le logiciel.':
       'The value of the approach fits in one sentence: reuse a proven industrial mechanical base, and replace only what limited its use — the software.',
+    'Le Dino en mouvement, piloté par la chaîne de commande ROS 2.':
+      'The Dino in motion, driven by the ROS 2 control chain.',
     'Localisation GPS–IMU–Lidar': 'GPS–IMU–lidar localisation',
     'Contrôle 4 roues directrices': 'Four-wheel steering control',
     'Diagnostic': 'Diagnostics',
@@ -500,6 +511,8 @@
       'Front caster wheel of the chair, mounted on its swivelling fork',
     'Roue folle et roue motrice du fauteuil, vues de trois quarts':
       'Caster wheel and driven wheel of the chair, seen at three-quarters',
+    'Le fauteuil en essai, sur la plateforme du laboratoire.':
+      'The chair under test, on the laboratory platform.',
     'Cinématique différentielle': 'Differential kinematics',
     'Roues folles': 'Caster wheels',
     'Multiplicateurs de Lagrange': 'Lagrange multipliers',

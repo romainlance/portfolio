@@ -423,16 +423,9 @@
           </a>
 
           <a class="pcard reveal tilt" data-reveal="scale" href="projets/fauteuil-roulant-intelligent.html">
-            <div class="pcard__media">
-              <!-- Réponse dynamique amortie : évoque la modélisation du système -->
-              <svg class="diagram" viewBox="0 0 200 120" aria-hidden="true">
-                <path class="diagram__grid" d="M0 30h200M0 60h200M0 90h200M40 0v120M80 0v120M120 0v120M160 0v120"/>
-                <path class="diagram__axis" d="M12 60h176M12 12v96"/>
-                <path class="diagram__draw" d="M12 60c14 0 14-38 28-38s14 62 28 62 14-46 28-46 14 32 28 32 14-22 28-22 14 12 28 12"/>
-                <circle class="diagram__dot" cx="40" cy="22" r="3"/>
-                <circle class="diagram__dot" cx="96" cy="38" r="3"/>
-                <circle class="diagram__dot" cx="152" cy="48" r="3"/>
-              </svg>
+            <div class="pcard__media pcard__media--photo">
+              <img class="pcard__photo" src="assets/projets/fauteuil-roulant/1-sm.webp" width="800" height="600"
+                   loading="lazy" decoding="async" alt="Roue folle du fauteuil roulant, montée sur sa fourche pivotante">
               <span class="pcard__index" aria-hidden="true">02</span>
             </div>
 
@@ -500,14 +493,9 @@
           </a>
 
           <a class="pcard reveal tilt" data-reveal="scale" href="projets/frigo-du-desert.html">
-            <div class="pcard__media">
-              <!-- Évaporation : flux ascendants au-dessus d'une enceinte -->
-              <svg class="diagram" viewBox="0 0 200 120" aria-hidden="true">
-                <path class="diagram__grid" d="M0 30h200M0 60h200M0 90h200M40 0v120M80 0v120M120 0v120M160 0v120"/>
-                <path class="diagram__draw" d="M70 40c0-10 10-10 10-20s-10-10-10-20M100 40c0-10 10-10 10-20s-10-10-10-20M130 40c0-10 10-10 10-20s-10-10-10-20"/>
-                <rect class="diagram__box" x="58" y="52" width="84" height="52" rx="4"/>
-                <path class="diagram__axis" d="M72 68h56M72 80h56M72 92h36"/>
-              </svg>
+            <div class="pcard__media pcard__media--photo">
+              <img class="pcard__photo" src="assets/projets/frigo-du-desert/1-sm.webp" width="600" height="800"
+                   loading="lazy" decoding="async" alt="L'enceinte du frigo du désert en cours d'impression 3D">
               <span class="pcard__index" aria-hidden="true">04</span>
             </div>
 
@@ -687,8 +675,8 @@
               <img src="assets/albums/robotino/1-sm.webp" width="800" height="600"
                    loading="lazy" decoding="async" alt="">
               <span class="album__count">
-                <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
-                1 photo
+                <svg class="ico" aria-hidden="true"><use href="#i-play"></use></svg>
+                1 photo · 1 vidéo
               </span>
             </span>
             <span class="album__body">
@@ -1015,7 +1003,7 @@
       <!-- ---------- Stage Industeam ---------- -->
       <article class="album__detail" id="alb-industeam" hidden>
         <div class="album__viewer">
-          <div class="album__frame">
+          <div class="album__frame tilt">
             <figure class="album__slide is-current">
               <img src="assets/parcours/industeam.webp" width="1200" height="1600"
                    loading="lazy" decoding="async"
@@ -1043,7 +1031,7 @@
             C'est au montage que se révèlent les écarts entre le plan et le réel — et c'est
             là que se joue l'essentiel du suivi de chantier.
           </p>
-          <ul class="album__meta">
+          <ul class="tags tags--sm album__meta">
             <li>Robotique industrielle</li><li>Vissage automatique</li><li>Secteur automobile</li>
           </ul>
         </div>
@@ -1052,7 +1040,7 @@
       <!-- ---------- Vélo électrique ---------- -->
       <article class="album__detail" id="alb-velo" hidden>
         <div class="album__viewer">
-          <div class="album__frame">
+          <div class="album__frame tilt">
             <figure class="album__slide is-current">
               <img src="assets/albums/velo-electrique/1.webp" width="1600" height="1200"
                    loading="lazy" decoding="async"
@@ -1098,7 +1086,7 @@
             La batterie et le contrôleur prennent place sur ce même châssis, protégés par
             un boîtier dessiné et imprimé pour l'occasion.
           </p>
-          <ul class="album__meta">
+          <ul class="tags tags--sm album__meta">
             <li>Motorisation</li><li>Fabrication</li><li>Impression 3D</li>
           </ul>
         </div>
@@ -1107,7 +1095,7 @@
       <!-- ---------- Hack de hoverboard ---------- -->
       <article class="album__detail" id="alb-hoverboard" hidden>
         <div class="album__viewer">
-          <div class="album__frame">
+          <div class="album__frame tilt">
             <figure class="album__slide is-current">
               <img src="assets/albums/hack-hoverboard/1.webp" width="1200" height="1600"
                    loading="lazy" decoding="async"
@@ -1153,7 +1141,7 @@
             programmation et d'y brancher une sonde — première étape pour remplacer le
             logiciel d'origine et réutiliser la motorisation ailleurs.
           </p>
-          <ul class="album__meta">
+          <ul class="tags tags--sm album__meta">
             <li>STM32</li><li>Rétro-ingénierie</li><li>Électronique de puissance</li>
           </ul>
         </div>
@@ -1162,7 +1150,7 @@
       <!-- ---------- Modélisme — coque de bateau ---------- -->
       <article class="album__detail" id="alb-bateau" hidden>
         <div class="album__viewer">
-          <div class="album__frame">
+          <div class="album__frame tilt">
             <figure class="album__slide is-current">
               <img src="assets/albums/modelisme-bateau/1.webp" width="1600" height="1200"
                    loading="lazy" decoding="async"
@@ -1198,7 +1186,7 @@
           <p class="album__detail-lede">
             Le pont reste amovible pour laisser l'accès à l'intérieur.
           </p>
-          <ul class="album__meta">
+          <ul class="tags tags--sm album__meta">
             <li>Fusion 360</li><li>CAO</li><li>Impression 3D</li>
           </ul>
         </div>
@@ -1207,7 +1195,7 @@
       <!-- ---------- Automates programmables ---------- -->
       <article class="album__detail" id="alb-automates" hidden>
         <div class="album__viewer">
-          <div class="album__frame">
+          <div class="album__frame tilt">
             <figure class="album__slide is-current">
               <img src="assets/albums/automates-programmables/1.webp" width="1600" height="1200"
                    loading="lazy" decoding="async"
@@ -1256,7 +1244,7 @@
             Le travail va du repérage des entrées et sorties jusqu'à la mise en service du
             programme sur la partie opérative.
           </p>
-          <ul class="album__meta">
+          <ul class="tags tags--sm album__meta">
             <li>Modicon M340</li><li>TSX Premium</li><li>SIMATIC S7-300</li>
           </ul>
         </div>
@@ -1265,7 +1253,7 @@
       <!-- ---------- Robotino ---------- -->
       <article class="album__detail" id="alb-robotino" hidden>
         <div class="album__viewer">
-          <div class="album__frame">
+          <div class="album__frame tilt">
             <figure class="album__slide is-current">
               <img src="assets/albums/robotino/1.webp" width="1600" height="1200"
                    loading="lazy" decoding="async"
@@ -1274,6 +1262,18 @@
                 Le programme sous Robotino View : un diagramme de blocs relie les consignes
                 des trois moteurs, l'entraînement omnidirectionnel, la détection de collision
                 et les entrées/sorties du robot.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <div class="embed" data-video="VPE7Dhuy-d4" data-label="Robotino"
+                   data-poster="assets/albums/robotino/1-sm.webp">
+                <!-- Repli sans JavaScript : le lien vers la vidéo reste utilisable -->
+                <a href="https://youtu.be/VPE7Dhuy-d4" target="_blank" rel="noopener noreferrer">
+                  Voir la vidéo sur YouTube
+                </a>
+              </div>
+              <figcaption>
+                Le robot en déplacement, piloté par le programme ci-contre.
               </figcaption>
             </figure>
           </div>
@@ -1295,7 +1295,7 @@
             calculs et consignes moteur — le robot exécute le diagramme tel qu'il est
             dessiné.
           </p>
-          <ul class="album__meta">
+          <ul class="tags tags--sm album__meta">
             <li>Robotino View</li><li>Robot omnidirectionnel</li><li>Programmation par blocs</li>
           </ul>
         </div>
@@ -1332,6 +1332,9 @@
   <script src="js/main.js"></script>
   <script src="js/effects.js"></script>
   <script src="js/album.js"></script>
+  <script src="js/video.js"></script>
+  <!-- i18n en dernier : il relève la page une fois pour toutes, façades
+       vidéo comprises. -->
   <script src="js/i18n.js"></script>
 </body>
 </html>

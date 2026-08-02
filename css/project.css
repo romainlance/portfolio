@@ -146,7 +146,6 @@
   display: grid;
   gap: .3rem;
   padding: .9rem 1.1rem;
-  border-radius: var(--radius);
   border: 1px solid var(--glass-edge);
   background: var(--glass-fill), var(--glass-bg);
   backdrop-filter: var(--glass-blur);
@@ -185,11 +184,8 @@
 .shot {
   margin: 0;
   overflow: hidden;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--glass-edge);
-  background: var(--glass-fill), var(--glass-bg);
-  box-shadow: var(--glass-shadow-stack);
-  transition: border-color .25s ease, transform .35s var(--ease-out);
+  transition: border-color .25s ease, transform .35s var(--ease-out),
+              box-shadow .35s ease;
 }
 .shot:hover { border-color: var(--accent); }
 
@@ -208,6 +204,20 @@
   line-height: 1.5;
   color: var(--muted);
 }
+
+/* Vidéo d'un projet, avec sa légende. Le lecteur lui-même est décrit dans
+   « Vidéo YouTube » (style.css) et n'appelle YouTube qu'après un clic. */
+.filmstrip { margin: 2rem 0 0; }
+.filmstrip figcaption {
+  margin-top: .8rem;
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+}
+.filmstrip--portrait figcaption { max-width: 340px; margin-inline: auto; }
 
 
 /* 02. TEXTE COURANT

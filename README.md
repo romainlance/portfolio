@@ -52,6 +52,7 @@ Puis ouvrir <http://localhost:8000>.
 │   ├── main.js                 # Thème, menu, navigation, formulaire
 │   ├── effects.js              # Effets visuels uniquement
 │   ├── album.js                # Fenêtre des albums photo
+│   ├── video.js                # Façades vidéo (YouTube au clic seulement)
 │   └── i18n.js                 # Bascule français / anglais
 ├── tools/
 │   └── photos.py               # Conversion des photos en WebP
@@ -128,6 +129,24 @@ son lien dans `.nav__links`, et son entrée dans le dictionnaire de traduction.
 3. Mettre à jour le lien « projet suivant » en bas des pages projet pour
    inclure la nouvelle dans la boucle.
 
+La vignette d'une carte accepte deux formes, au même format 5:3 pour que les
+cartes d'une rangée restent alignées :
+
+```html
+<!-- Une photo -->
+<div class="pcard__media pcard__media--photo">
+  <img class="pcard__photo" src="assets/projets/mon-projet/1-sm.webp"
+       width="800" height="600" loading="lazy" decoding="async" alt="…">
+  <span class="pcard__index" aria-hidden="true">05</span>
+</div>
+
+<!-- Ou un schéma SVG, tracé sur une grille 200 × 120 -->
+<div class="pcard__media">
+  <svg class="diagram" viewBox="0 0 200 120" aria-hidden="true">…</svg>
+  <span class="pcard__index" aria-hidden="true">05</span>
+</div>
+```
+
 ### Remplacer le CV
 
 Le hero affiche `assets/cv-preview.webp`, une image de la première page de
@@ -166,10 +185,10 @@ aucune information.
 
 ### Les diagrammes des projets
 
-Les vignettes sont des SVG dessinés à la main dans le HTML (aucune image), sur
-une grille `0 0 200 120`. Le tracé principal porte la classe `diagram__draw`
-et s'anime tout seul. Pour remplacer une vignette par une photo, substituer le
-`<svg>` par une `<img>` dans `.pcard__media`.
+Certaines vignettes sont des SVG dessinés à la main dans le HTML (aucune
+image), sur une grille `0 0 200 120` — le même format 5:3 que les vignettes
+photographiques, pour que les deux s'alignent dans une rangée. Le tracé
+principal porte la classe `diagram__draw` et s'anime tout seul.
 
 ### Les albums photo
 
@@ -225,52 +244,53 @@ Les attributs `width` et `height` des `<img>` doivent correspondre aux
 dimensions réelles du fichier : ils réservent la place et évitent que la page
 sursaute pendant le chargement.
 
-### Intégrer une vidéo
+### Les vidéos
 
-Aucune vidéo n'est hébergée dans le dépôt, et c'est délibéré. Un fichier de
+Les vidéos sont hébergées sur YouTube et non dans le dépôt. Un fichier de
 plusieurs dizaines de mégaoctets dépasse la limite de 100 Mo par fichier de
 GitHub, alourdit chaque `git clone`, et GitHub Pages ne sait pas le servir en
-streaming : le visiteur télécharge tout avant de voir la première image.
+streaming : le visiteur téléchargerait tout avant de voir la première image.
 
-Trois options, de la plus simple à la plus impliquée :
+**Rien n'est chargé depuis YouTube avant un clic.** La page n'affiche qu'une
+façade — une image du projet, hébergée ici, et un bouton de lecture. Au clic
+seulement, `js/video.js` crée l'`<iframe>`, sur le domaine sans cookie
+`youtube-nocookie.com`. Un lecteur YouTube pèse plusieurs centaines de
+kilooctets : deux d'entre eux mettraient plus de temps à s'afficher que tout
+le reste du site réuni.
 
-| Solution | Poids dans le dépôt | Remarques |
-| --- | --- | --- |
-| **YouTube en « non répertoriée »** | nul | Invisible dans les recherches, mais accessible par lien. Streaming adaptatif, sous-titres, lecture sur mobile — rien à gérer. |
-| **Extraire un GIF ou un WebP animé** | 1 à 3 Mo | Suffit quand la vidéo ne sert qu'à montrer un mouvement de quelques secondes. Pas de son, pas de contrôles. |
-| **Ré-encoder en MP4 léger et l'héberger** | 5 à 15 Mo | À réserver aux vidéos courtes. Reste hors du dépôt Git si possible. |
+Pour ajouter une vidéo :
 
-Pour ré-encoder une vidéo de téléphone en fichier web raisonnable :
+```html
+<div class="embed" data-video="IDENTIFIANT" data-label="Nom du projet"
+     data-poster="assets/albums/mon-projet/1-sm.webp">
+  <!-- Repli sans JavaScript : le lien reste utilisable -->
+  <a href="https://youtu.be/IDENTIFIANT" target="_blank" rel="noopener noreferrer">
+    Voir la vidéo sur YouTube
+  </a>
+</div>
+```
+
+- `data-video` — l'identifiant, c'est-à-dire ce qui suit `youtu.be/`.
+- `data-poster` — facultatif. Sans affiche, la surface reprend la grille
+  technique du fond de page plutôt que de rester vide.
+- `data-portrait` — pour un Short, qui passe alors en 9:16 et se limite en
+  largeur.
+
+Le bloc s'insère aussi bien dans une fiche d'album, à la place d'une
+`<figure class="album__slide">`, que dans une page projet, entouré d'une
+`<figure class="filmstrip">` qui porte la légende.
+
+Si tu préfères un jour tout héberger toi-même, `ffmpeg` produit un fichier
+web raisonnable à partir d'une vidéo de téléphone :
 
 ```bash
-# 1080p → 720p, ~1,5 Mbit/s, audio réduit : divise le poids par 5 à 10
+# 1080p → 720p, ~1,5 Mbit/s : divise le poids par 5 à 10
 ffmpeg -i source.mov -vf "scale=-2:720" -c:v libx264 -crf 28 \
        -preset slow -movflags +faststart -c:a aac -b:a 96k sortie.mp4
 ```
 
-`-movflags +faststart` déplace l'index en tête de fichier : la lecture démarre
-sans attendre le téléchargement complet.
-
-Pour un extrait animé sans son, plus léger encore :
-
-```bash
-ffmpeg -i source.mov -t 6 -vf "fps=15,scale=-2:480" \
-       -c:v libwebp -q:v 55 -loop 0 extrait.webp
-```
-
-Une fois le fichier prêt, il s'insère dans une fiche d'album à la place d'une
-`<figure class="album__slide">` :
-
-```html
-<figure class="album__slide">
-  <video src="assets/albums/mon-projet/demo.mp4" controls playsinline
-         preload="none" poster="assets/albums/mon-projet/1-sm.webp"></video>
-  <figcaption>Le robot en déplacement autonome.</figcaption>
-</figure>
-```
-
-`preload="none"` évite de télécharger la vidéo tant que le visiteur ne l'a pas
-demandée, et `poster` affiche une image fixe en attendant.
+`-movflags +faststart` déplace l'index en tête de fichier, pour que la lecture
+démarre sans attendre le téléchargement complet.
 
 ### La bascule français / anglais
 
@@ -391,6 +411,8 @@ disponibilité, savoir-être, centres d'intérêt).
   (`scrollbar-gutter: stable`), la page ne saute pas.
 - **Images** — toutes en WebP, chargées à la demande (`loading="lazy"`) et
   dimensionnées dans le HTML pour réserver leur place avant chargement.
+- **Vidéos** — façade locale, lecteur YouTube créé au clic seulement, sur le
+  domaine sans cookie. Rien ne part vers Google avant un geste explicite.
 - **SEO** — métadonnées Open Graph et données structurées `schema.org/Person`.
 - **Impression** — une feuille de styles dédiée nettoie la page (navigation,
   formulaire et animations retirés) pour un export PDF propre.

@@ -383,6 +383,14 @@ Pour ajouter une vidéo :
 - `data-portrait` — pour un Short, qui passe alors en 9:16 et se limite en
   largeur.
 
+Une vidéo lancée s'arrête dès qu'on quitte sa diapositive ou qu'on ferme la
+fenêtre : `js/album.js` appelle `window.portfolioVideo.stopAll()`, qui retire
+l'`<iframe>` et remet la façade. Retirer l'`<iframe>` est la seule façon fiable
+de couper la lecture sans dialoguer avec le lecteur YouTube — sans cela, le son
+continue derrière une fenêtre close. `js/album.js` teste la présence de
+`portfolioVideo` avant de l'appeler : la visionneuse continue de fonctionner
+si `js/video.js` est retiré.
+
 Le bloc s'insère dans une diapositive de la visionneuse, à la place de
 l'`<img>` : la légende de la `<figure class="album__slide">` s'applique alors
 à la vidéo.

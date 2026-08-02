@@ -209,6 +209,8 @@
     // Repères des vignettes : nombre de vues et date
     '5 vues': '5 views',
     '3 vues': '3 views',
+    '4 vues · 1 vidéo': '4 views · 1 video',
+    '3 photos · 1 vidéo': '3 photos · 1 video',
     '1 photo · 1 vidéo': '1 photo · 1 video',
     '3ᵉ et 4ᵉ année': '3rd and 4th year',
 
@@ -258,6 +260,11 @@
       'A radio-controlled boat designed end to end rather than bought as a kit: the hull is drawn and then 3D-printed, and the whole on-board chain — motor, battery, radio set — is chosen and sized to match.',
     'Une coque dépasse largement le volume d\'une imprimante de bureau. Elle est donc dessinée d\'un seul tenant, puis recoupée en tronçons munis d\'un emboîtement qui garantit l\'alignement au collage. Le pont reste amovible pour l\'accès à l\'intérieur.':
       'A hull is far larger than a desktop printer\'s build volume. It is therefore drawn in one piece, then cut into sections carrying a joint that holds the alignment while the glue sets. The deck stays removable so the inside remains accessible.',
+    'La coque imprimée à l\'eau, hélice en charge.':
+      'The printed hull in the water, propeller under load.',
+    'Le bateau en navigation.': 'The boat under way.',
+    'Le bateau radiocommandé en navigation, laissant un sillage derrière lui':
+      'The radio-controlled boat under way, leaving a wake behind it',
     'La coque terminée, avec son safran et le logement de la chaîne motrice.':
       'The finished hull, with its rudder and the housing for the drive train.',
     'La coque et son pont amovible sous Fusion 360, découpés en tronçons compatibles avec le volume d\'impression.':
@@ -286,6 +293,7 @@
       'In their place, two 36 V brushless controllers drive one motor each, commanded by a thumb throttle on the handlebar that sends them the setpoint. The rest is fabrication: the rear end is welded to measure, and the enclosure protecting the controllers is 3D-printed.',
     'Mécanique, électronique et soudure dans le même projet — et le point de départ de tout ce qui a suivi.':
       'Mechanics, electronics and welding in the same project — and the starting point of everything that followed.',
+    'Le vélo électrique en fonctionnement.': 'The electric bike in action.',
     'Le vélo terminé : le train arrière porte les deux moteurs récupérés sur l\'hoverboard.':
       'The finished bicycle: the rear end carries the two motors salvaged from the hoverboard.',
     'Le train arrière fabriqué pour l\'occasion : châssis soudé, moteur à moyeu, batterie et faisceau.':

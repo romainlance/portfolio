@@ -87,6 +87,10 @@
     if (!slides.length) { return; }
     index = (i + slides.length) % slides.length;
 
+    // Une vidéo qu'on quitte doit se taire : masquée, elle continuerait sinon
+    // de jouer, et le son sortirait d'une diapositive invisible.
+    stopVideos();
+
     slides.forEach(function (slide, n) {
       slide.classList.toggle('is-current', n === index);
       // Les photos masquées sortent de l'ordre de tabulation
@@ -94,6 +98,12 @@
     });
 
     refreshControls();
+  }
+
+  /* js/video.js n'est pas garanti présent : la visionneuse doit continuer de
+     fonctionner s'il est retiré. */
+  function stopVideos() {
+    if (window.portfolioVideo) { window.portfolioVideo.stopAll(); }
   }
 
 
@@ -134,6 +144,7 @@
   }
 
   function close() {
+    stopVideos();
     modal.classList.remove('is-open');
     document.body.classList.remove('is-locked');
     window.setTimeout(function () {

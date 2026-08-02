@@ -26,8 +26,15 @@
    JavaScript ; ce fichier le remplace par la façade cliquable.
    ========================================================================== */
 
-(function () {
+(function (root) {
   'use strict';
+
+  // Fonctions d'arrêt, une par bloc, appelées par js/album.js quand la
+  // fenêtre se ferme ou change de diapositive.
+  var stoppers = [];
+  root.portfolioVideo = {
+    stopAll: function () { stoppers.forEach(function (stop) { stop(); }); }
+  };
 
   var blocks = document.querySelectorAll('.embed[data-video]');
   if (!blocks.length) { return; }
@@ -96,8 +103,22 @@
       block.classList.add('is-playing');
     }
 
+    /* Retirer l'<iframe> est la seule façon fiable d'arrêter la lecture sans
+       dialoguer avec le lecteur YouTube : sans ça, fermer la fenêtre ou
+       passer à la photo suivante laisse la vidéo tourner, et le son continue
+       derrière une fenêtre close. La façade est reconstruite pour que le bloc
+       reste jouable au retour. */
+    function stop() {
+      if (!block.classList.contains('is-playing')) { return; }
+      block.innerHTML = '';
+      block.appendChild(buildFacade());
+      block.classList.remove('is-playing');
+    }
+
+    stoppers.push(stop);
+
     block.innerHTML = '';
     block.appendChild(buildFacade());
   });
 
-})();
+})(typeof window !== 'undefined' ? window : globalThis);

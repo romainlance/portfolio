@@ -30,11 +30,14 @@ Puis ouvrir <http://localhost:8000>.
 
 ```
 .
-├── index.html                  # Page d'accueil : les 6 sections ancrées
+├── index.html                  # Page d'accueil : les 8 sections ancrées
 ├── assets/
 │   ├── cv-romain-lance.pdf     # CV publié (sans le numéro de téléphone)
 │   ├── cv-romain-lance-en.pdf  # Version anglaise — à déposer (voir plus bas)
-│   └── cv-preview.webp         # Vignette du CV, rendue depuis ce PDF
+│   ├── cv-preview.webp         # Vignette du CV, rendue depuis ce PDF
+│   ├── albums/                 # Photos des projets personnels et des TP
+│   ├── projets/                # Photos illustrant les pages projet
+│   └── parcours/               # Photos illustrant le parcours
 ├── projets/                    # Une page par projet
 │   ├── dino-plateforme-ros2.html
 │   ├── fauteuil-roulant-intelligent.html
@@ -48,7 +51,10 @@ Puis ouvrir <http://localhost:8000>.
 │   ├── qr.js                   # Encodeur de QR code (aucune dépendance)
 │   ├── main.js                 # Thème, menu, navigation, formulaire
 │   ├── effects.js              # Effets visuels uniquement
+│   ├── album.js                # Fenêtre des albums photo
 │   └── i18n.js                 # Bascule français / anglais
+├── tools/
+│   └── photos.py               # Conversion des photos en WebP
 └── README.md
 ```
 
@@ -109,6 +115,10 @@ suffit à en ajouter un.
 
 - Une expérience : copier un `<li class="tl reveal">` dans `<ol class="timeline">`.
 - Une compétence : ajouter un `<li>` dans la liste `.tags` correspondante.
+- Un album : voir « Les albums photo » plus bas.
+
+En ajoutant une section, penser à trois choses : son numéro (`.section__num`),
+son lien dans `.nav__links`, et son entrée dans le dictionnaire de traduction.
 
 ### Ajouter un projet
 
@@ -161,6 +171,107 @@ une grille `0 0 200 120`. Le tracé principal porte la classe `diagram__draw`
 et s'anime tout seul. Pour remplacer une vignette par une photo, substituer le
 `<svg>` par une `<img>` dans `.pcard__media`.
 
+### Les albums photo
+
+Les sections **Projets personnels** et **TP académiques** présentent chacune
+des cartes qui ouvrent une fenêtre contenant les photos du projet et son texte.
+
+Le contenu de ces fiches n'est pas fabriqué au clic : il vit dans le HTML, à
+l'intérieur du bloc `#albumModal`, en bas de `index.html`. Deux raisons — il
+reste lisible par les moteurs de recherche, et il est relevé par `js/i18n.js`,
+qui ne voit que les nœuds de texte présents au chargement.
+
+Pour ajouter un album :
+
+1. **Convertir les photos** (voir la section suivante) dans
+   `assets/albums/mon-projet/`.
+2. **Ajouter la carte** dans la grille `.albums` de la section voulue :
+   dupliquer un `<button class="album reveal tilt" data-album="alb-mon-projet">`
+   et pointer sa couverture sur `1-sm.webp`.
+3. **Ajouter la fiche** dans `#albumModal` : dupliquer un
+   `<article class="album__detail" id="alb-mon-projet">`, avec une
+   `<figure class="album__slide">` par photo. La première porte `is-current`.
+4. Le titre de la fiche doit avoir un `id` finissant par `-title` : c'est lui
+   qui nomme la fenêtre pour les lecteurs d'écran.
+
+Les flèches, les pastilles et le compteur sont uniques (`#albumControls`) et
+déplacés par `js/album.js` dans la fiche ouverte — rien à dupliquer. Ils
+disparaissent d'eux-mêmes pour un album d'une seule photo.
+
+La visionneuse se pilote au clic, aux flèches ← →, par balayage sur écran
+tactile, et se ferme avec Échap ou un clic à l'extérieur.
+
+Une photo isolée peut ouvrir la même visionneuse sans passer par une carte :
+c'est le cas de la vignette du stage Industeam dans le parcours. Il suffit de
+poser `data-album="…"` sur n'importe quel bouton.
+
+### Ajouter des photos
+
+`tools/photos.py` convertit un dossier de photos en WebP, en deux tailles :
+une vue pleine de 1 600 px pour la visionneuse et une vignette de 800 px pour
+les cartes.
+
+```bash
+pip install pillow pillow-heif
+python3 tools/photos.py ~/photos-du-projet assets/albums/mon-projet
+```
+
+Les fichiers sont numérotés dans l'ordre alphabétique des sources — renommer
+celles-ci (`01-vue-generale.heic`, `02-detail.heic`…) suffit à fixer l'ordre de
+l'album. L'orientation EXIF est appliquée avant redimensionnement, ce qui évite
+les photos couchées.
+
+Les attributs `width` et `height` des `<img>` doivent correspondre aux
+dimensions réelles du fichier : ils réservent la place et évitent que la page
+sursaute pendant le chargement.
+
+### Intégrer une vidéo
+
+Aucune vidéo n'est hébergée dans le dépôt, et c'est délibéré. Un fichier de
+plusieurs dizaines de mégaoctets dépasse la limite de 100 Mo par fichier de
+GitHub, alourdit chaque `git clone`, et GitHub Pages ne sait pas le servir en
+streaming : le visiteur télécharge tout avant de voir la première image.
+
+Trois options, de la plus simple à la plus impliquée :
+
+| Solution | Poids dans le dépôt | Remarques |
+| --- | --- | --- |
+| **YouTube en « non répertoriée »** | nul | Invisible dans les recherches, mais accessible par lien. Streaming adaptatif, sous-titres, lecture sur mobile — rien à gérer. |
+| **Extraire un GIF ou un WebP animé** | 1 à 3 Mo | Suffit quand la vidéo ne sert qu'à montrer un mouvement de quelques secondes. Pas de son, pas de contrôles. |
+| **Ré-encoder en MP4 léger et l'héberger** | 5 à 15 Mo | À réserver aux vidéos courtes. Reste hors du dépôt Git si possible. |
+
+Pour ré-encoder une vidéo de téléphone en fichier web raisonnable :
+
+```bash
+# 1080p → 720p, ~1,5 Mbit/s, audio réduit : divise le poids par 5 à 10
+ffmpeg -i source.mov -vf "scale=-2:720" -c:v libx264 -crf 28 \
+       -preset slow -movflags +faststart -c:a aac -b:a 96k sortie.mp4
+```
+
+`-movflags +faststart` déplace l'index en tête de fichier : la lecture démarre
+sans attendre le téléchargement complet.
+
+Pour un extrait animé sans son, plus léger encore :
+
+```bash
+ffmpeg -i source.mov -t 6 -vf "fps=15,scale=-2:480" \
+       -c:v libwebp -q:v 55 -loop 0 extrait.webp
+```
+
+Une fois le fichier prêt, il s'insère dans une fiche d'album à la place d'une
+`<figure class="album__slide">` :
+
+```html
+<figure class="album__slide">
+  <video src="assets/albums/mon-projet/demo.mp4" controls playsinline
+         preload="none" poster="assets/albums/mon-projet/1-sm.webp"></video>
+  <figcaption>Le robot en déplacement autonome.</figcaption>
+</figure>
+```
+
+`preload="none"` évite de télécharger la vidéo tant que le visiteur ne l'a pas
+demandée, et `poster` affiche une image fixe en attendant.
+
 ### La bascule français / anglais
 
 Le bouton `EN` / `FR` de la barre d'en-tête traduit le site entier. Le
@@ -194,14 +305,17 @@ Le lien de l'aperçu du CV suit la langue affichée :
 
 | Langue | Fichier ouvert |
 | --- | --- |
-| Français | `assets/cv-romain-lance.pdf` |
-| Anglais | `assets/cv-romain-lance-en.pdf` |
+| Français | `assets/cv-romain-lance.pdf` + `assets/cv-preview.webp` |
+| Anglais | `assets/cv-romain-lance-en.pdf` + `assets/cv-preview-en.webp` |
 
-Le fichier anglais est testé une seule fois, à la première bascule. **Tant
-qu'il n'est pas déposé dans `assets/`, le lien reste sur la version
-française** plutôt que de mener à une page d'erreur — il suffit donc d'ajouter
-le PDF, sans toucher au code. Le test laisse une erreur 404 dans la console du
-navigateur ; elle disparaît dès que le fichier existe.
+Le lien du PDF **et** la vignette affichée suivent tous deux la langue.
+
+Chaque fichier anglais est testé une seule fois, à la première bascule, et
+indépendamment de l'autre. **Tant qu'il n'est pas déposé dans `assets/`, c'est
+la version française qui reste en place** plutôt qu'un lien mort ou une image
+cassée — il suffit donc d'ajouter les fichiers, sans toucher au code. Le test
+laisse une erreur 404 dans la console du navigateur ; elle disparaît dès que le
+fichier existe.
 
 Ces deux noms de fichiers sont définis en haut de `js/i18n.js`, dans l'objet
 `CV`.
@@ -244,6 +358,11 @@ disponibilité, savoir-être, centres d'intérêt).
   que sur un pointeur fin (`hover: hover and pointer: fine`), donc jamais sur
   écran tactile. Le halo rattrape le curseur par interpolation plutôt que de
   s'y coller, ce qui adoucit le mouvement.
+- **Relief 3D** — la classe `.tilt` suffit à faire pencher un bloc vers le
+  curseur. L'amplitude est proportionnée à sa taille : cinq degrés sur une
+  petite carte, moins de trois sur un panneau large, qui paraîtrait sinon se
+  tordre. Le décollement au survol passe par la variable `--lift`, pour se
+  composer avec la rotation au lieu de l'écraser.
 - **Expériences cliquables** — un clic sur une entrée du parcours la recentre
   à l'écran. C'est un confort de lecture : rien n'est masqué au départ et le
   geste est accessible au clavier.
@@ -266,6 +385,12 @@ disponibilité, savoir-être, centres d'intérêt).
 - **Bascule de langue** — traduction appliquée sur les nœuds de texte déjà
   présents, sans rechargement ni duplication des pages. Voir
   « La bascule français / anglais » plus haut.
+- **Albums photo** — fenêtre modale avec visionneuse : flèches, pastilles,
+  compteur, navigation au clavier et balayage tactile. Le fond de page est gelé
+  pendant l'ouverture ; la gouttière de défilement étant réservée en permanence
+  (`scrollbar-gutter: stable`), la page ne saute pas.
+- **Images** — toutes en WebP, chargées à la demande (`loading="lazy"`) et
+  dimensionnées dans le HTML pour réserver leur place avant chargement.
 - **SEO** — métadonnées Open Graph et données structurées `schema.org/Person`.
 - **Impression** — une feuille de styles dédiée nettoie la page (navigation,
   formulaire et animations retirés) pour un export PDF propre.

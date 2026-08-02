@@ -146,24 +146,31 @@
 
   /* 04. RELIEF AU POINTEUR
      ------------------------------------------------------------------------
-     Légère rotation 3D des cartes projet et de la plaque monogramme, calculée
-     à partir de l'écart entre le curseur et le centre de l'élément.
-     L'amplitude reste volontairement faible : on cherche la profondeur, pas
-     l'effet de manège. */
+     Légère rotation 3D des panneaux, calculée à partir de l'écart entre le
+     curseur et le centre de l'élément. L'amplitude reste volontairement
+     faible : on cherche la profondeur, pas l'effet de manège.
+
+     Elle est aussi proportionnée à la taille du bloc. Cinq degrés sur une
+     carte de 300 px donnent un relief juste ; les mêmes cinq degrés sur une
+     ligne de 1 100 px de large donnent une bascule de plusieurs dizaines de
+     pixels aux extrémités — le bloc paraît alors se tordre. Les grandes
+     surfaces s'inclinent donc moins que les petites. */
   (function initTilt() {
     if (!finePointer || reduceMotion) { return; }
 
-    var MAX_DEG = 5;
-    var targets = document.querySelectorAll('.tilt');
+    var MAX_DEG = 5;        // amplitude maximale, en degrés
+    var REFERENCE = 560;    // largeur en deçà de laquelle on l'applique en entier
 
-    targets.forEach(function (el) {
+    document.querySelectorAll('.tilt').forEach(function (el) {
       el.addEventListener('pointermove', function (e) {
         var r = el.getBoundingClientRect();
         var px = (e.clientX - r.left) / r.width - 0.5;   // -0.5 … +0.5
         var py = (e.clientY - r.top) / r.height - 0.5;
 
-        el.style.setProperty('--ry', (px * MAX_DEG * 2).toFixed(2) + 'deg');
-        el.style.setProperty('--rx', (-py * MAX_DEG * 2).toFixed(2) + 'deg');
+        var amp = MAX_DEG * Math.min(1, REFERENCE / Math.max(r.width, r.height));
+
+        el.style.setProperty('--ry', (px * amp * 2).toFixed(2) + 'deg');
+        el.style.setProperty('--rx', (-py * amp * 2).toFixed(2) + 'deg');
       }, { passive: true });
 
       el.addEventListener('pointerleave', function () {

@@ -317,6 +317,7 @@
         drawQR();
         lastFocused = document.activeElement;
         qrModal.hidden = false;
+        document.body.classList.add('is-locked');
         // Un frame d'écart pour que la transition d'ouverture soit jouée
         requestAnimationFrame(function () { qrModal.classList.add('is-open'); });
         qrToggle.setAttribute('aria-expanded', 'true');
@@ -326,6 +327,7 @@
 
       function closeQR() {
         qrModal.classList.remove('is-open');
+        document.body.classList.remove('is-locked');
         qrToggle.setAttribute('aria-expanded', 'false');
         window.setTimeout(function () { qrModal.hidden = true; }, 300);
         if (lastFocused && lastFocused.focus) { lastFocused.focus(); }

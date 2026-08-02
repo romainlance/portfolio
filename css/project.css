@@ -98,7 +98,7 @@
   grid-template-rows: auto auto;
   column-gap: .55rem;
   padding: .9rem 1rem;
-  transition: border-color .25s ease;
+  transition: border-color .25s ease, transform .35s var(--ease-out);
 }
 .phero__meta li:hover { border-color: var(--accent); }
 .phero__meta .ico {
@@ -120,6 +120,7 @@
 .phero__figure {
   margin: 0;
   padding: 1.6rem;
+  transition: transform .35s var(--ease-out);
 }
 .phero__figure figcaption {
   margin-top: 1rem;
@@ -153,7 +154,7 @@
   box-shadow:
     inset 0 1px 0 0 var(--glass-sheen),
     inset 0 -1px 0 0 var(--glass-shade);
-  transition: border-color .25s ease;
+  transition: border-color .25s ease, transform .35s var(--ease-out);
 }
 .spec:hover { border-color: var(--accent); }
 
@@ -169,6 +170,44 @@
 }
 .spec__k .ico { color: var(--accent); width: 1.15em; height: 1.15em; }
 .spec__v { font-size: .9rem; line-height: 1.45; color: var(--ink); }
+
+
+/* Photos du projet : le matériel réel, à côté des schémas et du texte.
+   Deux clichés par rangée au maximum — au-delà, la page devient une galerie
+   et le propos se dilue. */
+.shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.shot {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-edge);
+  background: var(--glass-fill), var(--glass-bg);
+  box-shadow: var(--glass-shadow-stack);
+  transition: border-color .25s ease, transform .35s var(--ease-out);
+}
+.shot:hover { border-color: var(--accent); }
+
+.shot img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform .6s var(--ease-out);
+}
+.shot:hover img { transform: scale(1.04); }
+
+.shot figcaption {
+  padding: .75rem .95rem .85rem;
+  border-top: 1px solid var(--line);
+  font-size: .84rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
 
 
 /* 02. TEXTE COURANT
@@ -280,7 +319,7 @@
 }
 .pnav__link--next:hover {
   border-color: var(--accent);
-  transform: translateY(-2px);
+  --lift: -2px;
 }
 .pnav__link--next > span { display: grid; gap: .15rem; }
 .pnav__k {

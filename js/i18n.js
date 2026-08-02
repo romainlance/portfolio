@@ -24,12 +24,13 @@
 (function (root) {
   'use strict';
 
-  /* Adresse du CV selon la langue. Le fichier anglais est testé une fois : tant
-     qu'il n'est pas déposé dans assets/, le lien reste sur la version
-     française plutôt que de mener à une page d'erreur. */
+  /* Le CV suit la langue : le PDF ouvert au clic comme la vignette affichée.
+     Chaque fichier anglais est testé une fois, indépendamment de l'autre :
+     tant qu'il n'est pas déposé dans assets/, c'est la version française qui
+     reste en place, plutôt qu'un lien mort ou une image cassée. */
   var CV = {
-    fr: 'assets/cv-romain-lance.pdf',
-    en: 'assets/cv-romain-lance-en.pdf'
+    pdf: { fr: 'assets/cv-romain-lance.pdf', en: 'assets/cv-romain-lance-en.pdf' },
+    img: { fr: 'assets/cv-preview.webp',     en: 'assets/cv-preview-en.webp' }
   };
 
   /* 01. DICTIONNAIRE — INTERFACE
@@ -44,6 +45,11 @@
     'Contact': 'Contact',
     'Tous les projets': 'All projects',
     'Voir le projet': 'View project',
+    'Ouvrir l\'album': 'Open the album',
+    'Photo précédente': 'Previous photo',
+    'Photo suivante': 'Next photo',
+    'Projet personnel': 'Personal project',
+    'TP académique': 'Academic lab',
     'Voir le parcours': 'View experience',
     'Me contacter': 'Get in touch',
     'Projet suivant': 'Next project',
@@ -174,6 +180,116 @@
     'Commande prédictive': 'Predictive control',
     'Modélisation': 'Modelling',
     'Conception': 'Design',
+
+    // Projets personnels et TP académiques
+    'Projets personnels': 'Personal projects',
+    'TP académiques': 'Academic labs',
+    'Perso': 'Personal',
+    'TP': 'Labs',
+    'Ce que je démonte, conçois et fabrique en dehors des cours. Chaque carte ouvre son album photo.':
+      'What I take apart, design and build outside class. Each card opens its photo album.',
+    'Les travaux pratiques du cursus, sur du matériel industriel réel.':
+      'The hands-on labs of the course, on real industrial hardware.',
+
+    'Vélo électrique': 'Electric bike',
+    'Motorisation d\'un vélo : la roue arrière laisse place à une roue à moyeu moteur, montée sur un châssis fabriqué sur mesure.':
+      'Motorising a bicycle: the rear wheel gives way to a hub-motor wheel, mounted on a purpose-built frame.',
+    'Motoriser un vélo sans repartir d\'une base neuve : le train arrière d\'origine est déposé, remplacé par une roue à moyeu moteur montée sur un châssis fabriqué sur mesure et boulonné au cadre.':
+      'Motorising a bicycle without starting from a new base: the original rear end comes off, replaced by a hub-motor wheel on a purpose-built frame bolted to the bicycle.',
+    'La batterie et le contrôleur prennent place sur ce même châssis, protégés par un boîtier dessiné et imprimé pour l\'occasion.':
+      'The battery and the controller sit on that same frame, protected by an enclosure drawn and printed for the purpose.',
+    'Le vélo complet : la roue arrière d\'origine a laissé place à un ensemble motorisé monté sur un châssis rapporté.':
+      'The complete bicycle: the original rear wheel has given way to a powered assembly on an add-on frame.',
+    'Détail du train arrière : châssis soudé, roue à moyeu moteur, batterie et faisceau électrique.':
+      'Close-up of the rear end: welded frame, hub-motor wheel, battery and wiring loom.',
+    'Le boîtier du contrôleur, dessiné et imprimé en 3D, ajouré pour laisser passer l\'air.':
+      'The controller enclosure, drawn and 3D-printed, vented to let the air through.',
+    'Le vélo motorisé, vu de profil': 'The motorised bicycle, seen from the side',
+    'Gros plan du train arrière motorisé': 'Close-up of the powered rear end',
+    'Boîtier imprimé en 3D protégeant le contrôleur': '3D-printed enclosure protecting the controller',
+    'Motorisation': 'Motorisation',
+
+    'Hack de hoverboard': 'Hoverboard hack',
+    'Ouverture d\'un hoverboard du commerce pour accéder à sa carte de commande et la reprogrammer.':
+      'Opening up a consumer hoverboard to reach its control board and reprogram it.',
+    'Un hoverboard du commerce est une plateforme fermée, mais son électronique est générique : deux moteurs sans balais, deux étages de puissance et un microcontrôleur bien connu.':
+      'A consumer hoverboard is a closed platform, but its electronics are generic: two brushless motors, two power stages and a well-known microcontroller.',
+    'L\'ouvrir permet d\'identifier ce microcontrôleur, de retrouver son port de programmation et d\'y brancher une sonde — première étape pour remplacer le logiciel d\'origine et réutiliser la motorisation ailleurs.':
+      'Opening it up means identifying that microcontroller, finding its programming port and hooking up a probe — the first step towards replacing the original firmware and reusing the drive elsewhere.',
+    'La carte de commande d\'origine, une fois le hoverboard ouvert : deux étages de puissance, un par moteur de roue.':
+      'The original control board, once the hoverboard is open: two power stages, one per wheel motor.',
+    'Le microcontrôleur qui pilote l\'ensemble : un STM32F103RCT6, cœur ARM Cortex-M3.':
+      'The microcontroller driving the whole thing: an STM32F103RCT6, ARM Cortex-M3 core.',
+    'Programmation par sonde ST-LINK V2, branchée sur le port SWD de la carte.':
+      'Programming through an ST-LINK V2 probe, connected to the board\'s SWD port.',
+    'Carte de commande du hoverboard, une fois l\'appareil ouvert':
+      'The hoverboard control board, once the device is open',
+    'Gros plan du microcontrôleur STM32F103': 'Close-up of the STM32F103 microcontroller',
+    'Sonde ST-LINK V2 branchée sur le port de programmation':
+      'ST-LINK V2 probe connected to the programming port',
+    'Électronique de puissance': 'Power electronics',
+
+    'Modélisme — coque de bateau': 'Model making — boat hull',
+    'Une coque dessinée sous Fusion 360, découpée en tronçons imprimables et assemblés par emboîtement.':
+      'A hull drawn in Fusion 360, cut into printable sections that slot together.',
+    'Une coque dépasse largement le volume d\'une imprimante de bureau. Elle est donc dessinée d\'un seul tenant, puis recoupée en tronçons, chacun muni d\'un emboîtement qui garantit l\'alignement à l\'assemblage.':
+      'A hull is far larger than a desktop printer\'s build volume. It is therefore drawn in one piece, then cut into sections, each carrying a joint that guarantees alignment at assembly.',
+    'Le pont reste amovible pour laisser l\'accès à l\'intérieur.':
+      'The deck stays removable to keep the inside accessible.',
+    'La coque et son pont amovible, modélisés sous Fusion 360 et découpés en tronçons compatibles avec le volume d\'impression.':
+      'The hull and its removable deck, modelled in Fusion 360 and cut into sections that fit the build volume.',
+    'Détail de la liaison entre deux tronçons : l\'emboîtement assure l\'alignement au moment du collage.':
+      'Close-up of the joint between two sections: it holds the alignment while the glue sets.',
+    'Coque de bateau modélisée sous Fusion 360': 'Boat hull modelled in Fusion 360',
+    'Détail de l\'emboîtement entre deux tronçons de coque':
+      'Close-up of the joint between two hull sections',
+
+    'Automates programmables': 'Programmable logic controllers',
+    'Programmation et mise en service sur trois familles d\'automates industriels, Schneider et Siemens.':
+      'Programming and commissioning across three families of industrial controllers, Schneider and Siemens.',
+    'Trois familles d\'automates, trois générations : le Modicon M340 et le TSX Premium de Schneider, le SIMATIC S7-300 de Siemens. Chaque platine est câblée, adressée et raccordée au réseau Ethernet de la salle.':
+      'Three families of controllers, three generations: Schneider\'s Modicon M340 and TSX Premium, Siemens\' SIMATIC S7-300. Each rack is wired, addressed and connected to the room\'s Ethernet network.',
+    'Le travail va du repérage des entrées et sorties jusqu\'à la mise en service du programme sur la partie opérative.':
+      'The work runs from labelling the inputs and outputs through to commissioning the program on the machine itself.',
+    'Schneider Modicon M340 : alimentation CPS 2000, processeur à port Ethernet, module de 16 entrées TOR 24 V (DDI 1602) et module de 16 sorties à relais (DRA 1605).':
+      'Schneider Modicon M340: CPS 2000 power supply, processor with Ethernet port, 16-channel 24 V digital input module (DDI 1602) and 16-channel relay output module (DRA 1605).',
+    'Siemens SIMATIC S7-300 : alimentation PS 307, CPU 315-2 PN/DP et module mixte 16 entrées / 16 sorties, repéré au nom des capteurs et des actionneurs.':
+      'Siemens SIMATIC S7-300: PS 307 power supply, CPU 315-2 PN/DP and a combined 16-input / 16-output module, labelled with the names of the sensors and actuators.',
+    'Schneider Modicon TSX Premium : alimentation TSX PSY 2600, processeur TSX P57 2634, modules d\'entrées TSX DEY 16D2 et de sorties à relais TSX DSY 16R5.':
+      'Schneider Modicon TSX Premium: TSX PSY 2600 power supply, TSX P57 2634 processor, TSX DEY 16D2 input modules and TSX DSY 16R5 relay output modules.',
+    'Automate Schneider Modicon M340 et ses modules': 'Schneider Modicon M340 controller and its modules',
+    'Automate Siemens SIMATIC S7-300': 'Siemens SIMATIC S7-300 controller',
+    'Automate Schneider Modicon TSX Premium': 'Schneider Modicon TSX Premium controller',
+    'Entrées/sorties TOR': 'Digital I/O',
+
+    'Programmation d\'un robot mobile omnidirectionnel Festo dans l\'environnement graphique Robotino View.':
+      'Programming a Festo omnidirectional mobile robot in the Robotino View graphical environment.',
+    'Le Robotino de Festo est un robot mobile à trois roues omnidirectionnelles : aucune direction à braquer, le déplacement naît de la combinaison des trois vitesses de roue.':
+      'Festo\'s Robotino is a mobile robot on three omnidirectional wheels: nothing to steer — motion comes from combining the three wheel speeds.',
+    'La programmation se fait par blocs sous Robotino View, en reliant capteurs, calculs et consignes moteur — le robot exécute le diagramme tel qu\'il est dessiné.':
+      'Programming is done with blocks in Robotino View, wiring sensors, computations and motor setpoints together — the robot runs the diagram exactly as drawn.',
+    'Le programme sous Robotino View : un diagramme de blocs relie les consignes des trois moteurs, l\'entraînement omnidirectionnel, la détection de collision et les entrées/sorties du robot.':
+      'The program in Robotino View: a block diagram wires together the three motor setpoints, the omnidirectional drive, collision detection and the robot\'s inputs and outputs.',
+    'Programme du Robotino dans l\'environnement Robotino View':
+      'The Robotino program in the Robotino View environment',
+    'Robot omnidirectionnel': 'Omnidirectional robot',
+    'Programmation par blocs': 'Block programming',
+
+    // Photo du stage Industeam, dans le parcours
+    'Sur le chantier': 'On site',
+    'Agrandir la photo de l\'atelier': 'Enlarge the workshop photo',
+    'Industeam — machines spéciales': 'Industeam — special-purpose machines',
+    'Une machine spéciale est conçue pour une pièce et une seule : le bras qui la manipule, l\'outil qui l\'assemble et le convoyeur qui l\'amène sont dimensionnés pour ce produit précis.':
+      'A special-purpose machine is designed for one part and one part only: the arm that handles it, the tool that assembles it and the conveyor that brings it are all sized for that exact product.',
+    'C\'est au montage que se révèlent les écarts entre le plan et le réel — et c\'est là que se joue l\'essentiel du suivi de chantier.':
+      'It is during assembly that the gaps between drawing and reality show up — and that is where most of the on-site follow-up happens.',
+    'Une cellule en cours de montage : bras six axes FANUC et broche de vissage automatique montée sur son axe vertical.':
+      'A cell under assembly: a six-axis FANUC arm and an automatic screwdriving spindle on its vertical axis.',
+    'Cellule robotisée en cours de montage : bras FANUC et broche de vissage':
+      'Robotic cell under assembly: FANUC arm and screwdriving spindle',
+    'Robotique industrielle': 'Industrial robotics',
+    'Vissage automatique': 'Automatic screwdriving',
+    'Secteur automobile': 'Automotive sector',
 
     // Compétences
     'Robotique': 'Robotics',
@@ -376,6 +492,14 @@
     'Rédaction scientifique': 'Scientific writing',
     'Le travail a donné lieu à un rapport complet et à un article scientifique formalisant la démarche, les modèles et les résultats.':
       'The work produced a full report and a scientific paper formalising the approach, the models and the results.',
+    'Une roue folle et sa fourche pivotante : rien ne l\'entraîne, elle s\'oriente d\'elle-même en fonction du mouvement du fauteuil.':
+      'A caster wheel and its swivelling fork: nothing drives it — it turns by itself according to how the chair moves.',
+    'À côté, la roue motrice. C\'est l\'interaction entre les deux qui rend la dynamique du fauteuil difficile à décrire.':
+      'Next to it, the driven wheel. It is the interaction between the two that makes the chair\'s dynamics hard to describe.',
+    'Roue folle avant du fauteuil, montée sur sa fourche pivotante':
+      'Front caster wheel of the chair, mounted on its swivelling fork',
+    'Roue folle et roue motrice du fauteuil, vues de trois quarts':
+      'Caster wheel and driven wheel of the chair, seen at three-quarters',
     'Cinématique différentielle': 'Differential kinematics',
     'Roues folles': 'Caster wheels',
     'Multiplicateurs de Lagrange': 'Lagrange multipliers',
@@ -479,6 +603,13 @@
       'Planning, sharing out responsibilities, identifying risks and tracking progress through to project closure. With ten people, agreeing on common assumptions before computing anything was a full part of the work.',
     'C\'est le projet qui m\'a fait découvrir le travail d\'ingénierie en équipe, et la différence entre une bonne idée et une solution défendable : un système sans énergie d\'appoint ne pardonne rien, chaque paramètre de conception se retrouve directement dans la performance finale.':
       'This is the project that introduced me to engineering as a team, and to the difference between a good idea and a defensible solution: a system with no auxiliary energy forgives nothing, every design parameter lands straight in the final performance.',
+    'L\'enceinte en cours d\'impression : les nervures extérieures augmentent la surface d\'échange avec l\'air.':
+      'The enclosure mid-print: the outer ribs increase the surface exchanging heat with the air.',
+    'Le prototype une fois sorti du plateau, supports encore en place.':
+      'The prototype straight off the build plate, supports still attached.',
+    'Impression 3D de l\'enceinte du frigo du désert': '3D printing of the desert fridge enclosure',
+    'Prototype imprimé du frigo du désert, posé sur un bureau':
+      'Printed prototype of the desert fridge, sitting on a desk',
     'Refroidissement passif': 'Passive cooling',
     'Évaporation': 'Evaporation',
     'Choix des matériaux': 'Material selection',
@@ -605,31 +736,39 @@
     document.title = lang === 'fr' ? data.title : (TITLES[norm(data.title)] || data.title);
     document.documentElement.lang = lang;
 
-    swapCv(lang);
+    swapCv();   // lit document.documentElement.lang, posé juste au-dessus
     try { localStorage.setItem('lang', lang); } catch (e) { /* stockage indisponible */ }
   }
 
-  /* Le lien du CV suit la langue, mais seulement si le fichier anglais existe :
-     tant qu'il n'a pas été déposé, mieux vaut la version française qu'un lien
-     mort. Le test n'est fait qu'une fois. */
-  var enCvAvailable = null;
-  function swapCv(lang) {
-    var card = document.getElementById('cvCard');
-    if (!card) { return; }
+  /* Bascule d'un fichier du CV (PDF ou vignette).
+     `known` mémorise le résultat du test d'existence pour ne le faire qu'une
+     fois par fichier ; tant qu'il est indéterminé, on reste sur le français. */
+  var known = {};
 
-    var base = card.getAttribute('href').replace(/[^/]+$/, '');
-    function set(file) { card.setAttribute('href', base + file.replace(/^assets\//, '')); }
+  function swapFile(el, attr, files) {
+    if (!el) { return; }
 
-    if (lang === 'fr') { set(CV.fr); return; }
-    if (enCvAvailable === true) { set(CV.en); return; }
-    if (enCvAvailable === false) { return; }
+    // Le chemin est reconstruit depuis la valeur courante : les pages projet
+    // vivent dans un sous-dossier, l'adresse y est donc préfixée de « ../ ».
+    var dir = el.getAttribute(attr).replace(/[^/]+$/, '');
+    function url(file) { return dir + file.replace(/^assets\//, ''); }
+    function set(file) { el.setAttribute(attr, url(file)); }
 
-    fetch(base + CV.en.replace(/^assets\//, ''), { method: 'HEAD' })
+    if (document.documentElement.lang !== 'en') { set(files.fr); return; }
+    if (known[files.en] === true) { set(files.en); return; }
+    if (known[files.en] === false) { return; }
+
+    fetch(url(files.en), { method: 'HEAD' })
       .then(function (r) {
-        enCvAvailable = r.ok;
-        if (r.ok && document.documentElement.lang === 'en') { set(CV.en); }
+        known[files.en] = r.ok;
+        if (r.ok && document.documentElement.lang === 'en') { set(files.en); }
       })
-      .catch(function () { enCvAvailable = false; });
+      .catch(function () { known[files.en] = false; });
+  }
+
+  function swapCv() {
+    swapFile(document.getElementById('cvCard'), 'href', CV.pdf);
+    swapFile(document.querySelector('#cvCard .cv__page'), 'src', CV.img);
   }
 
   /* 06. BOUTON DE BASCULE

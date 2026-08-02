@@ -19,14 +19,14 @@
    10. En-têtes de section
    11. À propos
    12. Timeline (parcours)
-   13. Cartes projets
+   13. Cartes projets et albums
    14. Diagrammes SVG
    15. Compétences
    16. Formation
    17. Contact
    18. Pied de page
    19. Verre liquide
-   20. Fenêtre modale et QR code
+   20. Fenêtres modales (QR code, albums)
    21. Effets au pointeur (halo, relief, aimantation)
    22. Animations d'entrée et apparitions au scroll
    23. Responsive
@@ -45,6 +45,10 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* La gouttière de défilement est réservée en permanence : sans elle, geler
+     le défilement de fond à l'ouverture d'une fenêtre modale ferait sauter
+     toute la page de la largeur de la barre. */
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -63,6 +67,9 @@ body {
   cursor: default;
 }
 
+/* Posé par le JS pendant qu'une fenêtre modale est ouverte */
+body.is-locked { overflow: hidden; }
+
 /* Seuls les éléments réellement actionnables changent la forme du pointeur */
 a,
 button,
@@ -78,7 +85,11 @@ button,
 input[type='submit'],
 input[type='button'] { cursor: pointer; }
 
-img { display: block; max-width: 100%; }
+/* `height: auto` est indispensable : les attributs width/height du HTML — qui
+   réservent la place et évitent les sauts de mise en page au chargement —
+   sont appliqués comme une hauteur fixe. Sans cette ligne, ils l'emportent
+   sur les règles de la feuille de styles, y compris sur `aspect-ratio`. */
+img { display: block; max-width: 100%; height: auto; }
 
 ul, ol { list-style: none; padding: 0; }
 
@@ -466,7 +477,9 @@ body::before {
   margin-inline: auto;
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  /* Serré : avec huit liens, le nom et trois boutons, la barre n'a plus de
+     marge à 1 120 px de large. */
+  gap: 1.1rem;
 }
 
 .nav__brand { display: flex; align-items: center; gap: .6rem; margin-right: auto; }
@@ -492,9 +505,13 @@ body::before {
 
 .nav__links a {
   position: relative;
-  padding: .45rem .7rem;
+  padding: .45rem .58rem;
   border-radius: var(--radius);
   font-size: .87rem;
+  /* Un libellé ne se coupe jamais : la barre a une hauteur fixe, et « À
+     propos » sur deux lignes la ferait déborder au lieu de simplement
+     serrer les liens. */
+  white-space: nowrap;
   color: var(--muted);
   transition: color .2s ease, background-color .2s ease;
 }
@@ -510,8 +527,8 @@ body::before {
 .nav__links a::after {
   content: '';
   position: absolute;
-  left: .7rem;
-  right: .7rem;
+  left: .58rem;
+  right: .58rem;
   bottom: .2rem;
   height: 1px;
   background: var(--accent);
@@ -751,8 +768,7 @@ body::before {
   display: block;
   overflow: hidden;
   padding: 10px;
-  /* --rx / --ry posés par l'effet de relief (js/effects.js) */
-  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  /* Le relief lui-même est défini une seule fois, avec la classe .tilt (§19) */
   transition: transform .35s var(--ease-out), box-shadow .35s ease;
 }
 .cv:hover { box-shadow: 0 30px 60px -28px var(--glass-cast); }
@@ -769,11 +785,14 @@ body::before {
 [data-theme='dark'] .cv__page { filter: brightness(.9) contrast(1.02); }
 .cv:hover .cv__page { transform: scale(1.015); }
 
-/* Ligne de balayage, clin d'œil aux bancs de mesure */
+/* Ligne de balayage, clin d'œil aux bancs de mesure.
+   Pleine largeur : au survol, la page grandit de 1,5 % et déborde sur le
+   passe-partout de 10 px — tout ce qui s'arrête au bord du document laisse
+   alors une bande claire visible. */
 .cv__scan {
   position: absolute;
-  left: 10px;
-  right: 10px;
+  left: 0;
+  right: 0;
   z-index: 1;
   height: 26%;
   background: linear-gradient(to bottom, transparent, var(--accent-wash), transparent);
@@ -785,15 +804,18 @@ body::before {
   50%      { transform: translateY(400%); }
 }
 
-/* Voile d'appel à l'action, révélé au survol */
+/* Voile d'appel à l'action, révélé au survol.
+   Il couvre toute la carte, bords compris : encadré à 10 px, il laissait au
+   bas de la carte une bande de page non voilée — un liseré blanc franc,
+   surtout en thème sombre. */
 .cv__overlay {
   position: absolute;
-  inset: 10px;
+  inset: 0;
   z-index: 3;
   display: grid;
   place-items: end center;
   padding-bottom: 1.4rem;
-  border-radius: calc(var(--radius-lg) - 8px);
+  border-radius: inherit;
   background: linear-gradient(to top, var(--glass-cast) 0%, transparent 46%);
   opacity: 0;
   transition: opacity .35s ease;
@@ -854,6 +876,14 @@ body::before {
 .reveal.is-visible .section__rule,
 .section__head.is-visible .section__rule { transform: scaleX(1); }
 
+/* Ligne d'introduction, sous le titre d'une section */
+.section__lede {
+  max-width: 62ch;
+  margin-top: -.6rem;
+  margin-bottom: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--muted);
+}
+
 
 /* 11. À PROPOS
    -------------------------------------------------------------------------- */
@@ -891,7 +921,7 @@ body::before {
   color: var(--ink);
   transition: border-color .3s ease, transform .4s var(--ease-out);
 }
-.about .avail:hover { border-color: var(--accent); transform: translateY(-2px); }
+.about .avail:hover { border-color: var(--accent); --lift: -2px; }
 
 /* Point posé en absolu plutôt qu'en flex : le paragraphe doit rester un
    paragraphe, sinon `décembre 2026` — qui est un <strong> — deviendrait une
@@ -1043,11 +1073,54 @@ body::before {
 
 .tl__body .tags { margin-top: 1rem; }
 
+/* Vignette photo d'une expérience : elle ouvre la visionneuse des albums.
+   Format volontairement modeste — la timeline reste une liste, la photo
+   l'illustre sans la transformer en galerie. */
+.tl__shot {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: min(100%, 230px);
+  margin-top: 1.1rem;
+  padding: 0;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-edge);
+  background: var(--surface-2);
+  box-shadow: var(--glass-shadow-stack);
+  cursor: pointer;
+  transition: border-color .3s ease, transform .35s var(--ease-out),
+              box-shadow .35s ease;
+}
+.tl__shot:hover { border-color: var(--accent); }
+.tl__shot img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform .6s var(--ease-out);
+}
+.tl__shot:hover img { transform: scale(1.05); }
 
-/* 13. CARTES PROJETS
+.tl__shot-label {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  padding: 1.6rem .8rem .6rem;
+  background: linear-gradient(to top, var(--glass-cast), transparent);
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+
+/* 13. CARTES PROJETS ET ALBUMS
    --------------------------------------------------------------------------
-   Blocs de prévisualisation : chaque carte est un lien vers la page dédiée
-   du projet, dans projets/. */
+   Blocs de prévisualisation. Une carte projet est un lien vers la page dédiée
+   du projet, dans projets/ ; une carte d'album ouvre une fenêtre contenant
+   les photos et le texte du projet. */
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1070,8 +1143,7 @@ body::before {
   flex-direction: column;
   background: var(--bg);
   overflow: hidden;
-  /* --rx / --ry posés par l'effet de relief (js/effects.js) */
-  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  /* Le relief lui-même est défini une seule fois, avec la classe .tilt (§19) */
   transition: border-color .3s ease, transform .35s var(--ease-out),
               box-shadow .35s ease;
 }
@@ -1171,6 +1243,134 @@ body::before {
 .pcard:hover .pcard__cta .ico { transform: translateX(5px); }
 
 
+/* --- Cartes d'album ---
+   Même matière que les cartes projet, mais la carte n'est pas un lien : elle
+   ouvre une fenêtre contenant les photos et le texte du projet. D'où le
+   <button> plutôt qu'un <a>, et la couverture photographique plutôt qu'un
+   schéma. */
+.albums {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(240px, 30vw, 300px), 1fr));
+  gap: clamp(1.2rem, 2.6vw, 1.9rem);
+}
+
+.album {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+  border-radius: var(--radius-lg);
+  background: var(--bg);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .3s ease, transform .35s var(--ease-out),
+              box-shadow .35s ease;
+}
+.album:hover { border-color: var(--accent); }
+
+.album__cover {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+}
+.album__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s var(--ease-out);
+}
+.album:hover .album__cover img { transform: scale(1.05); }
+
+/* Voile pour que le compteur reste lisible quelle que soit la photo */
+.album__cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--glass-cast) 0%, transparent 42%);
+  opacity: .55;
+  transition: opacity .35s ease;
+}
+.album:hover .album__cover::after { opacity: .8; }
+
+.album__count {
+  position: absolute;
+  z-index: 1;
+  left: .9rem;
+  bottom: .8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .22rem .6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .32);
+  background: rgba(20, 22, 26, .5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.album__count .ico { width: 1em; height: 1em; }
+
+.album__body {
+  display: grid;
+  gap: .5rem;
+  align-content: start;
+  flex: 1;
+  padding: 1.1rem 1.25rem 1.3rem;
+}
+
+.album__title {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1.02rem;
+  line-height: 1.25;
+  color: var(--ink);
+  transition: color .25s ease;
+}
+.album:hover .album__title { color: var(--accent); }
+
+.album__sub { font-size: .88rem; line-height: 1.5; color: var(--muted); }
+
+/* Étiquettes en <span> : un <ul> serait invalide à l'intérieur d'un <button> */
+.album__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+  margin-top: .15rem;
+}
+.album__tags span {
+  padding: .22rem .55rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-edge);
+  background: var(--glass-fill), var(--glass-bg);
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .04em;
+  color: var(--muted);
+}
+
+.album__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  margin-top: .35rem;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.album__cta .ico { transition: transform .3s var(--ease-out); }
+.album:hover .album__cta .ico { transform: translateX(4px); }
+
+
 /* 14. DIAGRAMMES SVG
    --------------------------------------------------------------------------
    Illustrations abstraites dessinées en SVG plutôt qu'en images : aucune
@@ -1240,9 +1440,7 @@ body::before {
   /* Marge intérieure franche : depuis que le bloc est un panneau de verre,
      le contenu ne doit plus toucher l'arête. */
   padding: 1.15rem 1.3rem 1.35rem;
-  /* Relief au pointeur, comme la plaque du hero. Sans la classe .tilt,
-     --rx / --ry restent à 0 et l'élément ne bouge pas. */
-  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  /* Le relief lui-même est défini une seule fois, avec la classe .tilt (§19) */
   transition: transform .35s var(--ease-out);
 }
 
@@ -1410,8 +1608,7 @@ body::before {
   gap: .5rem;
   align-content: start;
   padding: 1.4rem 1.5rem 1.5rem;
-  /* --rx / --ry posés par l'effet de relief (js/effects.js) */
-  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  /* Le relief lui-même est défini une seule fois, avec la classe .tilt (§19) */
   transition: transform .35s var(--ease-out), border-color .3s ease, box-shadow .35s ease;
 }
 .edu__item:hover { border-color: var(--accent); }
@@ -1669,7 +1866,39 @@ body::before {
 
 .copy { border-radius: var(--radius-sm); }
 
-/* 20. FENÊTRE MODALE ET QR CODE
+
+/* --- Relief au pointeur ---
+   Définition unique de l'effet 3D : il suffit d'ajouter la classe .tilt à un
+   élément pour qu'il s'incline vers le curseur (js/effects.js pose --rx et
+   --ry ; sans le script, les valeurs restent à 0 et rien ne bouge).
+
+   Deux points méritent l'explication :
+
+   · --lift compose le décollement au survol avec la rotation. Écrit en
+     `transform: translateY(-2px)`, il écrasait purement et simplement
+     l'inclinaison — une seule propriété `transform` par élément.
+
+   · Les deux sélecteurs longs ne sont pas décoratifs. Les états d'arrivée des
+     animations (`.reveal-ready .reveal.is-visible`, `.js-intro .intro.is-in`)
+     posent `transform: none` avec trois classes de spécificité : sans les
+     doubler ici, le relief ne s'appliquait à aucun bloc animé à l'entrée. */
+.tilt,
+.reveal-ready .reveal.is-visible.tilt,
+.js-intro .intro.is-in.tilt {
+  transform:
+    perspective(900px)
+    translateY(var(--lift, 0px))
+    rotateX(var(--rx, 0deg))
+    rotateY(var(--ry, 0deg));
+}
+
+.reveal-ready .reveal.is-visible.tilt,
+.js-intro .intro.is-in.tilt {
+  transition: opacity .75s var(--ease-out), transform .4s var(--ease-out);
+}
+
+
+/* 20. FENÊTRES MODALES (QR CODE, ALBUMS)
    -------------------------------------------------------------------------- */
 .modal {
   position: fixed;
@@ -1768,6 +1997,151 @@ body::before {
   color: var(--muted);
   word-break: break-all;
 }
+
+
+/* --- Fenêtre d'album ---
+   Beaucoup plus large que celle du QR code, et alignée à gauche : c'est une
+   fiche de lecture, pas une pastille. */
+.modal--album { padding: clamp(.75rem, 3vw, 2rem); }
+
+.modal__panel--album {
+  width: min(100%, 1040px);
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;   /* le fond ne défile pas sous la fenêtre */
+  padding: clamp(1.2rem, 3vw, 2rem);
+  text-align: left;
+}
+
+/* Le bouton de fermeture reste visible quand la fiche défile */
+.modal__panel--album .modal__close {
+  position: sticky;
+  top: 0;
+  float: right;
+  z-index: 2;
+  background: var(--glass-fill), var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.album__detail[hidden] { display: none; }
+.album__detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(1.2rem, 3vw, 2.2rem);
+  align-items: start;
+}
+
+.album__head { display: grid; gap: .5rem; }
+.album__detail-title { font-size: clamp(1.2rem, 2.6vw, 1.55rem); }
+.album__detail-lede {
+  font-size: .95rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.album__detail-lede + .album__detail-lede { margin-top: -.1rem; }
+.album__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-top: .3rem;
+}
+.album__meta li {
+  padding: .22rem .55rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-edge);
+  background: var(--glass-fill), var(--glass-bg);
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  color: var(--muted);
+}
+
+/* --- Visionneuse --- */
+.album__viewer { display: grid; gap: .8rem; }
+
+.album__frame {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface-2);
+  border: 1px solid var(--glass-edge);
+}
+
+.album__slide { margin: 0; display: none; }
+.album__slide.is-current { display: block; }
+
+/* La photo garde ses proportions et occupe la largeur disponible ; seule sa
+   hauteur est bridée, pour qu'un cliché en portrait ne remplisse pas l'écran
+   à lui seul. `contain` prend alors le relais : une visionneuse n'a pas à
+   recadrer ce qu'on vient précisément regarder. */
+.album__slide img {
+  width: 100%;
+  max-height: min(58vh, 560px);
+  object-fit: contain;
+  animation: albumFade .4s var(--ease-out);
+}
+@keyframes albumFade {
+  from { opacity: 0; transform: scale(.99); }
+  to   { opacity: 1; transform: none; }
+}
+
+.album__slide figcaption {
+  padding: .7rem .9rem;
+  border-top: 1px solid var(--line);
+  background: var(--glass-fill), var(--glass-bg);
+  font-size: .84rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* --- Commandes --- */
+.album__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+}
+
+.album__nav {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-edge);
+  background: var(--glass-fill), var(--glass-bg);
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color .2s ease, color .2s ease, background-color .2s ease;
+}
+.album__nav:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-wash); }
+.album__nav[hidden] { display: none; }
+.album__nav--prev .ico { transform: rotate(90deg); }
+.album__nav--next .ico { transform: rotate(-90deg); }
+
+.album__dots { display: flex; gap: .4rem; }
+.album__dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--line-2);
+  cursor: pointer;
+  transition: background-color .25s ease, transform .25s var(--ease-out);
+}
+.album__dot:hover { background: var(--accent); }
+.album__dot.is-current { background: var(--accent); transform: scale(1.35); }
+
+.album__counter {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .08em;
+  color: var(--muted);
+}
+.album__counter[hidden] { display: none; }
 
 
 /* 21. EFFETS AU POINTEUR
@@ -1937,6 +2311,23 @@ body::before {
 }
 
 /* Tablette / mobile : menu escamotable */
+/* Entre 860 et 1200 px, huit liens de navigation ne tiennent plus à côté du
+   nom et des boutons. On resserre la barre et on retire les numéros des
+   liens : ils sont décoratifs, les intitulés portent seuls l'information. */
+@media (max-width: 1200px) {
+  .nav__inner { gap: 1rem; }
+  .nav__links a { padding-inline: .5rem; }
+  .nav__links a span { display: none; }
+}
+
+/* La fiche d'album passe sur une colonne : la photo d'abord, son texte
+   ensuite. À deux colonnes, ni l'une ni l'autre n'avait la place de respirer. */
+@media (max-width: 820px) {
+  .album__detail { grid-template-columns: 1fr; }
+  .album__slide img { max-height: min(46vh, 420px); }
+  .modal__panel--album { max-height: calc(100dvh - 1.5rem); }
+}
+
 @media (max-width: 860px) {
   .nav__burger { display: grid; }
 

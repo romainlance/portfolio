@@ -93,9 +93,11 @@
         <a href="#apropos"><span aria-hidden="true">01</span> À propos</a>
         <a href="#parcours"><span aria-hidden="true">02</span> Parcours</a>
         <a href="#projets"><span aria-hidden="true">03</span> Projets</a>
-        <a href="#competences"><span aria-hidden="true">04</span> Compétences</a>
-        <a href="#formation"><span aria-hidden="true">05</span> Formation</a>
-        <a href="#contact"><span aria-hidden="true">06</span> Contact</a>
+        <a href="#perso"><span aria-hidden="true">04</span> Perso</a>
+        <a href="#tp"><span aria-hidden="true">05</span> TP</a>
+        <a href="#competences"><span aria-hidden="true">06</span> Compétences</a>
+        <a href="#formation"><span aria-hidden="true">07</span> Formation</a>
+        <a href="#contact"><span aria-hidden="true">08</span> Contact</a>
       </nav>
 
       <div class="nav__actions">
@@ -232,7 +234,7 @@
               ROS&nbsp;2, pendant qu'un projet de recherche avec le laboratoire CRIStAL me faisait
               creuser la modélisation dynamique et la commande prédictive.
             </p>
-            <p class="avail reveal spotlight" data-reveal="up">
+            <p class="avail reveal spotlight tilt" data-reveal="up">
               <span class="avail__dot" aria-hidden="true"></span>
               Je suis disponible à partir de <strong>décembre 2026</strong> pour un poste autour
               de la mécatronique et de la robotique.
@@ -303,6 +305,17 @@
               <ul class="tags tags--sm">
                 <li>Gestion de projet</li><li>Machines spéciales</li><li>Coordination pluridisciplinaire</li>
               </ul>
+
+              <!-- La vignette ouvre la même visionneuse que les albums -->
+              <button type="button" class="tl__shot tilt" data-album="alb-industeam"
+                      aria-haspopup="dialog" aria-label="Agrandir la photo de l'atelier">
+                <img src="assets/parcours/industeam-sm.webp" width="600" height="800"
+                     loading="lazy" decoding="async" alt="">
+                <span class="tl__shot-label">
+                  <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
+                  Sur le chantier
+                </span>
+              </button>
             </div>
           </li>
 
@@ -527,12 +540,184 @@
     </section>
 
     <!-- ============================================================
-         04 — COMPÉTENCES
+         04 — PROJETS PERSONNELS
+         ============================================================ -->
+    <section id="perso" class="section">
+      <div class="wrap">
+        <header class="section__head reveal" data-reveal="up">
+          <span class="section__num" aria-hidden="true">04</span>
+          <h2>Projets personnels</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <p class="section__lede reveal" data-reveal="up">
+          Ce que je démonte, conçois et fabrique en dehors des cours. Chaque carte ouvre son album photo.
+        </p>
+
+        <div class="albums">
+
+          <button type="button" class="album reveal tilt" data-reveal="scale"
+                  data-album="alb-velo" aria-haspopup="dialog">
+            <span class="album__cover">
+              <img src="assets/albums/velo-electrique/1-sm.webp" width="800" height="600"
+                   loading="lazy" decoding="async" alt="">
+              <span class="album__count">
+                <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
+                3 photos
+              </span>
+            </span>
+            <span class="album__body">
+              <span class="album__title">Vélo électrique</span>
+              <span class="album__sub">
+                Motorisation d'un vélo : la roue arrière laisse place à une roue à moyeu moteur,
+                montée sur un châssis fabriqué sur mesure.
+              </span>
+              <span class="album__tags">
+                <span>Motorisation</span><span>Fabrication</span><span>Impression 3D</span>
+              </span>
+              <span class="album__cta">
+                Ouvrir l'album
+                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+              </span>
+            </span>
+          </button>
+
+          <button type="button" class="album reveal tilt" data-reveal="scale"
+                  data-album="alb-hoverboard" aria-haspopup="dialog">
+            <span class="album__cover">
+              <img src="assets/albums/hack-hoverboard/1-sm.webp" width="600" height="800"
+                   loading="lazy" decoding="async" alt="">
+              <span class="album__count">
+                <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
+                3 photos
+              </span>
+            </span>
+            <span class="album__body">
+              <span class="album__title">Hack de hoverboard</span>
+              <span class="album__sub">
+                Ouverture d'un hoverboard du commerce pour accéder à sa carte de commande
+                et la reprogrammer.
+              </span>
+              <span class="album__tags">
+                <span>STM32</span><span>Rétro-ingénierie</span><span>Électronique</span>
+              </span>
+              <span class="album__cta">
+                Ouvrir l'album
+                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+              </span>
+            </span>
+          </button>
+
+          <button type="button" class="album reveal tilt" data-reveal="scale"
+                  data-album="alb-bateau" aria-haspopup="dialog">
+            <span class="album__cover">
+              <img src="assets/albums/modelisme-bateau/1-sm.webp" width="800" height="600"
+                   loading="lazy" decoding="async" alt="">
+              <span class="album__count">
+                <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
+                2 photos
+              </span>
+            </span>
+            <span class="album__body">
+              <span class="album__title">Modélisme — coque de bateau</span>
+              <span class="album__sub">
+                Une coque dessinée sous Fusion 360, découpée en tronçons imprimables
+                et assemblés par emboîtement.
+              </span>
+              <span class="album__tags">
+                <span>Fusion 360</span><span>CAO</span><span>Impression 3D</span>
+              </span>
+              <span class="album__cta">
+                Ouvrir l'album
+                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+              </span>
+            </span>
+          </button>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         05 — TP ACADÉMIQUES
+         ============================================================ -->
+    <section id="tp" class="section">
+      <div class="wrap">
+        <header class="section__head reveal" data-reveal="up">
+          <span class="section__num" aria-hidden="true">05</span>
+          <h2>TP académiques</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </header>
+
+        <p class="section__lede reveal" data-reveal="up">
+          Les travaux pratiques du cursus, sur du matériel industriel réel.
+        </p>
+
+        <div class="albums">
+
+          <button type="button" class="album reveal tilt" data-reveal="scale"
+                  data-album="alb-automates" aria-haspopup="dialog">
+            <span class="album__cover">
+              <img src="assets/albums/automates-programmables/1-sm.webp" width="800" height="600"
+                   loading="lazy" decoding="async" alt="">
+              <span class="album__count">
+                <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
+                3 photos
+              </span>
+            </span>
+            <span class="album__body">
+              <span class="album__title">Automates programmables</span>
+              <span class="album__sub">
+                Programmation et mise en service sur trois familles d'automates industriels,
+                Schneider et Siemens.
+              </span>
+              <span class="album__tags">
+                <span>Modicon</span><span>SIMATIC</span><span>Entrées/sorties TOR</span>
+              </span>
+              <span class="album__cta">
+                Ouvrir l'album
+                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+              </span>
+            </span>
+          </button>
+
+          <button type="button" class="album reveal tilt" data-reveal="scale"
+                  data-album="alb-robotino" aria-haspopup="dialog">
+            <span class="album__cover">
+              <img src="assets/albums/robotino/1-sm.webp" width="800" height="600"
+                   loading="lazy" decoding="async" alt="">
+              <span class="album__count">
+                <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
+                1 photo
+              </span>
+            </span>
+            <span class="album__body">
+              <span class="album__title">Robotino</span>
+              <span class="album__sub">
+                Programmation d'un robot mobile omnidirectionnel Festo dans l'environnement
+                graphique Robotino View.
+              </span>
+              <span class="album__tags">
+                <span>Robotino View</span><span>Robot omnidirectionnel</span>
+              </span>
+              <span class="album__cta">
+                Ouvrir l'album
+                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+              </span>
+            </span>
+          </button>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         06 — COMPÉTENCES
          ============================================================ -->
     <section id="competences" class="section">
       <div class="wrap">
         <header class="section__head reveal" data-reveal="up">
-          <span class="section__num" aria-hidden="true">04</span>
+          <span class="section__num" aria-hidden="true">06</span>
           <h2>Compétences</h2>
           <span class="section__rule" aria-hidden="true"></span>
         </header>
@@ -631,7 +816,7 @@
 
         </div>
 
-        <section class="interests reveal spotlight" data-reveal="up">
+        <section class="interests reveal spotlight tilt" data-reveal="up">
           <h3 class="interests__title">
             <svg class="ico" aria-hidden="true"><use href="#i-spark"></use></svg>
             Centres d'intérêt
@@ -664,12 +849,12 @@
     </section>
 
     <!-- ============================================================
-         05 — FORMATION
+         07 — FORMATION
          ============================================================ -->
     <section id="formation" class="section">
       <div class="wrap">
         <header class="section__head reveal" data-reveal="up">
-          <span class="section__num" aria-hidden="true">05</span>
+          <span class="section__num" aria-hidden="true">07</span>
           <h2>Formation</h2>
           <span class="section__rule" aria-hidden="true"></span>
         </header>
@@ -709,12 +894,12 @@
     </section>
 
     <!-- ============================================================
-         06 — CONTACT
+         08 — CONTACT
          ============================================================ -->
     <section id="contact" class="section section--contact">
       <div class="wrap">
         <header class="section__head reveal" data-reveal="up">
-          <span class="section__num" aria-hidden="true">06</span>
+          <span class="section__num" aria-hidden="true">08</span>
           <h2>Contact</h2>
           <span class="section__rule" aria-hidden="true"></span>
         </header>
@@ -759,7 +944,7 @@
             Sans JS, le bloc reste lisible et l'adresse e-mail ci-contre prend
             le relais.
           -->
-          <form class="contact__form reveal spotlight" data-reveal="up" id="contactForm" novalidate>
+          <form class="contact__form reveal spotlight tilt" data-reveal="up" id="contactForm" novalidate>
             <div class="field">
               <label for="fName">Votre nom</label>
               <input type="text" id="fName" name="name" autocomplete="name" required>
@@ -801,6 +986,324 @@
        courante (voir js/qr.js), il pointe donc toujours vers l'adresse
        réelle du site, quel que soit l'hébergement.
        ============================================================ -->
+  <!-- ============================================================
+       FENÊTRE DES ALBUMS
+       Les fiches vivent ici, dans le DOM, plutôt que d'être fabriquées au
+       clic : le contenu reste indexable et traduisible (voir js/album.js).
+       ============================================================ -->
+  <div class="modal modal--album" id="albumModal" role="dialog" aria-modal="true" hidden>
+    <div class="modal__backdrop" data-modal-close></div>
+
+    <div class="modal__panel modal__panel--album" role="document">
+      <button class="modal__close" type="button" data-modal-close aria-label="Fermer">
+        <svg class="ico" aria-hidden="true"><use href="#i-close"></use></svg>
+      </button>
+
+      <!-- Commandes de la visionneuse : un seul exemplaire, déplacé dans la
+           fiche affichée par js/album.js. -->
+      <div class="album__controls" id="albumControls" hidden>
+        <button class="album__nav album__nav--prev" type="button" id="albumPrev">
+          <svg class="ico" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+        <ol class="album__dots" id="albumDots"></ol>
+        <span class="album__counter" id="albumCounter"></span>
+        <button class="album__nav album__nav--next" type="button" id="albumNext">
+          <svg class="ico" aria-hidden="true"><use href="#i-chevron"></use></svg>
+        </button>
+      </div>
+
+      <!-- ---------- Stage Industeam ---------- -->
+      <article class="album__detail" id="alb-industeam" hidden>
+        <div class="album__viewer">
+          <div class="album__frame">
+            <figure class="album__slide is-current">
+              <img src="assets/parcours/industeam.webp" width="1200" height="1600"
+                   loading="lazy" decoding="async"
+                   alt="Cellule robotisée en cours de montage : bras FANUC et broche de vissage">
+              <figcaption>
+                Une cellule en cours de montage : bras six axes FANUC et broche de vissage
+                automatique montée sur son axe vertical.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="album__head">
+          <p class="modal__eyebrow">
+            <svg class="ico" aria-hidden="true"><use href="#i-building"></use></svg>
+            Stage de professionnalisation
+          </p>
+          <h2 class="album__detail-title" id="alb-industeam-title">Industeam — machines spéciales</h2>
+          <p class="album__detail-lede">
+            Une machine spéciale est conçue pour une pièce et une seule : le bras qui la
+            manipule, l'outil qui l'assemble et le convoyeur qui l'amène sont dimensionnés
+            pour ce produit précis.
+          </p>
+          <p class="album__detail-lede">
+            C'est au montage que se révèlent les écarts entre le plan et le réel — et c'est
+            là que se joue l'essentiel du suivi de chantier.
+          </p>
+          <ul class="album__meta">
+            <li>Robotique industrielle</li><li>Vissage automatique</li><li>Secteur automobile</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ---------- Vélo électrique ---------- -->
+      <article class="album__detail" id="alb-velo" hidden>
+        <div class="album__viewer">
+          <div class="album__frame">
+            <figure class="album__slide is-current">
+              <img src="assets/albums/velo-electrique/1.webp" width="1600" height="1200"
+                   loading="lazy" decoding="async"
+                   alt="Le vélo motorisé, vu de profil">
+              <figcaption>
+                Le vélo complet : la roue arrière d'origine a laissé place à un ensemble
+                motorisé monté sur un châssis rapporté.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/albums/velo-electrique/2.webp" width="1600" height="1200"
+                   loading="lazy" decoding="async"
+                   alt="Gros plan du train arrière motorisé">
+              <figcaption>
+                Détail du train arrière : châssis soudé, roue à moyeu moteur, batterie
+                et faisceau électrique.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/albums/velo-electrique/3.webp" width="1600" height="1200"
+                   loading="lazy" decoding="async"
+                   alt="Boîtier imprimé en 3D protégeant le contrôleur">
+              <figcaption>
+                Le boîtier du contrôleur, dessiné et imprimé en 3D, ajouré pour laisser
+                passer l'air.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="album__head">
+          <p class="modal__eyebrow">
+            <svg class="ico" aria-hidden="true"><use href="#i-bike"></use></svg>
+            Projet personnel
+          </p>
+          <h2 class="album__detail-title" id="alb-velo-title">Vélo électrique</h2>
+          <p class="album__detail-lede">
+            Motoriser un vélo sans repartir d'une base neuve : le train arrière d'origine
+            est déposé, remplacé par une roue à moyeu moteur montée sur un châssis
+            fabriqué sur mesure et boulonné au cadre.
+          </p>
+          <p class="album__detail-lede">
+            La batterie et le contrôleur prennent place sur ce même châssis, protégés par
+            un boîtier dessiné et imprimé pour l'occasion.
+          </p>
+          <ul class="album__meta">
+            <li>Motorisation</li><li>Fabrication</li><li>Impression 3D</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ---------- Hack de hoverboard ---------- -->
+      <article class="album__detail" id="alb-hoverboard" hidden>
+        <div class="album__viewer">
+          <div class="album__frame">
+            <figure class="album__slide is-current">
+              <img src="assets/albums/hack-hoverboard/1.webp" width="1200" height="1600"
+                   loading="lazy" decoding="async"
+                   alt="Carte de commande du hoverboard, une fois l'appareil ouvert">
+              <figcaption>
+                La carte de commande d'origine, une fois le hoverboard ouvert : deux étages
+                de puissance, un par moteur de roue.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/albums/hack-hoverboard/2.webp" width="1200" height="1600"
+                   loading="lazy" decoding="async"
+                   alt="Gros plan du microcontrôleur STM32F103">
+              <figcaption>
+                Le microcontrôleur qui pilote l'ensemble : un STM32F103RCT6, cœur ARM
+                Cortex-M3.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/albums/hack-hoverboard/3.webp" width="1200" height="1600"
+                   loading="lazy" decoding="async"
+                   alt="Sonde ST-LINK V2 branchée sur le port de programmation">
+              <figcaption>
+                Programmation par sonde ST-LINK V2, branchée sur le port SWD de la carte.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="album__head">
+          <p class="modal__eyebrow">
+            <svg class="ico" aria-hidden="true"><use href="#i-bolt"></use></svg>
+            Projet personnel
+          </p>
+          <h2 class="album__detail-title" id="alb-hoverboard-title">Hack de hoverboard</h2>
+          <p class="album__detail-lede">
+            Un hoverboard du commerce est une plateforme fermée, mais son électronique est
+            générique : deux moteurs sans balais, deux étages de puissance et un
+            microcontrôleur bien connu.
+          </p>
+          <p class="album__detail-lede">
+            L'ouvrir permet d'identifier ce microcontrôleur, de retrouver son port de
+            programmation et d'y brancher une sonde — première étape pour remplacer le
+            logiciel d'origine et réutiliser la motorisation ailleurs.
+          </p>
+          <ul class="album__meta">
+            <li>STM32</li><li>Rétro-ingénierie</li><li>Électronique de puissance</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ---------- Modélisme — coque de bateau ---------- -->
+      <article class="album__detail" id="alb-bateau" hidden>
+        <div class="album__viewer">
+          <div class="album__frame">
+            <figure class="album__slide is-current">
+              <img src="assets/albums/modelisme-bateau/1.webp" width="1600" height="1200"
+                   loading="lazy" decoding="async"
+                   alt="Coque de bateau modélisée sous Fusion 360">
+              <figcaption>
+                La coque et son pont amovible, modélisés sous Fusion 360 et découpés en
+                tronçons compatibles avec le volume d'impression.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/albums/modelisme-bateau/2.webp" width="1600" height="1200"
+                   loading="lazy" decoding="async"
+                   alt="Détail de l'emboîtement entre deux tronçons de coque">
+              <figcaption>
+                Détail de la liaison entre deux tronçons : l'emboîtement assure l'alignement
+                au moment du collage.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="album__head">
+          <p class="modal__eyebrow">
+            <svg class="ico" aria-hidden="true"><use href="#i-boat"></use></svg>
+            Projet personnel
+          </p>
+          <h2 class="album__detail-title" id="alb-bateau-title">Modélisme — coque de bateau</h2>
+          <p class="album__detail-lede">
+            Une coque dépasse largement le volume d'une imprimante de bureau. Elle est donc
+            dessinée d'un seul tenant, puis recoupée en tronçons, chacun muni d'un
+            emboîtement qui garantit l'alignement à l'assemblage.
+          </p>
+          <p class="album__detail-lede">
+            Le pont reste amovible pour laisser l'accès à l'intérieur.
+          </p>
+          <ul class="album__meta">
+            <li>Fusion 360</li><li>CAO</li><li>Impression 3D</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ---------- Automates programmables ---------- -->
+      <article class="album__detail" id="alb-automates" hidden>
+        <div class="album__viewer">
+          <div class="album__frame">
+            <figure class="album__slide is-current">
+              <img src="assets/albums/automates-programmables/1.webp" width="1600" height="1200"
+                   loading="lazy" decoding="async"
+                   alt="Automate Schneider Modicon M340 et ses modules">
+              <figcaption>
+                Schneider Modicon M340 : alimentation CPS 2000, processeur à port Ethernet,
+                module de 16 entrées TOR 24 V (DDI 1602) et module de 16 sorties à relais
+                (DRA 1605).
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/albums/automates-programmables/2.webp" width="1600" height="1200"
+                   loading="lazy" decoding="async"
+                   alt="Automate Siemens SIMATIC S7-300">
+              <figcaption>
+                Siemens SIMATIC S7-300 : alimentation PS 307, CPU 315-2 PN/DP et module
+                mixte 16 entrées / 16 sorties, repéré au nom des capteurs et des
+                actionneurs.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/albums/automates-programmables/3.webp" width="1600" height="1200"
+                   loading="lazy" decoding="async"
+                   alt="Automate Schneider Modicon TSX Premium">
+              <figcaption>
+                Schneider Modicon TSX Premium : alimentation TSX PSY 2600, processeur
+                TSX P57 2634, modules d'entrées TSX DEY 16D2 et de sorties à relais
+                TSX DSY 16R5.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="album__head">
+          <p class="modal__eyebrow">
+            <svg class="ico" aria-hidden="true"><use href="#i-plc"></use></svg>
+            TP académique
+          </p>
+          <h2 class="album__detail-title" id="alb-automates-title">Automates programmables</h2>
+          <p class="album__detail-lede">
+            Trois familles d'automates, trois générations : le Modicon M340 et le TSX Premium
+            de Schneider, le SIMATIC S7-300 de Siemens. Chaque platine est câblée, adressée
+            et raccordée au réseau Ethernet de la salle.
+          </p>
+          <p class="album__detail-lede">
+            Le travail va du repérage des entrées et sorties jusqu'à la mise en service du
+            programme sur la partie opérative.
+          </p>
+          <ul class="album__meta">
+            <li>Modicon M340</li><li>TSX Premium</li><li>SIMATIC S7-300</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ---------- Robotino ---------- -->
+      <article class="album__detail" id="alb-robotino" hidden>
+        <div class="album__viewer">
+          <div class="album__frame">
+            <figure class="album__slide is-current">
+              <img src="assets/albums/robotino/1.webp" width="1600" height="1200"
+                   loading="lazy" decoding="async"
+                   alt="Programme du Robotino dans l'environnement Robotino View">
+              <figcaption>
+                Le programme sous Robotino View : un diagramme de blocs relie les consignes
+                des trois moteurs, l'entraînement omnidirectionnel, la détection de collision
+                et les entrées/sorties du robot.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="album__head">
+          <p class="modal__eyebrow">
+            <svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg>
+            TP académique
+          </p>
+          <h2 class="album__detail-title" id="alb-robotino-title">Robotino</h2>
+          <p class="album__detail-lede">
+            Le Robotino de Festo est un robot mobile à trois roues omnidirectionnelles :
+            aucune direction à braquer, le déplacement naît de la combinaison des trois
+            vitesses de roue.
+          </p>
+          <p class="album__detail-lede">
+            La programmation se fait par blocs sous Robotino View, en reliant capteurs,
+            calculs et consignes moteur — le robot exécute le diagramme tel qu'il est
+            dessiné.
+          </p>
+          <ul class="album__meta">
+            <li>Robotino View</li><li>Robot omnidirectionnel</li><li>Programmation par blocs</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
   <div class="modal" id="qrModal" role="dialog" aria-modal="true"
        aria-labelledby="qrTitle" aria-describedby="qrHint" hidden>
     <div class="modal__backdrop" data-modal-close></div>
@@ -828,6 +1331,7 @@
   <script src="js/qr.js"></script>
   <script src="js/main.js"></script>
   <script src="js/effects.js"></script>
+  <script src="js/album.js"></script>
   <script src="js/i18n.js"></script>
 </body>
 </html>

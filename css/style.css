@@ -1197,37 +1197,17 @@ body::before {
 }
 .pcard:hover .pcard__photo { transform: scale(1.05); }
 
-/* Voile bas, pour que le numéro reste lisible sur n'importe quelle photo */
+/* Voile bas, pour que le crédit reste lisible sur n'importe quelle photo */
 .pcard__media--photo::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, var(--glass-cast) 0%, transparent 38%);
-  opacity: .45;
+  background: linear-gradient(to top, var(--glass-cast) 0%, transparent 32%);
+  opacity: .5;
   transition: opacity .35s ease;
   pointer-events: none;
 }
-.pcard:hover .pcard__media--photo::after { opacity: .62; }
-
-.pcard__index {
-  position: absolute;
-  top: .9rem;
-  right: 1.2rem;
-  z-index: 1;
-  font-family: var(--font-mono);
-  font-size: 2.6rem;
-  font-weight: 500;
-  line-height: 1;
-  color: var(--ink);
-  opacity: .07;
-  transition: opacity .35s ease, transform .45s var(--ease-out);
-}
-.pcard:hover .pcard__index { opacity: .16; transform: translateY(-3px); }
-
-/* Sur une photo, le numéro passe en blanc : le voile est sombre dans les
-   deux thèmes, l'encre du texte courant y disparaîtrait. */
-.pcard__media--photo .pcard__index { color: #fff; opacity: .5; }
-.pcard:hover .pcard__media--photo .pcard__index { opacity: .78; }
+.pcard:hover .pcard__media--photo::after { opacity: .68; }
 
 /* Crédit d'une photo dont je ne suis pas l'auteur. Discret mais lisible :
    c'est une mention obligatoire, pas une décoration. */
@@ -1406,14 +1386,26 @@ body::before {
   gap: .35rem;
   margin-top: .15rem;
 }
+/* Mêmes étiquettes que partout ailleurs : même matière, même arrondi, et le
+   même soulèvement en cascade — déclenché ici au survol de la carte entière,
+   puisque c'est elle qu'on vise, pas chaque mot-clé. */
 .album__tags span {
   padding: .22rem .55rem;
   font-size: .76rem;
   color: var(--muted);
   transition: border-color .25s ease, color .25s ease,
-              transform .25s var(--ease-out), background-color .25s ease;
+              transform .3s var(--ease-out), background-color .25s ease;
 }
-.album:hover .album__tags span { border-color: var(--line-2); }
+.album:hover .album__tags span {
+  border-color: var(--accent);
+  color: var(--ink);
+  background: var(--glass-fill), var(--accent-wash);
+  transform: translateY(-2px);
+}
+/* Cascade : chaque étiquette part un cran après la précédente */
+.album__tags span:nth-child(2) { transition-delay: 50ms; }
+.album__tags span:nth-child(3) { transition-delay: 100ms; }
+.album__tags span:nth-child(4) { transition-delay: 150ms; }
 
 .album__cta {
   display: inline-flex;
@@ -1487,76 +1479,46 @@ body::before {
   letter-spacing: .02em;
 }
 
-/* Échelle européenne : les paliers atteints sont pleins, le niveau courant
-   est souligné d'un trait d'accent. */
-.cefr { display: flex; gap: .3rem; }
-.cefr li {
-  position: relative;
-  flex: 1;
-  padding: .3rem 0 .42rem;
-  border-radius: var(--radius-sm);
-  background: var(--surface-2);
-  font-family: var(--font-mono);
-  font-size: .66rem;
-  text-align: center;
-  color: var(--muted);
-  opacity: .55;
-  transition: opacity .3s ease, color .3s ease, background-color .3s ease;
-}
-.cefr .is-reached { opacity: 1; background: var(--accent-wash); color: var(--ink); }
-.cefr .is-current { background: var(--accent); color: var(--accent-ink); font-weight: 500; }
-.cefr .is-current::after {
-  content: '';
-  position: absolute;
-  left: 22%;
-  right: 22%;
-  bottom: -5px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--accent);
+/* Certifications d'anglais : le score et son maximum, rien de plus. Une
+   échelle A1→C2 et des jauges disaient trois fois la même chose que la
+   pastille de niveau, et donnaient au bloc un air de bulletin scolaire. */
+.certs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: .55rem;
+  margin-top: .15rem;
 }
 
-/* Scores réels rapportés à leur maximum réel */
-.scores { display: grid; gap: .5rem; margin-top: .35rem; }
-.scores li {
+.cert {
   display: grid;
-  grid-template-columns: 5.6rem minmax(0, 1fr) auto;
-  align-items: center;
-  gap: .6rem;
+  gap: .3rem;
+  padding: .75rem .9rem .8rem;
+  transition: border-color .25s ease, transform .35s var(--ease-out),
+              background-color .25s ease;
 }
-.scores__name {
+.cert:hover { border-color: var(--accent); background: var(--glass-fill), var(--accent-wash); }
+
+.cert__name {
   font-family: var(--font-mono);
-  font-size: .68rem;
-  letter-spacing: .06em;
+  font-size: .64rem;
+  letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--muted);
 }
-.scores__bar {
-  height: 5px;
-  border-radius: 999px;
-  background: var(--surface-2);
-  overflow: hidden;
-}
-.scores__bar > span {
-  display: block;
-  width: var(--v, 0%);
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 55%, var(--signal)));
-  transform-origin: left;
-  transform: scaleX(0);
-  transition: transform 1.1s var(--ease-out) .2s;
-}
-.reveal.is-visible .scores__bar > span,
-.is-visible .scores__bar > span { transform: scaleX(1); }
-
-.scores__value {
-  font-family: var(--font-mono);
-  font-size: .76rem;
+.cert__score {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1;
   color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
-.scores__value i { font-style: normal; color: var(--muted); font-size: .7em; }
+.cert__score i {
+  font-style: normal;
+  font-size: .58em;
+  font-weight: 500;
+  color: var(--muted);
+}
 
 /* --- Hors du bureau --- */
 .interests {
@@ -1828,6 +1790,7 @@ body::before {
 .tags li,
 .album__tags span,
 .album__nav,
+.cert,
 .icon-btn,
 .btn--ghost,
 .copy,
@@ -1886,6 +1849,7 @@ body::before {
 .tags li,
 .album__tags span,
 .album__nav,
+.cert,
 .icon-btn,
 .btn--ghost,
 .field input,

@@ -43,7 +43,6 @@
     'Compétences': 'Skills',
     'Formation': 'Education',
     'Contact': 'Contact',
-    'Tous les projets': 'All projects',
     'Voir le projet': 'View project',
     'Ouvrir le projet': 'Open the project',
     'Ouvrir le TP': 'Open the lab',
@@ -55,7 +54,6 @@
     'TP académique': 'Academic lab',
     'Découvrir mon parcours': 'Explore my background',
     'Me contacter': 'Get in touch',
-    'Projet suivant': 'Next project',
     'Continuer sur mobile': 'Continue on mobile',
     'Ouvrir ce site sur votre téléphone': 'Open this site on your phone',
     'Ouvrir cette page sur votre téléphone': 'Open this page on your phone',
@@ -116,6 +114,7 @@
     'Stage de fin d\'études — jusqu\'en novembre 2026':
       'Final-year internship — until November 2026',
     'En cours': 'Ongoing',
+    'Ouvrir la fiche du projet Dino': 'Open the Dino project record',
     '— laboratoire de recherche': '— research laboratory',
     '6 mois': '6 months',
     '4 mois': '4 months',
@@ -165,23 +164,27 @@
 
     // Projets — cartes
     'Projets d\'ingénierie': 'Engineering projects',
-    'Les projets menés en école et en stage. Chaque carte ouvre sa page détaillée.':
-      'The projects carried out at school and on internship. Each card opens its own page.',
-    'Équipe de 4': 'Team of 4',
-    'Équipe de 6': 'Team of 6',
+    'Les projets menés en école. Chaque carte s\'ouvre sur le détail du projet.':
+      'The projects carried out at school. Each card opens onto the project in full.',
+    'Robotique mobile · Stage de fin d\'études': 'Mobile robotics · Final-year internship',
+    'Recherche · Junia HEI × laboratoire CRIStAL': 'Research · Junia HEI × CRIStAL laboratory',
+    'Conception & fabrication · Junia HEI': 'Design & build · Junia HEI',
+    'Thermique · Projet PISTE — Junia HEI': 'Thermal · PISTE project — Junia HEI',
+    'D\'un cahier des charges chiffré à une machine assemblée, pilotable depuis un navigateur puis capable de se déplacer seule.':
+      'From a quantified specification to an assembled machine, drivable from a browser and then able to move on its own.',
+    // Identiques dans les deux langues — les entrées sont là pour que le
+    // contrôle de couverture sache que la question a été tranchée.
+    '2 photos': '2 photos',
+    '3 photos': '3 photos',
+    '2 photos · 1 vidéo': '2 photos · 1 video',
     'Équipe de 10': 'Team of 10',
     'Dino — plateforme de recherche ROS 2': 'Dino — a ROS 2 research platform',
-    'Stage de fin d\'études — INIT Robots, Montréal': 'Final-year internship — INIT Robots, Montreal',
-    'Rétro-ingénierie du bus CAN d\'un robot de désherbage Naïo, puis reconstruction d\'une chaîne de commande ROS 2 complète — sans toucher à ses sécurités.':
-      'Reverse-engineering the CAN bus of a Naïo weeding robot, then rebuilding a complete ROS 2 control chain — without touching its safety systems.',
     'Modèle dynamique d\'un fauteuil roulant intelligent': 'Dynamic model of a smart wheelchair',
     'Projet de recherche Junia HEI × laboratoire CRIStAL': 'Research project — Junia HEI × CRIStAL laboratory',
     'Estimer en temps réel les perturbations qui écartent un fauteuil roulant de sa trajectoire — roues folles comprises — pour les compenser avant qu\'elles n\'agissent.':
       'Estimating in real time the disturbances that push a wheelchair off its path — caster wheels included — in order to cancel them before they act.',
     'Robot agricole autonome type rover': 'Autonomous agricultural rover',
     'Projet de mécatronique et robotique — Junia HEI': 'Mechatronics and robotics project — Junia HEI',
-    'D\'un cahier des charges chiffré à une machine assemblée : conception mécanique, électronique embarquée et pilotage d\'une équipe de six.':
-      'From a quantified specification to an assembled machine: mechanical design, embedded electronics and leading a team of six.',
     'Frigo du désert': 'Desert fridge',
     'Projet PISTE — Junia HEI': 'PISTE project — Junia HEI',
     'Conserver des aliments au frais sans électricité : un réfrigérateur par évaporation, sans moteur ni fluide frigorigène.':
@@ -196,6 +199,8 @@
     'Projets personnels': 'Personal projects',
     'TP académiques': 'Academic labs',
     'TP': 'Labs',
+    'Pièces imprimées': 'Printed parts',
+    'Voir des pièces que j\'ai dessinées et imprimées': 'See parts I have drawn and printed',
     'Ce que je démonte, conçois et fabrique en dehors des cours. Chaque carte s\'ouvre sur le détail du projet.':
       'What I take apart, design and build outside class. Each card opens onto the project in full.',
     'Les travaux pratiques du cursus, sur du matériel industriel réel.':
@@ -204,9 +209,7 @@
     // Repères des vignettes : nombre de vues et date
     '5 vues': '5 views',
     '3 vues': '3 views',
-    '4 pièces': '4 parts',
     '1 photo · 1 vidéo': '1 photo · 1 video',
-    'En continu': 'Ongoing',
     '3ᵉ et 4ᵉ année': '3rd and 4th year',
 
     // Robot tondeuse
@@ -301,8 +304,6 @@
     // CAO & impression 3D
     'CAO & impression 3D': 'CAD & 3D printing',
     'Projet personnel · en continu': 'Personal project · ongoing',
-    'Boîtiers, supports, adaptateurs : ce qui manque est dessiné sous Fusion 360 ou SolidWorks, puis imprimé.':
-      'Enclosures, brackets, adapters: whatever is missing gets drawn in Fusion 360 or SolidWorks, then printed.',
     'Ce n\'est pas un projet mais une habitude : dès qu\'une pièce manque, elle est dessinée sous Fusion 360 ou SolidWorks, puis imprimée sur mon Ender 3 Pro. Boîtiers, supports, adaptateurs, pièces de mécanisme.':
       'Not so much a project as a habit: as soon as a part is missing, it gets drawn in Fusion 360 or SolidWorks, then printed on my Ender 3 Pro. Enclosures, brackets, adapters, mechanism parts.',
     'C\'est ce qui rend les autres projets possibles : le boîtier de contrôleurs du vélo, le châssis du robot tondeuse et la coque du bateau sortent tous de la même imprimante. Et dessiner pour l\'impression apprend vite ses propres règles — orientation des couches, porte-à-faux, jeux d\'assemblage.':
@@ -371,10 +372,6 @@
     'Robot omnidirectionnel': 'Omnidirectional robot',
 
     // Illustrations des pages projet reprises dans les albums
-    'Roue folle du fauteuil roulant, montée sur sa fourche pivotante':
-      'Caster wheel of the wheelchair, mounted on its swivelling fork',
-    'L\'enceinte du frigo du désert en cours d\'impression 3D':
-      'The desert fridge enclosure being 3D-printed',
 
     // Photo du stage Industeam, dans le parcours
     'Sur le chantier': 'On site',
@@ -473,10 +470,6 @@
   /* 03. DICTIONNAIRE — PAGES PROJET
      ---------------------------------------------------------------------- */
   var PROJECTS = {
-    'Projet 01': 'Project 01',
-    'Projet 02': 'Project 02',
-    'Projet 03': 'Project 03',
-    'Projet 04': 'Project 04',
     '2026 · 6 mois': '2026 · 6 months',
     '4 étudiants': '4 students',
     '6 étudiants': '6 students',
@@ -494,8 +487,6 @@
     'de recherche ROS 2': 'research platform',
     'Le Dino de Naïo Technologies est une plateforme de désherbage commerciale, fermée. Tout l\'enjeu : reconstituer son fonctionnement pour le rouvrir en robot de recherche programmable, sans toucher à ses sécurités d\'origine.':
       'Naïo Technologies\' Dino is a closed, commercial weeding platform. The whole challenge: reconstruct how it works in order to reopen it as a programmable research robot, without touching its original safety systems.',
-    'Nœuds ROS 2, passerelle et réseau CAN — représentation schématique':
-      'ROS 2 nodes, gateway and CAN network — schematic view',
     'Stage de fin d\'études de six mois au laboratoire INIT Robots, à Montréal, mené avec l\'appui d\'un technicien du laboratoire pour l\'intégration matérielle et d\'un doctorant en robotique agricole et navigation autonome.':
       'A six-month final-year internship at the INIT Robots laboratory in Montreal, carried out with the support of a lab technician for hardware integration and of a PhD student in agricultural robotics and autonomous navigation.',
     'Le': 'The',
@@ -554,9 +545,6 @@
       'The value of the approach fits in one sentence: reuse a proven industrial mechanical base, and replace only what limited its use — the software.',
     'Le Dino en mouvement, piloté par la chaîne de commande ROS 2.':
       'The Dino in motion, driven by the ROS 2 control chain.',
-    'Localisation GPS–IMU–Lidar': 'GPS–IMU–lidar localisation',
-    'Contrôle 4 roues directrices': 'Four-wheel steering control',
-    'Diagnostic': 'Diagnostics',
     'Nœuds & topics': 'Nodes & topics',
     'Cinématique 4WD–4WS': '4WD–4WS kinematics',
     'Téléopération': 'Teleoperation',
@@ -572,7 +560,6 @@
     'fauteuil roulant intelligent': 'smart wheelchair',
     'Faire suivre une trajectoire à un fauteuil roulant intelligent malgré tout ce qui l\'en écarte — frottements, incertitudes, roues folles. Non pas en corrigeant l\'écart après coup, mais en estimant la perturbation pour la compenser à l\'avance.':
       'Making a smart wheelchair follow a path despite everything pushing it off course — friction, uncertainties, caster wheels. Not by correcting the error after the fact, but by estimating the disturbance to cancel it in advance.',
-    'Réponse dynamique amortie — représentation schématique': 'Damped dynamic response — schematic view',
     'Projet de recherche et innovation mené à Junia HEI avec le laboratoire CRIStAL, en équipe de quatre étudiants, sur 2025 et 2026, sous l\'encadrement de M. Meziane Larbi et M. Gilles Tagne.':
       'A research and innovation project run at Junia HEI with the CRIStAL laboratory, in a team of four students, across 2025 and 2026, supervised by Mr Meziane Larbi and Mr Gilles Tagne.',
     'Le fauteuil roulant intelligent étudié repose sur': 'The smart wheelchair studied rests on',
@@ -635,8 +622,6 @@
       'Close-up of one wheel unit. The emergency stop, on the hood, stays wired to the safety controller and not to the new on-board computer.',
     'Le même modèle vu de plus bas : les quatre trains de roues et l\'arrêt d\'urgence sur le capot':
       'The same model seen from lower down: the four wheel units and the emergency stop on the hood',
-    'Le prototype imprimé du frigo du désert': 'The printed prototype of the desert fridge',
-    'Le rover agricole modélisé sous SolidWorks': 'The agricultural rover modelled in SolidWorks',
     'Cinématique différentielle': 'Differential kinematics',
     'Roues folles': 'Caster wheels',
     'Multiplicateurs de Lagrange': 'Lagrange multipliers',
@@ -654,7 +639,6 @@
     'autonome type rover': 'autonomous rover',
     'Concevoir et fabriquer un rover agricole à six, sur deux semestres : d\'un cahier des charges chiffré jusqu\'à une machine assemblée, pilotable à distance depuis une interface web puis capable de se déplacer seule.':
       'Designing and building an agricultural rover as a team of six, over two semesters: from a quantified specification to an assembled machine, driven remotely from a web interface and then able to move on its own.',
-    'Trajectoire à points de passage — représentation schématique': 'Waypoint trajectory — schematic view',
     'Projet de mécatronique et robotique mené à Junia HEI en équipe de six étudiants, sur deux semestres, sous l\'encadrement de M. Tagne. L\'objectif : concevoir':
       'A mechatronics and robotics project run at Junia HEI in a team of six students, over two semesters, supervised by Mr Tagne. The goal: to design',
     'fabriquer un rover agricole — pas une maquette, une machine complète.':
@@ -705,8 +689,6 @@
     'Frigo': 'Desert',
     'Comment conserver des aliments au frais sans électricité ? Un projet d\'intégration mené à dix, qui part d\'une question sociale concrète pour aboutir à un réfrigérateur sans moteur, sans batterie et sans fluide frigorigène.':
       'How do you keep food cool without electricity? An integration project run by ten students, starting from a concrete social question and ending in a fridge with no motor, no battery and no refrigerant.',
-    'Évaporation au-dessus de l\'enceinte — représentation schématique':
-      'Evaporation above the enclosure — schematic view',
     'Premier projet d\'équipe de mon cursus, mené dans le cadre PISTE — Projet d\'Intégration Scientifique, Technologique et Économique — à dix étudiants, sur 2023 et 2024.':
       'The first team project of my studies, run within the PISTE framework — a scientific, technological and economic integration project — with ten students, across 2023 and 2024.',
     'Le sujet posé : comment aider les personnes à conserver des aliments au frais sans électricité ? La question n\'a rien d\'abstrait — elle concerne les zones privées de réseau et les foyers pour qui un réfrigérateur reste hors de portée.':
@@ -756,7 +738,6 @@
     'Équipe de 10': 'Team of 10',
     'Planification': 'Planning',
     'Gestion des risques': 'Risk management',
-    'Gestion des échéances': 'Deadline management',
     'Ce que devient le robot': 'What the robot becomes'
   };
 
@@ -774,12 +755,10 @@
     'Fermer le menu': 'Close menu',
     'Fermer': 'Close',
     'Navigation principale': 'Main navigation',
-    'Autres projets': 'Other projects',
     'Copier l\'adresse e-mail': 'Copy the email address',
     'Copier dans le presse-papiers': 'Copy to clipboard',
     'Aperçu du CV de Romain Lance': 'Preview of Romain Lance\'s CV',
     'Aller à la section À propos': 'Go to the About section',
-    'France · Canada · Malte': 'France · Canada · Malta',
     'Portfolio de Romain Lance, ingénieur en mécatronique et robotique : robotique mobile, ROS 2, modélisation dynamique, conception mécanique et systèmes embarqués.':
       'Portfolio of Romain Lance, mechatronics and robotics engineer: mobile robotics, ROS 2, dynamic modelling, mechanical design and embedded systems.',
     'Robotique mobile, ROS 2, modélisation dynamique et conception mécatronique.':
@@ -789,13 +768,6 @@
   var TITLES = {
     'Romain Lance — Ingénieur Mécatronique & Robotique':
       'Romain Lance — Mechatronics & Robotics Engineer',
-    'Dino — plateforme de recherche ROS 2 — Romain Lance':
-      'Dino — a ROS 2 research platform — Romain Lance',
-    'Modèle dynamique d\'un fauteuil roulant intelligent — Romain Lance':
-      'Dynamic model of a smart wheelchair — Romain Lance',
-    'Robot agricole autonome type rover — Romain Lance':
-      'Autonomous agricultural rover — Romain Lance',
-    'Frigo du désert — Romain Lance': 'Desert fridge — Romain Lance'
   };
 
   /* Les clés sont comparées après normalisation des blancs : dans le HTML, une

@@ -1,7 +1,8 @@
 # Portfolio — Romain Lance
 
 Site vitrine personnel d'un profil **ingénieur mécatronique & robotique** :
-une page d'accueil découpée en sections ancrées, et une page dédiée par projet.
+une page unique découpée en sections ancrées, dont les projets s'ouvrent en
+fenêtre plutôt que sur une page à part.
 
 HTML / CSS / JavaScript natifs, sans framework ni étape de build. Le seul
 appel externe est la feuille de styles Google Fonts.
@@ -10,9 +11,9 @@ appel externe est la feuille de styles Google Fonts.
 
 ## Lancer le site en local
 
-Le site est constitué de fichiers statiques, mais il contient plusieurs pages
-liées entre elles : mieux vaut passer par un petit serveur local plutôt que
-d'ouvrir `index.html` directement.
+Le site est constitué de fichiers statiques. Ouvrir `index.html` directement
+fonctionne presque, mais le test d'existence du CV anglais passe par `fetch` :
+mieux vaut un petit serveur local.
 
 ```bash
 # Python (déjà installé sur macOS et la plupart des Linux)
@@ -30,7 +31,7 @@ Puis ouvrir <http://localhost:8000>.
 
 ```
 .
-├── index.html                  # Page d'accueil : les 7 sections ancrées
+├── index.html                  # Tout le site : 7 sections + les fiches projet
 ├── 404.html                    # Page d'erreur, autonome (styles inclus)
 ├── robots.txt
 ├── sitemap.xml
@@ -41,18 +42,12 @@ Puis ouvrir <http://localhost:8000>.
 │   ├── cv-preview-en.webp      # Vignette de la version anglaise
 │   ├── og-card.jpg             # Image de partage (LinkedIn, messageries)
 │   ├── albums/                 # Photos des projets personnels et des TP
-│   ├── projets/                # Photos des projets (cartes et pages)
+│   ├── projets/                # Photos des projets d'ingénierie
 │   └── parcours/               # Photos illustrant le parcours
-├── projets/                    # Une page par projet
-│   ├── dino-plateforme-ros2.html
-│   ├── fauteuil-roulant-intelligent.html
-│   ├── robot-agricole-rover.html
-│   └── frigo-du-desert.html
 ├── css/
-│   ├── style.css               # Thèmes, composants, animations, responsive
-│   └── project.css             # Styles propres aux pages projet
+│   └── style.css               # Thèmes, composants, animations, responsive
 ├── js/
-│   ├── icons.js                # Sprite SVG partagé par toutes les pages
+│   ├── icons.js                # Sprite SVG injecté au chargement
 │   ├── qr.js                   # Encodeur de QR code (aucune dépendance)
 │   ├── main.js                 # Thème, menu, navigation, formulaire
 │   ├── effects.js              # Effets visuels uniquement
@@ -72,10 +67,10 @@ fichiers JS n'ajoutent que des comportements par-dessus.
 ### Séparation main.js / effects.js
 
 `effects.js` ne contient que de l'habillage : animation d'entrée, halos au
-curseur, relief des cartes, compteurs, remplissage du rail de la timeline,
-transition entre les pages. On peut le supprimer entièrement de toutes les
-pages sans casser une seule fonctionnalité — le contenu, la navigation, le
-thème, la bascule de langue et le formulaire continuent de marcher.
+curseur, relief des cartes, compteurs, remplissage du rail de la timeline.
+On peut le supprimer entièrement sans casser une seule
+fonctionnalité — le contenu, la navigation, le thème, la bascule de langue,
+les fiches projet et le formulaire continuent de marcher.
 
 ---
 
@@ -116,7 +111,7 @@ comme dossier de sortie.
 Trois fichiers contiennent l'adresse publique en dur, parce que les
 métadonnées de partage et le plan du site exigent des adresses absolues :
 
-- l'en-tête de chaque page HTML (`canonical`, `og:url`, `og:image`) ;
+- l'en-tête de `index.html` (`canonical`, `og:url`, `og:image`) ;
 - `robots.txt` ;
 - `sitemap.xml`.
 
@@ -186,51 +181,58 @@ pastille pulsée de l'accroche :
 <span class="now"><span class="dot" aria-hidden="true"></span> En cours</span>
 ```
 
-Elle se pose dans le `.tl__meta` d'une expérience, dans le `.pcard__when` d'une
-carte projet et dans la case « Période » d'une page projet — cette dernière
-demande alors `class="phero__v phero__v--now"` sur la case. Quand le stage se
-termine, retirer les trois étiquettes et la mention de la date de fin ; c'est
-tout ce qu'il y a à faire.
+Elle se pose dans le `.tl__meta` d'une expérience et dans la case « Période »
+d'une fiche projet — cette dernière demande alors
+`class="facts__v facts__v--now"` sur la case. Quand le stage se termine,
+retirer les deux étiquettes et la mention de la date de fin ; c'est tout ce
+qu'il y a à faire.
 
 ### Ajouter un projet
 
-1. Dupliquer une page de `projets/` et l'adapter.
-2. Dans `index.html`, dupliquer un bloc `<a class="pcard reveal tilt" …>` et
-   pointer son `href` vers la nouvelle page.
-3. Mettre à jour le lien « projet suivant » en bas des pages projet pour
-   inclure la nouvelle dans la boucle.
+Les projets n'ont pas de page à eux : leur contenu vit dans `#albumModal`, au
+bas de `index.html`, sous la forme d'une **fiche longue** qui défile dans la
+fenêtre. Deux raisons — le contenu reste indexable et traduisible comme le
+reste, et une carte de projet fait exactement le même geste qu'une carte
+d'album, ce qui évite deux styles de carte pour une même promesse.
 
-La vignette d'une carte est une photo, cadrée en 5:3 pour que les cartes
-d'une rangée restent alignées quelles que soient les proportions du cliché :
+1. **Ajouter la carte** dans la grille `.albums` du groupe « Projets
+   d'ingénierie » : dupliquer un `<button class="album reveal tilt"
+   data-album="prj-mon-projet">`.
+2. **Ajouter la fiche** dans `#albumModal` : dupliquer un
+   `<article class="album__detail album__detail--long" id="prj-mon-projet">`.
+   C'est la classe `--long` qui distingue une fiche projet d'un album : le
+   texte passe sous la visionneuse au lieu de se serrer à côté.
+3. Le titre doit porter un `id` finissant par `-title` : c'est lui qui nomme
+   la fenêtre pour les lecteurs d'écran.
 
-```html
-<div class="pcard__media pcard__media--photo">
-  <img class="pcard__photo" src="assets/projets/mon-projet/1-sm.webp"
-       width="800" height="600" loading="lazy" decoding="async" alt="…">
-</div>
-```
+Une fiche se compose des mêmes briques que les anciennes pages projet :
+
+| Bloc | Rôle |
+| --- | --- |
+| `.album__viewer` | La visionneuse : une `<figure class="album__slide">` par photo ou vidéo |
+| `.modal__eyebrow` | Domaine et cadre, en petites capitales |
+| `.facts` | Repères en cases : période, équipe, cadre, rôle |
+| `.album__h` | Titre d'une partie, séparé par un filet |
+| `.prose` | Texte courant |
+| `.specs` | Chiffres et contraintes, en paires clé/valeur |
+| `.steps` | Déroulé numéroté, une `<li class="step">` par étape |
+| `.toolset` | Outils et méthodes, en colonnes de `.skill` |
+
+Les grilles (`.facts`, `.specs`, `.toolset`) prennent toute la largeur de la
+fenêtre ; le texte est bridé à 74 caractères pour rester lisible.
+
+Un projet peut aussi n'exister que dans le parcours, sans carte : c'est le cas
+du stage chez INIT Robots, dont la vignette de la frise ouvre directement la
+fiche `prj-dino`. Il suffit de poser `data-album="…"` sur la vignette et de ne
+pas créer de carte.
 
 Toutes les images publiées sont aujourd'hui les tiennes. Si tu ajoutes un jour
-une photo dont tu n'es pas l'auteur, le crédit se pose dans la vignette — c'est
-une mention obligatoire, pas une décoration. Trois styles l'attendent, selon
-l'endroit : `.pcard__credit` sur une carte projet, `.tl__shot-credit` sur une
-vignette du parcours, `.shot__credit` sous une figure de page projet.
+une photo dont tu n'es pas l'auteur, le crédit est une mention obligatoire, pas
+une décoration : `.tl__shot-credit` existe pour les vignettes du parcours.
 
 ```html
-<span class="pcard__credit">Photo : Nom de l'auteur</span>
+<span class="tl__shot-credit">Photo : Nom de l'auteur</span>
 ```
-
-Le cadrage se règle par photo avec la variable `--focus` : `0 %` garde le haut
-du cliché, `100 %` le bas, `50 %` par défaut. Utile quand le sujet n'est pas au
-milieu de l'image.
-
-```html
-<img class="pcard__photo" style="--focus: 74%" …>
-```
-
-Une expérience du parcours qui a donné lieu à une page projet peut y renvoyer
-directement : un `<a class="tl__shot">` portant une photo, comme la vignette
-d'atelier du stage chez Industeam.
 
 ### Remplacer le CV
 
@@ -381,9 +383,9 @@ Pour ajouter une vidéo :
 - `data-portrait` — pour un Short, qui passe alors en 9:16 et se limite en
   largeur.
 
-Le bloc s'insère aussi bien dans une fiche d'album, à la place d'une
-`<figure class="album__slide">`, que dans une page projet, entouré d'une
-`<figure class="filmstrip">` qui porte la légende.
+Le bloc s'insère dans une diapositive de la visionneuse, à la place de
+l'`<img>` : la légende de la `<figure class="album__slide">` s'applique alors
+à la vidéo.
 
 Si tu préfères un jour tout héberger toi-même, `ffmpeg` produit un fichier
 web raisonnable à partir d'une vidéo de téléphone :
@@ -517,9 +519,9 @@ disponibilité, savoir-être, centres d'intérêt).
   (`scrollbar-gutter: stable`), la page ne saute pas.
 - **Images** — toutes en WebP, chargées à la demande (`loading="lazy"`) et
   dimensionnées dans le HTML pour réserver leur place avant chargement.
-- **Rythme vertical** — dans une section de page projet, tout bloc qui suit le
-  texte courant (caractéristiques, photos, vidéo, étiquettes, outils) prend la
-  même respiration, définie une seule fois dans `css/project.css`.
+- **Fiches projet** — le contenu long d'un projet vit dans la même fenêtre que
+  les albums, en variante `--long` : la visionneuse passe au-dessus du texte,
+  et la fenêtre défile. Aucune page séparée à tenir à jour.
 - **Vidéos** — façade locale, lecteur YouTube créé au clic seulement, sur le
   domaine sans cookie. Rien ne part vers Google avant un geste explicite.
 - **SEO** — métadonnées Open Graph avec image de partage, adresse canonique,

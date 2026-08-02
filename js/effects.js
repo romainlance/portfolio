@@ -19,7 +19,6 @@
    05. Boutons aimantés
    06. Compteurs chiffrés
    07. Remplissage du rail de la timeline
-   08. Transition entre les pages
    ========================================================================== */
 
 (function () {
@@ -87,7 +86,7 @@
 
     var EASING = 0.1; // fraction de l'écart rattrapée par frame
 
-    document.querySelectorAll('.hero, .phero').forEach(function (zone) {
+    document.querySelectorAll('.hero').forEach(function (zone) {
       var targetX = 72, targetY = 34;   // position visée, en % de la zone
       var currentX = targetX, currentY = targetY;
       var frame = null;
@@ -295,42 +294,4 @@
       fill.style.height = Math.max(0, Math.min(reached, railRect.height)).toFixed(1) + 'px';
     });
   })();
-
-
-  /* 08. TRANSITION ENTRE LES PAGES
-     ------------------------------------------------------------------------
-     Un voile plein écran couvre la page avant de naviguer vers une page
-     interne, ce qui évite le clignotement blanc entre l'accueil et une page
-     projet. Les liens externes, les ancres, les mailto: et les clics avec
-     touche de modification ne sont jamais interceptés. */
-  (function initPageTransition() {
-    var veil = document.getElementById('pageVeil');
-    if (!veil || reduceMotion) { return; }
-
-    // Retour via le bouton « précédent » : le voile ne doit pas rester affiché
-    window.addEventListener('pageshow', function () { veil.classList.remove('is-on'); });
-
-    document.addEventListener('click', function (e) {
-      // Laisse passer clic milieu, Ctrl/Cmd+clic, etc. (ouverture en onglet)
-      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) { return; }
-      if (e.defaultPrevented) { return; }
-
-      var link = e.target.closest('a');
-      if (!link) { return; }
-
-      var href = link.getAttribute('href');
-      if (!href || href.charAt(0) === '#') { return; }
-      if (link.target && link.target !== '_self') { return; }
-      if (link.hasAttribute('download')) { return; }
-      if (/^(mailto|tel|javascript):/i.test(href)) { return; }
-      if (link.origin !== window.location.origin) { return; }
-
-      e.preventDefault();
-      veil.classList.add('is-on');
-
-      var url = link.href;
-      window.setTimeout(function () { window.location.href = url; }, 340);
-    });
-  })();
-
 })();

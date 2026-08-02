@@ -13,21 +13,21 @@
    04. Icônes
    05. Utilitaires de mise en page
    06. Fond quadrillé
-   07. Voile de transition entre pages
-   08. Navigation
-   09. Hero
-   10. En-têtes de section
-   11. À propos
-   12. Timeline (parcours)
-   13. Cartes projets et albums
-   14. Compétences
-   15. Formation
-   16. Contact
-   17. Pied de page
-   18. Verre liquide
-   19. Fenêtres modales (QR code, albums)
-   20. Effets au pointeur (halo, relief, aimantation)
-   21. Animations d'entrée et apparitions au scroll
+   07. Navigation
+   08. Hero
+   09. En-têtes de section
+   10. À propos
+   11. Timeline (parcours)
+   12. Cartes projets et albums
+   13. Compétences
+   14. Formation
+   15. Contact
+   16. Pied de page
+   17. Verre liquide
+   18. Fenêtres modales (QR code, albums)
+   19. Effets au pointeur (halo, relief, aimantation)
+   20. Animations d'entrée et apparitions au scroll
+   21. Fiches de projet (contenu des fenêtres)
    22. Responsive
    23. Impression
    ========================================================================== */
@@ -188,6 +188,7 @@ button, input, textarea { font: inherit; color: inherit; }
   --aura-soft: rgba(29, 99, 130, .045);
   --signal: #a9532a;
   --nav-bg: rgba(244, 242, 237, .82);
+  /* Fond des fenêtres modales, posé à 72 % d'opacité */
   --veil: #f4f2ed;
 
   /* Verre liquide — thème clair */
@@ -248,7 +249,6 @@ strong { font-weight: 600; }
 .eyebrow,
 .section__num,
 .tl__meta,
-.pcard__top,
 .skill__title,
 .edu__years,
 .contact__k,
@@ -284,7 +284,6 @@ strong { font-weight: 600; }
    compenser la petite taille de police. */
 .eyebrow .ico,
 .tl__meta .ico,
-.pcard__top .ico,
 .edu__years .ico,
 .contact__k .ico,
 .interests__label .ico,
@@ -435,27 +434,7 @@ body::before {
 }
 
 
-/* 07. VOILE DE TRANSITION ENTRE PAGES
-   --------------------------------------------------------------------------
-   Couvre l'écran le temps de la navigation vers une page projet, puis
-   s'efface au chargement de la nouvelle page. */
-.page-veil {
-  position: fixed;
-  inset: 0;
-  z-index: 250;
-  background: var(--veil);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity .38s ease, visibility .38s;
-}
-.page-veil.is-on {
-  opacity: 1;
-  visibility: visible;
-}
-
-
-/* 08. NAVIGATION
+/* 07. NAVIGATION
    -------------------------------------------------------------------------- */
 .nav {
   position: sticky;
@@ -594,7 +573,7 @@ body::before {
 .nav__burger { display: none; }
 
 
-/* 09. HERO
+/* 08. HERO
    -------------------------------------------------------------------------- */
 .hero {
   position: relative;
@@ -876,7 +855,7 @@ body::before {
 .cv__caption .ico { color: var(--accent); }
 
 
-/* 10. EN-TÊTES DE SECTION
+/* 09. EN-TÊTES DE SECTION
    -------------------------------------------------------------------------- */
 .section__head {
   display: flex;
@@ -925,7 +904,7 @@ body::before {
 }
 
 
-/* 11. À PROPOS
+/* 10. À PROPOS
    -------------------------------------------------------------------------- */
 /* Une seule colonne depuis le retrait des chiffres clés : la mesure de ligne
    est bridée pour rester confortable à lire. */
@@ -982,7 +961,7 @@ body::before {
   animation: pulse 2.6s ease-out infinite;
 }
 
-/* 12. TIMELINE (PARCOURS)
+/* 11. TIMELINE (PARCOURS)
    -------------------------------------------------------------------------- */
 .timeline { position: relative; display: grid; gap: 0; }
 
@@ -1169,168 +1148,11 @@ body::before {
 }
 
 
-/* 13. CARTES PROJETS ET ALBUMS
+/* 12. CARTES PROJETS ET ALBUMS
    --------------------------------------------------------------------------
    Blocs de prévisualisation. Une carte projet est un lien vers la page dédiée
    du projet, dans projets/ ; une carte d'album ouvre une fenêtre contenant
    les photos et le texte du projet. */
-.projects {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  /* Gouttière réelle : avec des cartes arrondies, l'ancienne astuce du
-     « gap: 1px sur fond coloré » laisserait des filets qui ne suivent pas
-     les angles. Chaque carte porte désormais sa propre bordure. */
-  gap: 1rem;
-}
-/* Au-delà du mobile, une grille 2 × 2 fixe : avec quatre projets, `auto-fit`
-   produirait une rangée de trois puis un orphelin, et laisserait trop peu de
-   place aux schémas. */
-@media (min-width: 860px) {
-  .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-.pcard {
-  position: relative;
-  border-radius: var(--radius-lg);
-  display: flex;
-  flex-direction: column;
-  background: var(--bg);
-  overflow: hidden;
-  /* Le relief lui-même est défini une seule fois, avec la classe .tilt (§18) */
-  transition: border-color .3s ease, transform .35s var(--ease-out),
-              box-shadow .35s ease;
-}
-.pcard:hover { border-color: var(--accent); }
-
-/* --- Vignette ---
-   Format imposé, identique pour un schéma comme pour une photo : c'est lui
-   qui aligne le corps des quatre cartes d'une même rangée. 5:3 est aussi le
-   format des schémas (viewBox 200 × 120), qui remplissent donc la vignette
-   sans être déformés. */
-.pcard__media {
-  position: relative;
-  display: grid;
-  place-items: center;
-  aspect-ratio: 5 / 3;
-  padding: 1.3rem 1.5rem;
-  background: linear-gradient(160deg, var(--accent-wash), transparent 70%);
-  border-bottom: 1px solid var(--line);
-}
-
-/* Variante photographique : la photo occupe toute la vignette, sans marge */
-.pcard__media--photo { padding: 0; overflow: hidden; }
-/* La photo est posée en absolu pour remplir exactement la vignette. En flux,
-   elle gardait ses propres proportions et débordait : c'était alors le
-   `overflow: hidden` du conteneur qui rognait, toujours au centre, et
-   `object-position` n'avait plus aucune prise.
-
-   --focus règle le point de la photo qui reste dans le cadre : 0 % garde le
-   haut, 100 % le bas. Le sujet n'est pas toujours au milieu du cliché. */
-.pcard__photo {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center var(--focus, 50%);
-  transition: transform .6s var(--ease-out);
-}
-.pcard:hover .pcard__photo { transform: scale(1.05); }
-
-/* Voile bas, pour que le crédit reste lisible sur n'importe quelle photo */
-.pcard__media--photo::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, var(--glass-cast) 0%, transparent 32%);
-  opacity: .5;
-  transition: opacity .35s ease;
-  pointer-events: none;
-}
-.pcard:hover .pcard__media--photo::after { opacity: .68; }
-
-/* Crédit d'une photo dont je ne suis pas l'auteur. Discret mais lisible :
-   c'est une mention obligatoire, pas une décoration. */
-.pcard__credit {
-  position: absolute;
-  z-index: 1;
-  left: .9rem;
-  bottom: .7rem;
-  padding: .16rem .5rem;
-  border-radius: 999px;
-  background: rgba(20, 22, 26, .55);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  font-family: var(--font-mono);
-  font-size: .62rem;
-  letter-spacing: .05em;
-  color: rgba(255, 255, 255, .82);
-}
-
-/* --- Corps --- */
-.pcard__body {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding: 1.4rem 1.5rem 1.6rem;
-}
-
-.pcard__top {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: .5rem 1rem;
-  padding-bottom: .9rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid var(--line);
-}
-.pcard__when,
-.pcard__year,
-.pcard__team { display: inline-flex; align-items: center; gap: .4rem; }
-.pcard__when { flex-wrap: wrap; gap: .35rem .55rem; }
-.pcard__year { color: var(--accent); }
-
-.pcard__title { color: var(--ink); transition: color .25s ease; }
-.pcard:hover .pcard__title { color: var(--accent); }
-
-.pcard__context {
-  display: inline-flex;
-  align-items: center;
-  gap: .45rem;
-  margin-top: .4rem;
-  font-size: .82rem;
-  color: var(--muted);
-  font-style: italic;
-}
-.pcard__context .ico { color: var(--accent); font-style: normal; }
-
-.pcard__desc {
-  margin-top: .9rem;
-  font-size: .92rem;
-  color: var(--muted);
-}
-
-.pcard .tags { margin-top: 1.2rem; }
-
-/* Appel à l'action, poussé en bas de carte */
-.pcard__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  margin-top: auto;
-  padding-top: 1.4rem;
-  font-family: var(--font-mono);
-  font-size: .74rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.pcard__cta .ico { transition: transform .3s var(--ease-out); }
-.pcard:hover .pcard__cta .ico { transform: translateX(5px); }
-
-
 /* --- Cartes d'album ---
    Même matière que les cartes projet, mais la carte n'est pas un lien : elle
    ouvre une fenêtre contenant les photos et le texte du projet. D'où le
@@ -1437,6 +1259,27 @@ body::before {
 }
 .album:hover .album__title { color: var(--accent); }
 
+/* Cadre du projet : l'école, le laboratoire ou le stage dont il relève.
+   Absent des projets personnels, qui ne relèvent de personne. */
+.album__context {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .45rem;
+  font-size: .82rem;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--muted);
+}
+.album__context .ico {
+  /* Calé sur la première ligne : `center` le renverrait entre les deux
+     quand le cadre du projet tient sur deux lignes. */
+  align-self: flex-start;
+  margin-top: .15em;
+  color: var(--accent);
+  width: 1.05em;
+  height: 1.05em;
+}
+
 .album__sub { font-size: .88rem; line-height: 1.5; color: var(--muted); }
 
 /* Étiquettes en <span> : un <ul> serait invalide à l'intérieur d'un <button> */
@@ -1479,7 +1322,7 @@ body::before {
 .album:hover .album__cta .ico { transform: translateX(4px); }
 
 
-/* 14. COMPÉTENCES
+/* 13. COMPÉTENCES
    -------------------------------------------------------------------------- */
 .skills {
   display: grid;
@@ -1608,6 +1451,10 @@ body::before {
 .interest { display: grid; gap: .6rem; align-content: start; }
 .interest__label { color: var(--signal); }
 
+/* Vignette illustrant un centre d'intérêt : plus petite qu'une vignette de
+   parcours, elle appuie la liste au-dessus sans lui voler la vedette. */
+.interest .tl__shot { max-width: 250px; margin-top: .3rem; }
+
 .interests__note {
   max-width: 60ch;
   margin-top: 1.3rem;
@@ -1618,7 +1465,7 @@ body::before {
 }
 
 
-/* 15. FORMATION
+/* 14. FORMATION
    --------------------------------------------------------------------------
    Mêmes cartes de verre que le reste du site, avec relief au pointeur : les
    anciennes lignes de liste rompaient la direction artistique. */
@@ -1690,7 +1537,7 @@ body::before {
 .edu__place .ico { color: var(--accent); }
 
 
-/* 16. CONTACT
+/* 15. CONTACT
    -------------------------------------------------------------------------- */
 .contact {
   display: grid;
@@ -1803,7 +1650,7 @@ body::before {
 .field__note { font-size: .78rem; color: var(--muted); line-height: 1.5; }
 
 
-/* 17. PIED DE PAGE
+/* 16. PIED DE PAGE
    -------------------------------------------------------------------------- */
 .footer { border-top: 1px solid var(--line); padding-block: 2rem; }
 .footer__inner {
@@ -1817,7 +1664,7 @@ body::before {
 .footer__meta { font-family: var(--font-mono); font-size: .74rem; }
 
 
-/* 18. VERRE LIQUIDE
+/* 17. VERRE LIQUIDE
    --------------------------------------------------------------------------
    Surface translucide qui laisse transparaître le fond quadrillé et les
    halos, rehaussée d'un liseré clair sur l'arête haute et d'une ombre sur
@@ -1826,13 +1673,12 @@ body::before {
 
    Ce bloc arrive délibérément APRÈS les définitions de composants, pour que
    le traitement de surface l'emporte sur les fonds posés plus haut. Les
-   sélecteurs des pages projet (.phero__meta li, .shot, .pnav__link--next)
-   y figurent également : mieux vaut une seule définition de l'effet que deux
-   copies à tenir synchronisées.
+   sélecteurs des fiches de projet (.facts li, .spec) y figurent également :
+   mieux vaut une seule définition de l'effet que deux copies à tenir
+   synchronisées.
    -------------------------------------------------------------------------- */
 
 /* Panneaux : verre complet, flou d'arrière-plan et ombre portée */
-.pcard,
 .skill,
 .contact__form,
 .cv,
@@ -1841,9 +1687,7 @@ body::before {
 .album,
 .tl__shot,
 .embed,
-.shot,
-.phero__meta li,
-.pnav__link--next {
+.facts li {
   background: var(--glass-fill), var(--glass-bg);
   border: 1px solid var(--glass-edge);
   box-shadow: var(--glass-shadow-stack);
@@ -1870,8 +1714,7 @@ body::before {
 }
 
 /* Panneaux teintés : la couche d'accent se pose au-dessus du verre */
-.cv,
-.pcard__media {
+.cv {
   background:
     linear-gradient(150deg, var(--accent-wash), transparent 62%),
     var(--glass-fill),
@@ -1880,14 +1723,11 @@ body::before {
 
 /* Le survol creuse le relief plutôt que de changer la couleur du fond.
    Même geste pour toutes les cartes du site, quel qu'en soit le contenu. */
-.pcard:hover,
 .album:hover,
 .tl__shot:hover,
-.shot:hover,
 .skill:hover,
 .edu__item:hover,
-.interests:hover,
-.pnav__link--next:hover {
+.interests:hover {
   box-shadow:
     inset 0 1px 0 0 var(--glass-sheen),
     inset 0 -1px 0 0 var(--glass-shade),
@@ -1900,7 +1740,6 @@ body::before {
 .contact__form:hover { border-color: var(--accent); }
 
 /* --- Arrondis --- */
-.pcard,
 .album,
 .skill,
 .cv,
@@ -1908,9 +1747,7 @@ body::before {
 .interests,
 .contact__form,
 .tl__shot,
-.embed,
-.shot,
-.pnav__link--next { border-radius: var(--radius-lg); }
+.embed { border-radius: var(--radius-lg); }
 
 .tags li,
 .album__tags span,
@@ -1922,7 +1759,7 @@ body::before {
 .field textarea,
 .nav__mark,
 .spec,
-.phero__meta li { border-radius: var(--radius); }
+.facts li { border-radius: var(--radius); }
 
 .copy { border-radius: var(--radius-sm); }
 
@@ -1958,7 +1795,7 @@ body::before {
 }
 
 
-/* 19. FENÊTRES MODALES (QR CODE, ALBUMS)
+/* 18. FENÊTRES MODALES (QR CODE, ALBUMS)
    -------------------------------------------------------------------------- */
 .modal {
   position: fixed;
@@ -2073,7 +1910,9 @@ body::before {
   text-align: left;
 }
 
-/* Le bouton de fermeture reste visible quand la fiche défile */
+/* Le bouton de fermeture reste visible quand la fiche défile. Une fiche
+   longue défile beaucoup : l'ombre portée le détache franchement du contenu
+   qui passe dessous, sans quoi il se confond avec les cases qu'il survole. */
 .modal__panel--album .modal__close {
   position: sticky;
   top: 0;
@@ -2082,6 +1921,7 @@ body::before {
   background: var(--glass-fill), var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow-stack);
 }
 
 .album__detail[hidden] { display: none; }
@@ -2315,7 +2155,7 @@ body::before {
 }
 
 
-/* 20. EFFETS AU POINTEUR
+/* 19. EFFETS AU POINTEUR
    --------------------------------------------------------------------------
    Les variables --mx / --my / --rx / --ry sont mises à jour par
    js/effects.js. En leur absence (pas de JS, écran tactile), les éléments
@@ -2398,7 +2238,7 @@ body::before {
 .tags li:hover { transition-delay: 0ms; }
 
 
-/* 21. ANIMATIONS D'ENTRÉE ET APPARITIONS AU SCROLL
+/* 20. ANIMATIONS D'ENTRÉE ET APPARITIONS AU SCROLL
    -------------------------------------------------------------------------- */
 
 /* --- Entrée du hero, jouée une fois au chargement ---
@@ -2455,7 +2295,204 @@ body::before {
   .reveal-ready .reveal,
   .js-intro .intro { opacity: 1 !important; transform: none !important; }
   .js-intro .intro .line > span { transform: none !important; }
-  .cv, .pcard, .skill, .edu__item { transform: none !important; }
+  .cv, .album, .skill, .edu__item { transform: none !important; }
+}
+
+
+/* 21. FICHES DE PROJET
+   --------------------------------------------------------------------------
+   Un projet d'ingénierie se raconte plus longuement qu'un album photo : du
+   texte courant, une fiche de caractéristiques, un déroulé étape par étape,
+   une grille d'outils. Tout cela vivait dans des pages séparées ; c'est
+   désormais le contenu d'une fiche longue, dans la même fenêtre que les
+   albums, qui défile au lieu de tenir sur un écran. */
+.album__detail--long {
+  /* Une seule colonne : à deux, la colonne de texte devenait trois fois plus
+     haute que la visionneuse et la fenêtre défilait le long d'un vide. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.4rem, 3vw, 2rem);
+}
+/* Mesure de lecture bridée sur le texte seul : sur 1 040 px de large, une
+   ligne de texte courant deviendrait pénible à suivre. Les grilles — repères,
+   caractéristiques, outils — gardent toute la largeur : elles n'en souffrent
+   pas, et tiennent ainsi sur une seule rangée au lieu d'en laisser une
+   orpheline. */
+.album__detail--long .album__detail-title,
+.album__detail--long .album__detail-lede,
+.album__detail--long .album__h,
+.album__detail--long .prose,
+.album__detail--long .steps { max-width: 74ch; }
+
+/* La visionneuse ne monopolise pas le premier écran : sur une fiche longue,
+   c'est le texte qu'on vient lire, il doit être visible sans défiler. */
+.album__detail--long .album__slide > img { max-height: min(40vh, 400px); }
+
+/* Titre d'une partie de la fiche, séparé du bloc précédent par un filet */
+.album__h {
+  margin-top: 1.4rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--line);
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+.album__h:first-of-type { margin-top: .8rem; }
+
+/* Repères d'un projet : période, équipe, cadre, rôle. Reprend la grille de
+   cases qui coiffait les anciennes pages projet. */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* Gouttière réelle plutôt que filets de grille : les cases sont arrondies
+     et portent chacune leur bordure (voir « Verre liquide » plus haut). */
+  gap: .6rem;
+  margin-top: .9rem;
+}
+.facts li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: .55rem;
+  padding: .8rem .95rem;
+  transition: border-color .25s ease, transform .35s var(--ease-out);
+}
+.facts li:hover { border-color: var(--accent); }
+.facts .ico {
+  grid-row: 1 / 3;
+  align-self: center;
+  font-size: 1.05rem;
+  color: var(--accent);
+}
+.facts__k {
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.facts__v { font-size: .88rem; line-height: 1.4; }
+/* Case portant l'étiquette « en cours » : la pastille est un bloc en ligne,
+   on passe en flex pour l'aligner sur le texte et lui permettre de passer à
+   la ligne dans une case étroite. */
+.facts__v--now {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .25rem .5rem;
+}
+
+/* Fiche de caractéristiques : chiffres et contraintes d'un projet, présentés
+   en paires clé/valeur sur la même matière de verre que le reste du site. */
+.specs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: .6rem;
+  margin-top: 1rem;
+}
+.spec {
+  display: grid;
+  gap: .3rem;
+  padding: .85rem 1rem;
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius);
+  background: var(--glass-fill), var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow:
+    inset 0 1px 0 0 var(--glass-sheen),
+    inset 0 -1px 0 0 var(--glass-shade);
+  transition: border-color .25s ease, transform .35s var(--ease-out);
+}
+.spec:hover { border-color: var(--accent); }
+
+.spec__k {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.spec__k .ico { color: var(--accent); width: 1.15em; height: 1.15em; }
+.spec__v { font-size: .88rem; line-height: 1.45; color: var(--ink); }
+
+/* Texte courant d'une fiche */
+.prose { margin-top: .9rem; }
+.prose p {
+  color: var(--muted);
+  font-size: .95rem;
+  line-height: 1.65;
+}
+.prose p + p { margin-top: 1rem; }
+.prose strong { color: var(--ink); }
+.prose em { color: var(--ink); font-style: italic; }
+
+/* Déroulé, étape par étape */
+.steps { display: grid; margin-top: 1rem; }
+
+.step {
+  position: relative;
+  border-radius: var(--radius);
+  display: grid;
+  grid-template-columns: 50px minmax(0, 1fr);
+  gap: 1.1rem;
+  padding-block: 1.2rem;
+  border-bottom: 1px solid var(--line);
+  transition: background-color .35s ease;
+}
+.step:first-child { border-top: 1px solid var(--line); }
+.step:hover { background: var(--surface); }
+
+/* Décalage par transform : animer `padding` provoquerait un recalcul de
+   mise en page à chaque frame, et donc un effet saccadé. */
+.step > * { transition: transform .4s var(--ease-out); }
+.step:hover > * { transform: translateX(8px); }
+
+.step__num {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  color: var(--accent);
+  padding-top: .18rem;
+  position: relative;
+}
+/* Petit trait de liaison, prolongé au survol */
+.step__num::after {
+  content: '';
+  position: absolute;
+  top: .7rem;
+  left: 2rem;
+  width: 12px;
+  height: 1px;
+  background: var(--line-2);
+  transition: width .3s var(--ease-out), background-color .3s ease;
+}
+.step:hover .step__num::after { width: 18px; background: var(--accent); }
+
+.step__body h4 {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: .98rem;
+  line-height: 1.25;
+  color: var(--ink);
+  transition: color .25s ease;
+}
+.step:hover .step__body h4 { color: var(--accent); }
+.step__body p {
+  margin-top: .4rem;
+  font-size: .9rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* Outils et méthodes, en colonnes de compétences */
+.toolset {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.6rem);
+  margin-top: 1.1rem;
 }
 
 
@@ -2584,14 +2621,14 @@ body::before {
    -------------------------------------------------------------------------- */
 @media print {
   .nav, .progress, .hero__cta, .hero__scroll, .contact__form, .embed,
-  .copy, .skip-link, .page-veil, .cv__scan, .hero__aura,
+  .copy, .skip-link, .cv__scan, .hero__aura,
   .modal, .cv__overlay { display: none !important; }
   body { background: #fff; color: #000; }
   body::before { display: none; }
   .section { padding-block: 1.2rem; break-inside: avoid; }
-  .pcard, .tl, .step { break-inside: avoid; }
+  .album, .tl, .step { break-inside: avoid; }
   .reveal-ready .reveal,
   .js-intro .intro { opacity: 1 !important; transform: none !important; }
   .js-intro .intro .line > span { transform: none !important; }
-  .cv, .pcard, .skill, .edu__item { transform: none !important; }
+  .cv, .album, .skill, .edu__item { transform: none !important; }
 }

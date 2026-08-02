@@ -79,9 +79,6 @@
 <body>
   <a class="skip-link" href="#apropos">Aller au contenu</a>
 
-  <!-- Voile de transition entre les pages (piloté par js/effects.js) -->
-  <div class="page-veil" id="pageVeil" aria-hidden="true"></div>
-
   <!-- Barre de progression de lecture -->
   <div class="progress" aria-hidden="true"><span class="progress__bar" id="progressBar"></span></div>
 
@@ -297,15 +294,18 @@
                 <li>ROS 2</li><li>Bus CAN</li><li>Cinématique</li><li>Navigation autonome</li>
               </ul>
 
-              <!-- Ce stage a donné lieu à une page projet : la vignette y mène -->
-              <a class="tl__shot tilt" href="projets/dino-plateforme-ros2.html">
-                <img src="assets/projets/dino/1.webp" width="982" height="534"
+              <!-- Le projet mené pendant ce stage n'a pas de carte ailleurs sur
+                   le site : c'est cette vignette qui ouvre sa fiche, comme pour
+                   le stage Industeam plus bas. -->
+              <button type="button" class="tl__shot tilt" data-album="prj-dino"
+                      aria-haspopup="dialog" aria-label="Ouvrir la fiche du projet Dino">
+                <img src="assets/projets/dino/1-sm.webp" width="800" height="435"
                      loading="lazy" decoding="async" alt="">
                 <span class="tl__shot-label">
                   <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
                   Voir le projet Dino
                 </span>
-              </a>
+              </button>
             </div>
           </li>
 
@@ -393,10 +393,10 @@
 
     <!-- ============================================================
          03 — PROJETS
-         Une seule section pour deux familles : les projets d'ingénierie,
-         qui ont chacun leur page dans projets/, et les projets personnels,
-         qui ouvrent leur album. Les séparer donnait deux entrées de menu
-         pour une même idée.
+         Une seule section pour deux familles : les projets d'ingénierie et
+         les projets personnels. Les séparer donnait deux entrées de menu pour
+         une même idée, et deux styles de carte pour un même geste — toutes
+         ouvrent leur fiche dans la fenêtre du bas de page.
          ============================================================ -->
     <section id="projets" class="section">
       <div class="wrap">
@@ -414,136 +414,99 @@
           </header>
 
           <p class="section__lede reveal" data-reveal="up">
-            Les projets menés en école et en stage. Chaque carte ouvre sa page détaillée.
+            Les projets menés en école. Chaque carte s'ouvre sur le détail du projet.
           </p>
 
-          <div class="projects">
-
-            <a class="pcard reveal tilt" data-reveal="scale" href="projets/dino-plateforme-ros2.html">
-              <div class="pcard__media pcard__media--photo">
-                <img class="pcard__photo" src="assets/projets/dino/1.webp" width="982" height="534"
-                     loading="lazy" decoding="async" alt="Modèle 3D du robot Dino : châssis surbaissé porté par quatre roues motrices et directrices">
-              </div>
-
-              <div class="pcard__body">
-                <div class="pcard__top">
-                  <span class="pcard__when">
-                    <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2026</span>
-                    <span class="now"><span class="dot" aria-hidden="true"></span> En cours</span>
-                  </span>
-                  <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg> 6 mois</span>
-                </div>
-
-                <h3 class="pcard__title">Dino — plateforme de recherche ROS&nbsp;2</h3>
-                <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Stage de fin d'études — INIT Robots, Montréal</p>
-                <p class="pcard__desc">
-                  Rétro-ingénierie du bus CAN d'un robot de désherbage Naïo, puis reconstruction
-                  d'une chaîne de commande ROS 2 complète — sans toucher à ses sécurités.
-                </p>
-
-                <ul class="tags tags--sm">
-                  <li>ROS 2</li><li>Bus CAN</li><li>Navigation autonome</li>
-                </ul>
-
-                <span class="pcard__cta">
-                  Voir le projet
+          <div class="albums">
+            <button type="button" class="album reveal tilt" data-reveal="scale"
+                    data-album="prj-fauteuil" aria-haspopup="dialog">
+              <span class="album__cover">
+                <img src="assets/projets/fauteuil-roulant/1-sm.webp" width="800" height="600"
+                     loading="lazy" decoding="async" alt="">
+                <span class="album__count">
+                  <svg class="ico" aria-hidden="true"><use href="#i-play"></use></svg>
+                  2 photos · 1 vidéo
+                </span>
+                <span class="album__year">2025 — 2026</span>
+              </span>
+              <span class="album__body">
+                <span class="album__title">Modèle dynamique d'un fauteuil roulant intelligent</span>
+                <span class="album__context">
+                  <svg class="ico" aria-hidden="true"><use href="#i-flask"></use></svg>
+                  Projet de recherche Junia HEI × laboratoire CRIStAL
+                </span>
+                <span class="album__sub">
+                  Estimer en temps réel les perturbations qui écartent un fauteuil roulant de sa trajectoire — roues folles comprises — pour les compenser avant qu'elles n'agissent.
+                </span>
+                <span class="album__tags">
+                  <span>MATLAB/Simulink</span><span>Modélisation dynamique</span><span>Commande prédictive</span>
+                </span>
+                <span class="album__cta">
+                  Ouvrir le projet
                   <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
                 </span>
-              </div>
-            </a>
+              </span>
+            </button>
 
-            <a class="pcard reveal tilt" data-reveal="scale" href="projets/fauteuil-roulant-intelligent.html">
-              <div class="pcard__media pcard__media--photo">
-                <img class="pcard__photo" src="assets/projets/fauteuil-roulant/1-sm.webp" width="800" height="600"
-                     loading="lazy" decoding="async" alt="Roue folle du fauteuil roulant, montée sur sa fourche pivotante">
-              </div>
-
-              <div class="pcard__body">
-                <div class="pcard__top">
-                  <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2025 — 2026</span>
-                  <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Équipe de 4</span>
-                </div>
-
-                <h3 class="pcard__title">Modèle dynamique d'un fauteuil roulant intelligent</h3>
-                <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-flask"></use></svg> Projet de recherche Junia HEI × laboratoire CRIStAL</p>
-                <p class="pcard__desc">
-                  Estimer en temps réel les perturbations qui écartent un fauteuil roulant de sa
-                  trajectoire — roues folles comprises — pour les compenser avant qu'elles n'agissent.
-                </p>
-
-                <ul class="tags tags--sm">
-                  <li>MATLAB/Simulink</li><li>Modélisation dynamique</li><li>Commande prédictive</li>
-                </ul>
-
-                <span class="pcard__cta">
-                  Voir le projet
+            <button type="button" class="album reveal tilt" data-reveal="scale"
+                    data-album="prj-rover" aria-haspopup="dialog">
+              <span class="album__cover">
+                <img src="assets/projets/rover/1-sm.webp" width="464" height="526"
+                     loading="lazy" decoding="async" alt="">
+                <span class="album__count">
+                  <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
+                  3 vues
+                </span>
+                <span class="album__year">2024 — 2025</span>
+              </span>
+              <span class="album__body">
+                <span class="album__title">Robot agricole autonome type rover</span>
+                <span class="album__context">
+                  <svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg>
+                  Projet de mécatronique et robotique — Junia HEI
+                </span>
+                <span class="album__sub">
+                  D'un cahier des charges chiffré à une machine assemblée, pilotable depuis un navigateur puis capable de se déplacer seule.
+                </span>
+                <span class="album__tags">
+                  <span>SolidWorks</span><span>ROS</span><span>Conception mécanique</span>
+                </span>
+                <span class="album__cta">
+                  Ouvrir le projet
                   <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
                 </span>
-              </div>
-            </a>
+              </span>
+            </button>
 
-            <a class="pcard reveal tilt" data-reveal="scale" href="projets/robot-agricole-rover.html">
-              <div class="pcard__media pcard__media--photo">
-                <img class="pcard__photo" style="--focus: 82%" src="assets/projets/rover/2.webp"
-                     width="803" height="578" loading="lazy" decoding="async"
-                     alt="Le rover agricole modélisé sous SolidWorks">
-              </div>
-
-              <div class="pcard__body">
-                <div class="pcard__top">
-                  <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2024 — 2025</span>
-                  <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Équipe de 6</span>
-                </div>
-
-                <h3 class="pcard__title">Robot agricole autonome type rover</h3>
-                <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Projet de mécatronique et robotique — Junia HEI</p>
-                <p class="pcard__desc">
-                  D'un cahier des charges chiffré à une machine assemblée : conception mécanique,
-                  électronique embarquée et pilotage d'une équipe de six.
-                </p>
-
-                <ul class="tags tags--sm">
-                  <li>ROS</li><li>SolidWorks</li><li>Conception mécanique</li>
-                </ul>
-
-                <span class="pcard__cta">
-                  Voir le projet
+            <button type="button" class="album reveal tilt" data-reveal="scale"
+                    data-album="prj-frigo" aria-haspopup="dialog">
+              <span class="album__cover">
+                <img src="assets/projets/frigo-du-desert/1-sm.webp" width="600" height="800"
+                     loading="lazy" decoding="async" alt="">
+                <span class="album__count">
+                  <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
+                  2 photos
+                </span>
+                <span class="album__year">2023 — 2024</span>
+              </span>
+              <span class="album__body">
+                <span class="album__title">Frigo du désert</span>
+                <span class="album__context">
+                  <svg class="ico" aria-hidden="true"><use href="#i-cap"></use></svg>
+                  Projet PISTE — Junia HEI
+                </span>
+                <span class="album__sub">
+                  Conserver des aliments au frais sans électricité : un réfrigérateur par évaporation, sans moteur ni fluide frigorigène.
+                </span>
+                <span class="album__tags">
+                  <span>Thermique</span><span>Modélisation</span><span>Conception</span>
+                </span>
+                <span class="album__cta">
+                  Ouvrir le projet
                   <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
                 </span>
-              </div>
-            </a>
-
-            <a class="pcard reveal tilt" data-reveal="scale" href="projets/frigo-du-desert.html">
-              <div class="pcard__media pcard__media--photo">
-                <img class="pcard__photo" style="--focus: 74%" src="assets/projets/frigo-du-desert/2-sm.webp"
-                     width="600" height="800" loading="lazy" decoding="async"
-                     alt="Le prototype imprimé du frigo du désert">
-              </div>
-
-              <div class="pcard__body">
-                <div class="pcard__top">
-                  <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2023 — 2024</span>
-                  <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Équipe de 10</span>
-                </div>
-
-                <h3 class="pcard__title">Frigo du désert</h3>
-                <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Projet PISTE — Junia HEI</p>
-                <p class="pcard__desc">
-                  Conserver des aliments au frais sans électricité : un réfrigérateur par
-                  évaporation, sans moteur ni fluide frigorigène.
-                </p>
-
-                <ul class="tags tags--sm">
-                  <li>Thermique</li><li>Modélisation</li><li>Conception</li>
-                </ul>
-
-                <span class="pcard__cta">
-                  Voir le projet
-                  <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-                </span>
-              </div>
-            </a>
-
+              </span>
+            </button>
           </div>
         </div>
 
@@ -629,35 +592,6 @@
                 </span>
                 <span class="album__tags">
                   <span>Moteurs brushless</span><span>Soudure</span><span>Impression 3D</span>
-                </span>
-                <span class="album__cta">
-                  Ouvrir le projet
-                  <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-                </span>
-              </span>
-            </button>
-
-            <button type="button" class="album reveal tilt" data-reveal="scale"
-                    data-album="alb-cao" aria-haspopup="dialog">
-              <span class="album__cover">
-                <!-- Planche des quatre pièces : les rendus sont en portrait, un
-                     seul d'entre eux ne survivrait pas au recadrage en 4/3
-                     (voir tools/montage.py). -->
-                <img src="assets/albums/cao-impression-3d/couverture-sm.webp" width="800" height="600"
-                     loading="lazy" decoding="async" alt="">
-                <span class="album__count">
-                  <svg class="ico" aria-hidden="true"><use href="#i-cube"></use></svg>
-                  4 pièces
-                </span>
-                <span class="album__year">En continu</span>
-              </span>
-              <span class="album__body">
-                <span class="album__title">CAO &amp; impression 3D</span>
-                <span class="album__sub">
-                  Boîtiers, supports, adaptateurs : ce qui manque est dessiné sous Fusion 360 ou SolidWorks, puis imprimé.
-                </span>
-                <span class="album__tags">
-                  <span>Fusion 360</span><span>SolidWorks</span><span>Ender 3 Pro</span>
                 </span>
                 <span class="album__cta">
                   Ouvrir le projet
@@ -859,6 +793,19 @@
                 <li><svg class="ico" aria-hidden="true"><use href="#i-wrench"></use></svg> Mécanique</li>
                 <li><svg class="ico" aria-hidden="true"><use href="#i-chip"></use></svg> Électronique</li>
               </ul>
+
+              <!-- La CAO et l'impression 3D ne sont pas un projet mais une
+                   habitude : leur place est ici, avec les centres d'intérêt.
+                   La vignette ouvre la même visionneuse que les albums. -->
+              <button type="button" class="tl__shot tilt" data-album="alb-cao"
+                      aria-haspopup="dialog" aria-label="Voir des pièces que j'ai dessinées et imprimées">
+                <img src="assets/albums/cao-impression-3d/couverture-sm.webp" width="800" height="600"
+                     loading="lazy" decoding="async" alt="">
+                <span class="tl__shot-label">
+                  <svg class="ico" aria-hidden="true"><use href="#i-cube"></use></svg>
+                  Pièces imprimées
+                </span>
+              </button>
             </div>
           </div>
 
@@ -1030,6 +977,863 @@
         </button>
       </div>
 
+      <!-- Fiches longues : le contenu des anciennes pages projet, transposé
+           dans la fenêtre. Elles défilent, contrairement aux albums qui
+           tiennent sur un écran (voir « Fiches de projet » dans style.css). -->
+      <!-- ---------- Dino — plateforme de recherche ROS 2 ---------- -->
+      <article class="album__detail album__detail--long" id="prj-dino" hidden>
+        <div class="album__viewer">
+          <div class="album__frame tilt">
+            <figure class="album__slide is-current">
+              <img src="assets/projets/dino/1.webp" width="982" height="534"
+                   loading="lazy" decoding="async"
+                   alt="Modèle 3D du robot Dino : châssis surbaissé porté par quatre roues motrices et directrices">
+              <figcaption>
+                Le matériel à piloter, modélisé en 3D : quatre roues motrices, chacune
+                orientée par son propre actionneur — soit les huit articulations que
+                la commande doit coordonner.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/projets/dino/2.webp" width="1006" height="619"
+                   loading="lazy" decoding="async"
+                   alt="Le même modèle vu de plus bas : les quatre trains de roues et l'arrêt d'urgence sur le capot">
+              <figcaption>
+                Vue rapprochée d'un train de roues. L'arrêt d'urgence, sur le capot,
+                reste câblé à l'automate de sécurité et non au nouvel ordinateur de bord.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <div class="embed" data-portrait data-video="Ehp5dpJvLVo" data-label="Dino"
+                   data-poster="assets/projets/dino/1-sm.webp">
+                <!-- Repli sans JavaScript : le lien vers la vidéo reste utilisable -->
+                <a href="https://youtube.com/shorts/Ehp5dpJvLVo" target="_blank" rel="noopener noreferrer">
+                  Voir la vidéo sur YouTube
+                </a>
+              </div>
+              <figcaption>
+                Le Dino en mouvement, piloté par la chaîne de commande ROS 2.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="album__head">
+          <p class="modal__eyebrow">
+            <svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg>
+            Robotique mobile · Stage de fin d'études
+          </p>
+          <h2 class="album__detail-title" id="prj-dino-title">Dino — plateforme de recherche ROS 2</h2>
+          <p class="album__detail-lede">
+            Le Dino de Naïo Technologies est une plateforme de désherbage commerciale, fermée.
+            Tout l'enjeu : reconstituer son fonctionnement pour le rouvrir en robot de recherche
+            programmable, sans toucher à ses sécurités d'origine.
+          </p>
+
+          <ul class="facts">
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg>
+              <span class="facts__k">Période</span>
+              <span class="facts__v facts__v--now">
+                2026 · 6 mois
+                <span class="now"><span class="dot" aria-hidden="true"></span> En cours</span>
+              </span>
+            </li>
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-building"></use></svg>
+              <span class="facts__k">Cadre</span>
+              <span class="facts__v">Stage de fin d'études — INIT Robots, jusqu'en novembre 2026</span>
+            </li>
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg>
+              <span class="facts__k">Lieu</span>
+              <span class="facts__v">Montréal, Canada</span>
+            </li>
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg>
+              <span class="facts__k">Mon rôle</span>
+              <span class="facts__v">Ingénieur R&amp;D en robotique mobile</span>
+            </li>
+          </ul>
+
+          <h3 class="album__h">Le contexte</h3>
+          <div class="prose">
+            <p>
+              Stage de fin d'études de six mois au laboratoire INIT&nbsp;Robots, à Montréal, mené avec
+              l'appui d'un technicien du laboratoire pour l'intégration matérielle et d'un doctorant
+              en robotique agricole et navigation autonome.
+            </p>
+            <p>
+              Le <strong>Dino</strong> est un robot de désherbage mécanique conçu par Naïo
+              Technologies. Comme beaucoup de systèmes industriels, c'est une plateforme fermée :
+              son architecture interne, ses protocoles et ses méthodes de commande ne sont pas
+              documentés pour être modifiés de l'extérieur.
+            </p>
+            <p>
+              L'objectif est de conserver toute la mécanique et l'électromécanique existantes — qui
+              fonctionnent — et de remplacer la seule couche de commande propriétaire par une
+              architecture ROS&nbsp;2 ouverte. Une contrainte structure tout le projet :
+              <strong>l'automate de sécurité doit rester indépendant du nouveau logiciel</strong>.
+              L'ordinateur de bord peut demander un mouvement, jamais empêcher l'automate de couper
+              l'alimentation.
+            </p>
+          </div>
+
+          <div class="specs">
+            <div class="spec tilt">
+              <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Traction</span>
+              <span class="spec__v">4 roues motrices indépendantes, moteurs à courant continu et freins électromagnétiques</span>
+            </div>
+            <div class="spec tilt">
+              <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-route"></use></svg> Direction</span>
+              <span class="spec__v">4 actionneurs linéaires — soit 8 articulations commandées au total</span>
+            </div>
+            <div class="spec tilt">
+              <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-chip"></use></svg> Perception</span>
+              <span class="spec__v">2 Lidars, GPS, centrale inertielle, retours de position et de vitesse des actionneurs</span>
+            </div>
+            <div class="spec tilt">
+              <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg> Sécurité</span>
+              <span class="spec__v">Automate dédié : arrêts d'urgence, bumpers, réarmement, sélecteur à clé, état des freins</span>
+            </div>
+          </div>
+
+          <h3 class="album__h">Le déroulé</h3>
+          <ol class="steps">
+            <li class="step">
+              <span class="step__num" aria-hidden="true">01</span>
+              <div class="step__body">
+                <h4>Rétro-ingénierie du bus CAN</h4>
+                <p>
+                  Partir du système fini pour en reconstruire l'architecture : schémas électriques,
+                  nomenclature, observation du robot, puis écoute du réseau au CAN-sniffer. Comparer
+                  les trames à l'arrêt et en mouvement, envoyer des commandes contrôlées, observer la
+                  réaction, recouper avec les mesures physiques.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">02</span>
+              <div class="step__body">
+                <h4>Rédaction de l'ICD</h4>
+                <p>
+                  Se brancher sur le bus ne suffit pas : encore faut-il comprendre chaque message.
+                  L'<em>Interface Control Document</em> consigne, pour chaque trame, l'identifiant,
+                  l'émetteur, la longueur, la fréquence, la signification de chaque octet, le facteur
+                  d'échelle, l'unité et les codes d'erreur. C'est ce document qui rend le réseau
+                  propriétaire exploitable.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">03</span>
+              <div class="step__body">
+                <h4>Passerelle ROS 2 ↔ CAN</h4>
+                <p>
+                  Un nouvel ordinateur de bord sous ROS&nbsp;2 est relié au bus principal via une
+                  interface USB-CAN, déployée sur un Raspberry&nbsp;Pi dédié. La passerelle ne décide
+                  rien : elle traduit, dans les deux sens, entre le monde informatique et le réseau
+                  temps réel du robot.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">04</span>
+              <div class="step__body">
+                <h4>Couche d'abstraction</h4>
+                <p>
+                  Aucun nœud ROS&nbsp;2 n'envoie d'octets CAN directement. Le contrôleur raisonne en
+                  grandeurs physiques — une vitesse en rad/s, un angle en degrés — et un driver
+                  unique se charge de la conversion. L'ICD reste ainsi centralisé dans un seul
+                  paquet, et le passage de la simulation au robot réel ne change qu'une brique.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">05</span>
+              <div class="step__body">
+                <h4>Contrôleur cinématique 4WD–4WS</h4>
+                <p>
+                  Le Dino n'est pas un robot différentiel : chaque roue a sa vitesse et son angle
+                  propres. Une consigne (v<sub>x</sub>, v<sub>y</sub>, ω) doit devenir huit consignes
+                  — quatre vitesses de roue et quatre angles de direction. Ce contrôleur ouvre trois
+                  modes de déplacement : opposé, crabe et pivot.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">06</span>
+              <div class="step__body">
+                <h4>Jumeau numérique sous Gazebo</h4>
+                <p>
+                  Avant tout essai réel, une simulation reprenant le modèle mécanique, les huit
+                  articulations, les masses et inerties, les collisions et les capteurs. Elle sert à
+                  vérifier ce qui coûte cher à découvrir sur le terrain : signe des vitesses, sens de
+                  rotation, conventions d'angle, limites articulaires.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">07</span>
+              <div class="step__body">
+                <h4>Téléopération, GPS et arrêt d'urgence sans fil</h4>
+                <p>
+                  Pilotage manuel à la manette Bluetooth pour les phases de test et de calibration,
+                  intégration du GPS pour le suivi de trajectoire en extérieur, et conception d'un
+                  arrêt d'urgence sans fil pour sécuriser les essais. Tant qu'on ne sait pas conduire
+                  la machine à la main, on ne peut pas juger ce qu'un algorithme fait à sa place.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">08</span>
+              <div class="step__body">
+                <h4>Barrière logicielle</h4>
+                <p>
+                  Avant émission, chaque commande passe par les limites cinématiques, l'état des
+                  dispositifs de sécurité, puis les bornes de vitesse, de courant et de position.
+                  Elle n'est convertie en trame CAN que si toutes les conditions sont réunies — les
+                  protections matérielles d'origine restant, elles, intactes et prioritaires.
+                </p>
+              </div>
+            </li>
+          </ol>
+
+          <h3 class="album__h">Ce que devient le robot</h3>
+          <div class="prose">
+            <p>
+              Au terme du projet, le Dino n'est plus seulement un robot de désherbage : c'est une
+              plateforme expérimentale dotée d'un ordinateur de bord moderne, d'une architecture
+              ROS&nbsp;2 modulaire, d'une interface CAN documentée, d'un contrôleur 4WD–4WS, d'un
+              jumeau numérique et d'une navigation autonome.
+            </p>
+            <p>
+              L'intérêt de la démarche tient en une phrase : réutiliser une base mécanique
+              industrielle déjà éprouvée, et ne remplacer que ce qui limitait son usage — le
+              logiciel.
+            </p>
+          </div>
+
+          <h3 class="album__h">Outils &amp; méthodes</h3>
+          <div class="toolset">
+            <section class="skill spotlight tilt">
+              <h4 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Robotique</h4>
+              <ul class="tags tags--sm">
+                <li>ROS 2</li><li>Nœuds &amp; topics</li><li>Cinématique 4WD–4WS</li>
+                <li>Gazebo</li><li>Navigation autonome</li><li>Téléopération</li>
+              </ul>
+            </section>
+            <section class="skill spotlight tilt">
+              <h4 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-chip"></use></svg> Embarqué</h4>
+              <ul class="tags tags--sm">
+                <li>Bus CAN</li><li>SocketCAN</li><li>USB-CAN</li><li>Raspberry Pi</li>
+                <li>CAN-sniffer</li><li>Linux</li>
+              </ul>
+            </section>
+            <section class="skill spotlight tilt">
+              <h4 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-doc"></use></svg> Méthode</h4>
+              <ul class="tags tags--sm">
+                <li>Rétro-ingénierie</li><li>ICD</li><li>Couche d'abstraction</li>
+                <li>Sécurité fonctionnelle</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------- Modèle dynamique d'un fauteuil roulant intelligent ---------- -->
+      <article class="album__detail album__detail--long" id="prj-fauteuil" hidden>
+        <div class="album__viewer">
+          <div class="album__frame tilt">
+            <figure class="album__slide is-current">
+              <img src="assets/projets/fauteuil-roulant/1.webp" width="1600" height="1200"
+                   loading="lazy" decoding="async"
+                   alt="Roue folle avant du fauteuil, montée sur sa fourche pivotante">
+              <figcaption>
+                Une roue folle et sa fourche pivotante : rien ne l'entraîne, elle s'oriente
+                d'elle-même en fonction du mouvement du fauteuil.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/projets/fauteuil-roulant/2.webp" width="1600" height="1200"
+                   loading="lazy" decoding="async"
+                   alt="Roue folle et roue motrice du fauteuil, vues de trois quarts">
+              <figcaption>
+                À côté, la roue motrice. C'est l'interaction entre les deux qui rend la
+                dynamique du fauteuil difficile à décrire.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <div class="embed" data-video="PlPl7jPC6v8" data-label="Fauteuil roulant intelligent"
+                   data-poster="assets/projets/fauteuil-roulant/1-sm.webp">
+                <!-- Repli sans JavaScript : le lien vers la vidéo reste utilisable -->
+                <a href="https://youtu.be/PlPl7jPC6v8" target="_blank" rel="noopener noreferrer">
+                  Voir la vidéo sur YouTube
+                </a>
+              </div>
+              <figcaption>Le fauteuil en essai, sur la plateforme du laboratoire.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="album__head">
+          <p class="modal__eyebrow">
+            <svg class="ico" aria-hidden="true"><use href="#i-flask"></use></svg>
+            Recherche · Junia HEI × laboratoire CRIStAL
+          </p>
+          <h2 class="album__detail-title" id="prj-fauteuil-title">Modèle dynamique d'un fauteuil roulant intelligent</h2>
+          <p class="album__detail-lede">
+            Faire suivre une trajectoire à un fauteuil roulant intelligent malgré tout ce qui l'en
+            écarte — frottements, incertitudes, roues folles. Non pas en corrigeant l'écart après
+            coup, mais en estimant la perturbation pour la compenser à l'avance.
+          </p>
+
+          <ul class="facts">
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg>
+              <span class="facts__k">Période</span>
+              <span class="facts__v">2025 — 2026</span>
+            </li>
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg>
+              <span class="facts__k">Équipe</span>
+              <span class="facts__v">4 étudiants</span>
+            </li>
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-cap"></use></svg>
+              <span class="facts__k">Cadre</span>
+              <span class="facts__v">Junia HEI × laboratoire CRIStAL</span>
+            </li>
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-doc"></use></svg>
+              <span class="facts__k">Livrable</span>
+              <span class="facts__v">Article scientifique + rapport</span>
+            </li>
+          </ul>
+
+          <h3 class="album__h">Le contexte</h3>
+          <div class="prose">
+            <p>
+              Projet de recherche et innovation mené à Junia HEI avec le laboratoire CRIStAL, en
+              équipe de quatre étudiants, sur 2025 et 2026, sous l'encadrement de M.&nbsp;Meziane
+              Larbi et M.&nbsp;Gilles Tagne.
+            </p>
+            <p>
+              Le fauteuil roulant intelligent étudié repose sur <strong>deux roues motrices</strong>
+              et <strong>deux roues folles</strong> qui assurent son équilibre. Ces dernières
+              réagissent au mouvement au lieu de le produire : elles pivotent librement, introduisent
+              des efforts de contact difficiles à décrire, et pèsent pourtant sur la stabilité et la
+              maniabilité de l'ensemble.
+            </p>
+            <p>
+              L'objectif est double : construire un jumeau numérique fidèle du fauteuil, puis en
+              tirer une loi de commande capable d'assurer un suivi de trajectoire précis et stable
+              face aux perturbations — un enjeu de sécurité autant que de confort pour une
+              application d'assistance à la mobilité.
+            </p>
+          </div>
+
+          <h3 class="album__h">Le déroulé</h3>
+          <ol class="steps">
+            <li class="step">
+              <span class="step__num" aria-hidden="true">01</span>
+              <div class="step__body">
+                <h4>État de l'art</h4>
+                <p>
+                  Analyse bibliographique des modèles dynamiques déjà publiés sur ce type de système,
+                  pour partir de bases établies plutôt que d'une page blanche.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">02</span>
+              <div class="step__body">
+                <h4>Modèle cinématique différentiel</h4>
+                <p>
+                  Un premier modèle non holonomique limité aux deux roues motrices, reliant leurs
+                  vitesses à la vitesse linéaire et angulaire du châssis. Utile, mais trop pauvre
+                  pour commander le fauteuil avec précision — d'où la suite.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">03</span>
+              <div class="step__body">
+                <h4>Modèle dynamique, puis roues folles</h4>
+                <p>
+                  Le modèle dynamique est d'abord établi sans les roues folles, puis étendu pour les
+                  intégrer : efforts de contact au sol, effets d'inertie, réactions traitées par
+                  multiplicateurs de Lagrange. C'est cette extension qui rapproche réellement la
+                  simulation du comportement observé.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">04</span>
+              <div class="step__body">
+                <h4>Observateur de perturbations (NESO)</h4>
+                <p>
+                  Plutôt que de tenter de modéliser chaque frottement, un observateur non linéaire
+                  étendu estime en temps réel la <em>perturbation globale</em> agissant sur le
+                  système — frottements, incertitudes de paramètres, influence des roues folles.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">05</span>
+              <div class="step__body">
+                <h4>Commande hiérarchique : MPC bas niveau, LQR haut niveau</h4>
+                <p>
+                  Au niveau bas, un contrôleur à modèle prédictif régule la dynamique des moteurs à
+                  courant continu. Au niveau haut, un régulateur optimal LQR couplé au même
+                  observateur minimise les erreurs longitudinale, latérale et d'orientation. La
+                  perturbation estimée est compensée avant qu'elle ne dévie la trajectoire.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">06</span>
+              <div class="step__body">
+                <h4>Simulation, puis validation sur plateforme</h4>
+                <p>
+                  L'ensemble est simulé sous MATLAB/Simulink, puis validé sur la plateforme Quanser.
+                  Les résultats montrent que l'estimation active des perturbations suffit à garantir
+                  un suivi stable et précis, y compris en présence d'incertitudes.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">07</span>
+              <div class="step__body">
+                <h4>Rédaction scientifique</h4>
+                <p>
+                  Le travail a donné lieu à un rapport complet et à un article scientifique
+                  formalisant la démarche, les modèles et les résultats.
+                </p>
+              </div>
+            </li>
+          </ol>
+
+          <h3 class="album__h">Outils &amp; méthodes</h3>
+          <div class="toolset">
+            <section class="skill spotlight tilt">
+              <h4 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Modélisation</h4>
+              <ul class="tags tags--sm">
+                <li>Cinématique différentielle</li><li>Dynamique</li><li>Roues folles</li>
+                <li>Multiplicateurs de Lagrange</li><li>Jumeau numérique</li>
+              </ul>
+            </section>
+            <section class="skill spotlight tilt">
+              <h4 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Automatique</h4>
+              <ul class="tags tags--sm">
+                <li>Commande prédictive (MPC)</li><li>LQR</li><li>Observateur NESO</li>
+                <li>Rejet de perturbations</li><li>Suivi de trajectoire</li>
+              </ul>
+            </section>
+            <section class="skill spotlight tilt">
+              <h4 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-code"></use></svg> Validation</h4>
+              <ul class="tags tags--sm">
+                <li>MATLAB</li><li>Simulink</li><li>Plateforme Quanser</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------- Robot agricole autonome type rover ---------- -->
+      <article class="album__detail album__detail--long" id="prj-rover" hidden>
+        <div class="album__viewer">
+          <div class="album__frame tilt">
+            <figure class="album__slide is-current">
+              <img src="assets/projets/rover/1.webp" width="464" height="526"
+                   loading="lazy" decoding="async"
+                   alt="Le rover assemblé, posé sur un plan de travail">
+              <figcaption>
+                Le prototype assemblé, châssis et carters imprimés en 3D.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/projets/rover/2.webp" width="803" height="578"
+                   loading="lazy" decoding="async"
+                   alt="Le rover modélisé sous SolidWorks">
+              <figcaption>
+                Le modèle SolidWorks dont sont issues les pièces imprimées.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/projets/rover/3.webp" width="769" height="621"
+                   loading="lazy" decoding="async"
+                   alt="Vue éclatée des composants du rover">
+              <figcaption>
+                Vue éclatée : batterie, cartes, télémètre laser et ensembles moteur-roue.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="album__head">
+          <p class="modal__eyebrow">
+            <svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg>
+            Conception &amp; fabrication · Junia HEI
+          </p>
+          <h2 class="album__detail-title" id="prj-rover-title">Robot agricole autonome type rover</h2>
+          <p class="album__detail-lede">
+            Concevoir et fabriquer un rover agricole à six, sur deux semestres : d'un cahier des
+            charges chiffré jusqu'à une machine assemblée, pilotable à distance depuis une
+            interface web puis capable de se déplacer seule.
+          </p>
+
+          <ul class="facts">
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg>
+              <span class="facts__k">Période</span>
+              <span class="facts__v">2024 — 2025</span>
+            </li>
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg>
+              <span class="facts__k">Équipe</span>
+              <span class="facts__v">6 étudiants</span>
+            </li>
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-cap"></use></svg>
+              <span class="facts__k">Cadre</span>
+              <span class="facts__v">Projet de mécatronique et robotique — Junia HEI</span>
+            </li>
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg>
+              <span class="facts__k">Mon rôle</span>
+              <span class="facts__v">Pilotage du projet, cahier des charges, commande moteurs</span>
+            </li>
+          </ul>
+
+          <h3 class="album__h">Le contexte</h3>
+          <div class="prose">
+            <p>
+              Projet de mécatronique et robotique mené à Junia HEI en équipe de six étudiants, sur
+              deux semestres, sous l'encadrement de M.&nbsp;Tagne. L'objectif : concevoir
+              <em>et</em> fabriquer un rover agricole — pas une maquette, une machine complète.
+            </p>
+            <p>
+              C'est le projet qui rassemble le plus de disciplines à la fois : sans les bons
+              actionneurs le robot ne bouge pas, sans les bons capteurs il ne sait pas où il est,
+              sans châssis correctement dimensionné rien ne tient, et sans code cohérent l'ensemble
+              reste inerte.
+            </p>
+            <p>
+              Le cahier des charges a été construit par analyse fonctionnelle, en distinguant
+              fonctions principales et contraintes, puis traduit en critères chiffrés et vérifiables.
+            </p>
+          </div>
+
+          <div class="specs">
+            <div class="spec tilt">
+              <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-route"></use></svg> Franchissement</span>
+              <span class="spec__v">Obstacles jusqu'à 30 cm de dénivelé</span>
+            </div>
+            <div class="spec tilt">
+              <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg> Vitesse</span>
+              <span class="spec__v">5 km/h, soit environ 27,8 rad/s pour des roues de 5 cm de rayon</span>
+            </div>
+            <div class="spec tilt">
+              <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg> Évitement</span>
+              <span class="spec__v">Obstacles contournés à 20 cm minimum</span>
+            </div>
+            <div class="spec tilt">
+              <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Trajectoire</span>
+              <span class="spec__v">Planification avec un angle maximal de 50 degrés</span>
+            </div>
+          </div>
+
+          <h3 class="album__h">Le déroulé</h3>
+          <ol class="steps">
+            <li class="step">
+              <span class="step__num" aria-hidden="true">01</span>
+              <div class="step__body">
+                <h4>Cadrage et planification</h4>
+                <p>
+                  J'ai commencé par découper le projet en lots et bâtir un diagramme de Gantt, pour
+                  que le groupe garde une ligne directrice sur toute la durée. J'ai ensuite participé
+                  à l'élaboration du cahier des charges et à l'analyse fonctionnelle.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">02</span>
+              <div class="step__body">
+                <h4>Choix des composants</h4>
+                <p>
+                  Analyse des actionneurs et des capteurs nécessaires. Le cœur retenu est une carte
+                  OpenCR — compatible Arduino IDE et ROS, pensée pour les robots mobiles — associée à
+                  un Raspberry Pi pour la partie haut niveau.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">03</span>
+              <div class="step__body">
+                <h4>Conception mécanique sur SolidWorks</h4>
+                <p>
+                  Dessin des pièces du rover en vue de leur fabrication, impression 3D comprise —
+                  l'étape où les choix du dessin se paient ou se rentabilisent à l'assemblage.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">04</span>
+              <div class="step__body">
+                <h4>Chaîne logicielle distribuée</h4>
+                <p>
+                  L'architecture répartit les rôles : un firmware sur l'OpenCR pour la commande des
+                  moteurs, une interface Python sur le Raspberry Pi, et un serveur web capable de
+                  traiter plusieurs requêtes en parallèle pour piloter le rover depuis un navigateur.
+                  J'ai contribué au code de commande des moteurs et au transfert des données de
+                  l'OpenCR vers le Raspberry Pi.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">05</span>
+              <div class="step__body">
+                <h4>Vers la navigation autonome</h4>
+                <p>
+                  Le second semestre introduit une architecture ROS 2 et les briques de planification
+                  de trajectoire, locale et globale, pour passer du pilotage à distance au
+                  déplacement autonome.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">06</span>
+              <div class="step__body">
+                <h4>Arbitrage en cours de route</h4>
+                <p>
+                  À mi-parcours, concevoir un rover entièrement neuf s'est révélé irréaliste dans le
+                  temps imparti. Le groupe a fait le choix de sécuriser la conception mécanique et
+                  d'avancer plus tôt que prévu sur la partie logicielle. Le prototype a été assemblé
+                  et rendu testable — savoir renoncer à temps fait aussi partie du pilotage.
+                </p>
+              </div>
+            </li>
+          </ol>
+
+          <h3 class="album__h">Outils &amp; méthodes</h3>
+          <div class="toolset">
+            <section class="skill spotlight tilt">
+              <h4 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Mécanique</h4>
+              <ul class="tags tags--sm">
+                <li>SolidWorks</li><li>Conception de pièces</li><li>Impression 3D</li><li>Assemblage</li>
+              </ul>
+            </section>
+            <section class="skill spotlight tilt">
+              <h4 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-chip"></use></svg> Électronique &amp; code</h4>
+              <ul class="tags tags--sm">
+                <li>OpenCR</li><li>Raspberry Pi</li><li>Arduino IDE</li><li>Python</li>
+                <li>ROS / ROS 2</li><li>Interface web</li>
+              </ul>
+            </section>
+            <section class="skill spotlight tilt">
+              <h4 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Pilotage</h4>
+              <ul class="tags tags--sm">
+                <li>Diagramme de Gantt</li><li>Analyse fonctionnelle</li>
+                <li>Cahier des charges</li><li>Répartition des tâches</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------- Frigo du désert ---------- -->
+      <article class="album__detail album__detail--long" id="prj-frigo" hidden>
+        <div class="album__viewer">
+          <div class="album__frame tilt">
+            <figure class="album__slide is-current">
+              <img src="assets/projets/frigo-du-desert/1.webp" width="1200" height="1600"
+                   loading="lazy" decoding="async"
+                   alt="Impression 3D de l'enceinte du frigo du désert">
+              <figcaption>
+                L'enceinte en cours d'impression : les nervures extérieures augmentent la
+                surface d'échange avec l'air.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/projets/frigo-du-desert/2.webp" width="1200" height="1600"
+                   loading="lazy" decoding="async"
+                   alt="Prototype imprimé du frigo du désert, posé sur un bureau">
+              <figcaption>
+                Le prototype une fois sorti du plateau, supports encore en place.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="album__head">
+          <p class="modal__eyebrow">
+            <svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg>
+            Thermique · Projet PISTE — Junia HEI
+          </p>
+          <h2 class="album__detail-title" id="prj-frigo-title">Frigo du désert</h2>
+          <p class="album__detail-lede">
+            Comment conserver des aliments au frais sans électricité ? Un projet d'intégration
+            mené à dix, qui part d'une question sociale concrète pour aboutir à un réfrigérateur
+            sans moteur, sans batterie et sans fluide frigorigène.
+          </p>
+
+          <ul class="facts">
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg>
+              <span class="facts__k">Période</span>
+              <span class="facts__v">2023 — 2024</span>
+            </li>
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg>
+              <span class="facts__k">Équipe</span>
+              <span class="facts__v">10 étudiants</span>
+            </li>
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-cap"></use></svg>
+              <span class="facts__k">Cadre</span>
+              <span class="facts__v">Projet PISTE — Junia HEI</span>
+            </li>
+            <li class="tilt">
+              <svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg>
+              <span class="facts__k">Principe</span>
+              <span class="facts__v">Refroidissement passif par évaporation</span>
+            </li>
+          </ul>
+
+          <h3 class="album__h">Le contexte</h3>
+          <div class="prose">
+            <p>
+              Premier projet d'équipe de mon cursus, mené dans le cadre PISTE — Projet d'Intégration
+              Scientifique, Technologique et Économique — à dix étudiants, sur 2023 et 2024.
+            </p>
+            <p>
+              Le sujet posé : comment aider les personnes à conserver des aliments au frais sans
+              électricité ? La question n'a rien d'abstrait — elle concerne les zones privées de
+              réseau et les foyers pour qui un réfrigérateur reste hors de portée.
+            </p>
+            <p>
+              Trois pistes ont été étudiées : le réfrigérateur enterré et le puits canadien, tous
+              deux géothermiques, et le frigo du désert. Les deux premières laissant peu de marge
+              d'amélioration réelle, le groupe s'est concentré sur la troisième.
+            </p>
+          </div>
+
+          <h3 class="album__h">Le principe</h3>
+          <div class="prose">
+            <p>
+              Le frigo du désert, aussi appelé canari frigo, a été conçu dans les années 1990 par
+              l'universitaire nigérian Mohammed Bah Abba. Il ne demande ni moteur, ni batterie, ni
+              fluide frigorigène.
+            </p>
+            <p>
+              Son fonctionnement tient à l'évaporation : l'eau qui s'évapore prélève de la chaleur au
+              milieu qu'elle quitte, et c'est cette chaleur en moins qui fait baisser la température
+              à l'intérieur de l'enceinte. Sans source d'énergie à ajuster, il ne reste qu'un levier,
+              la conception elle-même.
+            </p>
+          </div>
+
+          <div class="specs">
+            <div class="spec tilt">
+              <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg> Fruits et légumes</span>
+              <span class="spec__v">2 à 10 °C, pour ralentir la maturation sans provoquer de dégâts au froid</span>
+            </div>
+            <div class="spec tilt">
+              <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg> Produits laitiers</span>
+              <span class="spec__v">0 à 4 °C</span>
+            </div>
+            <div class="spec tilt">
+              <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg> Viande et poisson</span>
+              <span class="spec__v">Au plus près de 0 °C</span>
+            </div>
+            <div class="spec tilt">
+              <span class="spec__k"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Contrainte</span>
+              <span class="spec__v">Aucune alimentation électrique, aucune pièce mobile</span>
+            </div>
+          </div>
+
+          <h3 class="album__h">La démarche</h3>
+          <ol class="steps">
+            <li class="step">
+              <span class="step__num" aria-hidden="true">01</span>
+              <div class="step__body">
+                <h4>Cadrage du besoin</h4>
+                <p>
+                  Identification des besoins, définition des objectifs et rédaction du cahier des
+                  charges, y compris les températures cibles par famille d'aliments, qui fixent la
+                  performance à atteindre.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">02</span>
+              <div class="step__body">
+                <h4>Étude des solutions existantes</h4>
+                <p>
+                  Comparaison du réfrigérateur enterré, du puits canadien et du frigo du désert.
+                  La consigne de l'encadrant était nette : proposer une amélioration tangible plutôt
+                  qu'un exposé de concepts.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">03</span>
+              <div class="step__body">
+                <h4>Conception et modélisation</h4>
+                <p>
+                  Conception et modélisation du système de refroidissement passif, avec pour angle
+                  d'amélioration le choix des matériaux — c'est là que se joue l'essentiel de la
+                  performance d'un dispositif sans apport d'énergie.
+                </p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">04</span>
+              <div class="step__body">
+                <h4>Prototype et conduite de projet</h4>
+                <p>
+                  Planification, répartition des responsabilités, identification des risques et suivi
+                  de l'avancement jusqu'à la clôture du projet. À dix, s'accorder sur des hypothèses
+                  communes avant de calculer quoi que ce soit était une part entière du travail.
+                </p>
+              </div>
+            </li>
+          </ol>
+
+          <h3 class="album__h">Ce que j'en retiens</h3>
+          <div class="prose">
+            <p>
+              C'est le projet qui m'a fait découvrir le travail d'ingénierie en équipe, et la
+              différence entre une bonne idée et une solution défendable : un système sans énergie
+              d'appoint ne pardonne rien, chaque paramètre de conception se retrouve directement dans
+              la performance finale.
+            </p>
+          </div>
+
+          <h3 class="album__h">Outils &amp; méthodes</h3>
+          <div class="toolset">
+            <section class="skill spotlight tilt">
+              <h4 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Thermique</h4>
+              <ul class="tags tags--sm">
+                <li>Refroidissement passif</li><li>Évaporation</li><li>Choix des matériaux</li>
+              </ul>
+            </section>
+            <section class="skill spotlight tilt">
+              <h4 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-flask"></use></svg> Démarche</h4>
+              <ul class="tags tags--sm">
+                <li>Cahier des charges</li><li>Conception</li><li>Modélisation</li><li>Prototypage</li>
+              </ul>
+            </section>
+            <section class="skill spotlight tilt">
+              <h4 class="skill__title"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Organisation</h4>
+              <ul class="tags tags--sm">
+                <li>Équipe de 10</li><li>Planification</li><li>Gestion des risques</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </article>
       <!-- ---------- Stage Industeam ---------- -->
       <article class="album__detail" id="alb-industeam" hidden>
         <div class="album__viewer">

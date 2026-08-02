@@ -1387,25 +1387,22 @@ body::before {
   margin-top: .15rem;
 }
 /* Mêmes étiquettes que partout ailleurs : même matière, même arrondi, et le
-   même soulèvement en cascade — déclenché ici au survol de la carte entière,
-   puisque c'est elle qu'on vise, pas chaque mot-clé. */
+   même soulèvement — chacune réagit à son propre survol, pas à celui de la
+   carte, sinon les trois s'allument d'un bloc et le geste ne désigne plus
+   rien. */
 .album__tags span {
   padding: .22rem .55rem;
   font-size: .76rem;
   color: var(--muted);
   transition: border-color .25s ease, color .25s ease,
-              transform .3s var(--ease-out), background-color .25s ease;
+              transform .25s var(--ease-out), background-color .25s ease;
 }
-.album:hover .album__tags span {
+.album__tags span:hover {
   border-color: var(--accent);
   color: var(--ink);
   background: var(--glass-fill), var(--accent-wash);
   transform: translateY(-2px);
 }
-/* Cascade : chaque étiquette part un cran après la précédente */
-.album__tags span:nth-child(2) { transition-delay: 50ms; }
-.album__tags span:nth-child(3) { transition-delay: 100ms; }
-.album__tags span:nth-child(4) { transition-delay: 150ms; }
 
 .album__cta {
   display: inline-flex;

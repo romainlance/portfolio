@@ -297,6 +297,18 @@
       'A cell under assembly: a six-axis FANUC arm and an automatic screwdriving spindle on its vertical axis.',
     'Cellule robotisée en cours de montage : bras FANUC et broche de vissage':
       'Robotic cell under assembly: FANUC arm and screwdriving spindle',
+    'Une station de vissage sous son carter : pupitre de commande, colonne lumineuse, et le tableau qui donne son état corps de métier par corps de métier.':
+      'A screwdriving station under its guard: control panel, signal tower, and the board giving its status trade by trade.',
+    'Le point du jour au tableau : mécanique d\'un côté, électrique de l\'autre, chaque ligne passant de NOK à OK au fil du montage.':
+      'The daily review on the whiteboard: mechanical on one side, electrical on the other, each line moving from NOK to OK as assembly proceeds.',
+    'Le même suivi, consolidé : onze stations, cinq disciplines, et la tendance de chacune d\'un jour sur l\'autre.':
+      'The same tracking, consolidated: eleven stations, five disciplines, and the day-to-day trend of each.',
+    'Station de vissage sous son carter de sécurité, avec pupitre et colonne lumineuse':
+      'Screwdriving station under its safety guard, with control panel and signal tower',
+    'Tableau blanc listant les tâches mécaniques et électriques restantes':
+      'Whiteboard listing the remaining mechanical and electrical tasks',
+    'Tableau de suivi d\'avancement : onze stations et cinq disciplines':
+      'Progress tracking sheet: eleven stations and five disciplines',
     'Robotique industrielle': 'Industrial robotics',
     'Vissage automatique': 'Automatic screwdriving',
     'Secteur automobile': 'Automotive sector',

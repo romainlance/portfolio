@@ -30,7 +30,7 @@ Puis ouvrir <http://localhost:8000>.
 
 ```
 .
-├── index.html                  # Page d'accueil : les 8 sections ancrées
+├── index.html                  # Page d'accueil : les 7 sections ancrées
 ├── 404.html                    # Page d'erreur, autonome (styles inclus)
 ├── robots.txt
 ├── sitemap.xml
@@ -155,6 +155,27 @@ suffit à en ajouter un.
 
 En ajoutant une section, penser à trois choses : son numéro (`.section__num`),
 son lien dans `.nav__links`, et son entrée dans le dictionnaire de traduction.
+La barre supérieure compte sept entrées, ce qui est déjà sa limite : au-delà,
+les numéros disparaissent avant 1 080 px et les intitulés se serrent.
+
+### Une section qui réunit deux familles
+
+`03 — Projets` couvre les projets d'ingénierie **et** les projets personnels,
+sous une seule entrée de menu. Chaque famille vit dans un
+`<div class="section__group">` précédé de son sous-en-tête :
+
+```html
+<header class="section__head section__head--sub reveal" data-reveal="up">
+  <svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg>
+  <h3>Projets d'ingénierie</h3>
+  <span class="section__rule" aria-hidden="true"></span>
+</header>
+```
+
+C'est le même en-tête que celui d'une section, un cran plus bas : une icône à
+la place du numéro, un titre de niveau 3. Le lien « Projets » du menu reste
+allumé sur les deux familles, puisque le repérage au défilement suit les
+sections et non les groupes.
 
 ### Marquer une expérience en cours
 
@@ -219,7 +240,10 @@ PDF, puis régénérer la vignette (n'importe quel export d'image de la page 1
 convient, autour de 900 px de large). Les deux fichiers doivent rester
 cohérents — c'est le PDF qui s'ouvre au clic.
 
-Le PDF publié ne contient volontairement pas de numéro de téléphone.
+**Le PDF publié ne doit pas contenir de numéro de téléphone.** C'est la seule
+règle à vérifier avant de déposer une nouvelle version : le reste des
+coordonnées — ville, adresse e-mail, LinkedIn — figure sur le site de toute
+façon.
 
 ### Le QR code
 
@@ -249,8 +273,9 @@ aucune information.
 
 ### Les albums photo
 
-Les sections **Projets personnels** et **TP académiques** présentent chacune
-des cartes qui ouvrent une fenêtre contenant les photos du projet et son texte.
+Le groupe **Projets personnels** et la section **TP académiques** présentent
+chacun des cartes qui ouvrent une fenêtre contenant les photos du projet et
+son texte.
 
 Le contenu de ces fiches n'est pas fabriqué au clic : il vit dans le HTML, à
 l'intérieur du bloc `#albumModal`, en bas de `index.html`. Deux raisons — il
@@ -261,7 +286,8 @@ Pour ajouter un album :
 
 1. **Convertir les photos** (voir la section suivante) dans
    `assets/albums/mon-projet/`.
-2. **Ajouter la carte** dans la grille `.albums` de la section voulue :
+2. **Ajouter la carte** dans la grille `.albums` voulue — celle du groupe
+   « Projets personnels », dans `#projets`, ou celle de `#tp` :
    dupliquer un `<button class="album reveal tilt" data-album="alb-mon-projet">`
    et pointer sa couverture sur `1-sm.webp`. Le libellé d'ouverture nomme ce
    qu'on ouvre — « Ouvrir le projet », « Ouvrir le TP » — plutôt qu'un vague

@@ -476,7 +476,7 @@ body::before {
   margin-inline: auto;
   display: flex;
   align-items: center;
-  /* Serré : avec huit liens, le nom et trois boutons, la barre n'a plus de
+  /* Serré : avec sept liens, le nom et trois boutons, la barre n'a plus de
      marge à 1 120 px de large. */
   gap: 1.1rem;
 }
@@ -598,7 +598,9 @@ body::before {
    -------------------------------------------------------------------------- */
 .hero {
   position: relative;
-  padding-block: clamp(3.5rem, 9vw, 7rem) clamp(3rem, 6vw, 4.5rem);
+  /* La barre de navigation occupe déjà 64 px au-dessus : une respiration
+     franche suffit, sinon le nom se retrouve poussé en bas de l'écran. */
+  padding-block: clamp(1.5rem, 3.5vw, 2.75rem) clamp(3rem, 6vw, 4.5rem);
   border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
@@ -895,6 +897,24 @@ body::before {
 }
 .reveal.is-visible .section__rule,
 .section__head.is-visible .section__rule { transform: scaleX(1); }
+
+/* Sous-en-tête : une section peut réunir deux familles — « Projets » couvre
+   l'ingénierie et le personnel. Chacune reprend l'en-tête de section un cran
+   plus bas : une icône à la place du numéro, un titre de niveau 3, le même
+   filet qui se déploie. */
+.section__head--sub {
+  margin-bottom: clamp(1.1rem, 2vw, 1.5rem);
+}
+.section__head--sub h3 { font-size: clamp(1.15rem, 2.4vw, 1.45rem); }
+.section__head--sub > .ico {
+  width: 1.2em;
+  height: 1.2em;
+  color: var(--accent);
+}
+
+/* Respiration entre les deux familles : sans elle, la seconde grille suit la
+   première d'aussi près que deux rangées d'une même grille. */
+.section__group + .section__group { margin-top: clamp(3rem, 6vw, 4.5rem); }
 
 /* Ligne d'introduction, sous le titre d'une section */
 .section__lede {
@@ -2456,10 +2476,11 @@ body::before {
 }
 
 /* Tablette / mobile : menu escamotable */
-/* Entre 860 et 1200 px, huit liens de navigation ne tiennent plus à côté du
+/* Entre 860 et 1080 px, sept liens de navigation ne tiennent plus à côté du
    nom et des boutons. On resserre la barre et on retire les numéros des
-   liens : ils sont décoratifs, les intitulés portent seuls l'information. */
-@media (max-width: 1200px) {
+   liens : ils sont décoratifs, les intitulés portent seuls l'information.
+   Le seuil était à 1 200 px du temps où la barre comptait huit entrées. */
+@media (max-width: 1080px) {
   .nav__inner { gap: 1rem; }
   .nav__links a { padding-inline: .5rem; }
   .nav__links a span { display: none; }

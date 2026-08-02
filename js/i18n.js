@@ -93,6 +93,9 @@
       'Junior Mechatronics & Robotics Engineer — Hauts-de-France',
     'Romain Lance — Ingénieur Mécatronique & Robotique':
       'Romain Lance — Mechatronics & Robotics Engineer',
+    // Identique dans les deux langues — l'entrée est là pour que le contrôle
+    // de couverture des traductions sache que la question a été tranchée.
+    'Curriculum vitae — PDF, 1 page': 'Curriculum vitae — PDF, 1 page',
 
     // À propos
     'Diplômé de Junia HEI en spécialité mécatronique et robotique, je travaille à la frontière de la mécanique, de l\'électronique et de la programmation.':
@@ -162,6 +165,8 @@
 
     // Projets — cartes
     'Projets d\'ingénierie': 'Engineering projects',
+    'Les projets menés en école et en stage. Chaque carte ouvre sa page détaillée.':
+      'The projects carried out at school and on internship. Each card opens its own page.',
     'Équipe de 4': 'Team of 4',
     'Équipe de 6': 'Team of 6',
     'Équipe de 10': 'Team of 10',
@@ -190,7 +195,6 @@
     // Projets personnels et TP académiques
     'Projets personnels': 'Personal projects',
     'TP académiques': 'Academic labs',
-    'Perso': 'Personal',
     'TP': 'Labs',
     'Ce que je démonte, conçois et fabrique en dehors des cours. Chaque carte s\'ouvre sur le détail du projet.':
       'What I take apart, design and build outside class. Each card opens onto the project in full.',

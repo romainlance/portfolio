@@ -99,11 +99,10 @@
         <a href="#apropos"><span aria-hidden="true">01</span> À propos</a>
         <a href="#parcours"><span aria-hidden="true">02</span> Parcours</a>
         <a href="#projets"><span aria-hidden="true">03</span> Projets</a>
-        <a href="#perso"><span aria-hidden="true">04</span> Perso</a>
-        <a href="#tp"><span aria-hidden="true">05</span> TP</a>
-        <a href="#competences"><span aria-hidden="true">06</span> Compétences</a>
-        <a href="#formation"><span aria-hidden="true">07</span> Formation</a>
-        <a href="#contact"><span aria-hidden="true">08</span> Contact</a>
+        <a href="#tp"><span aria-hidden="true">04</span> TP</a>
+        <a href="#competences"><span aria-hidden="true">05</span> Compétences</a>
+        <a href="#formation"><span aria-hidden="true">06</span> Formation</a>
+        <a href="#contact"><span aria-hidden="true">07</span> Contact</a>
       </nav>
 
       <div class="nav__actions">
@@ -123,7 +122,15 @@
     </div>
   </header>
 
-  <main id="top">
+  <!--
+    Pas d'`id="top"` ici : la barre de navigation est en `position: sticky`,
+    elle occupe donc les 64 premiers pixels du flux. Un ancrage posé sur
+    <main> renverrait sous la barre, en laissant de quoi remonter encore.
+    Sans élément portant cet identifiant, « #top » est traité par le
+    navigateur comme le haut du document — c'est prévu par la norme HTML,
+    et c'est exactement le comportement attendu du logo.
+  -->
+  <main>
 
     <!-- ============================================================
          HERO
@@ -177,7 +184,7 @@
         <aside class="hero__plate intro" data-intro="4">
           <a class="cv tilt" id="cvCard"
              href="assets/cv-romain-lance.pdf" target="_blank" rel="noopener noreferrer">
-            <img class="cv__page" src="assets/cv-preview.webp" width="900" height="1272"
+            <img class="cv__page" src="assets/cv-preview.webp" width="900" height="1273"
                  alt="Aperçu du CV de Romain Lance" decoding="async">
 
             <span class="cv__scan" aria-hidden="true"></span>
@@ -386,280 +393,290 @@
 
     <!-- ============================================================
          03 — PROJETS
-         Blocs de prévisualisation ; le détail vit dans projets/*.html
+         Une seule section pour deux familles : les projets d'ingénierie,
+         qui ont chacun leur page dans projets/, et les projets personnels,
+         qui ouvrent leur album. Les séparer donnait deux entrées de menu
+         pour une même idée.
          ============================================================ -->
     <section id="projets" class="section">
       <div class="wrap">
         <header class="section__head reveal" data-reveal="up">
           <span class="section__num" aria-hidden="true">03</span>
-          <h2>Projets d'ingénierie</h2>
+          <h2>Projets</h2>
           <span class="section__rule" aria-hidden="true"></span>
         </header>
 
-        <div class="projects">
+        <div class="section__group">
+          <header class="section__head section__head--sub reveal" data-reveal="up">
+            <svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg>
+            <h3>Projets d'ingénierie</h3>
+            <span class="section__rule" aria-hidden="true"></span>
+          </header>
 
-          <a class="pcard reveal tilt" data-reveal="scale" href="projets/dino-plateforme-ros2.html">
-            <div class="pcard__media pcard__media--photo">
-              <img class="pcard__photo" src="assets/projets/dino/1.webp" width="982" height="534"
-                   loading="lazy" decoding="async" alt="Modèle 3D du robot Dino : châssis surbaissé porté par quatre roues motrices et directrices">
-            </div>
+          <p class="section__lede reveal" data-reveal="up">
+            Les projets menés en école et en stage. Chaque carte ouvre sa page détaillée.
+          </p>
 
-            <div class="pcard__body">
-              <div class="pcard__top">
-                <span class="pcard__when">
-                  <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2026</span>
-                  <span class="now"><span class="dot" aria-hidden="true"></span> En cours</span>
+          <div class="projects">
+
+            <a class="pcard reveal tilt" data-reveal="scale" href="projets/dino-plateforme-ros2.html">
+              <div class="pcard__media pcard__media--photo">
+                <img class="pcard__photo" src="assets/projets/dino/1.webp" width="982" height="534"
+                     loading="lazy" decoding="async" alt="Modèle 3D du robot Dino : châssis surbaissé porté par quatre roues motrices et directrices">
+              </div>
+
+              <div class="pcard__body">
+                <div class="pcard__top">
+                  <span class="pcard__when">
+                    <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2026</span>
+                    <span class="now"><span class="dot" aria-hidden="true"></span> En cours</span>
+                  </span>
+                  <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg> 6 mois</span>
+                </div>
+
+                <h3 class="pcard__title">Dino — plateforme de recherche ROS&nbsp;2</h3>
+                <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Stage de fin d'études — INIT Robots, Montréal</p>
+                <p class="pcard__desc">
+                  Rétro-ingénierie du bus CAN d'un robot de désherbage Naïo, puis reconstruction
+                  d'une chaîne de commande ROS 2 complète — sans toucher à ses sécurités.
+                </p>
+
+                <ul class="tags tags--sm">
+                  <li>ROS 2</li><li>Bus CAN</li><li>Navigation autonome</li>
+                </ul>
+
+                <span class="pcard__cta">
+                  Voir le projet
+                  <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
                 </span>
-                <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg> 6 mois</span>
+              </div>
+            </a>
+
+            <a class="pcard reveal tilt" data-reveal="scale" href="projets/fauteuil-roulant-intelligent.html">
+              <div class="pcard__media pcard__media--photo">
+                <img class="pcard__photo" src="assets/projets/fauteuil-roulant/1-sm.webp" width="800" height="600"
+                     loading="lazy" decoding="async" alt="Roue folle du fauteuil roulant, montée sur sa fourche pivotante">
               </div>
 
-              <h3 class="pcard__title">Dino — plateforme de recherche ROS&nbsp;2</h3>
-              <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Stage de fin d'études — INIT Robots, Montréal</p>
-              <p class="pcard__desc">
-                Rétro-ingénierie du bus CAN d'un robot de désherbage Naïo, puis reconstruction
-                d'une chaîne de commande ROS 2 complète — sans toucher à ses sécurités.
-              </p>
+              <div class="pcard__body">
+                <div class="pcard__top">
+                  <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2025 — 2026</span>
+                  <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Équipe de 4</span>
+                </div>
 
-              <ul class="tags tags--sm">
-                <li>ROS 2</li><li>Bus CAN</li><li>Navigation autonome</li>
-              </ul>
+                <h3 class="pcard__title">Modèle dynamique d'un fauteuil roulant intelligent</h3>
+                <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-flask"></use></svg> Projet de recherche Junia HEI × laboratoire CRIStAL</p>
+                <p class="pcard__desc">
+                  Estimer en temps réel les perturbations qui écartent un fauteuil roulant de sa
+                  trajectoire — roues folles comprises — pour les compenser avant qu'elles n'agissent.
+                </p>
 
-              <span class="pcard__cta">
-                Voir le projet
-                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </span>
-            </div>
-          </a>
+                <ul class="tags tags--sm">
+                  <li>MATLAB/Simulink</li><li>Modélisation dynamique</li><li>Commande prédictive</li>
+                </ul>
 
-          <a class="pcard reveal tilt" data-reveal="scale" href="projets/fauteuil-roulant-intelligent.html">
-            <div class="pcard__media pcard__media--photo">
-              <img class="pcard__photo" src="assets/projets/fauteuil-roulant/1-sm.webp" width="800" height="600"
-                   loading="lazy" decoding="async" alt="Roue folle du fauteuil roulant, montée sur sa fourche pivotante">
-            </div>
+                <span class="pcard__cta">
+                  Voir le projet
+                  <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </span>
+              </div>
+            </a>
 
-            <div class="pcard__body">
-              <div class="pcard__top">
-                <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2025 — 2026</span>
-                <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Équipe de 4</span>
+            <a class="pcard reveal tilt" data-reveal="scale" href="projets/robot-agricole-rover.html">
+              <div class="pcard__media pcard__media--photo">
+                <img class="pcard__photo" style="--focus: 82%" src="assets/projets/rover/2.webp"
+                     width="803" height="578" loading="lazy" decoding="async"
+                     alt="Le rover agricole modélisé sous SolidWorks">
               </div>
 
-              <h3 class="pcard__title">Modèle dynamique d'un fauteuil roulant intelligent</h3>
-              <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-flask"></use></svg> Projet de recherche Junia HEI × laboratoire CRIStAL</p>
-              <p class="pcard__desc">
-                Estimer en temps réel les perturbations qui écartent un fauteuil roulant de sa
-                trajectoire — roues folles comprises — pour les compenser avant qu'elles n'agissent.
-              </p>
+              <div class="pcard__body">
+                <div class="pcard__top">
+                  <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2024 — 2025</span>
+                  <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Équipe de 6</span>
+                </div>
 
-              <ul class="tags tags--sm">
-                <li>MATLAB/Simulink</li><li>Modélisation dynamique</li><li>Commande prédictive</li>
-              </ul>
+                <h3 class="pcard__title">Robot agricole autonome type rover</h3>
+                <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Projet de mécatronique et robotique — Junia HEI</p>
+                <p class="pcard__desc">
+                  D'un cahier des charges chiffré à une machine assemblée : conception mécanique,
+                  électronique embarquée et pilotage d'une équipe de six.
+                </p>
 
-              <span class="pcard__cta">
-                Voir le projet
-                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </span>
-            </div>
-          </a>
+                <ul class="tags tags--sm">
+                  <li>ROS</li><li>SolidWorks</li><li>Conception mécanique</li>
+                </ul>
 
-          <a class="pcard reveal tilt" data-reveal="scale" href="projets/robot-agricole-rover.html">
-            <div class="pcard__media pcard__media--photo">
-              <img class="pcard__photo" style="--focus: 82%" src="assets/projets/rover/2.webp"
-                   width="803" height="578" loading="lazy" decoding="async"
-                   alt="Le rover agricole modélisé sous SolidWorks">
-            </div>
+                <span class="pcard__cta">
+                  Voir le projet
+                  <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </span>
+              </div>
+            </a>
 
-            <div class="pcard__body">
-              <div class="pcard__top">
-                <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2024 — 2025</span>
-                <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Équipe de 6</span>
+            <a class="pcard reveal tilt" data-reveal="scale" href="projets/frigo-du-desert.html">
+              <div class="pcard__media pcard__media--photo">
+                <img class="pcard__photo" style="--focus: 74%" src="assets/projets/frigo-du-desert/2-sm.webp"
+                     width="600" height="800" loading="lazy" decoding="async"
+                     alt="Le prototype imprimé du frigo du désert">
               </div>
 
-              <h3 class="pcard__title">Robot agricole autonome type rover</h3>
-              <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-robot"></use></svg> Projet de mécatronique et robotique — Junia HEI</p>
-              <p class="pcard__desc">
-                D'un cahier des charges chiffré à une machine assemblée : conception mécanique,
-                électronique embarquée et pilotage d'une équipe de six.
-              </p>
+              <div class="pcard__body">
+                <div class="pcard__top">
+                  <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2023 — 2024</span>
+                  <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Équipe de 10</span>
+                </div>
 
-              <ul class="tags tags--sm">
-                <li>ROS</li><li>SolidWorks</li><li>Conception mécanique</li>
-              </ul>
+                <h3 class="pcard__title">Frigo du désert</h3>
+                <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Projet PISTE — Junia HEI</p>
+                <p class="pcard__desc">
+                  Conserver des aliments au frais sans électricité : un réfrigérateur par
+                  évaporation, sans moteur ni fluide frigorigène.
+                </p>
 
-              <span class="pcard__cta">
-                Voir le projet
-                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </span>
-            </div>
-          </a>
+                <ul class="tags tags--sm">
+                  <li>Thermique</li><li>Modélisation</li><li>Conception</li>
+                </ul>
 
-          <a class="pcard reveal tilt" data-reveal="scale" href="projets/frigo-du-desert.html">
-            <div class="pcard__media pcard__media--photo">
-              <img class="pcard__photo" style="--focus: 74%" src="assets/projets/frigo-du-desert/2-sm.webp"
-                   width="600" height="800" loading="lazy" decoding="async"
-                   alt="Le prototype imprimé du frigo du désert">
-            </div>
-
-            <div class="pcard__body">
-              <div class="pcard__top">
-                <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2023 — 2024</span>
-                <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg> Équipe de 10</span>
+                <span class="pcard__cta">
+                  Voir le projet
+                  <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </span>
               </div>
+            </a>
 
-              <h3 class="pcard__title">Frigo du désert</h3>
-              <p class="pcard__context"><svg class="ico" aria-hidden="true"><use href="#i-cog"></use></svg> Projet PISTE — Junia HEI</p>
-              <p class="pcard__desc">
-                Conserver des aliments au frais sans électricité : un réfrigérateur par
-                évaporation, sans moteur ni fluide frigorigène.
-              </p>
+          </div>
+        </div>
 
-              <ul class="tags tags--sm">
-                <li>Thermique</li><li>Modélisation</li><li>Conception</li>
-              </ul>
+        <div class="section__group">
+          <header class="section__head section__head--sub reveal" data-reveal="up">
+            <svg class="ico" aria-hidden="true"><use href="#i-bolt"></use></svg>
+            <h3>Projets personnels</h3>
+            <span class="section__rule" aria-hidden="true"></span>
+          </header>
 
-              <span class="pcard__cta">
-                Voir le projet
-                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+          <p class="section__lede reveal" data-reveal="up">
+            Ce que je démonte, conçois et fabrique en dehors des cours. Chaque carte s'ouvre sur le détail du projet.
+          </p>
+
+          <div class="albums">
+            <button type="button" class="album reveal tilt" data-reveal="scale"
+                    data-album="alb-tondeuse" aria-haspopup="dialog">
+              <span class="album__cover">
+                <img src="assets/albums/robot-tondeuse/4.webp" width="874" height="631"
+                     loading="lazy" decoding="async" alt="">
+                <span class="album__count">
+                  <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
+                  5 vues
+                </span>
+                <span class="album__year">2025</span>
               </span>
-            </div>
-          </a>
+              <span class="album__body">
+                <span class="album__title">Robot tondeuse</span>
+                <span class="album__sub">
+                  Recycler un hoverboard entier — moteurs, batterie et carte de commande reflashée — pour en faire la base d'un robot tondeuse.
+                </span>
+                <span class="album__tags">
+                  <span>STM32</span><span>Reflashage</span><span>Raspberry Pi</span><span>CAO</span>
+                </span>
+                <span class="album__cta">
+                  Ouvrir le projet
+                  <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </span>
+              </span>
+            </button>
 
+            <button type="button" class="album reveal tilt" data-reveal="scale"
+                    data-album="alb-bateau" aria-haspopup="dialog">
+              <span class="album__cover">
+                <img src="assets/albums/modelisme-bateau/3.webp" width="1261" height="616"
+                     loading="lazy" decoding="async" alt="">
+                <span class="album__count">
+                  <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
+                  3 vues
+                </span>
+                <span class="album__year">2023</span>
+              </span>
+              <span class="album__body">
+                <span class="album__title">Modélisme — bateau RC</span>
+                <span class="album__sub">
+                  Une coque dessinée et imprimée en 3D, et toute la chaîne embarquée choisie et dimensionnée pour aller avec.
+                </span>
+                <span class="album__tags">
+                  <span>Fusion 360</span><span>Impression 3D</span><span>Dimensionnement</span>
+                </span>
+                <span class="album__cta">
+                  Ouvrir le projet
+                  <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </span>
+              </span>
+            </button>
+
+            <button type="button" class="album reveal tilt" data-reveal="scale"
+                    data-album="alb-velo" aria-haspopup="dialog">
+              <span class="album__cover">
+                <img src="assets/albums/velo-electrique/1-sm.webp" width="800" height="600"
+                     loading="lazy" decoding="async" alt="">
+                <span class="album__count">
+                  <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
+                  3 photos
+                </span>
+                <span class="album__year">2020</span>
+              </span>
+              <span class="album__body">
+                <span class="album__title">Vélo électrique</span>
+                <span class="album__sub">
+                  Greffer les moteurs et la batterie d'un hoverboard sur un vélo, avec variateurs 36 V et train arrière soudé sur mesure.
+                </span>
+                <span class="album__tags">
+                  <span>Moteurs brushless</span><span>Soudure</span><span>Impression 3D</span>
+                </span>
+                <span class="album__cta">
+                  Ouvrir le projet
+                  <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </span>
+              </span>
+            </button>
+
+            <button type="button" class="album reveal tilt" data-reveal="scale"
+                    data-album="alb-cao" aria-haspopup="dialog">
+              <span class="album__cover">
+                <!-- Planche des quatre pièces : les rendus sont en portrait, un
+                     seul d'entre eux ne survivrait pas au recadrage en 4/3
+                     (voir tools/montage.py). -->
+                <img src="assets/albums/cao-impression-3d/couverture-sm.webp" width="800" height="600"
+                     loading="lazy" decoding="async" alt="">
+                <span class="album__count">
+                  <svg class="ico" aria-hidden="true"><use href="#i-cube"></use></svg>
+                  4 pièces
+                </span>
+                <span class="album__year">En continu</span>
+              </span>
+              <span class="album__body">
+                <span class="album__title">CAO &amp; impression 3D</span>
+                <span class="album__sub">
+                  Boîtiers, supports, adaptateurs : ce qui manque est dessiné sous Fusion 360 ou SolidWorks, puis imprimé.
+                </span>
+                <span class="album__tags">
+                  <span>Fusion 360</span><span>SolidWorks</span><span>Ender 3 Pro</span>
+                </span>
+                <span class="album__cta">
+                  Ouvrir le projet
+                  <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </span>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ============================================================
-         04 — PROJETS PERSONNELS
-         ============================================================ -->
-    <section id="perso" class="section">
-      <div class="wrap">
-        <header class="section__head reveal" data-reveal="up">
-          <span class="section__num" aria-hidden="true">04</span>
-          <h2>Projets personnels</h2>
-          <span class="section__rule" aria-hidden="true"></span>
-        </header>
-
-        <p class="section__lede reveal" data-reveal="up">
-          Ce que je démonte, conçois et fabrique en dehors des cours. Chaque carte s'ouvre sur le détail du projet.
-        </p>
-
-        <div class="albums">
-          <button type="button" class="album reveal tilt" data-reveal="scale"
-                  data-album="alb-tondeuse" aria-haspopup="dialog">
-            <span class="album__cover">
-              <img src="assets/albums/robot-tondeuse/4.webp" width="874" height="631"
-                   loading="lazy" decoding="async" alt="">
-              <span class="album__count">
-                <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
-                5 vues
-              </span>
-              <span class="album__year">2025</span>
-            </span>
-            <span class="album__body">
-              <span class="album__title">Robot tondeuse</span>
-              <span class="album__sub">
-                Recycler un hoverboard entier — moteurs, batterie et carte de commande reflashée — pour en faire la base d'un robot tondeuse.
-              </span>
-              <span class="album__tags">
-                <span>STM32</span><span>Reflashage</span><span>Raspberry Pi</span><span>CAO</span>
-              </span>
-              <span class="album__cta">
-                Ouvrir le projet
-                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </span>
-            </span>
-          </button>
-
-          <button type="button" class="album reveal tilt" data-reveal="scale"
-                  data-album="alb-bateau" aria-haspopup="dialog">
-            <span class="album__cover">
-              <img src="assets/albums/modelisme-bateau/3.webp" width="1261" height="616"
-                   loading="lazy" decoding="async" alt="">
-              <span class="album__count">
-                <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
-                3 vues
-              </span>
-              <span class="album__year">2023</span>
-            </span>
-            <span class="album__body">
-              <span class="album__title">Modélisme — bateau RC</span>
-              <span class="album__sub">
-                Une coque dessinée et imprimée en 3D, et toute la chaîne embarquée choisie et dimensionnée pour aller avec.
-              </span>
-              <span class="album__tags">
-                <span>Fusion 360</span><span>Impression 3D</span><span>Dimensionnement</span>
-              </span>
-              <span class="album__cta">
-                Ouvrir le projet
-                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </span>
-            </span>
-          </button>
-
-          <button type="button" class="album reveal tilt" data-reveal="scale"
-                  data-album="alb-velo" aria-haspopup="dialog">
-            <span class="album__cover">
-              <img src="assets/albums/velo-electrique/1-sm.webp" width="800" height="600"
-                   loading="lazy" decoding="async" alt="">
-              <span class="album__count">
-                <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
-                3 photos
-              </span>
-              <span class="album__year">2020</span>
-            </span>
-            <span class="album__body">
-              <span class="album__title">Vélo électrique</span>
-              <span class="album__sub">
-                Greffer les moteurs et la batterie d'un hoverboard sur un vélo, avec variateurs 36 V et train arrière soudé sur mesure.
-              </span>
-              <span class="album__tags">
-                <span>Moteurs brushless</span><span>Soudure</span><span>Impression 3D</span>
-              </span>
-              <span class="album__cta">
-                Ouvrir le projet
-                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </span>
-            </span>
-          </button>
-
-          <button type="button" class="album reveal tilt" data-reveal="scale"
-                  data-album="alb-cao" aria-haspopup="dialog">
-            <span class="album__cover">
-              <!-- Planche des quatre pièces : les rendus sont en portrait, un
-                   seul d'entre eux ne survivrait pas au recadrage en 4/3
-                   (voir tools/montage.py). -->
-              <img src="assets/albums/cao-impression-3d/couverture-sm.webp" width="800" height="600"
-                   loading="lazy" decoding="async" alt="">
-              <span class="album__count">
-                <svg class="ico" aria-hidden="true"><use href="#i-cube"></use></svg>
-                4 pièces
-              </span>
-              <span class="album__year">En continu</span>
-            </span>
-            <span class="album__body">
-              <span class="album__title">CAO &amp; impression 3D</span>
-              <span class="album__sub">
-                Boîtiers, supports, adaptateurs : ce qui manque est dessiné sous Fusion 360 ou SolidWorks, puis imprimé.
-              </span>
-              <span class="album__tags">
-                <span>Fusion 360</span><span>SolidWorks</span><span>Ender 3 Pro</span>
-              </span>
-              <span class="album__cta">
-                Ouvrir le projet
-                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </span>
-            </span>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         05 — TP ACADÉMIQUES
+         04 — TP ACADÉMIQUES
          ============================================================ -->
     <section id="tp" class="section">
       <div class="wrap">
         <header class="section__head reveal" data-reveal="up">
-          <span class="section__num" aria-hidden="true">05</span>
+          <span class="section__num" aria-hidden="true">04</span>
           <h2>TP académiques</h2>
           <span class="section__rule" aria-hidden="true"></span>
         </header>
@@ -725,12 +742,12 @@
     </section>
 
     <!-- ============================================================
-         06 — COMPÉTENCES
+         05 — COMPÉTENCES
          ============================================================ -->
     <section id="competences" class="section">
       <div class="wrap">
         <header class="section__head reveal" data-reveal="up">
-          <span class="section__num" aria-hidden="true">06</span>
+          <span class="section__num" aria-hidden="true">05</span>
           <h2>Compétences</h2>
           <span class="section__rule" aria-hidden="true"></span>
         </header>
@@ -850,12 +867,12 @@
     </section>
 
     <!-- ============================================================
-         07 — FORMATION
+         06 — FORMATION
          ============================================================ -->
     <section id="formation" class="section">
       <div class="wrap">
         <header class="section__head reveal" data-reveal="up">
-          <span class="section__num" aria-hidden="true">07</span>
+          <span class="section__num" aria-hidden="true">06</span>
           <h2>Formation</h2>
           <span class="section__rule" aria-hidden="true"></span>
         </header>
@@ -895,12 +912,12 @@
     </section>
 
     <!-- ============================================================
-         08 — CONTACT
+         07 — CONTACT
          ============================================================ -->
     <section id="contact" class="section section--contact">
       <div class="wrap">
         <header class="section__head reveal" data-reveal="up">
-          <span class="section__num" aria-hidden="true">08</span>
+          <span class="section__num" aria-hidden="true">07</span>
           <h2>Contact</h2>
           <span class="section__rule" aria-hidden="true"></span>
         </header>

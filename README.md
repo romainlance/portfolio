@@ -36,8 +36,9 @@ Puis ouvrir <http://localhost:8000>.
 ├── sitemap.xml
 ├── assets/
 │   ├── cv-romain-lance.pdf     # CV publié (sans le numéro de téléphone)
-│   ├── cv-romain-lance-en.pdf  # Version anglaise — à déposer (voir plus bas)
+│   ├── cv-romain-lance-en.pdf  # Version anglaise, servie en mode anglais
 │   ├── cv-preview.webp         # Vignette du CV, rendue depuis ce PDF
+│   ├── cv-preview-en.webp      # Vignette de la version anglaise
 │   ├── og-card.jpg             # Image de partage (LinkedIn, messageries)
 │   ├── albums/                 # Photos des projets personnels et des TP
 │   ├── projets/                # Photos des projets (cartes et pages)
@@ -59,7 +60,8 @@ Puis ouvrir <http://localhost:8000>.
 │   ├── video.js                # Façades vidéo (YouTube au clic seulement)
 │   └── i18n.js                 # Bascule français / anglais
 ├── tools/
-│   └── photos.py               # Conversion des photos en WebP
+│   ├── photos.py               # Conversion des photos en WebP
+│   └── montage.py              # Planche de vignettes pour une couverture
 └── README.md
 ```
 
@@ -154,6 +156,21 @@ suffit à en ajouter un.
 En ajoutant une section, penser à trois choses : son numéro (`.section__num`),
 son lien dans `.nav__links`, et son entrée dans le dictionnaire de traduction.
 
+### Marquer une expérience en cours
+
+Une expérience qui n'est pas terminée porte une étiquette `.now`, reprise de la
+pastille pulsée de l'accroche :
+
+```html
+<span class="now"><span class="dot" aria-hidden="true"></span> En cours</span>
+```
+
+Elle se pose dans le `.tl__meta` d'une expérience, dans le `.pcard__when` d'une
+carte projet et dans la case « Période » d'une page projet — cette dernière
+demande alors `class="phero__v phero__v--now"` sur la case. Quand le stage se
+termine, retirer les trois étiquettes et la mention de la date de fin ; c'est
+tout ce qu'il y a à faire.
+
 ### Ajouter un projet
 
 1. Dupliquer une page de `projets/` et l'adapter.
@@ -172,8 +189,11 @@ d'une rangée restent alignées quelles que soient les proportions du cliché :
 </div>
 ```
 
-Pour une photo dont tu n'es pas l'auteur, ajouter le crédit dans la vignette —
-c'est une mention obligatoire, pas une décoration :
+Toutes les images publiées sont aujourd'hui les tiennes. Si tu ajoutes un jour
+une photo dont tu n'es pas l'auteur, le crédit se pose dans la vignette — c'est
+une mention obligatoire, pas une décoration. Trois styles l'attendent, selon
+l'endroit : `.pcard__credit` sur une carte projet, `.tl__shot-credit` sur une
+vignette du parcours, `.shot__credit` sous une figure de page projet.
 
 ```html
 <span class="pcard__credit">Photo : Nom de l'auteur</span>
@@ -283,6 +303,26 @@ Les attributs `width` et `height` des `<img>` doivent correspondre aux
 dimensions réelles du fichier : ils réservent la place et évitent que la page
 sursaute pendant le chargement.
 
+### Une couverture pour un album d'images en portrait
+
+La couverture d'une carte d'album est recadrée en 4/3 au centre. Une image
+nettement plus haute que large y perd son sujet — c'est le cas des rendus CAO.
+`tools/montage.py` les rassemble alors sur une seule planche au bon format :
+
+```bash
+python3 tools/montage.py assets/albums/mon-projet/couverture \
+                         assets/albums/mon-projet/1.webp \
+                         assets/albums/mon-projet/2.webp \
+                         assets/albums/mon-projet/3.webp \
+                         assets/albums/mon-projet/4.webp
+```
+
+La planche reprend le gris de fond des rendus et fond le bord de chaque image
+dedans, si bien que les pièces paraissent posées sur un fond continu plutôt que
+juxtaposées en mosaïque. C'est ce que fait la carte « CAO & impression 3D ».
+Cela suppose évidemment des sources sur fond uni : pour des photos, mieux vaut
+en choisir une seule et la cadrer.
+
 ### Les vidéos
 
 Les vidéos sont hébergées sur YouTube et non dans le dépôt. Un fichier de
@@ -374,7 +414,8 @@ indépendamment de l'autre. **Tant qu'il n'est pas déposé dans `assets/`, c'es
 la version française qui reste en place** plutôt qu'un lien mort ou une image
 cassée — il suffit donc d'ajouter les fichiers, sans toucher au code. Le test
 laisse une erreur 404 dans la console du navigateur ; elle disparaît dès que le
-fichier existe.
+fichier existe. Les quatre fichiers sont aujourd'hui présents : le repli ne
+sert plus qu'à encaisser un remplacement de CV en cours.
 
 Ces deux noms de fichiers sont définis en haut de `js/i18n.js`, dans l'objet
 `CV`.

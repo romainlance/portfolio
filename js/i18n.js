@@ -110,6 +110,9 @@
     'Parcours professionnel': 'Professional experience',
     'Ingénieur R&D en robotique mobile': 'R&D Engineer in mobile robotics',
     'Stage de fin d\'études': 'Final-year internship',
+    'Stage de fin d\'études — jusqu\'en novembre 2026':
+      'Final-year internship — until November 2026',
+    'En cours': 'Ongoing',
     '— laboratoire de recherche': '— research laboratory',
     '6 mois': '6 months',
     '4 mois': '4 months',
@@ -189,71 +192,149 @@
     'TP académiques': 'Academic labs',
     'Perso': 'Personal',
     'TP': 'Labs',
-    'Ce que je démonte, conçois et fabrique en dehors des cours. Chaque carte ouvre son album photo.':
-      'What I take apart, design and build outside class. Each card opens its photo album.',
+    'Ce que je démonte, conçois et fabrique en dehors des cours. Chaque carte s\'ouvre sur le détail du projet.':
+      'What I take apart, design and build outside class. Each card opens onto the project in full.',
     'Les travaux pratiques du cursus, sur du matériel industriel réel.':
       'The hands-on labs of the course, on real industrial hardware.',
 
-    'Vélo électrique': 'Electric bike',
-    'Motorisation d\'un vélo : la roue arrière laisse place à une roue à moyeu moteur, montée sur un châssis fabriqué sur mesure.':
-      'Motorising a bicycle: the rear wheel gives way to a hub-motor wheel, mounted on a purpose-built frame.',
-    'Motoriser un vélo sans repartir d\'une base neuve : le train arrière d\'origine est déposé, remplacé par une roue à moyeu moteur montée sur un châssis fabriqué sur mesure et boulonné au cadre.':
-      'Motorising a bicycle without starting from a new base: the original rear end comes off, replaced by a hub-motor wheel on a purpose-built frame bolted to the bicycle.',
-    'La batterie et le contrôleur prennent place sur ce même châssis, protégés par un boîtier dessiné et imprimé pour l\'occasion.':
-      'The battery and the controller sit on that same frame, protected by an enclosure drawn and printed for the purpose.',
-    'Le vélo complet : la roue arrière d\'origine a laissé place à un ensemble motorisé monté sur un châssis rapporté.':
-      'The complete bicycle: the original rear wheel has given way to a powered assembly on an add-on frame.',
-    'Détail du train arrière : châssis soudé, roue à moyeu moteur, batterie et faisceau électrique.':
-      'Close-up of the rear end: welded frame, hub-motor wheel, battery and wiring loom.',
-    'Le boîtier du contrôleur, dessiné et imprimé en 3D, ajouré pour laisser passer l\'air.':
-      'The controller enclosure, drawn and 3D-printed, vented to let the air through.',
-    'Le vélo motorisé, vu de profil': 'The motorised bicycle, seen from the side',
-    'Gros plan du train arrière motorisé': 'Close-up of the powered rear end',
-    'Boîtier imprimé en 3D protégeant le contrôleur': '3D-printed enclosure protecting the controller',
-    'Motorisation': 'Motorisation',
+    // Repères des vignettes : nombre de vues et date
+    '5 vues': '5 views',
+    '3 vues': '3 views',
+    '4 pièces': '4 parts',
+    '1 photo · 1 vidéo': '1 photo · 1 video',
+    'En continu': 'Ongoing',
+    '3ᵉ et 4ᵉ année': '3rd and 4th year',
 
-    'Hack de hoverboard': 'Hoverboard hack',
-    'Ouverture d\'un hoverboard du commerce pour accéder à sa carte de commande et la reprogrammer.':
-      'Opening up a consumer hoverboard to reach its control board and reprogram it.',
-    'Un hoverboard du commerce est une plateforme fermée, mais son électronique est générique : deux moteurs sans balais, deux étages de puissance et un microcontrôleur bien connu.':
-      'A consumer hoverboard is a closed platform, but its electronics are generic: two brushless motors, two power stages and a well-known microcontroller.',
-    'L\'ouvrir permet d\'identifier ce microcontrôleur, de retrouver son port de programmation et d\'y brancher une sonde — première étape pour remplacer le logiciel d\'origine et réutiliser la motorisation ailleurs.':
-      'Opening it up means identifying that microcontroller, finding its programming port and hooking up a probe — the first step towards replacing the original firmware and reusing the drive elsewhere.',
-    'La carte de commande d\'origine, une fois le hoverboard ouvert : deux étages de puissance, un par moteur de roue.':
-      'The original control board, once the hoverboard is open: two power stages, one per wheel motor.',
-    'Le microcontrôleur qui pilote l\'ensemble : un STM32F103RCT6, cœur ARM Cortex-M3.':
-      'The microcontroller driving the whole thing: an STM32F103RCT6, ARM Cortex-M3 core.',
-    'Programmation par sonde ST-LINK V2, branchée sur le port SWD de la carte.':
-      'Programming through an ST-LINK V2 probe, connected to the board\'s SWD port.',
-    'Carte de commande du hoverboard, une fois l\'appareil ouvert':
+    // Robot tondeuse
+    'Robot tondeuse': 'Robot lawnmower',
+    'Projet personnel · 2025': 'Personal project · 2025',
+    'Recycler un hoverboard entier — moteurs, batterie et carte de commande reflashée — pour en faire la base d\'un robot tondeuse.':
+      'Recycling a whole hoverboard — motors, battery and a reflashed control board — into the base of a robot lawnmower.',
+    'Un hoverboard hors d\'usage, c\'est deux moteurs sans balais, une batterie, et une carte de commande qui sait déjà les piloter. L\'idée du projet : ne rien jeter de tout ça, carte comprise, et en faire la base d\'un robot tondeuse.':
+      'A dead hoverboard is two brushless motors, a battery, and a control board that already knows how to drive them. The idea behind the project: throw none of it away, board included, and turn it into the base of a robot lawnmower.',
+    'Garder la carte d\'origine évite d\'acheter deux variateurs. Encore faut-il pouvoir lui parler : elle est donc':
+      'Keeping the original board saves buying two motor controllers — but it still has to be possible to talk to it, so the board is',
+    'reflashée': 'reflashed',
+    'avec un firmware qui commande chaque moteur séparément et accepte les consignes en PWM, CAN ou UART. Un Raspberry Pi Zero 2 s\'en charge, et les scripts de commande vont avec.':
+      'with firmware that drives each motor independently and accepts setpoints over PWM, CAN or UART. A Raspberry Pi Zero 2 takes care of that, and the control scripts go with it.',
+    'Le robot lui-même est dessiné en CAO autour de cette base : châssis, implantation des deux roues motrices et plateau de coupe.':
+      'The robot itself is drawn in CAD around that base: chassis, placement of the two drive wheels, and cutting deck.',
+    'Le robot dessiné autour de ce qu\'on récupère : les deux roues motrices de l\'hoverboard, un châssis, et un plateau de coupe au centre.':
+      'The robot drawn around what gets salvaged: the hoverboard\'s two drive wheels, a chassis, and a cutting deck in the middle.',
+    'Le plan coté du châssis : 650 mm de large, avec les entraxes de fixation des deux moteurs.':
+      'The dimensioned chassis drawing: 650 mm wide, with the mounting centres for the two motors.',
+    'La carte de commande d\'origine, qu\'on garde entière : deux étages de puissance, un par moteur de roue.':
+      'The original control board, kept whole: two power stages, one per wheel motor.',
+    'Le microcontrôleur à reprogrammer : un STM32F103RCT6, cœur ARM Cortex-M3.':
+      'The microcontroller to reprogram: an STM32F103RCT6, ARM Cortex-M3 core.',
+    'Le reflashage, par sonde ST-LINK V2 sur le port SWD.':
+      'Reflashing, through an ST-LINK V2 probe on the SWD port.',
+    'Le robot tondeuse modélisé : châssis, roues d\'hoverboard et plateau de coupe':
+      'The robot lawnmower modelled: chassis, hoverboard wheels and cutting deck',
+    'Plan coté du châssis du robot tondeuse, 650 mm de large':
+      'Dimensioned drawing of the robot lawnmower chassis, 650 mm wide',
+    'Carte de commande de l\'hoverboard, une fois l\'appareil ouvert':
       'The hoverboard control board, once the device is open',
-    'Gros plan du microcontrôleur STM32F103': 'Close-up of the STM32F103 microcontroller',
-    'Sonde ST-LINK V2 branchée sur le port de programmation':
-      'ST-LINK V2 probe connected to the programming port',
-    'Électronique de puissance': 'Power electronics',
+    'Gros plan du microcontrôleur STM32F103 de la carte':
+      'Close-up of the board\'s STM32F103 microcontroller',
+    'Sonde ST-LINK V2 branchée sur le port de programmation de la carte':
+      'ST-LINK V2 probe connected to the board\'s programming port',
+    'Reflashage': 'Reflashing',
+    'CAN / UART / PWM': 'CAN / UART / PWM',
 
-    'Modélisme — coque de bateau': 'Model making — boat hull',
-    'Une coque dessinée sous Fusion 360, découpée en tronçons imprimables et assemblés par emboîtement.':
-      'A hull drawn in Fusion 360, cut into printable sections that slot together.',
-    'Une coque dépasse largement le volume d\'une imprimante de bureau. Elle est donc dessinée d\'un seul tenant, puis recoupée en tronçons, chacun muni d\'un emboîtement qui garantit l\'alignement à l\'assemblage.':
-      'A hull is far larger than a desktop printer\'s build volume. It is therefore drawn in one piece, then cut into sections, each carrying a joint that guarantees alignment at assembly.',
-    'Le pont reste amovible pour laisser l\'accès à l\'intérieur.':
-      'The deck stays removable to keep the inside accessible.',
-    'La coque et son pont amovible, modélisés sous Fusion 360 et découpés en tronçons compatibles avec le volume d\'impression.':
-      'The hull and its removable deck, modelled in Fusion 360 and cut into sections that fit the build volume.',
+    // Modélisme — bateau RC
+    'Modélisme — bateau RC': 'Model making — RC boat',
+    'Projet personnel · 2023': 'Personal project · 2023',
+    'Une coque dessinée et imprimée en 3D, et toute la chaîne embarquée choisie et dimensionnée pour aller avec.':
+      'A hull drawn and 3D-printed, with the whole on-board chain chosen and sized to match.',
+    'Un bateau radiocommandé conçu de bout en bout plutôt qu\'acheté en kit : la coque est dessinée puis imprimée en 3D, et toute la chaîne embarquée — moteur, batterie, ensemble radio — est choisie et dimensionnée pour aller avec.':
+      'A radio-controlled boat designed end to end rather than bought as a kit: the hull is drawn and then 3D-printed, and the whole on-board chain — motor, battery, radio set — is chosen and sized to match.',
+    'Une coque dépasse largement le volume d\'une imprimante de bureau. Elle est donc dessinée d\'un seul tenant, puis recoupée en tronçons munis d\'un emboîtement qui garantit l\'alignement au collage. Le pont reste amovible pour l\'accès à l\'intérieur.':
+      'A hull is far larger than a desktop printer\'s build volume. It is therefore drawn in one piece, then cut into sections carrying a joint that holds the alignment while the glue sets. The deck stays removable so the inside remains accessible.',
+    'La coque terminée, avec son safran et le logement de la chaîne motrice.':
+      'The finished hull, with its rudder and the housing for the drive train.',
+    'La coque et son pont amovible sous Fusion 360, découpés en tronçons compatibles avec le volume d\'impression.':
+      'The hull and its removable deck in Fusion 360, cut into sections that fit the build volume.',
     'Détail de la liaison entre deux tronçons : l\'emboîtement assure l\'alignement au moment du collage.':
       'Close-up of the joint between two sections: it holds the alignment while the glue sets.',
+    'Le bateau modélisé en entier, coque effilée et safran':
+      'The complete boat modelled, slender hull and rudder',
     'Coque de bateau modélisée sous Fusion 360': 'Boat hull modelled in Fusion 360',
     'Détail de l\'emboîtement entre deux tronçons de coque':
       'Close-up of the joint between two hull sections',
+    'Dimensionnement': 'Sizing',
+    'Radiocommande': 'Radio control',
 
+    // Vélo électrique
+    'Vélo électrique': 'Electric bike',
+    'Projet personnel · 2020': 'Personal project · 2020',
+    'Greffer les moteurs et la batterie d\'un hoverboard sur un vélo, avec variateurs 36 V et train arrière soudé sur mesure.':
+      'Grafting a hoverboard\'s motors and battery onto a bicycle, with 36 V controllers and a purpose-welded rear end.',
+    'Mon premier vrai projet : greffer un hoverboard hors d\'usage sur un vélo. De l\'hoverboard, seuls les':
+      'My first real project: grafting a dead hoverboard onto a bicycle. From the hoverboard, only the',
+    'moteurs et la batterie': 'motors and the battery',
+    'sont conservés — l\'électronique d\'origine, elle, est mise de côté.':
+      'are kept — the original electronics are set aside.',
+    'À la place, deux variateurs brushless 36 V pilotent chaque moteur, commandés par une gâchette au guidon qui leur envoie la consigne. Le reste est de la fabrication : le train arrière est soudé sur mesure, et le boîtier qui protège les contrôleurs est imprimé en 3D.':
+      'In their place, two 36 V brushless controllers drive one motor each, commanded by a thumb throttle on the handlebar that sends them the setpoint. The rest is fabrication: the rear end is welded to measure, and the enclosure protecting the controllers is 3D-printed.',
+    'Mécanique, électronique et soudure dans le même projet — et le point de départ de tout ce qui a suivi.':
+      'Mechanics, electronics and welding in the same project — and the starting point of everything that followed.',
+    'Le vélo terminé : le train arrière porte les deux moteurs récupérés sur l\'hoverboard.':
+      'The finished bicycle: the rear end carries the two motors salvaged from the hoverboard.',
+    'Le train arrière fabriqué pour l\'occasion : châssis soudé, moteur à moyeu, batterie et faisceau.':
+      'The rear end built for the purpose: welded frame, hub motor, battery and wiring loom.',
+    'Le boîtier des contrôleurs, imprimé en 3D et ajouré pour laisser passer l\'air.':
+      'The controller enclosure, 3D-printed and vented to let the air through.',
+    'Le vélo électrique terminé, vu de profil': 'The finished electric bike, seen from the side',
+    'Gros plan du train arrière : châssis soudé, moteur, batterie':
+      'Close-up of the rear end: welded frame, motor, battery',
+    'Boîtier imprimé en 3D protégeant les contrôleurs':
+      '3D-printed enclosure protecting the controllers',
+    'Moteurs brushless': 'Brushless motors',
+    'Variateurs 36 V': '36 V controllers',
+    'Soudure': 'Welding',
+
+    // CAO & impression 3D
+    'CAO & impression 3D': 'CAD & 3D printing',
+    'Projet personnel · en continu': 'Personal project · ongoing',
+    'Boîtiers, supports, adaptateurs : ce qui manque est dessiné sous Fusion 360 ou SolidWorks, puis imprimé.':
+      'Enclosures, brackets, adapters: whatever is missing gets drawn in Fusion 360 or SolidWorks, then printed.',
+    'Ce n\'est pas un projet mais une habitude : dès qu\'une pièce manque, elle est dessinée sous Fusion 360 ou SolidWorks, puis imprimée sur mon Ender 3 Pro. Boîtiers, supports, adaptateurs, pièces de mécanisme.':
+      'Not so much a project as a habit: as soon as a part is missing, it gets drawn in Fusion 360 or SolidWorks, then printed on my Ender 3 Pro. Enclosures, brackets, adapters, mechanism parts.',
+    'C\'est ce qui rend les autres projets possibles : le boîtier de contrôleurs du vélo, le châssis du robot tondeuse et la coque du bateau sortent tous de la même imprimante. Et dessiner pour l\'impression apprend vite ses propres règles — orientation des couches, porte-à-faux, jeux d\'assemblage.':
+      'It is what makes the other projects possible: the bike\'s controller enclosure, the lawnmower chassis and the boat hull all come off the same printer. And designing for printing quickly teaches its own rules — layer orientation, overhangs, assembly clearances.',
+    'Un bras articulé sur son embase, dessiné pour être imprimé d\'une pièce.':
+      'An articulated arm on its base, drawn to be printed in one piece.',
+    'Un boîtier ventilé, avec sa découpe de connecteur et sa grille moulée dans le couvercle.':
+      'A vented enclosure, with its connector cut-out and the grille moulded into the lid.',
+    'Un support à encliqueter, dont la forme sort directement de la pièce qu\'il doit tenir.':
+      'A snap-fit bracket, whose shape comes straight from the part it has to hold.',
+    'Un berceau nervuré : les nervures rigidifient la pièce sans ajouter de matière inutile.':
+      'A ribbed cradle: the ribs stiffen the part without adding needless material.',
+    'Pièce articulée modélisée en CAO': 'Articulated part modelled in CAD',
+    'Boîtier cylindrique ventilé modélisé en CAO': 'Vented cylindrical enclosure modelled in CAD',
+    'Support de fixation modélisé en CAO': 'Mounting bracket modelled in CAD',
+    'Berceau nervuré modélisé en CAO': 'Ribbed cradle modelled in CAD',
+
+    // Automates programmables
     'Automates programmables': 'Programmable logic controllers',
-    'Programmation et mise en service sur trois familles d\'automates industriels, Schneider et Siemens.':
-      'Programming and commissioning across three families of industrial controllers, Schneider and Siemens.',
-    'Trois familles d\'automates, trois générations : le Modicon M340 et le TSX Premium de Schneider, le SIMATIC S7-300 de Siemens. Chaque platine est câblée, adressée et raccordée au réseau Ethernet de la salle.':
-      'Three families of controllers, three generations: Schneider\'s Modicon M340 and TSX Premium, Siemens\' SIMATIC S7-300. Each rack is wired, addressed and connected to the room\'s Ethernet network.',
-    'Le travail va du repérage des entrées et sorties jusqu\'à la mise en service du programme sur la partie opérative.':
-      'The work runs from labelling the inputs and outputs through to commissioning the program on the machine itself.',
+    'TP académique · 3ᵉ et 4ᵉ année': 'Academic lab · 3rd and 4th year',
+    'Du Grafcet au Ladder, en passant par le GEMMA, sur trois familles d\'automates industriels.':
+      'From Grafcet to Ladder by way of GEMMA, on three families of industrial controllers.',
+    'Deux années de travaux pratiques sur des automates industriels réels : le Modicon M340 et le TSX Premium de Schneider, le SIMATIC S7-300 de Siemens.':
+      'Two years of hands-on labs on real industrial controllers: Schneider\'s Modicon M340 and TSX Premium, Siemens\' SIMATIC S7-300.',
+    'La méthode passe avant le code. On décrit d\'abord le fonctionnement en':
+      'Method comes before code. The behaviour is described first in',
+    'Grafcet': 'Grafcet',
+    ', on traite les modes de marche et d\'arrêt au': ', the operating and stop modes are handled with',
+    'GEMMA': 'GEMMA',
+    ', et c\'est seulement ensuite qu\'on écrit le programme en':
+      ', and only then is the program written in',
+    'Ladder': 'Ladder',
+    '. Ce détour évite d\'écrire des séquences qui marchent en nominal et se bloquent au premier arrêt d\'urgence.':
+      '. That detour avoids writing sequences that work nominally and then jam at the first emergency stop.',
+    'Les programmes tournent sur des maquettes de partie opérative : ascenseur, ligne de production, palettiseur.':
+      'The programs run on scale models of the machine side: a lift, a production line, a palletiser.',
     'Schneider Modicon M340 : alimentation CPS 2000, processeur à port Ethernet, module de 16 entrées TOR 24 V (DDI 1602) et module de 16 sorties à relais (DRA 1605).':
       'Schneider Modicon M340: CPS 2000 power supply, processor with Ethernet port, 16-channel 24 V digital input module (DDI 1602) and 16-channel relay output module (DRA 1605).',
     'Siemens SIMATIC S7-300 : alimentation PS 307, CPU 315-2 PN/DP et module mixte 16 entrées / 16 sorties, repéré au nom des capteurs et des actionneurs.':
@@ -263,27 +344,33 @@
     'Automate Schneider Modicon M340 et ses modules': 'Schneider Modicon M340 controller and its modules',
     'Automate Siemens SIMATIC S7-300': 'Siemens SIMATIC S7-300 controller',
     'Automate Schneider Modicon TSX Premium': 'Schneider Modicon TSX Premium controller',
-    'Entrées/sorties TOR': 'Digital I/O',
 
-    'Programmation d\'un robot mobile omnidirectionnel Festo dans l\'environnement graphique Robotino View.':
-      'Programming a Festo omnidirectional mobile robot in the Robotino View graphical environment.',
+    // Robotino
+    'Suivi d\'objet sur un robot omnidirectionnel : analyse de l\'image en temps réel, puis consignes des trois moteurs.':
+      'Object tracking on an omnidirectional robot: real-time image analysis, then setpoints for the three motors.',
     'Le Robotino de Festo est un robot mobile à trois roues omnidirectionnelles : aucune direction à braquer, le déplacement naît de la combinaison des trois vitesses de roue.':
       'Festo\'s Robotino is a mobile robot on three omnidirectional wheels: nothing to steer — motion comes from combining the three wheel speeds.',
-    'La programmation se fait par blocs sous Robotino View, en reliant capteurs, calculs et consignes moteur — le robot exécute le diagramme tel qu\'il est dessiné.':
-      'Programming is done with blocks in Robotino View, wiring sensors, computations and motor setpoints together — the robot runs the diagram exactly as drawn.',
+    'L\'objectif du TP était le': 'The goal of the lab was',
+    'suivi d\'objet': 'object tracking',
+    ': analyser l\'image de la caméra en temps réel pour situer la cible, puis en déduire à chaque instant les consignes des trois moteurs. Perception et commande dans la même boucle, sur un robot qui peut se déplacer dans toutes les directions sans se réorienter.':
+      ': analysing the camera image in real time to locate the target, then deriving the three motor setpoints from it at every instant. Perception and control in the same loop, on a robot that can move in any direction without turning to face it.',
+    'La programmation se fait par blocs sous Robotino View, en reliant capteurs, calculs et consignes moteur.':
+      'Programming is done with blocks in Robotino View, wiring sensors, computations and motor setpoints together.',
     'Le programme sous Robotino View : un diagramme de blocs relie les consignes des trois moteurs, l\'entraînement omnidirectionnel, la détection de collision et les entrées/sorties du robot.':
       'The program in Robotino View: a block diagram wires together the three motor setpoints, the omnidirectional drive, collision detection and the robot\'s inputs and outputs.',
+    'Le robot en action : il repère la cible à la caméra et la suit en se déplaçant.':
+      'The robot in action: it picks the target out with the camera and follows it as it moves.',
     'Programme du Robotino dans l\'environnement Robotino View':
       'The Robotino program in the Robotino View environment',
+    'Analyse d\'image': 'Image analysis',
+    'Suivi d\'objet': 'Object tracking',
     'Robot omnidirectionnel': 'Omnidirectional robot',
-    '1 photo · 1 vidéo': '1 photo · 1 video',
-    'Le robot en déplacement, piloté par le programme ci-contre.':
-      'The robot on the move, driven by the program shown alongside.',
+
+    // Illustrations des pages projet reprises dans les albums
     'Roue folle du fauteuil roulant, montée sur sa fourche pivotante':
       'Caster wheel of the wheelchair, mounted on its swivelling fork',
     'L\'enceinte du frigo du désert en cours d\'impression 3D':
       'The desert fridge enclosure being 3D-printed',
-    'Programmation par blocs': 'Block programming',
 
     // Photo du stage Industeam, dans le parcours
     'Sur le chantier': 'On site',
@@ -391,7 +478,8 @@
     '6 étudiants': '6 students',
     '10 étudiants': '10 students',
     'Article scientifique + rapport': 'Scientific paper + report',
-    'Stage de fin d\'études — INIT Robots': 'Final-year internship — INIT Robots',
+    'Stage de fin d\'études — INIT Robots, jusqu\'en novembre 2026':
+      'Final-year internship — INIT Robots, until November 2026',
     'Junia HEI × laboratoire CRIStAL': 'Junia HEI × CRIStAL laboratory',
     'Pilotage du projet, cahier des charges, commande moteurs':
       'Project leadership, specification, motor control',
@@ -535,12 +623,14 @@
     'Le rover assemblé, posé sur un plan de travail': 'The assembled rover on a workbench',
     'Le rover modélisé sous SolidWorks': 'The rover modelled in SolidWorks',
     'Vue éclatée des composants du rover': 'Exploded view of the rover components',
-    'Le Dino dans son usage d\'origine : désherbage mécanique entre les rangs.':
-      'The Dino in its original use: mechanical weeding between the rows.',
-    'Photo : Naïo Technologies': 'Photo: Naïo Technologies',
-    'Image d\'illustration : Naïo Technologies': 'Illustration image: Naïo Technologies',
-    'Le Dino de Naïo Technologies au travail dans un champ de salades':
-      'Naïo Technologies\' Dino at work in a lettuce field',
+    'Le matériel à piloter, modélisé en 3D : quatre roues motrices, chacune orientée par son propre actionneur — soit les huit articulations que la commande doit coordonner.':
+      'The hardware to drive, modelled in 3D: four driven wheels, each steered by its own actuator — the eight joints the control layer has to coordinate.',
+    'Modèle 3D du robot Dino : châssis surbaissé porté par quatre roues motrices et directrices':
+      '3D model of the Dino robot: a low chassis carried on four driven, steered wheels',
+    'Vue rapprochée d\'un train de roues. L\'arrêt d\'urgence, sur le capot, reste câblé à l\'automate de sécurité et non au nouvel ordinateur de bord.':
+      'Close-up of one wheel unit. The emergency stop, on the hood, stays wired to the safety controller and not to the new on-board computer.',
+    'Le même modèle vu de plus bas : les quatre trains de roues et l\'arrêt d\'urgence sur le capot':
+      'The same model seen from lower down: the four wheel units and the emergency stop on the hood',
     'Le prototype imprimé du frigo du désert': 'The printed prototype of the desert fridge',
     'Le rover agricole modélisé sous SolidWorks': 'The agricultural rover modelled in SolidWorks',
     'Cinématique différentielle': 'Differential kinematics',

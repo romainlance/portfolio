@@ -270,6 +270,7 @@
             <div class="tl__meta">
               <time datetime="2026"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2026</time>
               <span class="tl__dur"><svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg> 6 mois</span>
+              <span class="now"><span class="dot" aria-hidden="true"></span> En cours</span>
             </div>
             <div class="tl__body">
               <h3 class="tl__role">Ingénieur R&amp;D en robotique mobile</h3>
@@ -278,7 +279,7 @@
                 <strong>INIT Robots</strong> — laboratoire de recherche
                 <span class="tl__loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg> Montréal, Canada</span>
               </p>
-              <p class="tl__kind">Stage de fin d'études</p>
+              <p class="tl__kind">Stage de fin d'études — jusqu'en novembre 2026</p>
               <ul class="tl__list">
                 <li>Ouverture d'un robot agricole commercial pour en faire une plateforme de recherche pilotable sous ROS&nbsp;2.</li>
                 <li>Conception et implémentation du modèle cinématique commandant les actionneurs du robot.</li>
@@ -291,13 +292,12 @@
 
               <!-- Ce stage a donné lieu à une page projet : la vignette y mène -->
               <a class="tl__shot tilt" href="projets/dino-plateforme-ros2.html">
-                <img src="assets/projets/dino/1.webp" width="678" height="452"
+                <img src="assets/projets/dino/1.webp" width="982" height="534"
                      loading="lazy" decoding="async" alt="">
                 <span class="tl__shot-label">
                   <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
                   Voir le projet Dino
                 </span>
-                <span class="tl__shot-credit">Photo : Naïo Technologies</span>
               </a>
             </div>
           </li>
@@ -400,14 +400,16 @@
 
           <a class="pcard reveal tilt" data-reveal="scale" href="projets/dino-plateforme-ros2.html">
             <div class="pcard__media pcard__media--photo">
-              <img class="pcard__photo" src="assets/projets/dino/1.webp" width="678" height="452"
-                   loading="lazy" decoding="async" alt="Le Dino de Naïo Technologies au travail dans un champ de salades">
-              <span class="pcard__credit">Photo : Naïo Technologies</span>
+              <img class="pcard__photo" src="assets/projets/dino/1.webp" width="982" height="534"
+                   loading="lazy" decoding="async" alt="Modèle 3D du robot Dino : châssis surbaissé porté par quatre roues motrices et directrices">
             </div>
 
             <div class="pcard__body">
               <div class="pcard__top">
-                <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2026</span>
+                <span class="pcard__when">
+                  <span class="pcard__year"><svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg> 2026</span>
+                  <span class="now"><span class="dot" aria-hidden="true"></span> En cours</span>
+                </span>
                 <span class="pcard__team"><svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg> 6 mois</span>
               </div>
 
@@ -537,55 +539,28 @@
         </header>
 
         <p class="section__lede reveal" data-reveal="up">
-          Ce que je démonte, conçois et fabrique en dehors des cours. Chaque carte ouvre son album photo.
+          Ce que je démonte, conçois et fabrique en dehors des cours. Chaque carte s'ouvre sur le détail du projet.
         </p>
 
         <div class="albums">
-
           <button type="button" class="album reveal tilt" data-reveal="scale"
-                  data-album="alb-velo" aria-haspopup="dialog">
+                  data-album="alb-tondeuse" aria-haspopup="dialog">
             <span class="album__cover">
-              <img src="assets/albums/velo-electrique/1-sm.webp" width="800" height="600"
+              <img src="assets/albums/robot-tondeuse/4.webp" width="874" height="631"
                    loading="lazy" decoding="async" alt="">
               <span class="album__count">
                 <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
-                3 photos
+                5 vues
               </span>
+              <span class="album__year">2025</span>
             </span>
             <span class="album__body">
-              <span class="album__title">Vélo électrique</span>
+              <span class="album__title">Robot tondeuse</span>
               <span class="album__sub">
-                Motorisation d'un vélo : la roue arrière laisse place à une roue à moyeu moteur,
-                montée sur un châssis fabriqué sur mesure.
+                Recycler un hoverboard entier — moteurs, batterie et carte de commande reflashée — pour en faire la base d'un robot tondeuse.
               </span>
               <span class="album__tags">
-                <span>Motorisation</span><span>Fabrication</span><span>Impression 3D</span>
-              </span>
-              <span class="album__cta">
-                Ouvrir le projet
-                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-              </span>
-            </span>
-          </button>
-
-          <button type="button" class="album reveal tilt" data-reveal="scale"
-                  data-album="alb-hoverboard" aria-haspopup="dialog">
-            <span class="album__cover">
-              <img src="assets/albums/hack-hoverboard/1-sm.webp" width="600" height="800"
-                   loading="lazy" decoding="async" alt="">
-              <span class="album__count">
-                <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
-                3 photos
-              </span>
-            </span>
-            <span class="album__body">
-              <span class="album__title">Hack de hoverboard</span>
-              <span class="album__sub">
-                Ouverture d'un hoverboard du commerce pour accéder à sa carte de commande
-                et la reprogrammer.
-              </span>
-              <span class="album__tags">
-                <span>STM32</span><span>Rétro-ingénierie</span><span>Électronique</span>
+                <span>STM32</span><span>Reflashage</span><span>Raspberry Pi</span><span>CAO</span>
               </span>
               <span class="album__cta">
                 Ouvrir le projet
@@ -597,21 +572,21 @@
           <button type="button" class="album reveal tilt" data-reveal="scale"
                   data-album="alb-bateau" aria-haspopup="dialog">
             <span class="album__cover">
-              <img src="assets/albums/modelisme-bateau/1-sm.webp" width="800" height="600"
+              <img src="assets/albums/modelisme-bateau/3.webp" width="1261" height="616"
                    loading="lazy" decoding="async" alt="">
               <span class="album__count">
                 <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
-                2 photos
+                3 vues
               </span>
+              <span class="album__year">2023</span>
             </span>
             <span class="album__body">
-              <span class="album__title">Modélisme — coque de bateau</span>
+              <span class="album__title">Modélisme — bateau RC</span>
               <span class="album__sub">
-                Une coque dessinée sous Fusion 360, découpée en tronçons imprimables
-                et assemblés par emboîtement.
+                Une coque dessinée et imprimée en 3D, et toute la chaîne embarquée choisie et dimensionnée pour aller avec.
               </span>
               <span class="album__tags">
-                <span>Fusion 360</span><span>CAO</span><span>Impression 3D</span>
+                <span>Fusion 360</span><span>Impression 3D</span><span>Dimensionnement</span>
               </span>
               <span class="album__cta">
                 Ouvrir le projet
@@ -620,6 +595,60 @@
             </span>
           </button>
 
+          <button type="button" class="album reveal tilt" data-reveal="scale"
+                  data-album="alb-velo" aria-haspopup="dialog">
+            <span class="album__cover">
+              <img src="assets/albums/velo-electrique/1-sm.webp" width="800" height="600"
+                   loading="lazy" decoding="async" alt="">
+              <span class="album__count">
+                <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
+                3 photos
+              </span>
+              <span class="album__year">2020</span>
+            </span>
+            <span class="album__body">
+              <span class="album__title">Vélo électrique</span>
+              <span class="album__sub">
+                Greffer les moteurs et la batterie d'un hoverboard sur un vélo, avec variateurs 36 V et train arrière soudé sur mesure.
+              </span>
+              <span class="album__tags">
+                <span>Moteurs brushless</span><span>Soudure</span><span>Impression 3D</span>
+              </span>
+              <span class="album__cta">
+                Ouvrir le projet
+                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+              </span>
+            </span>
+          </button>
+
+          <button type="button" class="album reveal tilt" data-reveal="scale"
+                  data-album="alb-cao" aria-haspopup="dialog">
+            <span class="album__cover">
+              <!-- Planche des quatre pièces : les rendus sont en portrait, un
+                   seul d'entre eux ne survivrait pas au recadrage en 4/3
+                   (voir tools/montage.py). -->
+              <img src="assets/albums/cao-impression-3d/couverture-sm.webp" width="800" height="600"
+                   loading="lazy" decoding="async" alt="">
+              <span class="album__count">
+                <svg class="ico" aria-hidden="true"><use href="#i-cube"></use></svg>
+                4 pièces
+              </span>
+              <span class="album__year">En continu</span>
+            </span>
+            <span class="album__body">
+              <span class="album__title">CAO &amp; impression 3D</span>
+              <span class="album__sub">
+                Boîtiers, supports, adaptateurs : ce qui manque est dessiné sous Fusion 360 ou SolidWorks, puis imprimé.
+              </span>
+              <span class="album__tags">
+                <span>Fusion 360</span><span>SolidWorks</span><span>Ender 3 Pro</span>
+              </span>
+              <span class="album__cta">
+                Ouvrir le projet
+                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+              </span>
+            </span>
+          </button>
         </div>
       </div>
     </section>
@@ -640,7 +669,6 @@
         </p>
 
         <div class="albums">
-
           <button type="button" class="album reveal tilt" data-reveal="scale"
                   data-album="alb-automates" aria-haspopup="dialog">
             <span class="album__cover">
@@ -650,15 +678,15 @@
                 <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
                 3 photos
               </span>
+              <span class="album__year">3ᵉ et 4ᵉ année</span>
             </span>
             <span class="album__body">
               <span class="album__title">Automates programmables</span>
               <span class="album__sub">
-                Programmation et mise en service sur trois familles d'automates industriels,
-                Schneider et Siemens.
+                Du Grafcet au Ladder, en passant par le GEMMA, sur trois familles d'automates industriels.
               </span>
               <span class="album__tags">
-                <span>Modicon</span><span>SIMATIC</span><span>Entrées/sorties TOR</span>
+                <span>Grafcet</span><span>GEMMA</span><span>Ladder</span>
               </span>
               <span class="album__cta">
                 Ouvrir le TP
@@ -676,15 +704,15 @@
                 <svg class="ico" aria-hidden="true"><use href="#i-play"></use></svg>
                 1 photo · 1 vidéo
               </span>
+              <!-- Pas de repère d'année ici : je n'ai pas noté celle de ce TP. -->
             </span>
             <span class="album__body">
               <span class="album__title">Robotino</span>
               <span class="album__sub">
-                Programmation d'un robot mobile omnidirectionnel Festo dans l'environnement
-                graphique Robotino View.
+                Suivi d'objet sur un robot omnidirectionnel : analyse de l'image en temps réel, puis consignes des trois moteurs.
               </span>
               <span class="album__tags">
-                <span>Robotino View</span><span>Robot omnidirectionnel</span>
+                <span>Analyse d'image</span><span>Suivi d'objet</span><span>Robotino View</span>
               </span>
               <span class="album__cta">
                 Ouvrir le TP
@@ -692,7 +720,6 @@
               </span>
             </span>
           </button>
-
         </div>
       </div>
     </section>
@@ -1051,89 +1078,51 @@
         </div>
       </article>
 
-      <!-- ---------- Vélo électrique ---------- -->
-      <article class="album__detail" id="alb-velo" hidden>
+      <!-- ---------- Robot tondeuse ---------- -->
+      <article class="album__detail" id="alb-tondeuse" hidden>
         <div class="album__viewer">
           <div class="album__frame tilt">
             <figure class="album__slide is-current">
-              <img src="assets/albums/velo-electrique/1.webp" width="1600" height="1200"
+              <img src="assets/albums/robot-tondeuse/4.webp" width="874" height="631"
                    loading="lazy" decoding="async"
-                   alt="Le vélo motorisé, vu de profil">
+                   alt="Le robot tondeuse modélisé : châssis, roues d'hoverboard et plateau de coupe">
               <figcaption>
-                Le vélo complet : la roue arrière d'origine a laissé place à un ensemble
-                motorisé monté sur un châssis rapporté.
+                Le robot dessiné autour de ce qu'on récupère : les deux roues motrices de
+                l'hoverboard, un châssis, et un plateau de coupe au centre.
               </figcaption>
             </figure>
             <figure class="album__slide">
-              <img src="assets/albums/velo-electrique/2.webp" width="1600" height="1200"
+              <img src="assets/albums/robot-tondeuse/5.webp" width="1600" height="1132"
                    loading="lazy" decoding="async"
-                   alt="Gros plan du train arrière motorisé">
+                   alt="Plan coté du châssis du robot tondeuse, 650 mm de large">
               <figcaption>
-                Détail du train arrière : châssis soudé, roue à moyeu moteur, batterie
-                et faisceau électrique.
+                Le plan coté du châssis : 650 mm de large, avec les entraxes de fixation des
+                deux moteurs.
               </figcaption>
             </figure>
             <figure class="album__slide">
-              <img src="assets/albums/velo-electrique/3.webp" width="1600" height="1200"
+              <img src="assets/albums/robot-tondeuse/1.webp" width="1200" height="1600"
                    loading="lazy" decoding="async"
-                   alt="Boîtier imprimé en 3D protégeant le contrôleur">
+                   alt="Carte de commande de l'hoverboard, une fois l'appareil ouvert">
               <figcaption>
-                Le boîtier du contrôleur, dessiné et imprimé en 3D, ajouré pour laisser
-                passer l'air.
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-
-        <div class="album__head">
-          <p class="modal__eyebrow">
-            <svg class="ico" aria-hidden="true"><use href="#i-bike"></use></svg>
-            Projet personnel
-          </p>
-          <h2 class="album__detail-title" id="alb-velo-title">Vélo électrique</h2>
-          <p class="album__detail-lede">
-            Motoriser un vélo sans repartir d'une base neuve : le train arrière d'origine
-            est déposé, remplacé par une roue à moyeu moteur montée sur un châssis
-            fabriqué sur mesure et boulonné au cadre.
-          </p>
-          <p class="album__detail-lede">
-            La batterie et le contrôleur prennent place sur ce même châssis, protégés par
-            un boîtier dessiné et imprimé pour l'occasion.
-          </p>
-          <ul class="tags tags--sm album__meta">
-            <li>Motorisation</li><li>Fabrication</li><li>Impression 3D</li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- ---------- Hack de hoverboard ---------- -->
-      <article class="album__detail" id="alb-hoverboard" hidden>
-        <div class="album__viewer">
-          <div class="album__frame tilt">
-            <figure class="album__slide is-current">
-              <img src="assets/albums/hack-hoverboard/1.webp" width="1200" height="1600"
-                   loading="lazy" decoding="async"
-                   alt="Carte de commande du hoverboard, une fois l'appareil ouvert">
-              <figcaption>
-                La carte de commande d'origine, une fois le hoverboard ouvert : deux étages
-                de puissance, un par moteur de roue.
+                La carte de commande d'origine, qu'on garde entière : deux étages de
+                puissance, un par moteur de roue.
               </figcaption>
             </figure>
             <figure class="album__slide">
-              <img src="assets/albums/hack-hoverboard/2.webp" width="1200" height="1600"
+              <img src="assets/albums/robot-tondeuse/2.webp" width="1200" height="1600"
                    loading="lazy" decoding="async"
-                   alt="Gros plan du microcontrôleur STM32F103">
+                   alt="Gros plan du microcontrôleur STM32F103 de la carte">
               <figcaption>
-                Le microcontrôleur qui pilote l'ensemble : un STM32F103RCT6, cœur ARM
-                Cortex-M3.
+                Le microcontrôleur à reprogrammer : un STM32F103RCT6, cœur ARM Cortex-M3.
               </figcaption>
             </figure>
             <figure class="album__slide">
-              <img src="assets/albums/hack-hoverboard/3.webp" width="1200" height="1600"
+              <img src="assets/albums/robot-tondeuse/3.webp" width="1200" height="1600"
                    loading="lazy" decoding="async"
-                   alt="Sonde ST-LINK V2 branchée sur le port de programmation">
+                   alt="Sonde ST-LINK V2 branchée sur le port de programmation de la carte">
               <figcaption>
-                Programmation par sonde ST-LINK V2, branchée sur le port SWD de la carte.
+                Le reflashage, par sonde ST-LINK V2 sur le port SWD.
               </figcaption>
             </figure>
           </div>
@@ -1142,36 +1131,49 @@
         <div class="album__head">
           <p class="modal__eyebrow">
             <svg class="ico" aria-hidden="true"><use href="#i-bolt"></use></svg>
-            Projet personnel
+            Projet personnel · 2025
           </p>
-          <h2 class="album__detail-title" id="alb-hoverboard-title">Hack de hoverboard</h2>
+          <h2 class="album__detail-title" id="alb-tondeuse-title">Robot tondeuse</h2>
           <p class="album__detail-lede">
-            Un hoverboard du commerce est une plateforme fermée, mais son électronique est
-            générique : deux moteurs sans balais, deux étages de puissance et un
-            microcontrôleur bien connu.
+            Un hoverboard hors d'usage, c'est deux moteurs sans balais, une batterie, et une
+            carte de commande qui sait déjà les piloter. L'idée du projet : ne rien jeter de
+            tout ça, carte comprise, et en faire la base d'un robot tondeuse.
           </p>
           <p class="album__detail-lede">
-            L'ouvrir permet d'identifier ce microcontrôleur, de retrouver son port de
-            programmation et d'y brancher une sonde — première étape pour remplacer le
-            logiciel d'origine et réutiliser la motorisation ailleurs.
+            Garder la carte d'origine évite d'acheter deux variateurs. Encore faut-il pouvoir
+            lui parler : elle est donc <strong>reflashée</strong> avec un firmware qui commande
+            chaque moteur séparément et accepte les consignes en PWM, CAN ou UART. Un
+            Raspberry&nbsp;Pi Zero&nbsp;2 s'en charge, et les scripts de commande vont avec.
+          </p>
+          <p class="album__detail-lede">
+            Le robot lui-même est dessiné en CAO autour de cette base : châssis, implantation
+            des deux roues motrices et plateau de coupe.
           </p>
           <ul class="tags tags--sm album__meta">
-            <li>STM32</li><li>Rétro-ingénierie</li><li>Électronique de puissance</li>
+            <li>STM32</li><li>Reflashage</li><li>Raspberry Pi</li><li>CAN / UART / PWM</li><li>CAO</li>
           </ul>
         </div>
       </article>
 
-      <!-- ---------- Modélisme — coque de bateau ---------- -->
+      <!-- ---------- Modélisme — bateau RC ---------- -->
       <article class="album__detail" id="alb-bateau" hidden>
         <div class="album__viewer">
           <div class="album__frame tilt">
             <figure class="album__slide is-current">
+              <img src="assets/albums/modelisme-bateau/3.webp" width="1261" height="616"
+                   loading="lazy" decoding="async"
+                   alt="Le bateau modélisé en entier, coque effilée et safran">
+              <figcaption>
+                La coque terminée, avec son safran et le logement de la chaîne motrice.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
               <img src="assets/albums/modelisme-bateau/1.webp" width="1600" height="1200"
                    loading="lazy" decoding="async"
                    alt="Coque de bateau modélisée sous Fusion 360">
               <figcaption>
-                La coque et son pont amovible, modélisés sous Fusion 360 et découpés en
-                tronçons compatibles avec le volume d'impression.
+                La coque et son pont amovible sous Fusion 360, découpés en tronçons
+                compatibles avec le volume d'impression.
               </figcaption>
             </figure>
             <figure class="album__slide">
@@ -1189,19 +1191,136 @@
         <div class="album__head">
           <p class="modal__eyebrow">
             <svg class="ico" aria-hidden="true"><use href="#i-boat"></use></svg>
-            Projet personnel
+            Projet personnel · 2023
           </p>
-          <h2 class="album__detail-title" id="alb-bateau-title">Modélisme — coque de bateau</h2>
+          <h2 class="album__detail-title" id="alb-bateau-title">Modélisme — bateau RC</h2>
+          <p class="album__detail-lede">
+            Un bateau radiocommandé conçu de bout en bout plutôt qu'acheté en kit : la coque
+            est dessinée puis imprimée en 3D, et toute la chaîne embarquée — moteur, batterie,
+            ensemble radio — est choisie et dimensionnée pour aller avec.
+          </p>
           <p class="album__detail-lede">
             Une coque dépasse largement le volume d'une imprimante de bureau. Elle est donc
-            dessinée d'un seul tenant, puis recoupée en tronçons, chacun muni d'un
-            emboîtement qui garantit l'alignement à l'assemblage.
-          </p>
-          <p class="album__detail-lede">
-            Le pont reste amovible pour laisser l'accès à l'intérieur.
+            dessinée d'un seul tenant, puis recoupée en tronçons munis d'un emboîtement qui
+            garantit l'alignement au collage. Le pont reste amovible pour l'accès à
+            l'intérieur.
           </p>
           <ul class="tags tags--sm album__meta">
-            <li>Fusion 360</li><li>CAO</li><li>Impression 3D</li>
+            <li>Fusion 360</li><li>Impression 3D</li><li>Dimensionnement</li><li>Radiocommande</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ---------- Vélo électrique ---------- -->
+      <article class="album__detail" id="alb-velo" hidden>
+        <div class="album__viewer">
+          <div class="album__frame tilt">
+            <figure class="album__slide is-current">
+              <img src="assets/albums/velo-electrique/1.webp" width="1600" height="1200"
+                   loading="lazy" decoding="async"
+                   alt="Le vélo électrique terminé, vu de profil">
+              <figcaption>
+                Le vélo terminé : le train arrière porte les deux moteurs récupérés sur
+                l'hoverboard.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/albums/velo-electrique/2.webp" width="1600" height="1200"
+                   loading="lazy" decoding="async"
+                   alt="Gros plan du train arrière : châssis soudé, moteur, batterie">
+              <figcaption>
+                Le train arrière fabriqué pour l'occasion : châssis soudé, moteur à moyeu,
+                batterie et faisceau.
+              </figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/albums/velo-electrique/3.webp" width="1600" height="1200"
+                   loading="lazy" decoding="async"
+                   alt="Boîtier imprimé en 3D protégeant les contrôleurs">
+              <figcaption>
+                Le boîtier des contrôleurs, imprimé en 3D et ajouré pour laisser passer l'air.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="album__head">
+          <p class="modal__eyebrow">
+            <svg class="ico" aria-hidden="true"><use href="#i-bike"></use></svg>
+            Projet personnel · 2020
+          </p>
+          <h2 class="album__detail-title" id="alb-velo-title">Vélo électrique</h2>
+          <p class="album__detail-lede">
+            Mon premier vrai projet : greffer un hoverboard hors d'usage sur un vélo. De
+            l'hoverboard, seuls les <strong>moteurs et la batterie</strong> sont conservés —
+            l'électronique d'origine, elle, est mise de côté.
+          </p>
+          <p class="album__detail-lede">
+            À la place, deux variateurs brushless 36&nbsp;V pilotent chaque moteur, commandés
+            par une gâchette au guidon qui leur envoie la consigne. Le reste est de la
+            fabrication : le train arrière est soudé sur mesure, et le boîtier qui protège les
+            contrôleurs est imprimé en 3D.
+          </p>
+          <p class="album__detail-lede">
+            Mécanique, électronique et soudure dans le même projet — et le point de départ de
+            tout ce qui a suivi.
+          </p>
+          <ul class="tags tags--sm album__meta">
+            <li>Moteurs brushless</li><li>Variateurs 36 V</li><li>Soudure</li><li>Impression 3D</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ---------- CAO & impression 3D ---------- -->
+      <article class="album__detail" id="alb-cao" hidden>
+        <div class="album__viewer">
+          <div class="album__frame tilt">
+            <figure class="album__slide is-current">
+              <img src="assets/albums/cao-impression-3d/1.webp" width="437" height="581"
+                   loading="lazy" decoding="async"
+                   alt="Pièce articulée modélisée en CAO">
+              <figcaption>Un bras articulé sur son embase, dessiné pour être imprimé d'une pièce.</figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/albums/cao-impression-3d/2.webp" width="515" height="531"
+                   loading="lazy" decoding="async"
+                   alt="Boîtier cylindrique ventilé modélisé en CAO">
+              <figcaption>Un boîtier ventilé, avec sa découpe de connecteur et sa grille moulée dans le couvercle.</figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/albums/cao-impression-3d/3.webp" width="512" height="576"
+                   loading="lazy" decoding="async"
+                   alt="Support de fixation modélisé en CAO">
+              <figcaption>Un support à encliqueter, dont la forme sort directement de la pièce qu'il doit tenir.</figcaption>
+            </figure>
+            <figure class="album__slide">
+              <img src="assets/albums/cao-impression-3d/4.webp" width="432" height="591"
+                   loading="lazy" decoding="async"
+                   alt="Berceau nervuré modélisé en CAO">
+              <figcaption>Un berceau nervuré : les nervures rigidifient la pièce sans ajouter de matière inutile.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="album__head">
+          <p class="modal__eyebrow">
+            <svg class="ico" aria-hidden="true"><use href="#i-cube"></use></svg>
+            Projet personnel · en continu
+          </p>
+          <h2 class="album__detail-title" id="alb-cao-title">CAO &amp; impression 3D</h2>
+          <p class="album__detail-lede">
+            Ce n'est pas un projet mais une habitude : dès qu'une pièce manque, elle est
+            dessinée sous Fusion&nbsp;360 ou SolidWorks, puis imprimée sur mon Ender&nbsp;3
+            Pro. Boîtiers, supports, adaptateurs, pièces de mécanisme.
+          </p>
+          <p class="album__detail-lede">
+            C'est ce qui rend les autres projets possibles : le boîtier de contrôleurs du
+            vélo, le châssis du robot tondeuse et la coque du bateau sortent tous de la même
+            imprimante. Et dessiner pour l'impression apprend vite ses propres règles —
+            orientation des couches, porte-à-faux, jeux d'assemblage.
+          </p>
+          <ul class="tags tags--sm album__meta">
+            <li>Fusion 360</li><li>SolidWorks</li><li>Ender 3 Pro</li><li>Conception de pièces</li>
           </ul>
         </div>
       </article>
@@ -1225,9 +1344,8 @@
                    loading="lazy" decoding="async"
                    alt="Automate Siemens SIMATIC S7-300">
               <figcaption>
-                Siemens SIMATIC S7-300 : alimentation PS 307, CPU 315-2 PN/DP et module
-                mixte 16 entrées / 16 sorties, repéré au nom des capteurs et des
-                actionneurs.
+                Siemens SIMATIC S7-300 : alimentation PS 307, CPU 315-2 PN/DP et module mixte
+                16 entrées / 16 sorties, repéré au nom des capteurs et des actionneurs.
               </figcaption>
             </figure>
             <figure class="album__slide">
@@ -1246,20 +1364,26 @@
         <div class="album__head">
           <p class="modal__eyebrow">
             <svg class="ico" aria-hidden="true"><use href="#i-plc"></use></svg>
-            TP académique
+            TP académique · 3ᵉ et 4ᵉ année
           </p>
           <h2 class="album__detail-title" id="alb-automates-title">Automates programmables</h2>
           <p class="album__detail-lede">
-            Trois familles d'automates, trois générations : le Modicon M340 et le TSX Premium
-            de Schneider, le SIMATIC S7-300 de Siemens. Chaque platine est câblée, adressée
-            et raccordée au réseau Ethernet de la salle.
+            Deux années de travaux pratiques sur des automates industriels réels : le Modicon
+            M340 et le TSX Premium de Schneider, le SIMATIC S7-300 de Siemens.
           </p>
           <p class="album__detail-lede">
-            Le travail va du repérage des entrées et sorties jusqu'à la mise en service du
-            programme sur la partie opérative.
+            La méthode passe avant le code. On décrit d'abord le fonctionnement en
+            <strong>Grafcet</strong>, on traite les modes de marche et d'arrêt au
+            <strong>GEMMA</strong>, et c'est seulement ensuite qu'on écrit le programme en
+            <strong>Ladder</strong>. Ce détour évite d'écrire des séquences qui marchent en
+            nominal et se bloquent au premier arrêt d'urgence.
+          </p>
+          <p class="album__detail-lede">
+            Les programmes tournent sur des maquettes de partie opérative : ascenseur, ligne
+            de production, palettiseur.
           </p>
           <ul class="tags tags--sm album__meta">
-            <li>Modicon M340</li><li>TSX Premium</li><li>SIMATIC S7-300</li>
+            <li>Grafcet</li><li>GEMMA</li><li>Ladder</li><li>Modicon</li><li>SIMATIC</li>
           </ul>
         </div>
       </article>
@@ -1287,7 +1411,8 @@
                 </a>
               </div>
               <figcaption>
-                Le robot en déplacement, piloté par le programme ci-contre.
+                Le robot en action : il repère la cible à la caméra et la suit en se
+                déplaçant.
               </figcaption>
             </figure>
           </div>
@@ -1305,12 +1430,17 @@
             vitesses de roue.
           </p>
           <p class="album__detail-lede">
+            L'objectif du TP était le <strong>suivi d'objet</strong> : analyser l'image de la
+            caméra en temps réel pour situer la cible, puis en déduire à chaque instant les
+            consignes des trois moteurs. Perception et commande dans la même boucle, sur un
+            robot qui peut se déplacer dans toutes les directions sans se réorienter.
+          </p>
+          <p class="album__detail-lede">
             La programmation se fait par blocs sous Robotino View, en reliant capteurs,
-            calculs et consignes moteur — le robot exécute le diagramme tel qu'il est
-            dessiné.
+            calculs et consignes moteur.
           </p>
           <ul class="tags tags--sm album__meta">
-            <li>Robotino View</li><li>Robot omnidirectionnel</li><li>Programmation par blocs</li>
+            <li>Analyse d'image</li><li>Suivi d'objet</li><li>Robot omnidirectionnel</li><li>Robotino View</li>
           </ul>
         </div>
       </article>

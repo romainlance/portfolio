@@ -114,12 +114,15 @@
           <li class="tilt">
             <svg class="ico" aria-hidden="true"><use href="#i-calendar"></use></svg>
             <span class="phero__k">Période</span>
-            <span class="phero__v">2026 · 6 mois</span>
+            <span class="phero__v phero__v--now">
+              2026 · 6 mois
+              <span class="now"><span class="dot" aria-hidden="true"></span> En cours</span>
+            </span>
           </li>
           <li class="tilt">
             <svg class="ico" aria-hidden="true"><use href="#i-building"></use></svg>
             <span class="phero__k">Cadre</span>
-            <span class="phero__v">Stage de fin d'études — INIT Robots</span>
+            <span class="phero__v">Stage de fin d'études — INIT Robots, jusqu'en novembre 2026</span>
           </li>
           <li class="tilt">
             <svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg>
@@ -188,14 +191,24 @@
           </div>
         </div>
 
-        <div class="shots shots--single reveal" data-reveal="up">
+        <div class="shots reveal" data-reveal="up">
           <figure class="shot tilt">
-            <img src="../assets/projets/dino/1.webp" width="678" height="452"
+            <img class="shot__img--wide" src="../assets/projets/dino/1.webp" width="982" height="534"
                  loading="lazy" decoding="async"
-                 alt="Le Dino de Naïo Technologies au travail dans un champ de salades">
+                 alt="Modèle 3D du robot Dino : châssis surbaissé porté par quatre roues motrices et directrices">
             <figcaption>
-              Le Dino dans son usage d'origine : désherbage mécanique entre les rangs.
-              <span class="shot__credit">Photo : Naïo Technologies</span>
+              Le matériel à piloter, modélisé en 3D : quatre roues motrices, chacune
+              orientée par son propre actionneur — soit les huit articulations que
+              la commande doit coordonner.
+            </figcaption>
+          </figure>
+          <figure class="shot tilt">
+            <img class="shot__img--wide" src="../assets/projets/dino/2.webp" width="1006" height="619"
+                 loading="lazy" decoding="async"
+                 alt="Le même modèle vu de plus bas : les quatre trains de roues et l'arrêt d'urgence sur le capot">
+            <figcaption>
+              Vue rapprochée d'un train de roues. L'arrêt d'urgence, sur le capot,
+              reste câblé à l'automate de sécurité et non au nouvel ordinateur de bord.
             </figcaption>
           </figure>
         </div>
@@ -357,7 +370,6 @@
           </div>
           <figcaption>
             Le Dino en mouvement, piloté par la chaîne de commande ROS 2.
-            <span class="shot__credit">Image d'illustration : Naïo Technologies</span>
           </figcaption>
         </figure>
 

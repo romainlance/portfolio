@@ -113,6 +113,16 @@
 }
 .phero__v { font-size: .9rem; line-height: 1.4; }
 
+/* Variante des cases qui portent l'étiquette « en cours » : la pastille est
+   un bloc en ligne, on passe en flex pour l'aligner proprement sur le texte
+   et lui permettre de passer à la ligne dans une case étroite. */
+.phero__v--now {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .25rem .5rem;
+}
+
 /* Rythme vertical d'une section : tout bloc qui suit le texte courant — ou un
    autre bloc — prend la même respiration. Sans cette règle, une liste
    d'étiquettes ou une grille d'outils venait se coller au paragraphe
@@ -187,6 +197,11 @@
 /* Cliché en hauteur recadré en paysage : centrer verticalement couperait le
    sujet. On remonte le point d'ancrage. */
 .shot__img--high { object-position: center 30%; }
+
+/* Rendu CAO nettement plus large que haut : le recadrage en 4/3 lui coupe les
+   côtés, c'est-à-dire les roues. On élargit le cadre. À poser sur toutes les
+   images d'une même rangée, sinon leurs hauteurs ne concordent plus. */
+.shot__img--wide { aspect-ratio: 16 / 10; }
 
 .shot figcaption {
   padding: .75rem .95rem .85rem;

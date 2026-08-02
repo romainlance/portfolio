@@ -647,6 +647,27 @@ body::before {
   100% { box-shadow: 0 0 0 0 transparent; }
 }
 
+/* Étiquette « en cours », réutilisable partout où une expérience n'est pas
+   terminée (frise, carte projet, en-tête de page projet). Elle reprend la
+   pastille pulsée ci-dessus pour rester cohérente avec l'accroche du hero. */
+.now {
+  display: inline-flex;
+  align-items: center;
+  gap: .38rem;
+  padding: .1rem .5rem;
+  border: 1px solid color-mix(in srgb, var(--signal) 38%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--signal) 11%, transparent);
+  font-family: var(--font-mono);
+  font-size: .63rem;
+  font-weight: 500;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--signal);
+}
+.now .dot { width: 6px; height: 6px; }
+
 .hero__name {
   margin-top: 1.1rem;
   font-size: clamp(3rem, 10.5vw, 6.2rem);
@@ -1237,14 +1258,18 @@ body::before {
 
 .pcard__top {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: .5rem 1rem;
   padding-bottom: .9rem;
   margin-bottom: 1rem;
   border-bottom: 1px solid var(--line);
 }
+.pcard__when,
 .pcard__year,
 .pcard__team { display: inline-flex; align-items: center; gap: .4rem; }
+.pcard__when { flex-wrap: wrap; gap: .35rem .55rem; }
 .pcard__year { color: var(--accent); }
 
 .pcard__title { color: var(--ink); transition: color .25s ease; }
@@ -1293,7 +1318,9 @@ body::before {
    schéma. */
 .albums {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(clamp(240px, 30vw, 300px), 1fr));
+  /* auto-fill et non auto-fit : avec quatre cartes sur trois colonnes, la
+     quatrième garderait sinon la largeur de toute une rangée. */
+  grid-template-columns: repeat(auto-fill, minmax(clamp(240px, 26vw, 290px), 1fr));
   gap: clamp(1.2rem, 2.6vw, 1.9rem);
 }
 
@@ -1358,6 +1385,19 @@ body::before {
   color: #fff;
 }
 .album__count .ico { width: 1em; height: 1em; }
+
+/* Année du projet, à l'opposé du compteur */
+.album__year {
+  position: absolute;
+  z-index: 1;
+  right: .9rem;
+  bottom: .8rem;
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  letter-spacing: .08em;
+  color: rgba(255, 255, 255, .78);
+  text-shadow: 0 1px 3px rgba(20, 22, 26, .5);
+}
 
 .album__body {
   display: grid;

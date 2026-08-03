@@ -625,6 +625,18 @@
     'Le rover assemblé, posé sur un plan de travail': 'The assembled rover on a workbench',
     'Le rover modélisé sous SolidWorks': 'The rover modelled in SolidWorks',
     'Vue éclatée des composants du rover': 'Exploded view of the rover components',
+    'Le Dino en atelier, capot relevé : la batterie et l\'électronique de bord sont accessibles, et l\'un des capteurs SICK est monté sur la jambe avant.':
+      'The Dino in the workshop, hood raised: the battery and the on-board electronics are within reach, and one of the SICK sensors sits on the front leg.',
+    'Le Dino en atelier, capot relevé sur la batterie et l\'électronique de bord':
+      'The Dino in the workshop, hood raised over the battery and the on-board electronics',
+    'Le jumeau numérique sous Gazebo : le même robot, dans une scène semée d\'obstacles, pour vérifier avant le terrain ce qui coûte cher à découvrir dessus.':
+      'The digital twin in Gazebo: the same robot, in a scene strewn with obstacles, to check before going out what is expensive to discover in the field.',
+    'Le Dino simulé sous Gazebo, dans une scène d\'essai semée d\'obstacles':
+      'The Dino simulated in Gazebo, in a test scene strewn with obstacles',
+    'L\'interface de supervision, construite sous Foxglove : modes de conduite, consignes du châssis, carte lidar, position GPS et état de la chaîne de sécurité. Les coordonnées du terrain d\'essai sont masquées.':
+      'The supervision interface, built in Foxglove: driving modes, chassis setpoints, lidar map, GPS position and the state of the safety chain. The test site coordinates are masked.',
+    'Interface de supervision Foxglove : modes de conduite, état du châssis, carte lidar, GPS et sécurité':
+      'Foxglove supervision interface: driving modes, chassis state, lidar map, GPS and safety',
     'Le matériel à piloter, modélisé en 3D : quatre roues motrices, chacune orientée par son propre actionneur — soit les huit articulations que la commande doit coordonner.':
       'The hardware to drive, modelled in 3D: four driven wheels, each steered by its own actuator — the eight joints the control layer has to coordinate.',
     'Modèle 3D du robot Dino : châssis surbaissé porté par quatre roues motrices et directrices':

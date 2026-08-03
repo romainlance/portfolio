@@ -1451,9 +1451,66 @@ body::before {
 .interest { display: grid; gap: .6rem; align-content: start; }
 .interest__label { color: var(--signal); }
 
-/* Vignette illustrant un centre d'intérêt : plus petite qu'une vignette de
-   parcours, elle appuie la liste au-dessus sans lui voler la vedette. */
-.interest .tl__shot { max-width: 250px; margin-top: .3rem; }
+/* Bandeau illustrant le bricolage : quelques pièces dessinées puis imprimées.
+   Il court sous les deux colonnes, séparé par le même filet que le titre du
+   bloc. Posé dans une colonne, il creusait un vide à côté de la plus courte
+   et pesait bien plus lourd qu'une rangée d'étiquettes. */
+.interests__proof {
+  display: grid;
+  grid-template-columns: clamp(160px, 26%, 260px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(.9rem, 2.5vw, 1.5rem);
+  width: 100%;
+  /* Ce bandeau n'est pas une carte : il n'a ni fond ni cadre propres, sinon
+     il ferait doublon avec le panneau de verre qui l'entoure déjà. D'où le
+     retrait explicite du fond et de la bordure que le navigateur pose sur
+     tout <button> — seul le filet du haut est conservé. */
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--line);
+  padding: 0;
+  padding-top: clamp(1.1rem, 2.5vw, 1.5rem);
+  margin-top: clamp(1.1rem, 2.5vw, 1.5rem);
+  text-align: left;
+}
+.interests__proof img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius);
+  transition: transform .45s var(--ease-out), border-color .25s ease;
+}
+.interests__proof:hover img { transform: scale(1.03); border-color: var(--accent); }
+
+.interests__proof-body { display: grid; gap: .35rem; }
+.interests__proof-title {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
+  transition: color .25s ease;
+}
+.interests__proof:hover .interests__proof-title { color: var(--accent); }
+.interests__proof-desc {
+  max-width: 56ch;
+  font-size: .88rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.interests__proof-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  margin-top: .2rem;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.interests__proof-cta .ico { transition: transform .3s var(--ease-out); }
+.interests__proof:hover .interests__proof-cta .ico { transform: translateX(4px); }
 
 .interests__note {
   max-width: 60ch;
@@ -2572,6 +2629,12 @@ body::before {
   .tl__body::before { left: 0; }
 
   .edu__item { grid-template-columns: 1fr; gap: .4rem; }
+
+  /* Le bandeau des pièces imprimées passe sur une colonne : à deux, la
+     vignette ne laissait qu'une gouttière de texte, où même « Voir les
+     pièces » se coupait en deux. */
+  .interests__proof { grid-template-columns: minmax(0, 1fr); gap: .9rem; }
+  .interests__proof img { max-width: 320px; }
 
   .contact__list li { grid-template-columns: 1fr; gap: .15rem; }
 

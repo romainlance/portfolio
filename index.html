@@ -793,21 +793,28 @@
                 <li><svg class="ico" aria-hidden="true"><use href="#i-wrench"></use></svg> Mécanique</li>
                 <li><svg class="ico" aria-hidden="true"><use href="#i-chip"></use></svg> Électronique</li>
               </ul>
-
-              <!-- La CAO et l'impression 3D ne sont pas un projet mais une
-                   habitude : leur place est ici, avec les centres d'intérêt.
-                   La vignette ouvre la même visionneuse que les albums. -->
-              <button type="button" class="tl__shot tilt" data-album="alb-cao"
-                      aria-haspopup="dialog" aria-label="Voir des pièces que j'ai dessinées et imprimées">
-                <img src="assets/albums/cao-impression-3d/couverture-sm.webp" width="800" height="600"
-                     loading="lazy" decoding="async" alt="">
-                <span class="tl__shot-label">
-                  <svg class="ico" aria-hidden="true"><use href="#i-cube"></use></svg>
-                  Pièces imprimées
-                </span>
-              </button>
             </div>
           </div>
+
+          <!-- La CAO et l'impression 3D ne sont pas un projet mais une habitude :
+               leur place est ici. Le bandeau court sous les deux colonnes plutôt
+               que dans l'une d'elles, où il creusait un vide à côté de la plus
+               courte. Il ouvre la même visionneuse que les albums. -->
+          <button type="button" class="interests__proof" data-album="alb-cao" aria-haspopup="dialog">
+            <img src="assets/albums/cao-impression-3d/couverture-sm.webp" width="800" height="600"
+                 loading="lazy" decoding="async" alt="">
+            <span class="interests__proof-body">
+              <span class="interests__proof-title">CAO &amp; impression 3D</span>
+              <span class="interests__proof-desc">
+                Boîtiers, supports, adaptateurs : ce qui manque est dessiné sous Fusion&nbsp;360
+                ou SolidWorks, puis imprimé sur mon Ender&nbsp;3 Pro.
+              </span>
+              <span class="interests__proof-cta">
+                Voir les pièces
+                <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+              </span>
+            </span>
+          </button>
 
         </section>
       </div>

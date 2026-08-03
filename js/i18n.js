@@ -194,8 +194,9 @@
     'Projets personnels': 'Personal projects',
     'TP académiques': 'Academic labs',
     'TP': 'Labs',
-    'Pièces imprimées': 'Printed parts',
-    'Voir des pièces que j\'ai dessinées et imprimées': 'See parts I have drawn and printed',
+    'Boîtiers, supports, adaptateurs : ce qui manque est dessiné sous Fusion 360 ou SolidWorks, puis imprimé sur mon Ender 3 Pro.':
+      'Enclosures, brackets, adapters: whatever is missing gets drawn in Fusion 360 or SolidWorks, then printed on my Ender 3 Pro.',
+    'Voir les pièces': 'See the parts',
     'Ce que je démonte, conçois et fabrique en dehors des cours. Chaque carte s\'ouvre sur le détail du projet.':
       'What I take apart, design and build outside class. Each card opens onto the project in full.',
     'Les travaux pratiques du cursus, sur du matériel industriel réel.':

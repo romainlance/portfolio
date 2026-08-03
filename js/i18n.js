@@ -172,11 +172,6 @@
     'Thermique · Projet PISTE — Junia HEI': 'Thermal · PISTE project — Junia HEI',
     'D\'un cahier des charges chiffré à une machine assemblée, pilotable depuis un navigateur puis capable de se déplacer seule.':
       'From a quantified specification to an assembled machine, drivable from a browser and then able to move on its own.',
-    // Identiques dans les deux langues — les entrées sont là pour que le
-    // contrôle de couverture sache que la question a été tranchée.
-    '2 photos': '2 photos',
-    '3 photos': '3 photos',
-    '2 photos · 1 vidéo': '2 photos · 1 video',
     'Équipe de 10': 'Team of 10',
     'Dino — plateforme de recherche ROS 2': 'Dino — a ROS 2 research platform',
     'Modèle dynamique d\'un fauteuil roulant intelligent': 'Dynamic model of a smart wheelchair',
@@ -206,12 +201,20 @@
     'Les travaux pratiques du cursus, sur du matériel industriel réel.':
       'The hands-on labs of the course, on real industrial hardware.',
 
-    // Repères des vignettes : nombre de vues et date
-    '5 vues': '5 views',
-    '3 vues': '3 views',
-    '4 vues · 1 vidéo': '4 views · 1 video',
-    '3 photos · 1 vidéo': '3 photos · 1 video',
+    /* Compteurs des vignettes. Même formule pour tous les albums : « X
+       photos », suivi de « X vidéos » s'il y en a. Les rendus CAO et les
+       captures d'écran y sont comptés comme des photos — un badge annonce
+       combien il y a à voir, il n'a pas à trier par nature d'image.
+       Plusieurs de ces libellés sont identiques en anglais ; l'entrée reste
+       présente pour que le contrôle de couverture sache que la question a
+       été tranchée. */
     '1 photo · 1 vidéo': '1 photo · 1 video',
+    '2 photos': '2 photos',
+    '2 photos · 1 vidéo': '2 photos · 1 video',
+    '3 photos': '3 photos',
+    '3 photos · 1 vidéo': '3 photos · 1 video',
+    '4 photos · 1 vidéo': '4 photos · 1 video',
+    '5 photos': '5 photos',
     '3ᵉ et 4ᵉ année': '3rd and 4th year',
 
     // Robot tondeuse

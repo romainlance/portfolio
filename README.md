@@ -300,6 +300,13 @@ Pour ajouter un album :
 4. Le titre de la fiche doit avoir un `id` finissant par `-title` : c'est lui
    qui nomme la fenêtre pour les lecteurs d'écran.
 
+Le compteur de la couverture (`.album__count`) suit une formule unique :
+**« X photos », puis « X vidéos » s'il y en a**. Les rendus CAO, les plans et
+les captures d'écran y sont comptés comme des photos — le badge annonce
+combien il y a à voir, il n'a pas à trier par nature d'image. Son icône est
+`#i-image` sans vidéo, `#i-play` dès qu'il y en a une : c'est elle qui signale
+qu'il y a autre chose que des images à l'intérieur.
+
 Les flèches, les pastilles et le compteur sont uniques (`#albumControls`) et
 déplacés par `js/album.js` dans la fiche ouverte — rien à dupliquer. Ils
 disparaissent d'eux-mêmes pour un album d'une seule photo.

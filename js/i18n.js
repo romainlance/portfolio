@@ -230,8 +230,8 @@
       'The robot itself is drawn in CAD around that base: chassis, placement of the two drive wheels, and cutting deck.',
     'Le robot dessiné autour de ce qu\'on récupère : les deux roues motrices de l\'hoverboard, un châssis, et un plateau de coupe au centre.':
       'The robot drawn around what gets salvaged: the hoverboard\'s two drive wheels, a chassis, and a cutting deck in the middle.',
-    'Le plan coté du châssis : 650 mm de large, avec les entraxes de fixation des deux moteurs.':
-      'The dimensioned chassis drawing: 650 mm wide, with the mounting centres for the two motors.',
+    'Le plan coté du châssis : 650 mm hors tout, avec les entraxes de fixation des deux moteurs.':
+      'The dimensioned chassis drawing: 650 mm overall, with the mounting centres for the two motors.',
     'La carte de commande d\'origine, qu\'on garde entière : deux étages de puissance, un par moteur de roue.':
       'The original control board, kept whole: two power stages, one per wheel motor.',
     'Le microcontrôleur à reprogrammer : un STM32F103RCT6, cœur ARM Cortex-M3.':
@@ -240,8 +240,8 @@
       'Reflashing, through an ST-LINK V2 probe on the SWD port.',
     'Le robot tondeuse modélisé : châssis, roues d\'hoverboard et plateau de coupe':
       'The robot lawnmower modelled: chassis, hoverboard wheels and cutting deck',
-    'Plan coté du châssis du robot tondeuse, 650 mm de large':
-      'Dimensioned drawing of the robot lawnmower chassis, 650 mm wide',
+    'Plan coté du châssis du robot tondeuse, 650 mm hors tout':
+      'Dimensioned drawing of the robot lawnmower chassis, 650 mm overall',
     'Carte de commande de l\'hoverboard, une fois l\'appareil ouvert':
       'The hoverboard control board, once the device is open',
     'Gros plan du microcontrôleur STM32F103 de la carte':

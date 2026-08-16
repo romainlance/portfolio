@@ -24,15 +24,6 @@
 (function (root) {
   'use strict';
 
-  /* Le CV suit la langue : le PDF ouvert au clic comme la vignette affichée.
-     Chaque fichier anglais est testé une fois, indépendamment de l'autre :
-     tant qu'il n'est pas déposé dans assets/, c'est la version française qui
-     reste en place, plutôt qu'un lien mort ou une image cassée. */
-  var CV = {
-    pdf: { fr: 'assets/cv-romain-lance.pdf', en: 'assets/cv-romain-lance-en.pdf' },
-    img: { fr: 'assets/cv-preview.webp',     en: 'assets/cv-preview-en.webp' }
-  };
-
   /* 01. DICTIONNAIRE — INTERFACE
      ---------------------------------------------------------------------- */
   var UI = {
@@ -86,9 +77,9 @@
      ---------------------------------------------------------------------- */
   var HOME = {
     'Disponible à partir de décembre 2026': 'Available from December 2026',
-    'Ingénieur Junior — Mécatronique & Robotique': 'Junior Engineer — Mechatronics & Robotics',
-    'Ingénieur Junior Mécatronique & Robotique — Hauts-de-France':
-      'Junior Mechatronics & Robotics Engineer — Hauts-de-France',
+    'Ingénieur Mécatronique & Robotique': 'Mechatronics & Robotics Engineer',
+    'Ingénieur Mécatronique & Robotique — Hauts-de-France':
+      'Mechatronics & Robotics Engineer — Hauts-de-France',
     'Romain Lance — Ingénieur Mécatronique & Robotique':
       'Romain Lance — Mechatronics & Robotics Engineer',
     // Identique dans les deux langues — l'entrée est là pour que le contrôle
@@ -96,16 +87,14 @@
     'Curriculum vitae — PDF, 1 page': 'Curriculum vitae — PDF, 1 page',
 
     // À propos
-    'Diplômé de Junia HEI en spécialité mécatronique et robotique, je travaille à la frontière de la mécanique, de l\'électronique et de la programmation.':
-      'A Junia HEI graduate specialising in mechatronics and robotics, I work where mechanics, electronics and software meet.',
-    'Quatre stages ont jalonné ce parcours, dans des contextes volontairement très différents : un laboratoire de recherche en robotique mobile à Montréal, un intégrateur de machines spéciales dans le Pas-de-Calais, un parc aquatique à Malte et une unité de traitement des déchets. Chacun m\'a apporté autre chose — la rigueur du travail de recherche, la réalité du chantier et de ses imprévus, le réflexe de l\'anglais au quotidien, le contact du terrain industriel.':
-      'Four internships marked this path, in deliberately very different settings: a mobile-robotics research lab in Montreal, a special-machine integrator in northern France, a water park in Malta and a waste-treatment plant. Each taught me something else — the rigour of research work, the reality of a worksite and its surprises, the habit of speaking English daily, and hands-on contact with industry.',
-    'Ce que j\'en retiens surtout, c\'est le goût d\'arriver dans un environnement que je ne connais pas et d\'y devenir utile vite. Côté technique, le stage chez INIT Robots m\'a mené du modèle cinématique jusqu\'à la navigation autonome sous ROS 2, pendant qu\'un projet de recherche avec le laboratoire CRIStAL me faisait creuser la modélisation dynamique et la commande prédictive.':
-      'What I mostly take from it is a taste for landing in an environment I do not know and becoming useful there quickly. On the technical side, the INIT Robots internship took me from the kinematic model all the way to autonomous navigation under ROS 2, while a research project with the CRIStAL laboratory had me dig into dynamic modelling and predictive control.',
-    'Je suis disponible à partir de': 'I am available from',
-    'décembre 2026': 'December 2026',
-    'pour un poste autour de la mécatronique et de la robotique.':
-      'for a role around mechatronics and robotics.',
+    'Tout juste diplômé de l\'école d\'ingénieur généraliste Junia HEI avec une spécialité en mécatronique et robotique, je suis à la recherche de mon premier emploi dans ce domaine.':
+      'Fresh out of Junia HEI, a general engineering school, with a specialisation in mechatronics and robotics, I am looking for my first job in the field.',
+    'Plusieurs projets et expériences professionnelles m\'ont conforté dans ce choix, en développant à chaque fois un versant différent du métier : la conception mécanique et le prototypage sur le rover agricole, la modélisation dynamique et la commande prédictive avec le laboratoire CRIStAL, l\'électronique embarquée et les bus de terrain sur le Dino.':
+      'Several projects and work placements confirmed that choice, each developing a different side of the job: mechanical design and prototyping on the agricultural rover, dynamic modelling and predictive control with the CRIStAL laboratory, embedded electronics and fieldbuses on the Dino.',
+    'Mon stage de fin d\'études chez INIT Robots, à Montréal, est celui qui les réunit : ouvrir un robot agricole du commerce pour en faire une plateforme de recherche sous ROS 2, du contrôle cinématique des quatre roues motrices et directrices jusqu\'à la navigation autonome, en passant par l\'interface CAN, l\'intégration des capteurs et les essais sur la machine réelle.':
+      'My final-year internship at INIT Robots, in Montreal, is the one that brings them together: opening up a commercial agricultural robot to turn it into a ROS 2 research platform — from the kinematic control of the four driven, steered wheels through to autonomous navigation, by way of the CAN interface, sensor integration and testing on the real machine.',
+    'Les trois autres stages ont été choisis dans des contextes volontairement très différents — un intégrateur de machines spéciales dans le Pas-de-Calais, un parc aquatique à Malte, une unité de traitement des déchets. Chacun m\'a apporté autre chose : la réalité du chantier et de ses imprévus, le réflexe de l\'anglais au quotidien, le contact du terrain industriel. Ce que j\'en retiens surtout, c\'est le goût d\'arriver dans un environnement que je ne connais pas et d\'y devenir utile vite.':
+      'The three other placements were chosen in deliberately very different settings — a special-machine integrator in northern France, a water park in Malta, a waste-treatment plant. Each taught me something else: the reality of a worksite and its surprises, the habit of speaking English daily, hands-on contact with industry. What I mostly take from them is a taste for landing somewhere I do not know and becoming useful there quickly.',
 
     // Parcours
     'Parcours professionnel': 'Professional experience',
@@ -121,14 +110,20 @@
     '2 mois': '2 months',
     '1 mois': '1 month',
     'Montréal, Canada': 'Montreal, Canada',
-    'Ouverture d\'un robot agricole commercial pour en faire une plateforme de recherche pilotable sous ROS 2.':
-      'Opened up a commercial agricultural robot to turn it into a research platform driven under ROS 2.',
-    'Conception et implémentation du modèle cinématique commandant les actionneurs du robot.':
-      'Designed and implemented the kinematic model commanding the robot actuators.',
-    'Développement de l\'interface matérielle reliant l\'architecture ROS 2 au réseau CAN embarqué.':
-      'Developed the hardware interface linking the ROS 2 architecture to the on-board CAN network.',
-    'Mise en service du pilotage manuel, puis de la navigation autonome.':
-      'Commissioned manual driving first, then autonomous navigation.',
+    'Transformation d\'un robot agricole commercial en plateforme ouverte sous ROS 2.':
+      'Turned a commercial agricultural robot into an open platform under ROS 2.',
+    'Développement et implémentation du contrôle cinématique d\'un robot mobile à quatre roues motrices et directrices.':
+      'Developed and implemented the kinematic control of a mobile robot with four driven, steered wheels.',
+    'Développement de l\'interface ROS 2 / CAN pour le pilotage des actionneurs et l\'acquisition des données du robot.':
+      'Developed the ROS 2 / CAN interface driving the actuators and acquiring the robot data.',
+    'Intégration de la téléopération, de la localisation et de la navigation autonome sous ROS 2 / Nav2.':
+      'Integrated teleoperation, localisation and autonomous navigation under ROS 2 / Nav2.',
+    'Intégration et interfaçage des capteurs de navigation : GPS, IMU et LiDAR.':
+      'Integrated and interfaced the navigation sensors: GPS, IMU and LiDAR.',
+    'Intégration d\'un nouvel ordinateur de bord NVIDIA Jetson et adaptation de l\'architecture logicielle embarquée.':
+      'Integrated a new NVIDIA Jetson on-board computer and adapted the embedded software architecture.',
+    'Définition et réalisation d\'essais sur le robot réel pour valider le contrôle, les capteurs et les fonctions de navigation.':
+      'Defined and ran tests on the real robot to validate the control, the sensors and the navigation functions.',
     'Bus CAN': 'CAN bus',
     'Cinématique': 'Kinematics',
     'Navigation autonome': 'Autonomous navigation',
@@ -137,10 +132,12 @@
     'Assistant chef de projet': 'Assistant project manager',
     'Stage de professionnalisation': 'Professional internship',
     '— intégrateur industriel': '— industrial integrator',
-    'Suivi de l\'avancement d\'un projet de conception et de fabrication de machines spéciales pour le secteur automobile.':
-      'Tracked progress on a project designing and building special-purpose machines for the automotive sector.',
-    'Résolution des aléas sur chantier, en lien direct avec les équipes mécanique, électrique et programmation.':
-      'Resolved issues on site, working directly with the mechanical, electrical and programming teams.',
+    'Suivi de l\'avancement d\'un projet de conception, fabrication et installation de machines spéciales pour l\'industrie automobile.':
+      'Tracked progress on a project designing, building and installing special-purpose machines for the automotive industry.',
+    'Coordination avec les équipes mécanique, électrique et automatisme pour le traitement des problématiques techniques.':
+      'Coordinated with the mechanical, electrical and automation teams to work through the technical issues.',
+    'Participation à la résolution de problèmes et à la mise au point des équipements directement sur chantier.':
+      'Took part in troubleshooting and commissioning the equipment directly on site.',
     'Gestion de projet': 'Project management',
     'Machines spéciales': 'Special-purpose machines',
     'Coordination pluridisciplinaire': 'Cross-disciplinary coordination',
@@ -428,6 +425,13 @@
     'Statique': 'Statics',
     'Résistance des matériaux': 'Strength of materials',
     'Impression 3D (FDM/PLA)': '3D printing (FDM/PLA)',
+    'Impression 3D FDM': 'FDM 3D printing',
+    'Usinage': 'Machining',
+    'Assemblage mécanique': 'Mechanical assembly',
+    'Schémas & PCB': 'Schematics & PCB',
+    'Scripts & outils d\'intégration': 'Scripts & integration tooling',
+    'Bras manipulateurs FANUC': 'FANUC manipulator arms',
+    'Programmation de trajectoires': 'Trajectory programming',
     'Usinage simple': 'Basic machining',
     'Montage mécanique': 'Mechanical assembly',
     'Conception PCB': 'PCB design',
@@ -638,6 +642,39 @@
       'The supervision interface, built in Foxglove: driving modes, chassis setpoints, lidar map, GPS position and the state of the safety chain. The test site coordinates are masked.',
     'Interface de supervision Foxglove : modes de conduite, état du châssis, carte lidar, GPS et sécurité':
       'Foxglove supervision interface: driving modes, chassis state, lidar map, GPS and safety',
+    'Le Dino en atelier. Chaque roue est portée par sa propre jambe : quatre roues motrices, quatre roues directrices, huit articulations à commander.':
+      'The Dino in the workshop. Each wheel rides on its own leg: four driven wheels, four steered wheels, eight joints to command.',
+    'Le Dino en atelier, vu de trois quarts, posé sur ses quatre trains de roues':
+      'The Dino in the workshop, seen at three-quarters, standing on its four wheel units',
+    'Vu de face. Le châssis passe au-dessus des rangs ; les pare-chocs jaune et noir font partie de la chaîne de sécurité d\'origine, laissée intacte.':
+      'Seen head-on. The chassis clears the crop rows; the yellow-and-black bumpers are part of the original safety chain, left untouched.',
+    'Le Dino vu de face : les deux trains avant, leurs pare-chocs et le châssis surbaissé':
+      'The Dino head-on: the two front wheel units, their bumpers and the low chassis',
+    'L\'autre trois-quarts. C\'est un Dino de Naïo Technologies : toute la mécanique reste d\'origine, seule la couche de commande est remplacée.':
+      'The other three-quarter view. This is a Naïo Technologies Dino: all the mechanics stay original, only the control layer is replaced.',
+    'Le Dino vu de l\'autre côté, avec les logos Naïo et Dino sur le capot':
+      'The Dino from the other side, with the Naïo and Dino logos on the hood',
+    'De profil, sur chandelles : la position de travail pour intervenir sur les trains de roues sans que le robot puisse partir.':
+      'In profile, up on stands: the working position for getting at the wheel units without the robot being able to move off.',
+    'Le Dino de profil, soulevé sur chandelles, roues au-dessus du sol':
+      'The Dino in profile, raised on stands, wheels off the ground',
+    'Démonstration du contrôle du Dino : les consignes envoyées depuis l\'ordinateur de bord et ce que la machine en fait.':
+      'A demonstration of driving the Dino: the setpoints sent from the on-board computer, and what the machine makes of them.',
+    'Téléopération, capteurs de navigation et arrêt d\'urgence sans fil':
+      'Teleoperation, navigation sensors and a wireless emergency stop',
+    'Pilotage manuel à la manette Bluetooth pour les phases de test et de calibration, intégration et interfaçage des capteurs de navigation — GPS, centrale inertielle, LiDAR — et conception d\'un arrêt d\'urgence sans fil pour sécuriser les essais. Tant qu\'on ne sait pas conduire la machine à la main, on ne peut pas juger ce qu\'un algorithme fait à sa place.':
+      'Manual driving from a Bluetooth controller for the test and calibration phases, integration and interfacing of the navigation sensors — GPS, inertial unit, LiDAR — and the design of a wireless emergency stop to make the trials safe. Until you can drive the machine by hand, you cannot judge what an algorithm does in your place.',
+    'Localisation et navigation autonome sous Nav2': 'Localisation and autonomous navigation with Nav2',
+    'Les capteurs une fois interfacés, la pile Nav2 prend le relais : localisation du robot, planification puis suivi d\'une trajectoire. Le contrôleur 4WD–4WS écrit plus haut devient sa sortie, et la barrière logicielle reste entre les deux.':
+      'Once the sensors are interfaced, the Nav2 stack takes over: locating the robot, planning a path and then following it. The 4WD–4WS controller written earlier becomes its output, with the software barrier still sitting in between.',
+    'Nouvel ordinateur de bord NVIDIA Jetson': 'A new NVIDIA Jetson on-board computer',
+    'Le calcul embarqué passe sur une carte NVIDIA Jetson, et l\'architecture logicielle est adaptée à cette nouvelle base. Toute la conception en couches paie ici : seul le socle change, les nœuds de commande et de navigation, eux, ne bougent pas.':
+      'On-board computing moves to an NVIDIA Jetson board, and the software architecture is adapted to that new base. All the layering pays off here: only the foundation changes — the control and navigation nodes do not move.',
+    'Essais sur le robot réel': 'Testing on the real robot',
+    'Définition et réalisation d\'une campagne d\'essais sur la machine elle-même, pour valider le contrôle, les capteurs et les fonctions de navigation. C\'est le terrain qui tranche : la simulation dit ce qui devrait marcher, l\'essai dit ce qui marche.':
+      'Defining and running a test campaign on the machine itself, to validate the control, the sensors and the navigation functions. The field is what settles it: simulation says what should work, testing says what does.',
+    'Essais sur robot réel': 'Real-robot testing',
+    'GPS / IMU / LiDAR': 'GPS / IMU / LiDAR',
     'Le matériel à piloter, modélisé en 3D : quatre roues motrices, chacune orientée par son propre actionneur — soit les huit articulations que la commande doit coordonner.':
       'The hardware to drive, modelled in 3D: four driven wheels, each steered by its own actuator — the eight joints the control layer has to coordinate.',
     'Modèle 3D du robot Dino : châssis surbaissé porté par quatre roues motrices et directrices':
@@ -868,39 +905,7 @@
     document.title = lang === 'fr' ? data.title : (TITLES[norm(data.title)] || data.title);
     document.documentElement.lang = lang;
 
-    swapCv();   // lit document.documentElement.lang, posé juste au-dessus
     try { localStorage.setItem('lang', lang); } catch (e) { /* stockage indisponible */ }
-  }
-
-  /* Bascule d'un fichier du CV (PDF ou vignette).
-     `known` mémorise le résultat du test d'existence pour ne le faire qu'une
-     fois par fichier ; tant qu'il est indéterminé, on reste sur le français. */
-  var known = {};
-
-  function swapFile(el, attr, files) {
-    if (!el) { return; }
-
-    // Le chemin est reconstruit depuis la valeur courante : les pages projet
-    // vivent dans un sous-dossier, l'adresse y est donc préfixée de « ../ ».
-    var dir = el.getAttribute(attr).replace(/[^/]+$/, '');
-    function url(file) { return dir + file.replace(/^assets\//, ''); }
-    function set(file) { el.setAttribute(attr, url(file)); }
-
-    if (document.documentElement.lang !== 'en') { set(files.fr); return; }
-    if (known[files.en] === true) { set(files.en); return; }
-    if (known[files.en] === false) { return; }
-
-    fetch(url(files.en), { method: 'HEAD' })
-      .then(function (r) {
-        known[files.en] = r.ok;
-        if (r.ok && document.documentElement.lang === 'en') { set(files.en); }
-      })
-      .catch(function () { known[files.en] = false; });
-  }
-
-  function swapCv() {
-    swapFile(document.getElementById('cvCard'), 'href', CV.pdf);
-    swapFile(document.querySelector('#cvCard .cv__page'), 'src', CV.img);
   }
 
   /* 06. BOUTON DE BASCULE

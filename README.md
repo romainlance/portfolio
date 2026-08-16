@@ -11,9 +11,9 @@ appel externe est la feuille de styles Google Fonts.
 
 ## Lancer le site en local
 
-Le site est constitué de fichiers statiques. Ouvrir `index.html` directement
-fonctionne presque, mais le test d'existence du CV anglais passe par `fetch` :
-mieux vaut un petit serveur local.
+Le site est constitué de fichiers statiques, sans étape de build. Ouvrir
+`index.html` directement fonctionne, mais mieux vaut un petit serveur local
+pour se placer dans les mêmes conditions que la mise en ligne.
 
 ```bash
 # Python (déjà installé sur macOS et la plupart des Linux)
@@ -37,9 +37,7 @@ Puis ouvrir <http://localhost:8000>.
 ├── sitemap.xml
 ├── assets/
 │   ├── cv-romain-lance.pdf     # CV publié (sans le numéro de téléphone)
-│   ├── cv-romain-lance-en.pdf  # Version anglaise, servie en mode anglais
 │   ├── cv-preview.webp         # Vignette du CV, rendue depuis ce PDF
-│   ├── cv-preview-en.webp      # Vignette de la version anglaise
 │   ├── og-card.jpg             # Image de partage (LinkedIn, messageries)
 │   ├── albums/                 # Photos des projets personnels et des TP
 │   ├── projets/                # Photos des projets d'ingénierie
@@ -244,8 +242,17 @@ cohérents — c'est le PDF qui s'ouvre au clic.
 
 **Le PDF publié ne doit pas contenir de numéro de téléphone.** C'est la seule
 règle à vérifier avant de déposer une nouvelle version : le reste des
-coordonnées — ville, adresse e-mail, LinkedIn — figure sur le site de toute
-façon.
+coordonnées — adresse e-mail, LinkedIn, adresse du portfolio — figure sur le
+site de toute façon.
+
+Si le PDF d'origine en contient un, il ne suffit pas de l'effacer : la ligne de
+contact est centrée, et la supprimer laisserait le reste décalé. La marche à
+suivre est d'effacer la ligne entière puis de la redessiner sans le numéro,
+avec la police du document — `fitz` sait extraire une police intégrée. Le
+numéro n'est alors plus dans le fichier, pas seulement masqué.
+
+Un seul CV sert les deux langues : la bascule FR/EN ne change plus ni le lien
+ni la vignette.
 
 ### Le QR code
 
@@ -440,28 +447,6 @@ Pour ajouter une phrase, compléter l'objet correspondant en haut du fichier
 
 Les noms propres, les technologies (ROS 2, SolidWorks, Python…) et les nombres
 n'ont volontairement pas d'entrée : ils sont identiques dans les deux langues.
-
-### Le CV en anglais
-
-Le lien de l'aperçu du CV suit la langue affichée :
-
-| Langue | Fichier ouvert |
-| --- | --- |
-| Français | `assets/cv-romain-lance.pdf` + `assets/cv-preview.webp` |
-| Anglais | `assets/cv-romain-lance-en.pdf` + `assets/cv-preview-en.webp` |
-
-Le lien du PDF **et** la vignette affichée suivent tous deux la langue.
-
-Chaque fichier anglais est testé une seule fois, à la première bascule, et
-indépendamment de l'autre. **Tant qu'il n'est pas déposé dans `assets/`, c'est
-la version française qui reste en place** plutôt qu'un lien mort ou une image
-cassée — il suffit donc d'ajouter les fichiers, sans toucher au code. Le test
-laisse une erreur 404 dans la console du navigateur ; elle disparaît dès que le
-fichier existe. Les quatre fichiers sont aujourd'hui présents : le repli ne
-sert plus qu'à encaisser un remplacement de CV en cours.
-
-Ces deux noms de fichiers sont définis en haut de `js/i18n.js`, dans l'objet
-`CV`.
 
 ### Ajouter un lien GitHub
 

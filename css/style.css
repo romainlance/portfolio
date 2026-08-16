@@ -187,6 +187,9 @@ button, input, textarea { font: inherit; color: inherit; }
   --aura: rgba(29, 99, 130, .11);
   --aura-soft: rgba(29, 99, 130, .045);
   --signal: #a9532a;
+  /* Pastille de disponibilité : un vert franc mais assez sombre pour rester
+     lisible sur l'ivoire, et distinct du bleu d'accent. */
+  --go: #2f7d4f;
   --nav-bg: rgba(244, 242, 237, .82);
   /* Fond des fenêtres modales, posé à 72 % d'opacité */
   --veil: #f4f2ed;
@@ -216,6 +219,7 @@ button, input, textarea { font: inherit; color: inherit; }
   --aura: rgba(99, 179, 212, .14);
   --aura-soft: rgba(99, 179, 212, .055);
   --signal: #dd9a63;
+  --go: #56bd85;
   --nav-bg: rgba(14, 16, 20, .82);
   --veil: #0e1014;
 
@@ -614,16 +618,19 @@ body::before {
 
 .eyebrow { display: inline-flex; align-items: center; gap: .5rem; }
 
-/* Pastille « disponible », doucement pulsée */
+/* Pastille « disponible », doucement pulsée. Elle porte sa propre couleur :
+   le halo de l'animation la reprend, si bien que l'étiquette « en cours »,
+   qui réutilise ce même point en orange, garde un halo assorti. */
 .dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--signal);
+  background: var(--dot-color, var(--signal));
   animation: pulse 2.6s ease-out infinite;
 }
+.eyebrow > .dot { --dot-color: var(--go); }
 @keyframes pulse {
-  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--signal) 55%, transparent); }
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--dot-color, var(--signal)) 55%, transparent); }
   70%  { box-shadow: 0 0 0 9px transparent; }
   100% { box-shadow: 0 0 0 0 transparent; }
 }
@@ -923,43 +930,6 @@ body::before {
 }
 
 .about__text strong { color: var(--ink); }
-
-/* La ligne de disponibilité est la seule information actionnable de la
-   section : elle sort du texte courant sur une plaque de verre, reprenant le
-   point clignotant déjà présent dans le hero. */
-.about .avail {
-  position: relative;
-  margin-top: 1.8rem;
-  padding: 1rem 1.3rem 1rem 2.7rem;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--glass-edge);
-  background: var(--glass-fill), var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  box-shadow: var(--glass-shadow-stack);
-  color: var(--ink);
-  transition: border-color .3s ease, transform .4s var(--ease-out);
-}
-.about .avail:hover { border-color: var(--accent); --lift: -2px; }
-
-/* Point posé en absolu plutôt qu'en flex : le paragraphe doit rester un
-   paragraphe, sinon `décembre 2026` — qui est un <strong> — deviendrait une
-   colonne à part au lieu de rester dans la phrase.
-   1 rem de marge haute + une demi-hauteur de ligne cale le point sur la
-   première ligne de texte. */
-/* Sélecteur volontairement plus spécifique que `.spotlight > *`, qui repasse
-   sinon le point en position relative. */
-.about .avail__dot {
-  position: absolute;
-  left: 1.3rem;
-  top: 1rem;
-  margin-top: calc(.83em - 3.5px);
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--signal);
-  animation: pulse 2.6s ease-out infinite;
-}
 
 /* 11. TIMELINE (PARCOURS)
    -------------------------------------------------------------------------- */

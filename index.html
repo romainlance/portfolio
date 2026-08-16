@@ -179,8 +179,10 @@
         <!-- Aperçu du CV : la vignette est un rendu de assets/cv-romain-lance.pdf,
              et le bloc entier ouvre ce PDF dans un nouvel onglet. -->
         <aside class="hero__plate intro" data-intro="4">
-          <a class="cv tilt" id="cvCard"
-             href="assets/cv-romain-lance.pdf" target="_blank" rel="noopener noreferrer">
+          <!-- La carte ouvre la visionneuse ; le téléchargement est une action
+               distincte, juste en dessous. Un <a download> imbriqué dans le
+               bouton serait invalide, et surtout indistinguable au clic. -->
+          <button class="cv tilt" id="cvCard" type="button" aria-haspopup="dialog">
             <img class="cv__page" src="assets/cv-preview.webp" width="900" height="1273"
                  alt="Aperçu du CV de Romain Lance" decoding="async">
 
@@ -188,16 +190,22 @@
 
             <span class="cv__overlay">
               <span class="cv__action">
-                <svg class="ico" aria-hidden="true"><use href="#i-download"></use></svg>
-                Ouvrir le CV
+                <svg class="ico" aria-hidden="true"><use href="#i-expand"></use></svg>
+                Voir en plein écran
               </span>
             </span>
-          </a>
+          </button>
 
-          <p class="cv__caption">
-            <svg class="ico" aria-hidden="true"><use href="#i-doc"></use></svg>
-            Curriculum vitae — PDF, 1 page
-          </p>
+          <div class="cv__meta">
+            <p class="cv__caption">
+              <svg class="ico" aria-hidden="true"><use href="#i-doc"></use></svg>
+              Curriculum vitae — PDF, 1 page
+            </p>
+            <a class="cv__download" id="cvDownload" href="assets/cv-romain-lance.pdf" download>
+              <svg class="ico" aria-hidden="true"><use href="#i-download"></use></svg>
+              Télécharger
+            </a>
+          </div>
         </aside>
 
       </div>
@@ -2422,6 +2430,47 @@
     </div>
   </div>
 
+  <!-- ============================================================
+       VISIONNEUSE DU CV
+       Le PDF est affiché par la visionneuse intégrée du navigateur, dans une
+       <iframe> créée au premier clic seulement : le document ne pèse sur le
+       chargement de la page que si on demande à le lire. Les navigateurs qui
+       ne savent pas rendre un PDF en ligne — la plupart sur mobile — ne
+       voient jamais cette fenêtre : js/cv.js ouvre alors un onglet.
+       ============================================================ -->
+  <div class="modal modal--pdf" id="cvModal" role="dialog" aria-modal="true"
+       aria-labelledby="cvModalTitle" hidden>
+    <div class="modal__backdrop" data-modal-close></div>
+
+    <div class="modal__panel modal__panel--pdf" role="document">
+      <div class="pdf__bar">
+        <p class="modal__eyebrow" id="cvModalTitle">
+          <svg class="ico" aria-hidden="true"><use href="#i-doc"></use></svg>
+          Curriculum vitae — Romain Lance
+        </p>
+
+        <div class="pdf__actions">
+          <a class="btn--ghost pdf__btn" href="assets/cv-romain-lance.pdf"
+             target="_blank" rel="noopener noreferrer" aria-label="Ouvrir le CV dans un nouvel onglet">
+            <svg class="ico" aria-hidden="true"><use href="#i-external"></use></svg>
+            <span>Nouvel onglet</span>
+          </a>
+          <a class="btn--ghost pdf__btn" href="assets/cv-romain-lance.pdf" download
+             aria-label="Télécharger le CV en PDF">
+            <svg class="ico" aria-hidden="true"><use href="#i-download"></use></svg>
+            <span>Télécharger</span>
+          </a>
+          <button class="modal__close" type="button" data-modal-close aria-label="Fermer">
+            <svg class="ico" aria-hidden="true"><use href="#i-close"></use></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- js/cv.js insère l'<iframe> ici au premier clic -->
+      <div class="pdf__frame" id="cvFrame"></div>
+    </div>
+  </div>
+
   <div class="modal" id="qrModal" role="dialog" aria-modal="true"
        aria-labelledby="qrTitle" aria-describedby="qrHint" hidden>
     <div class="modal__backdrop" data-modal-close></div>
@@ -2451,6 +2500,7 @@
   <script src="js/effects.js"></script>
   <script src="js/album.js"></script>
   <script src="js/video.js"></script>
+  <script src="js/cv.js"></script>
   <!-- i18n en dernier : il relève la page une fois pour toutes, façades
        vidéo comprises. -->
   <script src="js/i18n.js"></script>

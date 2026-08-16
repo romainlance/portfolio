@@ -85,6 +85,13 @@
     // Identique dans les deux langues — l'entrée est là pour que le contrôle
     // de couverture des traductions sache que la question a été tranchée.
     'Curriculum vitae — PDF, 1 page': 'Curriculum vitae — PDF, 1 page',
+    // Visionneuse du CV
+    'Voir en plein écran': 'View full screen',
+    'Télécharger': 'Download',
+    'Nouvel onglet': 'New tab',
+    'Curriculum vitae — Romain Lance': 'Curriculum vitae — Romain Lance',
+    'Ouvrir le CV dans un nouvel onglet': 'Open the CV in a new tab',
+    'Télécharger le CV en PDF': 'Download the CV as a PDF',
 
     // À propos
     'Tout juste diplômé de l\'école d\'ingénieur généraliste Junia HEI avec une spécialité en mécatronique et robotique, je suis à la recherche de mon premier emploi dans ce domaine.':

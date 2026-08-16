@@ -51,6 +51,7 @@ Puis ouvrir <http://localhost:8000>.
 │   ├── effects.js              # Effets visuels uniquement
 │   ├── album.js                # Fenêtre des albums photo
 │   ├── video.js                # Façades vidéo (YouTube au clic seulement)
+│   ├── cv.js                   # Visionneuse plein écran du CV
 │   └── i18n.js                 # Bascule français / anglais
 ├── tools/
 │   ├── photos.py               # Conversion des photos en WebP
@@ -238,7 +239,12 @@ Le hero affiche `assets/cv-preview.webp`, une image de la première page de
 `assets/cv-romain-lance.pdf`. Pour publier une nouvelle version : remplacer le
 PDF, puis régénérer la vignette (n'importe quel export d'image de la page 1
 convient, autour de 900 px de large). Les deux fichiers doivent rester
-cohérents — c'est le PDF qui s'ouvre au clic.
+cohérents — c'est le PDF que la vignette ouvre.
+
+Le titre inscrit dans les **métadonnées** du PDF n'est pas un détail : c'est
+lui que la visionneuse affiche dans sa barre d'outils, pas le nom du fichier.
+Un titre resté sur une ancienne version se lit donc en grand au-dessus du
+document.
 
 **Le PDF publié ne doit pas contenir de numéro de téléphone.** C'est la seule
 règle à vérifier avant de déposer une nouvelle version : le reste des
@@ -253,6 +259,48 @@ numéro n'est alors plus dans le fichier, pas seulement masqué.
 
 Un seul CV sert les deux langues : la bascule FR/EN ne change plus ni le lien
 ni la vignette.
+
+### La visionneuse du CV
+
+La vignette du hero est un `<button>` qui ouvre `#cvModal`, une fenêtre plein
+écran où le PDF s'affiche dans une `<iframe>`. Le téléchargement est une
+action distincte, un lien `<a download>` posé juste en dessous : un `<a>`
+imbriqué dans un `<button>` serait du HTML invalide, et surtout impossible à
+viser au clic.
+
+Le rendu est celui de la **visionneuse intégrée du navigateur** — elle apporte
+déjà le zoom, la recherche, l'impression et son propre téléchargement. Aucune
+bibliothèque n'est chargée : un lecteur PDF en JavaScript pèserait à lui seul
+plusieurs fois le poids du site.
+
+`js/cv.js` tient en trois précautions, dont deux ne s'inventent pas :
+
+- **L'`<iframe>` n'est créée qu'au premier clic.** Sans cela, le PDF partirait
+  au chargement de la page pour tout le monde, y compris ceux qui ne
+  l'ouvriront jamais.
+- **Tous les navigateurs ne rendent pas les PDF en ligne** — c'est le cas de la
+  plupart des navigateurs mobiles. `navigator.pdfViewerEnabled` le dit avant
+  d'ouvrir : à défaut, le clic part dans un nouvel onglet, où le système fait
+  ce qu'il sait faire. Une fenêtre modale vide serait une impasse.
+- **Le zoom se demande dans le fragment de l'URL** : sans lui, un A4 s'ouvre à
+  100 % et déborde du cadre dès que l'écran est un peu juste.
+
+Ce dernier point a trois pièges, tous vérifiés dans Chromium :
+
+| Ce qu'on écrirait spontanément | Ce qui se passe |
+| --- | --- |
+| `#view=FitH`, `#navpanes=0`, `#pagemode=none` | Ignorés. Seul `#zoom=page-fit` est honoré. |
+| `#zoom=page-fit&navpanes=0` | **Casse la lecture du zoom.** Un seul paramètre, jamais deux. |
+| `iframe.src = url + '#zoom=page-fit'` en JS | Le fragment est ignoré : il n'est lu qu'au moment où l'analyseur HTML rencontre l'attribut `src`. D'où l'`innerHTML` du fichier. |
+
+Et un quatrième, de nature différente : la visionneuse calcule l'ajustement à
+la taille qu'elle occupe **au chargement**. Insérée avant que le panneau soit
+mis en page, elle mesure une surface qui n'existe pas encore et retombe à
+100 %. `open()` attend donc deux `requestAnimationFrame` avant de poser
+l'`<iframe>` — un pour la transition d'ouverture, un pour la mise en page.
+
+Sans `js/cv.js`, la vignette reste un bouton inerte ; le lien de
+téléchargement, lui, fonctionne toujours.
 
 ### Le QR code
 
@@ -275,10 +323,9 @@ dessiné sur une grille 24 × 24, puis l'appeler dans le HTML :
 ```
 
 Un fichier JS plutôt qu'un `.svg` externe : les références
-`<use href="fichier.svg#id">` ne sont pas fiables d'un navigateur à l'autre, et
-sans étape de build il n'y a pas moyen d'inclure un partiel HTML dans les
-quatre pages. Les icônes étant purement décoratives, leur absence ne retire
-aucune information.
+`<use href="fichier.svg#id">` ne sont pas fiables d'un navigateur à l'autre.
+Les icônes étant purement décoratives, leur absence ne retire aucune
+information.
 
 ### Les albums photo
 
@@ -495,7 +542,9 @@ disponibilité, savoir-être, centres d'intérêt).
   à l'écran. C'est un confort de lecture : rien n'est masqué au départ et le
   geste est accessible au clavier.
 - **Aperçu du CV** — bloc de verre avec relief au pointeur ; le clic ouvre le
-  PDF dans un nouvel onglet.
+  PDF en plein écran dans une fenêtre du site, rendu par la visionneuse du
+  navigateur et chargé au clic seulement. Le téléchargement est un lien à
+  part, sous la vignette. Voir « La visionneuse du CV » plus haut.
 - **QR code** — calculé à l'ouverture depuis l'URL courante, présenté dans une
   fenêtre modale avec fond clair imposé (un code sombre sur fond sombre n'est
   pas lisible par un appareil photo), fermeture par Échap ou clic extérieur, et

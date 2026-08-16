@@ -849,6 +849,17 @@ body::before {
 }
 .cv:hover .cv__action { transform: none; }
 
+/* Sous la carte : ce qu'est le document à gauche, le téléchargement à droite.
+   La carte ouvre la visionneuse ; télécharger est une autre intention, elle a
+   donc son propre bouton plutôt qu'un second sens caché dans le même clic. */
+.cv__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem 1rem;
+}
+
 .cv__caption {
   display: flex;
   align-items: center;
@@ -860,6 +871,19 @@ body::before {
   color: var(--muted);
 }
 .cv__caption .ico { color: var(--accent); }
+
+.cv__download {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transition: gap .25s var(--ease-out);
+}
+.cv__download:hover { gap: .7rem; }
 
 
 /* 09. EN-TÊTES DE SECTION
@@ -1926,6 +1950,79 @@ body::before {
 /* --- Fenêtre d'album ---
    Beaucoup plus large que celle du QR code, et alignée à gauche : c'est une
    fiche de lecture, pas une pastille. */
+/* --- Visionneuse du CV ---
+   Le PDF occupe la fenêtre entière, moins une marge : la page A4 est plus
+   haute que large, elle a besoin de toute la hauteur disponible pour rester
+   lisible sans zoomer. Le panneau ne défile pas lui-même — c'est la
+   visionneuse du navigateur, dans l'<iframe>, qui s'en charge. */
+.modal--pdf { padding: clamp(.5rem, 2vw, 1.25rem); }
+
+.modal__panel--pdf {
+  display: flex;
+  flex-direction: column;
+  /* Large : la visionneuse de Chromium ouvre son volet de vignettes et ne
+     sait pas le refermer par paramètre d'URL — `navpanes` et `pagemode` sont
+     ignorés. On lui donne donc la largeur, plutôt que de se battre avec. */
+  width: min(100%, 1200px);
+  height: min(100dvh - 1rem, 1500px);
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+}
+
+/* Barre d'outils : ce que le document est, et les deux sorties — l'onglet
+   séparé et le téléchargement. La croix de fermeture les rejoint pour que
+   toutes les commandes tiennent sur une seule ligne. */
+.pdf__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6rem 1rem;
+  padding: .75rem .85rem .75rem 1.1rem;
+  border-bottom: 1px solid var(--line);
+}
+.pdf__bar .modal__eyebrow { margin: 0; }
+
+.pdf__actions { display: flex; align-items: center; gap: .5rem; }
+
+.pdf__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .42rem .8rem;
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink);
+  transition: border-color .25s ease, color .25s ease;
+}
+.pdf__btn:hover { border-color: var(--accent); color: var(--accent); }
+.pdf__btn .ico { color: var(--accent); }
+
+/* La croix reprend sa taille normale : dans cette barre elle n'est plus
+   posée en absolu au coin du panneau, mais alignée avec les deux boutons. */
+.modal__panel--pdf .modal__close { position: static; }
+
+.pdf__frame { flex: 1; min-height: 0; background: var(--surface-2); }
+.pdf__frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Écrans courts ou étroits : les libellés des deux boutons disparaissent, les
+   icônes suffisent — sinon la barre passe sur deux lignes et mange la hauteur
+   qui manque déjà au document. */
+@media (max-width: 560px), (max-height: 520px) {
+  .pdf__btn { padding: .42rem .5rem; }
+  .pdf__btn span { display: none; }
+}
+
 .modal--album { padding: clamp(.75rem, 3vw, 2rem); }
 
 .modal__panel--album {

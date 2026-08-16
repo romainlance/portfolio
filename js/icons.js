@@ -8,9 +8,9 @@
        <svg class="ico" aria-hidden="true"><use href="#i-team"></use></svg>
 
    Pourquoi un fichier JS plutôt qu'un sprite .svg externe : les références
-   <use href="fichier.svg#id"> ne sont pas fiables d'un navigateur à l'autre,
-   et le site n'a pas d'étape de build permettant d'inclure un partiel HTML.
-   Cette solution garde une source unique pour les quatre pages.
+   <use href="fichier.svg#id"> ne sont pas fiables d'un navigateur à l'autre.
+   Le sprite reste ainsi une source unique, injectée une fois pour toute la
+   page.
 
    Les icônes sont purement décoratives (toutes en aria-hidden) : sans
    JavaScript, seuls les libellés textuels subsistent, et rien n'est perdu.
@@ -31,6 +31,7 @@
     'i-linkedin':  '<rect x="3" y="3" width="18" height="18" rx="2.4"/><path d="M7.6 10.6V17M7.6 7.3v.1M11.4 17v-3.7a2.2 2.2 0 0 1 4.4 0V17"/>',
     'i-arrow':     '<path d="M4.4 12h15.2M13.4 5.8 19.6 12l-6.2 6.2"/>',
     'i-external':  '<path d="M7.4 16.6 16.6 7.4M9.2 7.4h7.4v7.4"/>',
+    'i-expand':    '<path d="M8.8 3.6H3.6v5.2M15.2 3.6h5.2v5.2M20.4 15.2v5.2h-5.2M3.6 15.2v5.2h5.2"/>',
     'i-back':      '<path d="M19.6 12H4.4M10.6 5.8 4.4 12l6.2 6.2"/>',
     'i-robot':     '<rect x="4.2" y="7.8" width="15.6" height="12" rx="3"/><path d="M12 3.4v4.4M8.6 20v1.4M15.4 20v1.4M1.8 12.6v3.6M22.2 12.6v3.6"/><circle cx="9.2" cy="13.2" r="1.1"/><circle cx="14.8" cy="13.2" r="1.1"/>',
     'i-cog':       '<circle cx="12" cy="12" r="3.2"/><path d="M12 2.6v2.8M12 18.6v2.8M2.6 12h2.8M18.6 12h2.8M5.4 5.4l2 2M16.6 16.6l2 2M18.6 5.4l-2 2M7.4 16.6l-2 2"/>',
